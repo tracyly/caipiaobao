@@ -1,4 +1,4 @@
-package com.fenghuang.caipiaobao.ui.lottery
+package com.fenghuang.caipiaobao.ui.lottery.del
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

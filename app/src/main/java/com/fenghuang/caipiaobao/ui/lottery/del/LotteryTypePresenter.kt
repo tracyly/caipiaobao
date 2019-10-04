@@ -1,4 +1,4 @@
-package com.fenghuang.caipiaobao.ui.lottery
+package com.fenghuang.caipiaobao.ui.lottery.del
 
 import com.fenghuang.baselib.base.recycler.BaseRecyclerPresenter
 import com.fenghuang.caipiaobao.R
@@ -23,5 +23,6 @@ class LotteryTypePresenter : BaseRecyclerPresenter<LotteryTypeFragment>() {
         mView.showDatas(newResults)
 
     }
+
 
 }

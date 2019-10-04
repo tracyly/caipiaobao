@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.baselib.widget.round.RoundTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tvOpenCode"
+    android:layout_width="@dimen/dp_36"
+    android:layout_height="@dimen/dp_36"
+    android:layout_marginStart="@dimen/dp_2"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:textColor="@color/white"
+    app:rv_backgroundColor="@color/colorRedPrimary"
+    app:rv_cornerRadius="@dimen/dp_20">
+
+</com.fenghuang.baselib.widget.round.RoundTextView>

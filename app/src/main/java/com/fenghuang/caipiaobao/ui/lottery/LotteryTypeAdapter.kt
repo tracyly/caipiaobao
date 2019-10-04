@@ -1,12 +1,5 @@
 package com.fenghuang.caipiaobao.ui.lottery
 
-/**
- *
- * @ Author  QinTian
- * @ Date  2019/10/3- 17:38
- * @ Describe
- *
- */
 import android.content.Context
 import android.view.ViewGroup
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
@@ -14,27 +7,27 @@ import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryDataBean
 
+/**
+ *
+ * @ Author  QinTian
+ * @ Date  2019/10/4- 13:55
+ * @ Describe 彩种
+ *
+ */
+
 class LotteryTypeAdapter(context: Context) : BaseRecyclerAdapter<LotteryDataBean>(context) {
-
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<LotteryDataBean> {
-        return LotteryTypeItemHolder(parent)
+        return LotteryTypeHolder(parent)
     }
 
-    inner class LotteryTypeItemHolder(parent: ViewGroup) : BaseViewHolder<LotteryDataBean>(getContext(), parent, R.layout.holder_mine_lottery_type) {
+    inner class LotteryTypeHolder(parent: ViewGroup) : BaseViewHolder<LotteryDataBean>(getContext(), parent, R.layout.holder_lottery_type_item) {
         override fun onBindData(data: LotteryDataBean) {
-            setImageResource(findView(R.id.imgLottery), data.image)
-            setText(R.id.tvLottery, data.title)
+            setText(R.id.tvLotteryType, data.title)
+            setImageResource(findView(R.id.imgLotteryType), data.image)
         }
-
-        override fun onItemClick(data: LotteryDataBean) {
-            when (data.title) {
-//                "我的消息" -> startFragment(MineMessageFragment())
-//                "打赏记录" -> startFragment(MineRewardRecordFragment())
-//                "意见反馈" -> startFragment(MineUserFeedBackFragment())
-            }
-        }
-
 
     }
+
 
 }
+
