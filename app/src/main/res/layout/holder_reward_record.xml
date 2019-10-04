@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rewardContent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.fenghuang.caipiaobao.widget.sideslipdeletelayout.SideslipDeleteLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dp_14"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_18">
+
+            <ImageView
+                android:id="@+id/icon_money"
+                android:layout_width="@dimen/dp_40"
+                android:layout_height="@dimen/dp_40"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/icon_money"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/rewardName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:textSize="@dimen/sp_13"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/rewardTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:paddingBottom="@dimen/dp_16"
+                    android:textColor="@color/color_CCCCCC"
+
+                    android:textSize="@dimen/sp_10" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/rewardType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginEnd="@dimen/dp_4"
+                android:textColor="@color/text_red_tab"
+                android:textSize="@dimen/sp_13"
+                app:layout_constraintRight_toLeftOf="@+id/rewardImg"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/rewardImg"
+                android:layout_width="@dimen/dp_28"
+                android:layout_height="@dimen/dp_22"
+                android:layout_marginTop="@dimen/dp_15"
+                android:layout_marginEnd="@dimen/dp_4"
+                app:layout_constraintRight_toLeftOf="@+id/rewardNum"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/rewardNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_15"
+                android:textColor="@color/text_red_tab"
+                android:textSize="@dimen/sp_13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="@dimen/dp_66"
+            android:layout_height="match_parent"
+            android:background="#ffef2340"
+            android:text="@string/mine_del"
+            android:textColor="@android:color/white" />
+    </com.fenghuang.caipiaobao.widget.sideslipdeletelayout.SideslipDeleteLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_fl_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/main_fl_card_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorRedAccent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="正"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/main_fl_card_back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/text_orange">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="反"
+            android:textColor="@android:color/white"
+            android:textSize="40sp" />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

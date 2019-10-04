@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_home"
+        android:title="首页" />
+
+    <item
+        android:id="@+id/bottom_live"
+        android:title="直播" />
+
+    <item
+        android:id="@+id/bottom_betting"
+        android:title="投注" />
+
+    <item
+        android:id="@+id/bottom_ranking"
+        android:title="排行" />
+
+    <item
+        android:id="@+id/bottom_mine"
+        android:title="我的" />
+
+</menu>

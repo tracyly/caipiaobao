@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--列表-->
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@id/smartRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <com.fenghuang.baselib.widget.placeholder.PlaceholderView
+        android:id="@id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--    <com.pingerx.banner.BannerView-->
+    <!--        android:id="@id/mBannerView"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/dp_160"-->
+    <!--        app:bannerAutoLoop="true"-->
+    <!--        app:bannerCoverMargin="10dp"-->
+    <!--        app:bannerFarMargin="10dp"-->
+    <!--        app:bannerPageAlpha="0.6"-->
+    <!--        app:bannerPageMode="far"-->
+    <!--        app:bannerPagePadding="20dp"-->
+    <!--        app:bannerPageScale="0.9"-->
+    <!--        app:bannerSlideAnim="true"-->
+    <!--        app:indicatorPaddingBottom="12dp"-->
+    <!--        app:indicatorPaddingLeft="12dp"-->
+    <!--        app:indicatorPaddingRight="12dp"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

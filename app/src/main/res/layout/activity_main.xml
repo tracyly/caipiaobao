@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:clipChildren="false"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@id/mainContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@id/bottomBar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RelativeLayout
+        android:id="@id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+            <RadioButton
+                android:id="@id/tabHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/button_tab_home"
+                android:drawablePadding="@dimen/dp_4"
+                android:gravity="center_horizontal"
+                android:text="@string/tab_home"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10"
+                tools:ignore="SpUsage" />
+
+            <RadioButton
+                android:id="@id/tabLive"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:drawableTop="@drawable/button_tab_lottery"
+                android:drawablePadding="@dimen/dp_4"
+                android:gravity="center_horizontal"
+                android:text="@string/tab_lottery"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10"
+                tools:ignore="SpUsage" />
+
+
+            <RadioButton
+                android:id="@id/tabBetting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:drawableTop="@drawable/button_tab_betting"
+                android:drawablePadding="@dimen/dp_4"
+                android:gravity="center_horizontal"
+                android:text="@string/tab_betting"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10"
+                tools:ignore="SpUsage" />
+
+            <RadioButton
+                android:id="@id/tabRanking"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:drawableTop="@drawable/button_tab_quiz"
+                android:drawablePadding="@dimen/dp_4"
+                android:gravity="center_horizontal"
+                android:text="@string/tab_quiz"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10"
+                tools:ignore="SpUsage" />
+
+            <RadioButton
+                android:id="@id/tabMine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:button="@null"
+                android:drawableTop="@drawable/button_tab_mine"
+                android:drawablePadding="@dimen/dp_4"
+                android:gravity="center_horizontal"
+                android:text="@string/tab_mine"
+                android:textColor="@drawable/tab_bottom_menu_text_selector"
+                android:textSize="@dimen/sp_10"
+                tools:ignore="SpUsage" />
+        </RadioGroup>
+    </RelativeLayout>
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginBottom="@dimen/dp_6"-->
+    <!--        android:orientation="vertical"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        tools:ignore="UseCompoundDrawables">-->
+
+    <!--        <ImageView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center_horizontal"-->
+    <!--            android:layout_marginBottom="@dimen/dp_2"-->
+    <!--            android:src="@mipmap/ic_tab_betting"-->
+    <!--            tools:ignore="ContentDescription" />-->
+
+    <!--        <TextView-->
+    <!--            android:id="@id/tvTabBetting"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="center_horizontal"-->
+    <!--            android:text="@string/tab_betting"-->
+    <!--            android:textColor="@drawable/tab_bottom_menu_text_selector"-->
+    <!--            android:textSize="@dimen/sp_12" />-->
+    <!--    </LinearLayout>-->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_home_bottom_tab_bg"
+        app:layout_constraintBottom_toTopOf="@+id/bottomBar"
+        tools:ignore="ContentDescription" />
+</androidx.constraintlayout.widget.ConstraintLayout>

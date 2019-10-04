@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 首页 -->
+    <item name="btnClick" type="id" />
+    <item name="mainContainer" type="id" />
+    <item name="bottomBar" type="id" />
+    <item name="tabHome" type="id" />
+    <item name="tabLive" type="id" />
+    <item name="tabBetting" type="id" />
+    <item name="tabRanking" type="id" />
+    <item name="tabMine" type="id" />
+    <item name="tvTabBetting" type="id" />
+    <item name="mBannerView" type="id" />
+    <item name="ivNotice" type="id" />
+    <item name="tvNotice" type="id" />
+    <item name="tvNoticeMassage" type="id" />
+    <item name="ivGameLogo" type="id" />
+    <item name="recyclerView" type="id" />
+    <item name="tabLayout" type="id" />
+    <item name="divider" type="id" />
+    <item name="viewPager" type="id" />
+    <item name="smartRefreshLayout" type="id" />
+    <item name="tvGameName" type="id" />
+    <item name="pagerGrid" type="id" />
+    <item name="ivHotLiveLogo" type="id" />
+    <item name="tvHotLiveTitle" type="id" />
+    <item name="tvHotLiveIntro" type="id" />
+    <item name="tvHotLiveName" type="id" />
+    <item name="ivHotLiveStatus" type="id" />
+    <item name="tvHotLiveTag" type="id" />
+    <item name="ivHotLiveTag" type="id" />
+    <item name="tvHomeListTitle" type="id" />
+    <item name="ivLiveNoticeLogo" type="id" />
+    <item name="ivLiveNoticeTop" type="id" />
+    <item name="tvLiveNoticeName" type="id" />
+    <item name="tvLiveNoticeGameName" type="id" />
+    <item name="tvLiveNoticeAttention" type="id" />
+    <item name="ivExpertRecommendLogo" type="id" />
+    <item name="tvExpertRecommendName" type="id" />
+    <item name="tvRecommendProfit" type="id" />
+    <item name="tvExpertRecommendGameName" type="id" />
+    <item name="tvHomeMore" type="id" />
+
+    <!-- 排行 -->
+    <item name="tvTabLeft" type="id" />
+    <item name="tvTabRight" type="id" />
+    <item name="roundLeftLine" type="id" />
+    <item name="roundRightLine" type="id" />
+    <item name="rankingTabView" type="id" />
+    <item name="rlRankingTabLeft" type="id" />
+    <item name="rlRankingTabRight" type="id" />
+    <item name="tvRankingNumber" type="id" />
+    <item name="ivRankingLogo" type="id" />
+    <item name="tvRankingName" type="id" />
+    <item name="tvRankingID" type="id" />
+    <item name="tvAttention" type="id" />
+    <item name="tvPopularity" type="id" />
+    <item name="tvDayList" type="id" />
+    <item name="tvWeekList" type="id" />
+    <item name="tvMonthList" type="id" />
+    <item name="tvAllList" type="id" />
+    <item name="rankingListTabView" type="id" />
+    <item name="ivRankingRunnerUp" type="id" />
+    <item name="ivRankingRunnerUpLogo" type="id" />
+    <item name="tvRankingRunnerUpName" type="id" />
+    <item name="tvRankingRunnerUpID" type="id" />
+    <item name="tvRankingRunnerUpPopularity" type="id" />
+    <item name="ivRankingThirdPlace" type="id" />
+    <item name="ivRankingThirdPlaceLogo" type="id" />
+    <item name="tvRankingThirdPlaceName" type="id" />
+    <item name="tvRankingThirdPlaceID" type="id" />
+    <item name="tvRankingThirdPlacePopularity" type="id" />
+    <item name="ivRankingChampion" type="id" />
+    <item name="ivRankingChampionLogo" type="id" />
+    <item name="tvRankingChampionID" type="id" />
+    <item name="tvRankingChampionPopularity" type="id" />
+    <item name="tvRankingChampionName" type="id" />
+
+    <!-- 我的 -->
+    <item name="ivRecordLogo" type="id" />
+    <item name="tvRecordName" type="id" />
+    <item name="userInfo" type="id" />
+    <item name="userInfoItem" type="id" />
+    <item name="userInfoLogin" type="id" />
+    <item name="userInfoItemLogin" type="id" />
+    <item name="imgSetting" type="id" />
+    <item name="userName" type="id" />
+    <item name="imgVip" type="id" />
+    <item name="userPhoto" type="id" />
+    <item name="userRecord" type="id" />
+    <item name="listItem" type="id" />
+    <item name="tvMineMoney" type="id" />
+    <item name="tvMineAttention" type="id" />
+    <item name="tvWatchHistory" type="id" />
+    <item name="tvVip" type="id" />
+    <item name="layoutMineMoney" type="id" />
+    <item name="layoutMineSaveMoney" type="id" />
+    <item name="layoutMineWallet" type="id" />
+    <item name="layoutMineVip" type="id" />
+    <item name="ivWatchHistoryLogo" type="id" />
+    <item name="tvWatchHistoryName" type="id" />
+    <item name="tvWatchHistoryLiveStatus" type="id" />
+    <item name="tvWatchHistorySignature" type="id" />
+    <item name="rlContainer" type="id" />
+    <item name="rlZSBank" type="id" />
+    <item name="rlZGBank" type="id" />
+    <item name="rlZFB" type="id" />
+    <item name="rlWX" type="id" />
+    <item name="cbBankSelectRead" type="id" />
+    <item name="walletLine" type="id" />
+
+    <!-- 直播 -->
+    <item name="ivLiveHot" type="id" />
+    <item name="ivLiveRes" type="id" />
+    <item name="tvLiveName" type="id" />
+    <item name="tvLive" type="id" />
+    <item name="tvLiveTitle" type="id" />
+    <item name="tvLiveListTitle" type="id" />
+    <item name="rlLive" type="id" />
+    <item name="playerContainer" type="id" />
+    <item name="statusView" type="id" />
+    <item name="rlTabLayout" type="id" />
+    <item name="liveChatVipLayout" type="id" />
+    <item name="tvLiveChatVip" type="id" />
+    <item name="tvLiveChatUserName" type="id" />
+    <item name="tvLiveChatContent" type="id" />
+    <item name="chatEditContainer" type="id" />
+    <item name="tvChatSend" type="id" />
+    <item name="bannerView" type="id" />
+    <item name="liveChatEmptyContainer" type="id" />
+    <item name="btnSend" type="id" />
+    <item name="etChat" type="id" />
+    <item name="rootView" type="id" />
+    <item name="emojiLayout" type="id" />
+    <item name="ivChatMore" type="id" />
+    <item name="ivChatEmoji" type="id" />
+    <item name="tvChatEmoji" type="id" />
+    <item name="chatEditText" type="id" />
+    <item name="ivRedEnvelope" type="id" />
+    <item name="ivGift" type="id" />
+
+
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_14"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_14"
+        app:rv_backgroundColor="@color/color_fff7ef"
+        app:rv_backgroundPressColor="@color/color_fff7ef"
+        app:rv_cornerRadius="@dimen/dp_36">
+
+        <ImageView
+            android:id="@id/ivNotice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_14"
+            android:src="@mipmap/ic_home_notice"
+            tools:ignore="ContentDescription" />
+
+        <com.fenghuang.caipiaobao.widget.MarqueeTextView
+            android:id="@id/tvNoticeMassage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_toEndOf="@+id/ivNotice"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:padding="@dimen/dp_6"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:textColor="@color/color_notice_message"
+            android:textSize="@dimen/sp_12"
+            tools:text="我是推送消息!我是推送消息!我是推送消息!我是推送消息!我是推送消息!" />
+    </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+</RelativeLayout>

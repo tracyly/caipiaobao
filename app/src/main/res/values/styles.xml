@@ -1,0 +1,50 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="BaseAppTheme">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <!-- 悬浮窗 -->
+    <style name="FloatWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/anim_float_window_enter</item>
+        <item name="android:windowExitAnimation">@anim/anim_float_window_exit</item>
+    </style>
+
+    <style name="SplashAppTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <!--<item name="android:windowBackground">@drawable/layer_splash</item>-->
+    </style>
+
+    <!-- 倒计时 -->
+    <style name="RushBuyCountDownTimerViewStyle" parent="SnapUpView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">0</item>
+        <item name="android:textColor">@color/text_red_tab</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="RushBuyCountDownTimerViewStyleRed" parent="RushBuyCountDownTimerViewStyle">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="SnapUpViewColon" parent="SnapUpView">
+        <item name="android:background">@color/text_red_tab</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:text">:</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SnapUpView">
+        <!--//改变控件大小-->
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <!--专家计划TabLayout的样式-->
+    <style name="HomeExpertPlayTabLayoutTextAppearance" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/sp_12</item>
+    </style>
+
+</resources>

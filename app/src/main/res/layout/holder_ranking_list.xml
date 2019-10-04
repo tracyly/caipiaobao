@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_96">
+
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@id/tvRankingNumber"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginStart="@dimen/dp_10"
+        android:gravity="center"
+        android:textColor="@color/color_333333"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rv_backgroundColor="@color/color_f1eff0"
+        app:rv_backgroundPressColor="@color/color_f1eff0"
+        app:rv_cornerRadius="@dimen/dp_20"
+        tools:text="4" />
+
+    <ImageView
+        android:id="@id/ivRankingLogo"
+        android:layout_width="@dimen/dp_46"
+        android:layout_height="@dimen/dp_46"
+        android:layout_marginStart="@dimen/dp_10"
+        android:src="@mipmap/ic_home_historical_data"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvRankingNumber"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_14"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivRankingLogo"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvRankingName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_12"
+            tools:text="我是name" />
+
+        <TextView
+            android:id="@id/tvRankingID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_6"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_8"
+            tools:text="我是id" />
+    </LinearLayout>
+
+
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@id/tvAttention"
+        android:layout_width="@dimen/dp_54"
+        android:layout_height="@dimen/dp_26"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:gravity="center"
+        android:text="@string/ranking_attention"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:rv_backgroundColor="@color/text_red_tab"
+        app:rv_backgroundPressColor="@color/text_red_tab"
+        app:rv_cornerRadius="@dimen/dp_4" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tvAttention"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@mipmap/ic_ranking_popularity"
+            android:text="@string/ranking_popularity"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_8" />
+
+        <TextView
+            android:id="@id/tvPopularity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/text_red_tab"
+            android:textSize="@dimen/sp_14"
+            tools:text="45445" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

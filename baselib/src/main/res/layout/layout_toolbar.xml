@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/ToolbarTheme"
+    app:contentInsetStartWithNavigation="0dp"
+    app:popupTheme="@style/ToolbarMenuPopTheme"
+    app:titleTextAppearance="@style/ToolbarTextAppearance"
+    tools:layout_height="@dimen/dp_56">
+
+    <ImageView
+        android:id="@+id/ivTitleLeft"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginStart="@dimen/dp_14"
+        android:src="@mipmap/ic_placeholder_network_error"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:lines="1"
+            android:textColor="@color/colorBlackText"
+            android:textSize="@dimen/sp_18"
+            android:textStyle="bold"
+            tools:text="彩票宝" />
+
+        <ImageView
+            android:id="@+id/ivTitleDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_4"
+            android:layout_toEndOf="@+id/tvTitle"
+            android:src="@mipmap/ic_title_down"
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivTitleRight"
+        android:layout_width="@dimen/dp_20"
+        android:layout_height="@dimen/dp_20"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginEnd="@dimen/dp_14"
+        android:visibility="gone"
+        tools:ignore="ContentDescription,RtlHardcoded" />
+
+</androidx.appcompat.widget.Toolbar>

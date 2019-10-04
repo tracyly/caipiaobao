@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewBackground">
+
+    <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/dp_12"
+        android:layout_marginEnd="@dimen/dp_12"
+        app:rv_backgroundColor="@color/white"
+        app:rv_backgroundPressColor="@color/white"
+        app:rv_cornerRadius_TL="@dimen/dp_6"
+        app:rv_cornerRadius_TR="@dimen/dp_6">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.fenghuang.caipiaobao.ui.widget.RankingListTabView
+                android:id="@id/rankingListTabView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_14"
+                android:layout_marginTop="@dimen/dp_14"
+                android:layout_marginEnd="@dimen/dp_14"
+                android:background="@color/white"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@id/smartRefreshLayout"
+                android:layout_width="@dimen/dp_0"
+                android:layout_height="@dimen/dp_0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rankingListTabView">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_30f7f7f7">
+
+    <ImageView
+        android:id="@+id/iv_header"
+        android:layout_width="match_parent"
+        android:layout_height="410dp"
+        android:layout_marginTop="-230dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_mine_top_bg"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@id/smartRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--<com.scwang.smartrefresh.layout.header.ClassicsHeader-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--app:srlAccentColor="@android:color/white" />-->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_100">
+
+
+                <RelativeLayout
+                    android:id="@id/userInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_146"
+                    android:paddingStart="@dimen/dp_20"
+                    android:paddingEnd="@dimen/dp_0"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="UselessParent">
+
+                    <ImageView
+                        android:id="@id/userPhoto"
+                        android:layout_width="@dimen/dp_64"
+                        android:layout_height="@dimen/dp_64"
+                        android:layout_marginTop="@dimen/dp_64"
+                        android:background="@mipmap/ic_mine_base_user"
+                        tools:ignore="ContentDescription" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/isLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_76"
+                        android:layout_toEndOf="@+id/userPhoto"
+                        android:orientation="vertical"
+                        android:visibility="gone"
+                        tools:ignore="RelativeOverlap">
+
+                        <TextView
+                            android:id="@id/userName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/app_name"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_18"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@id/imgVip"
+                            android:layout_width="@dimen/dp_34"
+                            android:layout_height="@dimen/dp_16"
+                            android:layout_marginStart="@dimen/dp_6"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:background="@mipmap/ic_mine_vip"
+                            app:layout_constraintStart_toEndOf="@+id/userName"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/tvDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/userName"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:text="@string/mine_user_description"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_12"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/userName" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/noLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_82"
+                        android:layout_toEndOf="@+id/userPhoto"
+                        android:orientation="vertical"
+                        tools:ignore="RelativeOverlap">
+
+                        <TextView
+                            android:id="@+id/tvLogin"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:text="@string/mine_please_login"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sp_18"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/dp_86"
+                        android:layout_marginEnd="@dimen/dp_20"
+                        android:background="@mipmap/ic_mine_message"
+                        android:contentDescription="@string/app_name" />
+
+                </RelativeLayout>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@id/userRecord"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_106"
+                    android:layout_marginStart="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_20"
+                    app:cardCornerRadius="@dimen/dp_6"
+                    app:layout_constraintTop_toBottomOf="@+id/userInfo">
+
+
+                    <include
+                        android:id="@id/userInfoItem"
+                        layout="@layout/fragment_mine_child_view"
+                        android:visibility="gone" />
+
+                    <include
+                        android:id="@id/userInfoItemLogin"
+                        layout="@layout/fragment_mine_child_view_login" />
+
+                </androidx.cardview.widget.CardView>
+
+
+                <LinearLayout
+                    android:id="@+id/linBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_90"
+                    android:layout_marginStart="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:layout_marginEnd="@dimen/dp_18"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@id/userRecord">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/dp_2"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_marginEnd="@dimen/dp_14"
+                        android:layout_marginBottom="@dimen/dp_2"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/dp_6">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:orientation="vertical"
+                                android:paddingStart="@dimen/dp_16"
+                                tools:ignore="RtlSymmetry">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/mine_anchor"
+                                    android:textColor="@color/color_333333"
+                                    android:textSize="@dimen/sp_16"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_8"
+                                    android:text="@string/mine_invite_anchor"
+                                    android:textColor="@color/color_999999"
+                                    android:textSize="@dimen/sp_12" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_56"
+                                android:layout_height="@dimen/dp_62"
+                                android:contentDescription="@string/app_name"
+                                android:src="@mipmap/ic_mine_mic" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dp_2"
+                        android:layout_marginEnd="@dimen/dp_2"
+                        android:layout_marginBottom="@dimen/dp_2"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/dp_6">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:orientation="vertical"
+                                android:paddingStart="@dimen/dp_16"
+                                tools:ignore="RtlSymmetry">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/mine_give_prize"
+                                    android:textColor="@color/color_333333"
+                                    android:textSize="@dimen/sp_16"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/dp_8"
+                                    android:text="@string/mine_first_invest"
+                                    android:textColor="@color/color_999999"
+                                    android:textSize="@dimen/sp_12" />
+                            </LinearLayout>
+
+                            <ImageView
+                                android:layout_width="@dimen/dp_72"
+                                android:layout_height="@dimen/dp_68"
+                                android:contentDescription="@string/app_name"
+                                android:src="@mipmap/ic_mine_prise" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+
+                <RelativeLayout
+                    android:id="@id/listItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_400"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/linBanner">
+
+                </RelativeLayout>
+
+                <com.fenghuang.baselib.widget.round.RoundTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginEnd="@dimen/dp_12"
+                    android:gravity="center"
+                    android:text="@string/mine_login_out"
+                    android:textColor="@color/text_red"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/listItem"
+                    app:rv_backgroundColor="@color/white"
+                    app:rv_cornerRadius="@dimen/dp_6" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</FrameLayout>
+

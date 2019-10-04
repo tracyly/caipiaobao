@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.caipiaobao.widget.cardview.LCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dp_150"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_6"
+    android:layout_marginTop="@dimen/dp_2"
+    android:layout_marginBottom="@dimen/dp_2"
+    app:bottomShadowHeight="@dimen/dp_10"
+    app:cornerRadius="@dimen/dp_6"
+    app:elevationAffectShadowSize="true"
+    app:shadowColor="@color/color_f7f7f7"
+    app:shadowStartAlpha="200">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/dp_10">
+
+        <RelativeLayout
+            android:id="@+id/rlLiveNotice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:id="@id/ivLiveNoticeLogo"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_62"
+                android:layout_marginTop="@dimen/dp_16"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@id/ivLiveNoticeTop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_8"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@id/tvLiveNoticeName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlLiveNotice"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_14"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            tools:text="大美女呀" />
+
+        <TextView
+            android:id="@id/tvLiveNoticeGameName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLiveNoticeName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_4"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12"
+            tools:text="幸运飞艇" />
+
+        <LinearLayout
+            android:id="@+id/rlDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLiveNoticeGameName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_home_live_notice"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/tvLiveNoticeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp_4"
+                android:gravity="center"
+                tools:ignore="RtlSymmetry"
+                tools:text="10:10-11:00" />
+        </LinearLayout>
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@id/tvLiveNoticeAttention"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_26"
+            android:layout_below="@+id/rlDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/home_live_notice_attention"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_12"
+            app:rv_backgroundColor="@color/color_FF513E"
+            app:rv_backgroundPressColor="@color/color_FF513E"
+            app:rv_cornerRadius="@dimen/dp_26" />
+    </RelativeLayout>
+</com.fenghuang.caipiaobao.widget.cardview.LCardView>

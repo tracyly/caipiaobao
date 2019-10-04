@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.fenghuang.caipiaobao.widget.cardview.LCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:bottomShadowHeight="@dimen/dp_10"
+    app:cornerRadius="@dimen/dp_6"
+    app:elevationAffectShadowSize="true"
+    app:shadowColor="@color/color_f7f7f7"
+    app:shadowStartAlpha="200">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@id/ivExpertRecommendLogo"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@id/tvExpertRecommendName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ivExpertRecommendLogo"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_14"
+            android:textStyle="bold"
+            tools:text="尼古拉斯" />
+
+        <TextView
+            android:id="@id/tvExpertRecommendGameName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvExpertRecommendName"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12"
+            tools:text="时时彩" />
+
+        <LinearLayout
+            android:id="@+id/llProfit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="@dimen/dp_16"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:orientation="horizontal"
+            tools:ignore="RelativeOverlap">
+
+            <TextView
+                android:id="@id/tvRecommendProfit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_F73D3B"
+                android:textSize="@dimen/sp_24"
+                android:textStyle="bold"
+                tools:text="145455" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="%"
+                android:textColor="@color/color_F73D3B"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llProfit"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:text="@string/home_profit"
+            android:textColor="@color/color_CCCCCC"
+            android:textSize="@dimen/sp_12" />
+
+    </RelativeLayout>
+
+</com.fenghuang.caipiaobao.widget.cardview.LCardView>
