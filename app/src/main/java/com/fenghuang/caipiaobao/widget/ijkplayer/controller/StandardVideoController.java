@@ -28,7 +28,7 @@ import androidx.annotation.Nullable;
 import com.fenghuang.baselib.utils.SoftInputUtils;
 import com.fenghuang.baselib.utils.ToastUtils;
 import com.fenghuang.caipiaobao.R;
-import com.fenghuang.caipiaobao.ui.home.live.data.LiveChatPostEvenBean;
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatPostEvenBean;
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.VideoView;
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.util.PlayerUtils;
 import com.hwangjr.rxbus.RxBus;
@@ -149,7 +149,7 @@ public class StandardVideoController extends GestureVideoController implements V
                     ToastUtils.INSTANCE.showToast(getContext().getResources().getString(R.string.live_chat_empty));
                 } else {
                     mChatEditText.setText("");
-                    RxBus.get().post(new LiveChatPostEvenBean(content));
+                    RxBus.get().post(new HomeLiveChatPostEvenBean(content));
                 }
                 return true;
             }

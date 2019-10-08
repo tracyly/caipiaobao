@@ -18,8 +18,8 @@ import com.fenghuang.baselib.base.recycler.BaseMultiRecyclerFragment
 import com.fenghuang.baselib.utils.*
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.function.isEmpty
-import com.fenghuang.caipiaobao.ui.home.live.data.LiveChatBean
-import com.fenghuang.caipiaobao.ui.home.live.data.LiveChatPostEvenBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatPostEvenBean
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_live_chat.*
@@ -54,7 +54,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         mScreenHeight = getPageActivity().windowManager.defaultDisplay.height
         mKeyHeight = mScreenHeight / 3
         SoftHideKeyBoardUtil().init(getPageActivity())
-        register(LiveChatBean::class.java, HomeLiveChatHolder())
+        register(HomeLiveChatBean::class.java, HomeLiveChatHolder())
         mEmoticonKeyboard.setupWithEditText(chatEditText)
     }
 
@@ -127,7 +127,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
      * 接收横屏发送弹幕聊天
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
-    fun onSendDanmaku(eventBean: LiveChatPostEvenBean) {
+    fun onSendDanmaku(eventBean: HomeLiveChatPostEvenBean) {
         mPresenter.sendMessage(eventBean.content)
     }
 

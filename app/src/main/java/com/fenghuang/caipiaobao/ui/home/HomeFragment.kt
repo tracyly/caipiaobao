@@ -9,6 +9,7 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.base.recycler.header.material.MaterialHeader
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.HomeViewTypeConstant
@@ -17,6 +18,7 @@ import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.HomeLiveDetailsFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.MarqueeTextView
+import com.fenghuang.caipiaobao.widget.cardview.LCardView
 import com.fenghuang.caipiaobao.widget.pagegridview.PageGridView
 import com.hwangjr.rxbus.RxBus
 import com.pingerx.banner.BannerView
@@ -106,13 +108,15 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 super.onBindViewHolder(holder, position)
                 val ivHotLiveLogo = holder.getView<ImageView>(R.id.ivHotLiveLogo)
                 val ivHotLiveTag = holder.getView<ImageView>(R.id.ivHotLiveTag)
+                val cardView = holder.getView<LCardView>(R.id.cardView)
                 holder.setText(R.id.tvHotLiveTitle, it[position].name)
                 holder.setText(R.id.tvHotLiveIntro, it[position].live_intro)
                 holder.setText(R.id.tvHotLiveName, it[position].nickname)
                 holder.setText(R.id.tvHotLiveTag, it[position].tags[0].title)
                 ImageManager.loadHomeHotLive(it[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(it[position].tags[0].icon, ivHotLiveTag)
-                holder.setOnClickListener(R.id.cardView) {
+                cardView.setOnClickListener {
+                    ToastUtils.showToast("点的热门第" + position + "个")
                     LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment())
                 }
             }
@@ -130,12 +134,17 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 super.onBindViewHolder(holder, position)
                 val ivHotLiveLogo = holder.getView<ImageView>(R.id.ivHotLiveLogo)
                 val ivHotLiveTag = holder.getView<ImageView>(R.id.ivHotLiveTag)
+                val cardView = holder.getView<LCardView>(R.id.cardView)
                 holder.setText(R.id.tvHotLiveTitle, it[position].name)
                 holder.setText(R.id.tvHotLiveIntro, it[position].live_intro)
                 holder.setText(R.id.tvHotLiveName, it[position].nickname)
                 holder.setText(R.id.tvHotLiveTag, it[position].tags[0].title)
                 ImageManager.loadHomeHotLive(it[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(it[position].tags[0].icon, ivHotLiveTag)
+                cardView.setOnClickListener {
+                    ToastUtils.showToast("点的专家第" + position + "个")
+                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment())
+                }
             }
         }
         mAdapters?.add(mExpertLiveAdapter)

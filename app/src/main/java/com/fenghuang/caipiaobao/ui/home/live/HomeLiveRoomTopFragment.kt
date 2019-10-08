@@ -6,7 +6,7 @@ import com.fenghuang.baselib.base.recycler.BaseRecyclerFragment
 import com.fenghuang.baselib.base.recycler.decorate.HorizontalItemSpaceDecoration
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.home.live.data.HomeLiveRoomTitleBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRoomTitleBean
 import kotlinx.android.synthetic.main.fragment_home_live_room_top.*
 
 /**

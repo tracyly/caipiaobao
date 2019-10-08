@@ -4,7 +4,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerPresenter
 import com.fenghuang.caipiaobao.manager.ImageManager
-import com.fenghuang.caipiaobao.ui.home.live.data.HomeLiveRoomTitleBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRoomTitleBean
 
 /**
  *  author : Peter

@@ -5,7 +5,7 @@ import com.fenghuang.baselib.base.recycler.BaseRecyclerPresenter
 import com.fenghuang.caipiaobao.data.api.WebUrlProvider
 import com.fenghuang.caipiaobao.socket.WsManager
 import com.fenghuang.caipiaobao.socket.listener.WsStatusListener
-import com.fenghuang.caipiaobao.ui.home.live.data.LiveChatBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
 import com.hwangjr.rxbus.RxBus
 import me.jessyan.autosize.utils.LogUtils
 import okhttp3.OkHttpClient
@@ -94,7 +94,7 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
             override fun onMessage(text: String) {
                 super.onMessage(text)
                 LogUtils.d("WsManager-----onMessage$text")
-                val data = WebUrlProvider.getData<LiveChatBean>(text, LiveChatBean::class.java)
+                val data = WebUrlProvider.getData<HomeLiveChatBean>(text, HomeLiveChatBean::class.java)
                 // 发送通知弹幕
                 RxBus.get().post(data)
                 if (data != null && mView.isActive()) {

@@ -4,8 +4,8 @@ import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.function.isNotEmpty
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
 import com.fenghuang.caipiaobao.ui.home.live.chat.HomeLiveChatFragment
-import com.fenghuang.caipiaobao.ui.home.live.data.LiveChatBean
 import com.fenghuang.caipiaobao.utils.palyer.PIPManager
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.DefinitionController
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.widget.DefinitionVideoView
@@ -102,7 +102,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      * 接收消息事件
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
-    fun onUpdateDanmu(data: LiveChatBean) {
+    fun onUpdateDanmu(data: HomeLiveChatBean) {
         LogUtils.d("===========接收到了弹幕==========")
         if (isNotEmpty(data.text)) mVideoView.addDanmaku(data.text, data.isMe)
 

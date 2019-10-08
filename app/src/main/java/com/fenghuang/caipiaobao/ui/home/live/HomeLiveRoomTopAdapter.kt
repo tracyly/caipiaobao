@@ -6,7 +6,7 @@ import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
-import com.fenghuang.caipiaobao.ui.home.live.data.HomeLiveRoomTitleBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRoomTitleBean
 
 /**
  *  author : Peter
