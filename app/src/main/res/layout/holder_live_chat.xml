@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_6"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,12 +13,22 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_6">
 
+        <TextView
+            android:id="@id/tvLiveChatUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_14"
+            tools:text="我叫什么呢：" />
+
         <com.fenghuang.baselib.widget.round.RoundLinearLayout
             android:id="@id/liveChatVipLayout"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_12"
+            android:layout_marginStart="@dimen/dp_6"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/dp_20"
+            android:layout_toEndOf="@id/tvLiveChatUserName"
             app:rv_backgroundColor="@color/colorBlue"
             app:rv_backgroundPressColor="@color/colorBlue"
             app:rv_cornerRadius="@dimen/dp_36">
@@ -42,14 +53,7 @@
 
         </com.fenghuang.baselib.widget.round.RoundLinearLayout>
 
-        <TextView
-            android:id="@id/tvLiveChatUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/liveChatVipLayout"
-            android:textColor="@color/color_8899AA"
-            android:textSize="@dimen/sp_14"
-            tools:text="我叫什么呢：" />
+
     </RelativeLayout>
 
 
@@ -57,11 +61,11 @@
         android:id="@id/tvLiveChatContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_4"
+        android:layout_marginStart="@dimen/dp_6"
         android:layout_marginTop="@dimen/dp_6"
         android:layout_marginEnd="@dimen/dp_12"
         android:layout_toEndOf="@id/layoutContent"
-        android:textColor="@color/color_FFB215"
+        android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_14"
         tools:text="这场球你们看的可有味道这场球你们看的可有味道这场球你们看的可有味道这场球你们看的可有味道这场球你们看的可有味道" />
 

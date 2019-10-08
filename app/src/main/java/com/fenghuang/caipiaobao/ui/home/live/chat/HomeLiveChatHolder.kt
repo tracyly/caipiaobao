@@ -19,7 +19,7 @@ class HomeLiveChatHolder : MultiTypeViewHolder<LiveChatBean, HomeLiveChatHolder.
         override fun onBindData(data: LiveChatBean) {
 
             setText(R.id.tvLiveChatVip, data.room_id)
-            setText(R.id.tvLiveChatUserName, data.userName + "：")
+            setText(R.id.tvLiveChatUserName, data.userName)
             if (isNotEmpty(data.text)) setText(R.id.tvLiveChatContent, data.text)
         }
 

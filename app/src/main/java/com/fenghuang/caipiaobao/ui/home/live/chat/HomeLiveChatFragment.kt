@@ -15,10 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.fenghuang.baselib.base.recycler.BaseMultiRecyclerFragment
-import com.fenghuang.baselib.utils.LogUtils
-import com.fenghuang.baselib.utils.NetWorkUtils
-import com.fenghuang.baselib.utils.SoftHideKeyBoardUtil
-import com.fenghuang.baselib.utils.SoftInputUtils
+import com.fenghuang.baselib.utils.*
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.function.isEmpty
 import com.fenghuang.caipiaobao.ui.home.live.data.LiveChatBean
@@ -37,6 +34,11 @@ import kotlinx.android.synthetic.main.include_comment_layout.*
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
 class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() {
 
+    // 软件盘弹起后所占高度阀值
+    private var mKeyHeight = 0
+    // 屏幕高度
+    private var mScreenHeight = 0
+
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
 
     override fun getContentResID() = R.layout.fragment_live_chat
@@ -49,6 +51,8 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     override fun attachPresenter() = HomeLiveCharPresenter(getPageActivity())
     override fun initPageView() {
         super.initPageView()
+        mScreenHeight = getPageActivity().windowManager.defaultDisplay.height
+        mKeyHeight = mScreenHeight / 3
         SoftHideKeyBoardUtil().init(getPageActivity())
         register(LiveChatBean::class.java, HomeLiveChatHolder())
         mEmoticonKeyboard.setupWithEditText(chatEditText)
@@ -129,6 +133,18 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
 
     override fun initEvent() {
         super.initEvent()
+
+        rootView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
+            val layoutParams = chatEditText.layoutParams
+            //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
+            if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mKeyHeight)) {
+                layoutParams.width = ViewUtils.dp2px(240)
+            } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mKeyHeight)) {
+                layoutParams.width = ViewUtils.dp2px(124)
+            }
+            chatEditText.layoutParams = layoutParams
+        }
+
         chatEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 setGone(mEmoticonKeyboard)

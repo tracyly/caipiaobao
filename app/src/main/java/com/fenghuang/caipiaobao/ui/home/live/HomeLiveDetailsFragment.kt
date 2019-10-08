@@ -1,7 +1,5 @@
 package com.fenghuang.caipiaobao.ui.home.live
 
-import com.fenghuang.baselib.base.fragment.BaseFragment
-import com.fenghuang.baselib.base.fragment.PlaceholderFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.caipiaobao.R
@@ -76,15 +74,16 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     private fun initPagerContent() {
         loadRootFragment(R.id.rlTabLayout, HomeLiveRoomTopFragment())
-        val fragments = arrayListOf<BaseFragment>()
-        val titles = arrayListOf(getString(R.string.live_tab_chat), getString(R.string.live_tab_reward), getString(R.string.live_tab_anchor))
-        titles.forEachIndexed { index, _ ->
-            when (index) {
-                0 -> fragments.add(HomeLiveChatFragment())
-                1 -> fragments.add(PlaceholderFragment.newInstance(R.mipmap.ic_placeholder_empty))
-                2 -> fragments.add(PlaceholderFragment.newInstance(R.mipmap.ic_placeholder_empty))
-            }
-        }
+        loadRootFragment(R.id.rlChatLayout, HomeLiveChatFragment())
+//        val fragments = arrayListOf<BaseFragment>()
+//        val titles = arrayListOf(getString(R.string.live_tab_chat), getString(R.string.live_tab_reward), getString(R.string.live_tab_anchor))
+//        titles.forEachIndexed { index, _ ->
+//            when (index) {
+//                0 -> fragments.add(HomeLiveChatFragment())
+//                1 -> fragments.add(PlaceholderFragment.newInstance(R.mipmap.ic_placeholder_empty))
+//                2 -> fragments.add(PlaceholderFragment.newInstance(R.mipmap.ic_placeholder_empty))
+//            }
+//        }
 
 //        setTabAdapter(viewPager, tabLayout, fragments, titles)
 //        ViewUtils.setTabLayoutTextStyle(tabLayout)
@@ -115,12 +114,16 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
             if (mPIPManager.onBackPress())
                 return true
         }
-//        mPIPManager.reset()
+        // 这里是打开悬浮播放的权限开关，如果需要悬浮播放，打开此代码即可
 //        AndPermission.with(getPageActivity()).overlay().onGranted {
 //            mPIPManager.startFloatWindow()
 //        }.start()
         return super.onBackPressedSupport()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mPIPManager.reset()
+    }
 
 }
