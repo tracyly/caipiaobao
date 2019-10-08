@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.pingerx:imagego-glide:1.0.2@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/imagego-glide-1.0.2.aar/dff12c5f71882b0a6739ed79d10113d9/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/imagego-glide-1.0.2.aar/dff12c5f71882b0a6739ed79d10113d9/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.pingerx/imagego-glide/1.0.2/858b4a0ab5aabbdbf9f7475ff7366100928f9420/imagego-glide-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

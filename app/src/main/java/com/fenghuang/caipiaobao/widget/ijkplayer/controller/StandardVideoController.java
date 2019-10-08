@@ -28,7 +28,7 @@ import androidx.annotation.Nullable;
 import com.fenghuang.baselib.utils.SoftInputUtils;
 import com.fenghuang.baselib.utils.ToastUtils;
 import com.fenghuang.caipiaobao.R;
-import com.fenghuang.caipiaobao.ui.live.data.LiveChatPostEvenBean;
+import com.fenghuang.caipiaobao.ui.home.live.data.LiveChatPostEvenBean;
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.VideoView;
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.util.PlayerUtils;
 import com.hwangjr.rxbus.RxBus;

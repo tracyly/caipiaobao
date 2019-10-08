@@ -14,6 +14,8 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.HomeViewTypeConstant
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.*
+import com.fenghuang.caipiaobao.ui.home.live.HomeLiveDetailsFragment
+import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.MarqueeTextView
 import com.fenghuang.caipiaobao.widget.pagegridview.PageGridView
 import com.hwangjr.rxbus.RxBus
@@ -110,6 +112,9 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 holder.setText(R.id.tvHotLiveTag, it[position].tags[0].title)
                 ImageManager.loadHomeHotLive(it[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(it[position].tags[0].icon, ivHotLiveTag)
+                holder.setOnClickListener(R.id.cardView) {
+                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment())
+                }
             }
         }
         mAdapters?.add(mHotLiveAdapter)
@@ -179,9 +184,9 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
             override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
                 super.onBindViewHolder(holder, position)
                 val mBannerView = holder.getView<BannerView<HomeBannerResponse>>(R.id.mBannerView)
-                mBannerView?.setPages(data, object : BannerHolderCreator<HomeBannerResponse, BannerHolder> {
-                    override fun onCreateBannerHolder(): BannerHolder {
-                        return BannerHolder(mBannerView.getPageMode() == BannerView.PageMode.FAR)
+                mBannerView?.setPages(data, object : BannerHolderCreator<HomeBannerResponse, HomeBannerHolder> {
+                    override fun onCreateBannerHolder(): HomeBannerHolder {
+                        return HomeBannerHolder(mBannerView.getPageMode() == BannerView.PageMode.FAR)
                     }
                 })
             }

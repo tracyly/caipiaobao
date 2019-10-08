@@ -23,7 +23,6 @@ class MainFragment : BasePageFragment() {
 
     override fun initView() {
         mFragments.add(HomeFragment())
-//        mFragments.add(LiveFragment())
         mFragments.add(LotteryFragment())
         mFragments.add(BetFragment())
 //        mFragments.add(RankingRootFragment())

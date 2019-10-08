@@ -2,7 +2,7 @@
 <com.fenghuang.caipiaobao.widget.cardview.LCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cardView"
+    android:id="@id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:bottomShadowHeight="@dimen/dp_10"

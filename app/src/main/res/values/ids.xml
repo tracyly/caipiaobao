@@ -22,6 +22,7 @@
     <item name="viewPager" type="id" />
     <item name="smartRefreshLayout" type="id" />
     <item name="tvGameName" type="id" />
+    <item name="cardView" type="id" />
     <item name="pagerGrid" type="id" />
     <item name="ivHotLiveLogo" type="id" />
     <item name="tvHotLiveTitle" type="id" />
@@ -114,6 +115,7 @@
     <item name="ivLiveHot" type="id" />
     <item name="ivLiveRes" type="id" />
     <item name="tvLiveName" type="id" />
+    <item name="ivTopLogo" type="id" />
     <item name="tvLive" type="id" />
     <item name="tvLiveTitle" type="id" />
     <item name="tvLiveListTitle" type="id" />
@@ -139,6 +141,10 @@
     <item name="chatEditText" type="id" />
     <item name="ivRedEnvelope" type="id" />
     <item name="ivGift" type="id" />
+    <item name="tvTopUserName" type="id" />
+    <item name="tvTopPeople" type="id" />
+    <item name="ivUserLogo" type="id" />
+    <item name="ivAnchorLogo" type="id" />
 
 
 </resources>
