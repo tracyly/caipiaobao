@@ -281,6 +281,7 @@
                 android:textColor="@color/color_999999"
                 app:layout_constraintTop_toBottomOf="@id/listItem"
                 app:rv_backgroundColor="@color/grey_f8"
+                app:rv_backgroundPressColor="@color/grey_f8"
                 app:rv_cornerRadius="@dimen/dp_45" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
