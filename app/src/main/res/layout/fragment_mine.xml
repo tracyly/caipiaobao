@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_180_">
+            android:layout_marginTop="@dimen/dp_180">
 
             <RelativeLayout
                 android:id="@id/userInfo"
