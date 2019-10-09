@@ -49,7 +49,7 @@
     <string name="mine_reward_record">打赏记录</string>
     <string name="mine_message">我的消息</string>
     <string name="mine_concern">我的关注</string>
-    <string name="mine_user_feed">用户反馈</string>
+
     <string name="mine_must">*</string>
     <string name="mine_del">删除</string>
     <string name="mine_user_feed_back">我的反馈</string>
@@ -209,8 +209,10 @@
     <string name="mine_give_prize">豪礼相送</string>
     <string name="mine_first_invest">首冲送大礼</string>
     <string name="mine_please_login">您好，请登录</string>
-
-
+    <string name="mine_feed_back">意见反馈</string>
+    <string name="mine_feed_des">描述您的反馈内容</string>
+    <string name="mine_feed_num">0/500</string>
+    <string name="mine_save">保存</string>
     <!-- 开奖 -->
     <string name="lottery_open">开奖</string>
 </resources>

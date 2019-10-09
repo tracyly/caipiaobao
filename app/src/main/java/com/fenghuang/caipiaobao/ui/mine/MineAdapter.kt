@@ -7,7 +7,7 @@ import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineDataBean
 
-class MineItemAdapter(context: Context) : BaseRecyclerAdapter<MineDataBean>(context) {
+class MineAdapter(context: Context) : BaseRecyclerAdapter<MineDataBean>(context) {
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineDataBean> {
         return MineItemHolder(parent)
@@ -21,9 +21,10 @@ class MineItemAdapter(context: Context) : BaseRecyclerAdapter<MineDataBean>(cont
 
         override fun onItemClick(data: MineDataBean) {
             when (data.title) {
-//                "我的消息" -> startFragment(MineMessageFragment())
-//                "打赏记录" -> startFragment(MineRewardRecordFragment())
-//                "意见反馈" -> startFragment(MineUserFeedBackFragment())
+                "意见反馈" -> {
+                    startFragment(MineFeedBackFragment())
+                }
+
             }
         }
 

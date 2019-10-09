@@ -465,7 +465,7 @@ object ViewUtils {
         if (drawable != null) {
             drawable = DrawableCompat.wrap(drawable)
             context?.let {
-                DrawableCompat.setTint(drawable, UiUtils.getThemeColor(context, attrRes))
+                //                DrawableCompat.setTint(drawable, UiUtils.getThemeColor(context, attrRes))
             }
         }
         return drawable
