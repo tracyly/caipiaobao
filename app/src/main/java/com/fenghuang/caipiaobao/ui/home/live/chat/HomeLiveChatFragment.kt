@@ -45,6 +45,11 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
 
     override fun attachView() = mPresenter.attachView(this)
 
+    override fun onResume() {
+        super.onResume()
+        StatusBarUtils.setStatusBarForegroundColor(activity, false)
+    }
+
     override fun isRegisterRxBus() = true
     override fun isEnableLoadMore() = false
     override fun isEnableRefresh() = false

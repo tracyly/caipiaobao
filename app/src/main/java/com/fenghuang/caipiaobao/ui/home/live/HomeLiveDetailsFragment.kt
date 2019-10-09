@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.home.live
 
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.LogUtils
+import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.function.isNotEmpty
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
@@ -124,6 +125,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     override fun onDestroy() {
         super.onDestroy()
         mPIPManager.reset()
+        StatusBarUtils.setStatusBarForegroundColor(activity, true)
     }
 
 }

@@ -9,6 +9,7 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.base.recycler.header.material.MaterialHeader
+import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
@@ -66,6 +67,10 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
+    }
     override fun initEvent() {
         super.initEvent()
 //        setOnClick(findView<ImageView>(R.id.ivTitleLeft))
@@ -73,7 +78,6 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
             RxBus.get().post(HomeClickMine(isClick = true))
         }
     }
-
 
     override fun initData() {
         super.initData()

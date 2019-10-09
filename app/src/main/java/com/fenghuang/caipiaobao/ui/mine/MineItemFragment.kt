@@ -17,6 +17,4 @@ class MineItemFragment : BaseRecyclerFragment<MineItemPresenter, MineDataBean>()
 
     override fun attachAdapter() = MineItemAdapter(getPageActivity())
 
-    override fun isStatusBarForegroundBlack() = true
-
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.fenghuang.baselib.base.activity.BasePageActivity
 import com.fenghuang.baselib.utils.AppUtils
 import com.fenghuang.baselib.utils.DebugUtils
-import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.function.doOnIOThread
 import com.fenghuang.caipiaobao.helper.DestroyHelper
 import com.fenghuang.caipiaobao.helper.RxPermissionHelper
@@ -54,11 +53,6 @@ class MainActivity : BasePageActivity() {
     override fun onDestroy() {
         DestroyHelper.onDestroy()
         super.onDestroy()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        StatusBarUtils.setStatusBarForegroundColor(this, true)
     }
 
     /**
