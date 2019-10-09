@@ -62,7 +62,6 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
         jsonObject.put("type", "publish")
         jsonObject.put("room_id", "100001")
         jsonObject.put("user_id", "6")
-        jsonObject.put("userName", "指法大仙")
         jsonObject.put("text", content)
         mWsManager?.sendMessage(jsonObject.toString())
     }
@@ -75,6 +74,7 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
                 super.onOpen(response)
                 LogUtils.d("WsManager-----onOpen response=$response")
                 jsonObject.put("type", "subscribe")
+                jsonObject.put("userName", "指法大仙")
                 if (isShowPageEmpty) {
                     mView.showPageEmpty()
                     isShowPageEmpty = false
@@ -95,10 +95,12 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
                 super.onMessage(text)
                 LogUtils.d("WsManager-----onMessage$text")
                 val data = WebUrlProvider.getData<HomeLiveChatBean>(text, HomeLiveChatBean::class.java)
-                // 发送通知弹幕
-                RxBus.get().post(data)
-                if (data != null && mView.isActive()) {
-                    mView.addItem(data)
+                if (data?.type != "subscribe") {
+                    // 发送通知弹幕
+                    RxBus.get().post(data)
+                    if (data != null && mView.isActive()) {
+                        mView.addItem(data)
+                    }
                 }
             }
 

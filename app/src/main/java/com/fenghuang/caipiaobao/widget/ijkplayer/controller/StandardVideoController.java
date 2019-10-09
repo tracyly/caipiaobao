@@ -150,6 +150,7 @@ public class StandardVideoController extends GestureVideoController implements V
                 } else {
                     mChatEditText.setText("");
                     RxBus.get().post(new HomeLiveChatPostEvenBean(content));
+                    SoftInputUtils.INSTANCE.hideSoftInput(getContext());
                 }
                 return true;
             }

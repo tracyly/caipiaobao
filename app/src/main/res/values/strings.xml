@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">彩票宝</string>
 
     <string name="tab_home">首页</string>
@@ -23,7 +23,7 @@
     <string name="live_tab_chat">聊天</string>
     <string name="live_tab_reward">打赏榜</string>
     <string name="live_tab_anchor">主播</string>
-    <string name="live_chat_edit_hint">说点什么吧</string>
+    <string name="live_chat_edit_hint" tools:ignore="TypographyEllipsis">说点啥吧...</string>
     <string name="live_chat_send">发送</string>
     <string name="live_chat_msg_empty">暂无他人发表个人感言</string>
     <string name="live_chat_empty">请先输入内容</string>
