@@ -34,7 +34,7 @@ abstract class BaseNavFragment : BaseFragment() {
                 mDelegate.setToolbarStyle(isMainPage(), toolbar)
 
                 // 左侧返回按钮
-                mDelegate.setBackIcon(toolbar, isMainPage(), isShowBackIcon()) { onBackClick() }
+                mDelegate.setBackIcon(toolbar, isMainPage(), isShowBackIcon(), isShowBackIconWhite()) { onBackClick() }
             }
 
             // 设置填充容器
@@ -119,6 +119,12 @@ abstract class BaseNavFragment : BaseFragment() {
      * 默认可以返回
      */
     protected open fun isShowBackIcon(): Boolean = true
+
+    /**
+     * 是否展示白色返回图标
+     * true返回白色 fleas返回黑色
+     */
+    protected open fun isShowBackIconWhite(): Boolean = true
 
     /**
      * 是不是Main页面

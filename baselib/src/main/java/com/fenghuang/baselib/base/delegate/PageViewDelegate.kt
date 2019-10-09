@@ -313,9 +313,9 @@ class PageViewDelegate(private val view: View?) {
         toolbar?.setTitleTextAppearance(toolbar.context, toolbarTitleStyle)
     }
 
-    fun setBackIcon(toolbar: Toolbar?, mainPage: Boolean, backIcon: Boolean, backClick: () -> Unit) {
+    fun setBackIcon(toolbar: Toolbar?, mainPage: Boolean, backIcon: Boolean, backColorIcon: Boolean, backClick: () -> Unit) {
         if (backIcon && !mainPage && toolbar != null) {
-            toolbar.navigationIcon = ViewUtils.getImageThemeDrawable(toolbar.context, R.mipmap.ic_arrow_back, R.attr.toolbarForeground)
+            toolbar.navigationIcon = ViewUtils.getImageThemeDrawable(toolbar.context, if (backColorIcon) R.mipmap.ic_arrow_back_white else R.mipmap.ic_arrow_back_black, R.attr.toolbarForeground)
             toolbar.setNavigationOnClickListener {
                 backClick.invoke()
             }
