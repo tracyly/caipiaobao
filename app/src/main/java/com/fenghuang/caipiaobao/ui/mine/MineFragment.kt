@@ -1,12 +1,9 @@
 package com.fenghuang.caipiaobao.ui.mine
 
 import android.view.View
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
-import com.fenghuang.caipiaobao.ui.mine.data.MineDataBean
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
