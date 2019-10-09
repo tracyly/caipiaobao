@@ -10,7 +10,6 @@ import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.base.recycler.header.material.MaterialHeader
 import com.fenghuang.baselib.utils.StatusBarUtils
-import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.HomeViewTypeConstant
@@ -70,7 +69,6 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
 
     override fun initEvent() {
         super.initEvent()
-//        setOnClick(findView<ImageView>(R.id.ivTitleLeft))
         findView<ImageView>(R.id.ivTitleLeft).setOnClickListener {
             RxBus.get().post(HomeClickMine(isClick = true))
         }
@@ -102,7 +100,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
     /**
      * 热门直播
      */
-    fun updateHotLive(it: List<HomeLiveListResponse>) {
+    fun updateHotLive(data: List<HomeLiveListResponse>) {
         iniTitleView(1)
         val mHotLiveAdapter = object : HomeDelegateAdapter(getPageActivity(), getGridLayoutHelper(2, 4, 4), R.layout.holder_home_hot_live, 6, HomeViewTypeConstant.TYPE_HOT_LIVE_LIST) {
             override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -110,15 +108,14 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 val ivHotLiveLogo = holder.getView<ImageView>(R.id.ivHotLiveLogo)
                 val ivHotLiveTag = holder.getView<ImageView>(R.id.ivHotLiveTag)
                 val cardView = holder.getView<LCardView>(R.id.cardView)
-                holder.setText(R.id.tvHotLiveTitle, it[position].name)
-                holder.setText(R.id.tvHotLiveIntro, it[position].live_intro)
-                holder.setText(R.id.tvHotLiveName, it[position].nickname)
-                holder.setText(R.id.tvHotLiveTag, it[position].tags[0].title)
-                ImageManager.loadHomeHotLive(it[position].avatar, ivHotLiveLogo)
-                ImageManager.loadHomeGameListLogo(it[position].tags[0].icon, ivHotLiveTag)
+                holder.setText(R.id.tvHotLiveTitle, data[position].name)
+                holder.setText(R.id.tvHotLiveIntro, data[position].live_intro)
+                holder.setText(R.id.tvHotLiveName, data[position].nickname)
+                holder.setText(R.id.tvHotLiveTag, data[position].tags[0].title)
+                ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
+                ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
                 cardView.setOnClickListener {
-                    ToastUtils.showToast("点的热门第" + position + "个")
-                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment())
+                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id))
                 }
             }
         }
@@ -128,7 +125,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
     /**
      *  专家直播
      */
-    fun updateExpertLive(it: List<HomeLiveListResponse>) {
+    fun updateExpertLive(data: List<HomeLiveListResponse>) {
         iniTitleView(3)
         val mExpertLiveAdapter = object : HomeDelegateAdapter(getPageActivity(), getGridLayoutHelper(2, 4, 4), R.layout.holder_home_hot_live, 6, HomeViewTypeConstant.TYPE_HOT_LIVE_LIST) {
             override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
@@ -136,15 +133,14 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 val ivHotLiveLogo = holder.getView<ImageView>(R.id.ivHotLiveLogo)
                 val ivHotLiveTag = holder.getView<ImageView>(R.id.ivHotLiveTag)
                 val cardView = holder.getView<LCardView>(R.id.cardView)
-                holder.setText(R.id.tvHotLiveTitle, it[position].name)
-                holder.setText(R.id.tvHotLiveIntro, it[position].live_intro)
-                holder.setText(R.id.tvHotLiveName, it[position].nickname)
-                holder.setText(R.id.tvHotLiveTag, it[position].tags[0].title)
-                ImageManager.loadHomeHotLive(it[position].avatar, ivHotLiveLogo)
-                ImageManager.loadHomeGameListLogo(it[position].tags[0].icon, ivHotLiveTag)
+                holder.setText(R.id.tvHotLiveTitle, data[position].name)
+                holder.setText(R.id.tvHotLiveIntro, data[position].live_intro)
+                holder.setText(R.id.tvHotLiveName, data[position].nickname)
+                holder.setText(R.id.tvHotLiveTag, data[position].tags[0].title)
+                ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
+                ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
                 cardView.setOnClickListener {
-                    ToastUtils.showToast("点的专家第" + position + "个")
-                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment())
+                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id))
                 }
             }
         }
