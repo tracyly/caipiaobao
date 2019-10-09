@@ -53,6 +53,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
 
     override fun initContentView() {
         super.initContentView()
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
         mAdapters = LinkedList()
         initRecycler()
         setImageResource(findView(R.id.ivTitleLeft), R.mipmap.ic_home_top_user)
@@ -67,10 +68,6 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-    }
     override fun initEvent() {
         super.initEvent()
 //        setOnClick(findView<ImageView>(R.id.ivTitleLeft))
