@@ -185,6 +185,7 @@
     <dimen name="dp_178">178dp</dimen>
     <dimen name="dp_179">179dp</dimen>
     <dimen name="dp_180">180dp</dimen>
+    <dimen name="dp_180_">-180dp</dimen>
     <dimen name="dp_181">181dp</dimen>
     <dimen name="dp_182">182dp</dimen>
     <dimen name="dp_183">183dp</dimen>

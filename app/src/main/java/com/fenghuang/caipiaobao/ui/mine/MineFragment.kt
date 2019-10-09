@@ -1,12 +1,12 @@
 package com.fenghuang.caipiaobao.ui.mine
 
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.fragment.BaseFragment
+import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
-import com.scwang.smartrefresh.layout.api.RefreshFooter
-import com.scwang.smartrefresh.layout.api.RefreshHeader
-import com.scwang.smartrefresh.layout.listener.SimpleMultiPurposeListener
+import com.fenghuang.caipiaobao.ui.mine.data.MineDataBean
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 /**
@@ -17,9 +17,12 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  *
  */
 
-class MineFragment : BaseFragment() {
+class MineFragment : BaseMvpFragment<MinePresenter>() {
 
-    private var mScrollY = 0
+    override fun attachView() = mPresenter.attachView(this)
+    override fun attachPresenter()= MinePresenter()
+
+
 
     override fun getLayoutResID(): Int {
         return R.layout.fragment_mine
@@ -27,24 +30,11 @@ class MineFragment : BaseFragment() {
 
 
     override fun initData() {
-        loadRootFragment(R.id.listItem, MineItemFragment())
+        mPresenter.initList(getPageActivity(),listItem)
     }
 
 
-    override fun initView() {
-        smartRefreshLayout.setEnableRefresh(false)
-        smartRefreshLayout.setEnableOverScrollBounce(true)
-        smartRefreshLayout.setEnableOverScrollDrag(true)
-        smartRefreshLayout.setOnMultiPurposeListener(object : SimpleMultiPurposeListener() {
-            override fun onHeaderMoving(header: RefreshHeader?, isDragging: Boolean, percent: Float, offset: Int, headerHeight: Int, maxDragHeight: Int) {
-                iv_header.translationY = (offset - mScrollY).toFloat()
-            }
 
-            override fun onFooterMoving(footer: RefreshFooter?, isDragging: Boolean, percent: Float, offset: Int, footerHeight: Int, maxDragHeight: Int) {
-                iv_header.translationY = (mScrollY - offset).toFloat()
-            }
-        })
-    }
 
     override fun initEvent() {
         tvLogin.setOnClickListener {
