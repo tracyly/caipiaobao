@@ -13,6 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:numColumns="3"
         app:pageSize="6"
+        app:itemView="@layout/holder_home_game_list"
         app:vpPadding="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

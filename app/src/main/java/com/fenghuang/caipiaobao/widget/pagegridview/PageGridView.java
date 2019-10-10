@@ -37,7 +37,7 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
     public final static int DEFAULT_SELECTED_INDICTOR = R.drawable.shape_dot_selected;
     public final static int DEFAULT_UN_SELECTED_INDICTOR = R.drawable.shape_dot_normal;
     public final static int DEFAULT_VP_BACKGROUND = android.R.color.white;
-    public final static int DEFAULT_ITEM_VIEW = R.layout.holder_home_game_list;
+    public final static int DEFAULT_ITEM_VIEW = 0;
     public final static int DEFAULT_INDICATOR_GRAVITY = 1;
     public final static int DEFAULT_INDICATOR_PADDING = 0;
     public final static int DEFAULT_INDICATOR_BACKGROUND = Color.WHITE;
