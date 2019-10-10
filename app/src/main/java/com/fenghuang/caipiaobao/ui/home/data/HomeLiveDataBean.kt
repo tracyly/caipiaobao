@@ -24,4 +24,5 @@ data class HomeLiveChatBean(var position: String,
 // 横屏时发送的聊天弹幕消息
 data class HomeLiveChatPostEvenBean(var content: String)
 
-data class HomeLiveRoomTitleBean(var imageLogo: String)
+// 聊天室礼物榜单
+data class HomeLiveRoomRewardBean(var avatar: String)

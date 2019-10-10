@@ -9,6 +9,7 @@ import android.os.Build
 import android.view.KeyEvent
 import android.view.View
 import android.view.View.VISIBLE
+import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -140,12 +141,12 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         super.initEvent()
 
         rootView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
-            val layoutParams = chatEditText.layoutParams
+            val layoutParams = chatEditText.layoutParams as RelativeLayout.LayoutParams
             //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
             if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mKeyHeight)) {
-                layoutParams.width = ViewUtils.dp2px(240)
+                layoutParams.marginEnd = ViewUtils.dp2px(100)
             } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mKeyHeight)) {
-                layoutParams.width = ViewUtils.dp2px(124)
+                layoutParams.marginEnd = ViewUtils.dp2px(240)
             }
             chatEditText.layoutParams = layoutParams
         }

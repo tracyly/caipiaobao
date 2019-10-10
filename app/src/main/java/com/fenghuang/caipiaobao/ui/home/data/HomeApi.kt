@@ -21,6 +21,7 @@ object HomeApi : BaseApi {
     private const val HOME_LIVE_POP = "/index.php/api/v1/user/anchor_pop"
     private const val HOME_EXPERT_LIST = "/index.php/api/v1/live/get_expert_list"
     private const val HOME_EXPERT_RECOMMEND = "/index.php/api/v1/live/pro_red"
+    private const val HOME_LIVE_CHAT_REWARD_LIST = "/index.php/api/v1/live/get_reward_list"
 
     /**
      * 获取首页轮播图列表
@@ -109,5 +110,16 @@ object HomeApi : BaseApi {
                 .cacheMode(cacheMode)
                 .converter(ApiConvert(type = object : TypeToken<List<HomeExpertRecommendResponse>>() {}.type))
                 .flowable()
+    }
+
+    /**
+     * 获取直播间礼物榜单
+     */
+    fun getHomeLiveChatRewardResult(anchorId: Int, function: ApiSubscriber<List<HomeLiveRoomRewardBean>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<HomeLiveRoomRewardBean>>() {}
+        subscriber.function()
+        getApi().get<List<HomeLiveRoomRewardBean>>(HOME_LIVE_CHAT_REWARD_LIST)
+                .params("anchor_id", anchorId)
+                .subscribe(subscriber)
     }
 }

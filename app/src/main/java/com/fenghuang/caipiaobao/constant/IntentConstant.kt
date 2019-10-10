@@ -5,8 +5,5 @@ package com.fenghuang.caipiaobao.constant
  */
 object IntentConstant {
 
-    // 专家计划
-    const val EXPERT_PLAY_ID = "Expert_Play_ID"
-    // 游戏榜
-    const val HOME_GAME_LIST = "home_game_list"
+    const val HOME_LIVE_CHAT_ANCHOR_ID = "HOME_LIVE_CHAT_ANCHOR_ID"
 }

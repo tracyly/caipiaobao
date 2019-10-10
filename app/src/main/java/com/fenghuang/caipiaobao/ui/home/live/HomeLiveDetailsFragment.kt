@@ -1,9 +1,11 @@
 package com.fenghuang.caipiaobao.ui.home.live
 
+import android.os.Bundle
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.function.isNotEmpty
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
 import com.fenghuang.caipiaobao.ui.home.live.chat.HomeLiveChatFragment
@@ -74,7 +76,8 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      * 初始化页面内容
      */
     private fun initPagerContent() {
-        loadRootFragment(R.id.rlTabLayout, HomeLiveRoomTopFragment())
+        loadRootFragment(R.id.rlTabLayout, HomeLiveRoomTopFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                ?: 0))
         loadRootFragment(R.id.rlChatLayout, HomeLiveChatFragment())
 //        val fragments = arrayListOf<BaseFragment>()
 //        val titles = arrayListOf(getString(R.string.live_tab_chat), getString(R.string.live_tab_reward), getString(R.string.live_tab_anchor))
@@ -126,6 +129,16 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         super.onDestroy()
         mPIPManager.reset()
         StatusBarUtils.setStatusBarForegroundColor(activity, true)
+    }
+
+    companion object {
+        fun newInstance(anchorId: Int): HomeLiveDetailsFragment {
+            val fragment = HomeLiveDetailsFragment()
+            val bundle = Bundle()
+            bundle.putInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID, anchorId)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
 }
