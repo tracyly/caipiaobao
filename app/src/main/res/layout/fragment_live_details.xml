@@ -26,37 +26,55 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/statusView" />
 
-
     <RelativeLayout
-        android:id="@id/rlTabLayout"
+        android:id="@+id/rlAnchorLogoLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_52"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/playerContainer">
 
-        <!--        <TextView-->
-        <!--            android:id="@id/tvAttention"-->
-        <!--            android:layout_width="@dimen/dp_74"-->
-        <!--            android:layout_height="@dimen/dp_40"-->
-        <!--            android:layout_alignParentRight="true"-->
-        <!--            android:background="@color/text_red_tab"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="@string/string_live_attention"-->
-        <!--            android:textColor="@color/white" />-->
+        <ImageView
+            android:id="@id/ivAnchorLogo"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_14"
+            tools:ignore="ContentDescription" />
 
-        <!--        <com.google.android.material.tabs.TabLayout-->
-        <!--            android:id="@id/tabLayout"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="@dimen/dp_40"-->
-        <!--            android:layout_toStartOf="@id/tvAttention"-->
-        <!--            app:tabBackground="@color/white"-->
-        <!--            app:tabIndicatorFullWidth="false"-->
-        <!--            app:tabRippleColor="@color/transparent"-->
-        <!--            app:tabSelectedTextColor="@color/text_red_tab"-->
-        <!--            app:tabTextAppearance="@style/TabLayoutTextAppearance"-->
-        <!--            app:tabTextColor="@color/color_333333" />-->
+        <RelativeLayout
+            android:id="@id/rlAnchor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_8"
+            android:layout_toEndOf="@id/ivAnchorLogo">
+
+            <TextView
+                android:id="@id/tvTopUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_FF513E"
+                android:textSize="@dimen/sp_12"
+                tools:text="4554555" />
+
+            <TextView
+                android:id="@id/tvTopPeople"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTopUserName"
+                android:textColor="@color/color_FF513E"
+                android:textSize="@dimen/sp_10"
+                tools:text="4554555" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@id/rlTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_52"
+            android:layout_toEndOf="@id/rlAnchor" />
     </RelativeLayout>
+
 
     <RelativeLayout
         android:id="@id/rlChatLayout"
@@ -66,31 +84,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rlTabLayout"
+        app:layout_constraintTop_toBottomOf="@id/rlAnchorLogoLayout"
         tools:ignore="UselessLeaf" />
-    <!--    <View-->
-    <!--        android:id="@id/divider"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="0.5dp"-->
-    <!--        android:background="@color/line_grey"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/rlTabLayout" />-->
-
-    <!--    <com.google.android.material.widget.XViewPager-->
-    <!--        android:id="@id/viewPager"-->
-    <!--        android:layout_width="@dimen/dp_0"-->
-    <!--        android:layout_height="@dimen/dp_0"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/divider" />-->
-
-    <!--    <com.fenghuang.baselib.widget.placeholder.PlaceholderView-->
-    <!--        android:id="@id/placeholder"-->
-    <!--        android:layout_width="@dimen/dp_0"-->
-    <!--        android:layout_height="@dimen/dp_0"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="@id/divider" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

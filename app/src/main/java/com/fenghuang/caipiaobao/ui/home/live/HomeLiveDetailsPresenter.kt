@@ -1,6 +1,8 @@
 package com.fenghuang.caipiaobao.ui.home.live
 
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
+import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import java.util.*
 
 /**
@@ -12,15 +14,20 @@ class HomeLiveDetailsPresenter : BaseMvpPresenter<HomeLiveDetailsFragment>() {
 
     private val mVideos = LinkedHashMap<String, String>()
 
-    fun loadLiveInfo() {
-        mVideos["标清"] = "http://192.240.127.34:1935/live/cs19.stream/playlist.m3u8"
-//        mVideos["标清"] = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8"
-//        mVideos["高清"] = "http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8"
-        mVideos["高清"] = "http://192.240.127.34:1935/live/cs19.stream/playlist.m3u8"
+    fun loadLiveInfo(anchorId: Int, userId: Int) {
+        HomeApi.getHomeLiveRoomResult(anchorId, userId) {
+            onSuccess {
+                it.liveInfo.forEachIndexed { _, homeLiveRoomListBean ->
+                    if (homeLiveRoomListBean.type == "RTMP") {
+                        mVideos["标清"] = homeLiveRoomListBean.liveUrl.originPullUrl
+                    }
+                }
+                mView.setLogoInfo(it)
+                mView.startLive(mVideos)
+            }
+            onFailed {
+                ToastUtils.showToast("主播数据异常，请稍后重试")
+            }
+        }
     }
-
-    fun getViewDeo(): LinkedHashMap<String, String> {
-        return mVideos
-    }
-
 }

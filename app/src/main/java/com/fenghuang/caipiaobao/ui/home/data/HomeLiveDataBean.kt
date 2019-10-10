@@ -26,3 +26,26 @@ data class HomeLiveChatPostEvenBean(var content: String)
 
 // 聊天室礼物榜单
 data class HomeLiveRoomRewardBean(var avatar: String)
+
+// 直播房间
+data class HomeLiveRoomBean(var anchor_id: Int,
+                            var nickname: String,
+                            var avatar: String,
+                            var isTop: Int,
+                            var live_status: Int,
+                            var fans: Int,
+                            var cover: String,
+                            var liveStartTime: Int,
+                            var liveEndTime: Int,
+                            var online: Int,
+                            var is_top_txt: String,
+                            var live_status_txt: String,
+                            var liveInfo: List<HomeLiveRoomListBean>)
+
+data class HomeLiveRoomListBean(var liveUrl: HomeLiveRoomListLiveUrlBean,
+                                var type: String)
+
+data class HomeLiveRoomListLiveUrlBean(var fluentPullUrl: String,
+                                       var hdPullUrl: String,
+                                       var highPullUrl: String,
+                                       var originPullUrl: String)

@@ -2,12 +2,13 @@ package com.fenghuang.caipiaobao.ui.home.live
 
 import android.os.Bundle
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.function.isNotEmpty
+import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRoomBean
 import com.fenghuang.caipiaobao.ui.home.live.chat.HomeLiveChatFragment
 import com.fenghuang.caipiaobao.utils.palyer.PIPManager
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.DefinitionController
@@ -16,6 +17,7 @@ import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_live_details.*
 import me.jessyan.autosize.internal.CancelAdapt
+import java.util.*
 
 /**
  *  author : Peter
@@ -39,7 +41,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     override fun initContentView() {
         super.initContentView()
         setStatusBarHeight(statusView)
-        mPresenter.loadLiveInfo()
+        mPresenter.loadLiveInfo(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID) ?: 0, 0)
         initVideo()
         initPagerContent()
     }
@@ -47,7 +49,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     /**
      * 初始化播放器
      */
-    private fun initVideo() {
+    fun initVideo() {
         mPIPManager = PIPManager.getInstance()
         mPIPManager.setContext(context!!)
         mVideoView = mPIPManager.mVideoView
@@ -61,15 +63,32 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
             mPIPManager.mFragment = HomeLiveDetailsFragment()
             controller.setLive()
             mVideoView.setIsLive(true)
-            mVideoView.setDefinitionVideos(mPresenter.getViewDeo())
-            controller.setTitle("直播标题")
-            mVideoView.start()
+            controller.setTitle(arguments?.getString(IntentConstant.HOME_LIVE_CHAT_TITLE))
+
         }
         controller.setOnBackListener {
             mPIPManager.reset()
             pop()
         }
         playerContainer.addView(mVideoView)
+        mVideoView.showDanMu()
+    }
+
+    /**
+     * 开始直播
+     */
+    fun startLive(mVideos: LinkedHashMap<String, String>) {
+        mVideoView.setDefinitionVideos(mVideos)
+        mVideoView.start()
+    }
+
+    /**
+     * 主播信息：Logo 昵称等
+     */
+    fun setLogoInfo(it: HomeLiveRoomBean) {
+        ImageManager.loadRoundLogo(it.avatar, findView(R.id.ivAnchorLogo))
+        setText(tvTopUserName, it.nickname)
+        setText(tvTopPeople, getString(R.string.live_chat_online, it.online))
     }
 
     /**
@@ -79,35 +98,18 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         loadRootFragment(R.id.rlTabLayout, HomeLiveRoomTopFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
                 ?: 0))
         loadRootFragment(R.id.rlChatLayout, HomeLiveChatFragment())
-//        val fragments = arrayListOf<BaseFragment>()
-//        val titles = arrayListOf(getString(R.string.live_tab_chat), getString(R.string.live_tab_reward), getString(R.string.live_tab_anchor))
-//        titles.forEachIndexed { index, _ ->
-//            when (index) {
-//                0 -> fragments.add(HomeLiveChatFragment())
-//                1 -> fragments.add(PlaceholderFragment.newInstance(R.mipmap.ic_placeholder_empty))
-//                2 -> fragments.add(PlaceholderFragment.newInstance(R.mipmap.ic_placeholder_empty))
-//            }
-//        }
-
-//        setTabAdapter(viewPager, tabLayout, fragments, titles)
-//        ViewUtils.setTabLayoutTextStyle(tabLayout)
-//        // 设置第一条选中
-//        ViewUtils.updateTabLayoutView(tabLayout.getTabAt(0), true)
-//        showContent(placeholder)
     }
 
     override fun initData() {
         super.initData()
         statusView.bringToFront()
-        mVideoView.showDanMu()
     }
 
     /**
-     * 接收消息事件
+     * 接收弹幕消息事件
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onUpdateDanmu(data: HomeLiveChatBean) {
-        LogUtils.d("===========接收到了弹幕==========")
         if (isNotEmpty(data.text)) mVideoView.addDanmaku(data.text, data.isMe)
 
     }
@@ -132,10 +134,11 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     }
 
     companion object {
-        fun newInstance(anchorId: Int): HomeLiveDetailsFragment {
+        fun newInstance(anchorId: Int, title: String): HomeLiveDetailsFragment {
             val fragment = HomeLiveDetailsFragment()
             val bundle = Bundle()
             bundle.putInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID, anchorId)
+            bundle.putString(IntentConstant.HOME_LIVE_CHAT_TITLE, title)
             fragment.arguments = bundle
             return fragment
         }

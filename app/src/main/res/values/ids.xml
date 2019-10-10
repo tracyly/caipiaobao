@@ -146,6 +146,7 @@
     <item name="ivUserLogo" type="id" />
     <item name="ivAnchorLogo" type="id" />
     <item name="rlChatLayout" type="id" />
+    <item name="rlAnchor" type="id" />
 
 
 </resources>

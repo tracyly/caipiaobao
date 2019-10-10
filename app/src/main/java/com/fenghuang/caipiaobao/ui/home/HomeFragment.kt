@@ -115,7 +115,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
                 cardView.setOnClickListener {
-                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id))
+                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
                 }
             }
         }
@@ -140,7 +140,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
                 cardView.setOnClickListener {
-                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id))
+                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
                 }
             }
         }
