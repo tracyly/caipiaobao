@@ -47,7 +47,7 @@
     <string name="mine_watch_history">观看历史</string>
     <string name="mine_vip">VIP</string>
     <string name="mine_wallet">我的钱包</string>
-    <string name="mine_reward_record">打赏记录</string>
+
     <string name="mine_message">我的消息</string>
     <string name="mine_concern">我的关注</string>
 
@@ -214,6 +214,18 @@
     <string name="mine_feed_des">描述您的反馈内容</string>
     <string name="mine_feed_num">0/500</string>
     <string name="mine_save">保存</string>
+    <string name="mine_reward_record">打赏记录</string>
+    <string name="mine_contact_customer">联系客服</string>
+    <string name="mine_contact_num">联系电话</string>
+    <string name="mine_contact_qq">QQ</string>
+    <string name="mine_contact_wx">微信</string>
+    <string name="mine_contact_personal">个人资料</string>
+    <string name="mine_user_name">用户名:</string>
+    <string name="mine_user_sex">性别:</string>
+    <string name="mine_user_sign">个性签名:</string>
+    <string name="mine_user_sign_edit">请输入您的个性签名</string>
+    <string name="mine_sign_num">0/50</string>
+    <string name="mine_edit_name">请输入用户名</string>
     <!-- 开奖 -->
     <string name="lottery_open">开奖</string>
 </resources>
