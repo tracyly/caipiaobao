@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.tencent.sonic:sdk:3.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-sdk-3.0.0.aar/9a0306d3064555f8b51b069362feb11b/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-sdk-3.0.0.aar/9a0306d3064555f8b51b069362feb11b/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-sdk-3.0.0.aar/521c14a642f8726ee9b44a905a712799/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-sdk-3.0.0.aar/521c14a642f8726ee9b44a905a712799/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

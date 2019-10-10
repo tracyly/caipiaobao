@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.tencent.tinker:tinker-android-loader:1.9.14@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tinker-android-loader-1.9.14.aar/734da74caedd9edc803d56cd3674d107/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tinker-android-loader-1.9.14.aar/734da74caedd9edc803d56cd3674d107/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tinker-android-loader-1.9.14.aar/508a1dd65164744c680f446564842d9b/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tinker-android-loader-1.9.14.aar/508a1dd65164744c680f446564842d9b/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

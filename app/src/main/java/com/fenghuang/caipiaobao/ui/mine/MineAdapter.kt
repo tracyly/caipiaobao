@@ -21,10 +21,10 @@ class MineAdapter(context: Context) : BaseRecyclerAdapter<MineDataBean>(context)
 
         override fun onItemClick(data: MineDataBean) {
             when (data.title) {
-                "意见反馈" -> {
-                    startFragment(MineFeedBackFragment())
-                }
-
+                "意见反馈" -> startFragment(MineFeedBackFragment())
+                "打赏记录" -> startFragment(MineRewardRecordFragment())
+                "联系客服" -> startFragment(MineContactCustomerFragment())
+                "个人资料" -> startFragment(MinePersonalFragment())
             }
         }
 
