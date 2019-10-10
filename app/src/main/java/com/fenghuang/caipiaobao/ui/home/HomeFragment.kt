@@ -9,7 +9,9 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.base.recycler.header.material.MaterialHeader
+import com.fenghuang.baselib.utils.NetWorkUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.HomeViewTypeConstant
@@ -115,7 +117,9 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
                 cardView.setOnClickListener {
-                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
+                    if (NetWorkUtils.isNetworkConnected())
+                        LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
+                    else ToastUtils.showError("网络连接已断开")
                 }
             }
         }
@@ -140,7 +144,9 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
                 cardView.setOnClickListener {
-                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
+                    if (NetWorkUtils.isNetworkConnected())
+                        LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
+                    else ToastUtils.showError("网络连接已断开")
                 }
             }
         }
