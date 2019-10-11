@@ -11,6 +11,7 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
 
     private val newResults = arrayListOf<MineDataBean>()
 
+
     fun initList(context: Context, listItem: RecyclerView) {
         newResults.add(MineDataBean("个人资料", R.mipmap.ic_mine_preson))
         newResults.add(MineDataBean("投注记录", R.mipmap.ic_mine_bet_record))

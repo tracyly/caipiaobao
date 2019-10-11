@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 object SpUtils {
 
     private var sharedPreferences: SharedPreferences? = null
-    val sp: SharedPreferences
+    private val sp: SharedPreferences
         @Synchronized get() {
             if (sharedPreferences == null) {
                 synchronized(SpUtils::class.java) {

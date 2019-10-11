@@ -7,7 +7,7 @@ import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
-import kotlinx.android.synthetic.main.fragment_presonal.*
+import kotlinx.android.synthetic.main.fragment_mine_presonal.*
 
 
 /**
@@ -28,11 +28,6 @@ class MineFeedBackFragment : BaseNavFragment() {
     override fun getPageTitle() = getString(R.string.mine_feed_back)
 
     override fun isShowBackIconWhite() = false
-
-
-    override fun initContentView() {
-        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-    }
 
     override fun onDestroy() {
         super.onDestroy()

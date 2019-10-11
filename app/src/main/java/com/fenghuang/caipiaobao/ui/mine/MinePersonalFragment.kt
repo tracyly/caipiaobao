@@ -7,7 +7,7 @@ import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.widget.IosBottomListWindow
-import kotlinx.android.synthetic.main.fragment_presonal.*
+import kotlinx.android.synthetic.main.fragment_mine_presonal.*
 
 /**
  *
@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_presonal.*
 class MinePersonalFragment : BaseNavFragment() {
 
 
-    override fun getContentResID() = R.layout.fragment_presonal
+    override fun getContentResID() = R.layout.fragment_mine_presonal
 
     override fun getPageTitle() = getString(R.string.mine_contact_personal)
 

@@ -25,7 +25,7 @@
             android:layout_height="@dimen/dp_20"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:background="@drawable/ic_mine_camera"
+            android:background="@mipmap/ic_mine_camera"
             android:contentDescription="@string/app_name" />
     </RelativeLayout>
 

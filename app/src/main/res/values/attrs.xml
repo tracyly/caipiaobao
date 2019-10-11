@@ -242,5 +242,10 @@
         <attr name="yOffset" format="dimension" />
     </declare-styleable>
 
+    <string-array name="order">
+        <item>红灯升序</item>
+        <item>绿灯降序</item>
+        <item>黄灯升序</item>
+    </string-array>
 
 </resources>

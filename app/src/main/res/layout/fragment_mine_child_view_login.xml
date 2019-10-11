@@ -8,6 +8,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linRecharge"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_weight="1"

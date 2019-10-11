@@ -65,7 +65,7 @@
     <string name="mine_phone">您的手机号</string>
     <string name="mine_qq">您的QQ号</string>
     <string name="mine_emial">您的邮箱地址</string>
-    <string name="mine_submit">提交</string>
+
     <string name="mine_qq_public">QQ公众号:</string>
     <string name="mine_qq_public_num">1088808</string>
     <string name="mine_home_service">国内客服电话:</string>
@@ -92,13 +92,12 @@
 
 
     <string name="mine_invest">充值</string>
-    <string name="mine_cash_out">提现</string>
+
     <string name="mine_invest_out">充值提现</string>
     <string name="mine_cash_out_lest"> 最低100元起提</string>
     <string name="mine_cash_out_all">全部提现</string>
     <string name="mine_wallet_cash_out_count"> 提现金额</string>
     <string name="mine_wallet_money_type"> ￥</string>
-    <string name="mine_balance">当前余额(彩币)</string>
     <string name="mine_balance_cash_out">可提现金额(彩币)</string>
     <string name="mine_invest_money">请选择充值金额</string>
     <string name="mine_setting">设置</string>
@@ -226,6 +225,21 @@
     <string name="mine_user_sign_edit">请输入您的个性签名</string>
     <string name="mine_sign_num">0/50</string>
     <string name="mine_edit_name">请输入用户名</string>
+    <string name="mine_recharge">充值提现</string>
+    <string name="mine_balance">账户余额</string>
+    <string name="mine_recharge_type">选择充值方式</string>
+    <string name="mine_add_bank">添加银行卡</string>
+    <string name="mine_get_money">提现金额</string>
+    <string name="mine_get_all_money">全部提现</string>
+    <string name="mine_cash_out">提现</string>
+    <string name="mine_choose_card">请选择银行卡</string>
+    <string name="mine_add_bank_card">添加银行卡</string>
+    <string name="mine_bank_card">银行卡</string>
+    <string name="mine_submit">提交</string>
+    <string name="mine_card_address">开户网点</string>
+    <string name="mine_card_number">卡号</string>
+    <string name="mine_card_address_edit">请输入您的开户网点</string>
+    <string name="mine_card_number_edit">请输入您的银行卡号</string>
     <!-- 开奖 -->
     <string name="lottery_open">开奖</string>
 </resources>

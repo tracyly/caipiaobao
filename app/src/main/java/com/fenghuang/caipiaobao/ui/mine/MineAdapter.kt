@@ -25,6 +25,7 @@ class MineAdapter(context: Context) : BaseRecyclerAdapter<MineDataBean>(context)
                 "打赏记录" -> startFragment(MineRewardRecordFragment())
                 "联系客服" -> startFragment(MineContactCustomerFragment())
                 "个人资料" -> startFragment(MinePersonalFragment())
+
             }
         }
 
