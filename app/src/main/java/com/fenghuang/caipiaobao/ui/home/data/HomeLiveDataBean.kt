@@ -56,19 +56,3 @@ data class HomeLiveChatGifBean(var gifUrl: Int,
                                var title: String,
                                var gold: Int,
                                var isSelect: Boolean)
-//    : PageGridView.ItemModel {
-//    override fun getItemGold(): String {
-//        return gold.toString()
-//    }
-//
-//    override fun setItemView(itemView: View?) {
-//    }
-//
-//    override fun setIcon(imageView: ImageView?) {
-//       imageView?.setImageResource(gifUrl)
-//    }
-//
-//    override fun getItemName(): String {
-//        return title
-//    }
-//}

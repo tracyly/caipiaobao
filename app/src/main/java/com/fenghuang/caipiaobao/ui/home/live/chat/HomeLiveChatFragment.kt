@@ -223,8 +223,8 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
                     imageView.setImageResource(listData[position].gifUrl)
                     tvTitle.text = listData[position].title
                     tvTitleHint.text = listData[position].gold.toString()
+                    tvTitleHint.visibility = VISIBLE
                     if (listData[position].isSelect) {
-//                        linearLayout.setBackgroundDrawable()
                         linearLayout.background = getDrawable(R.drawable.shape_home_live_chat_gif_selected_bg)
                     } else {
                         linearLayout.background = getDrawable(R.drawable.shape_home_live_chat_gif_normal_bg)

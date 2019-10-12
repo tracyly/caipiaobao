@@ -21,7 +21,7 @@ import com.fenghuang.caipiaobao.ui.home.live.HomeLiveDetailsFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.MarqueeTextView
 import com.fenghuang.caipiaobao.widget.cardview.LCardView
-import com.fenghuang.caipiaobao.widget.pagegridview.PageGridView
+import com.fenghuang.caipiaobao.widget.pagegridview.GridPager
 import com.hwangjr.rxbus.RxBus
 import com.pingerx.banner.BannerView
 import com.pingerx.banner.holder.BannerHolderCreator
@@ -180,8 +180,16 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         val mGameListAdapter = object : HomeDelegateAdapter(getPageActivity(), LinearLayoutHelper(), R.layout.holder_home_game_viewpager, 1, HomeViewTypeConstant.TYPE_GAME_LIST) {
             override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
                 super.onBindViewHolder(holder, position)
-                val mPagerGrid = holder.getView<PageGridView<HomeGameListResponse>>(R.id.pagerGrid)
-                mPagerGrid.setData(it)
+                val mPagerGrid = holder.getView<GridPager>(R.id.gridPager)
+                mPagerGrid.setDataAllCount(it.size)
+                        .setItemBindDataListener { imageView, tvTitle, _, _, position ->
+                            ImageManager.loadHomeGameListLogo(it[position].image, imageView!!)
+                            tvTitle.text = it[position].name
+                        }
+                        .setGridItemClickListener { position, atMostGridViewAdapter ->
+
+                        }
+                        .show()
             }
         }
         mAdapters?.add(mGameListAdapter)

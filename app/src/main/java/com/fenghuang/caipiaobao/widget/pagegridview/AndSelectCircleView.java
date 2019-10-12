@@ -7,6 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
@@ -79,6 +84,28 @@ public class AndSelectCircleView extends RadioGroup {
         initView();
     }
 
+    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float roundPx) {
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
+                .getHeight(), Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
     private Drawable getSpecialDrawable(boolean isNormal) {
         if (mIsCircle) {
             int width = Math.min(mChildHeight, mChildWidth);
@@ -86,9 +113,9 @@ public class AndSelectCircleView extends RadioGroup {
             create.setCircular(true);
             return create;
         } else {
-            ColorDrawable drawable = new ColorDrawable(isNormal ? mNormalColor : mSelectColor);
-            drawable.setBounds(0, 0, mChildWidth, mChildHeight);
-            return drawable;
+//            ColorDrawable drawable = new ColorDrawable(isNormal ? mNormalColor : mSelectColor);
+//            drawable.setBounds(0, 0, mChildWidth, mChildHeight);
+            return getContext().getResources().getDrawable(isNormal ? R.drawable.shape_dot_normal : R.drawable.shape_dot_selected);
         }
     }
 
