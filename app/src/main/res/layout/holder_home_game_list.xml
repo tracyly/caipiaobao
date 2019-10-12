@@ -6,7 +6,7 @@
     android:layout_height="@dimen/dp_114">
 
     <ImageView
-        android:id="@id/ivGameLogo"
+        android:id="@id/ivLogo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_66"
         app:layout_constraintTop_toTopOf="parent"
@@ -14,7 +14,7 @@
 
 
     <TextView
-        android:id="@id/tvGameName"
+        android:id="@id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
@@ -22,6 +22,6 @@
         android:textSize="@dimen/sp_12"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivGameLogo"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo"
         tools:text="幸运飞艇" />
 </androidx.constraintlayout.widget.ConstraintLayout>

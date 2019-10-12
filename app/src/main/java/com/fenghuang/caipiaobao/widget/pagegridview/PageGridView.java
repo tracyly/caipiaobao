@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +33,8 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
     public final static int DEFAULT_PAGE_Size = 8;
     public final static int DEFAULT_NUM_COUNT = 4;
     public final static boolean DEFAULT_IS_ShOW_INDICATOR = true;
-    public final static int DEFAULT_SELECTED_INDICTOR = R.drawable.shape_dot_selected;
-    public final static int DEFAULT_UN_SELECTED_INDICTOR = R.drawable.shape_dot_normal;
+    public final static int DEFAULT_SELECTED_INDICTOR = 0;
+    public final static int DEFAULT_UN_SELECTED_INDICTOR = 0;
     public final static int DEFAULT_VP_BACKGROUND = android.R.color.white;
     public final static int DEFAULT_ITEM_VIEW = 0;
     public final static int DEFAULT_INDICATOR_GRAVITY = 1;
@@ -47,7 +46,7 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
     private View mContentView;
     private ViewPager mViewPager;
     private LinearLayout mLlDot;
-    private List<T> mDatas;
+    private List<T> mDatas = new ArrayList<>();
     private List mPagerList;
 
     /**
@@ -186,7 +185,9 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
     }
 
     public void setData(List<T> data) {
-        this.mDatas = data;
+//        mDatas = data;
+        mDatas.clear();
+        mDatas.addAll(data);
         //总的页数=总数/每页数量，并取整
         pageCount = (int) Math.ceil(mDatas.size() * 1.0 / pageSize);
         mPagerList = new ArrayList<View>();
@@ -200,13 +201,10 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
             GridViewAdapter gridViewAdapter = new GridViewAdapter(mContext, mDatas, i, pageSize);
             gridView.setAdapter(gridViewAdapter);
             mPagerList.add(gridView);
-            gridViewAdapter.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(int position) {
-                    int pos = position + curIndex * pageSize;
-                    if (null != mOnItemClickListener) {
-                        mOnItemClickListener.onItemClick(pos);
-                    }
+            gridViewAdapter.setOnItemClickListener(position -> {
+                int pos = position + curIndex * pageSize;
+                if (null != mOnItemClickListener) {
+                    mOnItemClickListener.onItemClick(pos);
                 }
             });
         }
@@ -249,12 +247,6 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
         mOnItemClickListener = onItemClickListener;
     }
 
-    /**
-     * dp转px
-     */
-    private int dp2px(float dpValue) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, mContext.getResources().getDisplayMetrics());
-    }
 
     public int getDimensionPixelOffset(@DimenRes int resId) {
         return mContext.getResources().getDimensionPixelOffset(resId);
@@ -302,6 +294,8 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
          * @return 返回名字
          */
         String getItemName();
+
+        String getItemGold();
 
         /**
          * 设置图标
@@ -402,8 +396,9 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
                 convertView = inflater.inflate(mItemView, parent, false);
                 viewHolder = new ViewHolder();
                 viewHolder.itemView = convertView;
-                viewHolder.iv = convertView.findViewById(R.id.ivGameLogo);
-                viewHolder.tv = convertView.findViewById(R.id.tvGameName);
+                viewHolder.ivLogo = convertView.findViewById(R.id.ivLogo);
+                viewHolder.tvName = convertView.findViewById(R.id.tvName);
+                viewHolder.tvGold = convertView.findViewById(R.id.tvGold);
                 convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
@@ -412,20 +407,20 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
              * 在给View绑定显示的数据时，计算正确的position = position + curIndex * pageSize
              */
             int pos = position + curIndex * pageSize;
-            if (null != viewHolder.tv) {
-                viewHolder.tv.setText(mDatas.get(pos).getItemName());
+            if (null != viewHolder.tvName) {
+                viewHolder.tvName.setText(mDatas.get(pos).getItemName());
             }
-            if (null != viewHolder.iv) {
-                mDatas.get(pos).setIcon(viewHolder.iv);
+            if (null != viewHolder.tvGold) {
+                viewHolder.tvGold.setText(mDatas.get(pos).getItemGold());
+            }
+            if (null != viewHolder.ivLogo) {
+                mDatas.get(pos).setIcon(viewHolder.ivLogo);
             }
 
             mDatas.get(pos).setItemView(viewHolder.itemView);
-            viewHolder.itemView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (null != mOnItemClickListener) {
-                        mOnItemClickListener.onItemClick(position);
-                    }
+            viewHolder.itemView.setOnClickListener(view -> {
+                if (null != mOnItemClickListener) {
+                    mOnItemClickListener.onItemClick(position);
                 }
             });
             return convertView;
@@ -438,8 +433,9 @@ public class PageGridView<T extends PageGridView.ItemModel> extends FrameLayout 
 
         class ViewHolder {
             public View itemView;
-            public TextView tv;
-            public ImageView iv;
+            public TextView tvName;
+            public TextView tvGold;
+            public ImageView ivLogo;
         }
     }
 

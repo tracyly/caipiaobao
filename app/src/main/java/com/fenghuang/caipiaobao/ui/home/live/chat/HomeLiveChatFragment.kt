@@ -17,10 +17,14 @@ import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
 import com.fenghuang.baselib.base.recycler.BaseMultiRecyclerFragment
 import com.fenghuang.baselib.utils.*
+import com.fenghuang.baselib.widget.dialog.MaterialBottomDialog
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.function.isEmpty
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatPostEvenBean
+import com.fenghuang.caipiaobao.ui.widget.ChatGifTabView
+import com.fenghuang.caipiaobao.widget.pagegridview.GridPager
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_live_chat.*
@@ -39,6 +43,9 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     private var mKeyHeight = 0
     // 屏幕高度
     private var mScreenHeight = 0
+    private lateinit var mDialog: MaterialBottomDialog
+    // 依次为：普通礼物，表白礼物，彩票礼物
+    private lateinit var mGridPager: GridPager
 
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
 
@@ -62,6 +69,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         SoftHideKeyBoardUtil().init(getPageActivity())
         register(HomeLiveChatBean::class.java, HomeLiveChatHolder())
         mEmoticonKeyboard.setupWithEditText(chatEditText)
+        initGifBottom()
     }
 
 
@@ -71,6 +79,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         val filter = IntentFilter()
         filter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
         getPageActivity().registerReceiver(mNetWorkReceiver, filter)
+        mPresenter.loadGifData()
     }
 
     override fun <T> addItem(data: T?) {
@@ -114,6 +123,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         super.onDestroy()
         getPageActivity().unregisterReceiver(mNetWorkReceiver)
         mPresenter.stopConnect()
+        mDialog.cancel()
     }
 
     /**
@@ -139,7 +149,6 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
 
     override fun initEvent() {
         super.initEvent()
-
         rootView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
             val layoutParams = chatEditText.layoutParams as RelativeLayout.LayoutParams
             //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
@@ -177,11 +186,58 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
             }
             false
         })
-//        chatEditText.setOnClickListener {
-//            if (mEmoticonKeyboard.visibility === VISIBLE) setGone(mEmoticonKeyboard)
-//        }
+        // 礼物
+        ivGift.setOnClickListener {
+            mDialog.show()
+        }
     }
 
+    /**
+     * 初始化礼物数据dialog
+     */
+    private fun initGifBottom() {
+        mDialog = MaterialBottomDialog(getPageActivity())
+        mDialog.setContentView(R.layout.dialog_chat_bottom_gif)
+        val chatGifTabView = mDialog.findViewById<ChatGifTabView>(R.id.chatGifTabView)
+        mGridPager = mDialog.findViewById<GridPager>(R.id.gridPager)!!
+        chatGifTabView?.setChatGifTab()
+        chatGifTabView?.setOnSelectListener {
+            when (it) {
+                0 -> {
+//                    mPresenter.loadGifData()
+                }
+                1 -> {
+//                    mPresenter.loadGifData()
+                }
+                2 -> {
+//                    mPresenter.loadGifData()
+                }
+            }
+        }
+    }
+
+    fun updateGifList(listData: ArrayList<HomeLiveChatGifBean>) {
+        mGridPager.setDataAllCount(listData.size)
+                .setViewPageHeight(150)
+                .setItemBindDataListener { imageView, tvTitle, tvTitleHint, linearLayout, position ->
+                    imageView.setImageResource(listData[position].gifUrl)
+                    tvTitle.text = listData[position].title
+                    tvTitleHint.text = listData[position].gold.toString()
+                    if (listData[position].isSelect) {
+//                        linearLayout.setBackgroundDrawable()
+                        linearLayout.background = getDrawable(R.drawable.shape_home_live_chat_gif_selected_bg)
+                    } else {
+                        linearLayout.background = getDrawable(R.drawable.shape_home_live_chat_gif_normal_bg)
+                    }
+                }
+                .setGridItemClickListener { position, adapter ->
+                    listData.forEach {
+                        it.isSelect = false
+                    }
+                    listData[position].isSelect = true
+                    adapter.notifyDataSetChanged()
+                }.show()
+    }
 
     private fun sendMessage() {
         val content = chatEditText.text.trim().toString()
@@ -193,6 +249,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
             mPresenter.sendMessage(content)
         }
     }
+
 
     inner class NetWorkChangReceiver : BroadcastReceiver() {
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

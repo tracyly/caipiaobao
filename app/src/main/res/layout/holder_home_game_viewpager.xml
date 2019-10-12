@@ -14,6 +14,8 @@
         app:numColumns="3"
         app:pageSize="6"
         app:itemView="@layout/holder_home_game_list"
+        app:selectedIndicator="@drawable/shape_dot_selected"
+        app:unSelectedIndicator="@drawable/shape_dot_normal"
         app:vpPadding="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

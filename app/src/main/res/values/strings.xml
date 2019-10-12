@@ -28,6 +28,9 @@
     <string name="live_chat_msg_empty">暂无他人发表个人感言</string>
     <string name="live_chat_empty">请先输入内容</string>
     <string name="live_chat_online">%1$d在线</string>
+    <string name="live_chat_ordinary">普通</string>
+    <string name="live_chat_confession">表白</string>
+    <string name="live_chat_lottery_ticket">彩票</string>
     <!-- 排行 -->
     <string name="ranking_tab_anchor">主播</string>
     <string name="ranking_tab_expert">专家</string>

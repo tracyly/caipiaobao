@@ -48,4 +48,27 @@ data class HomeLiveRoomListBean(var liveUrl: HomeLiveRoomListLiveUrlBean,
 data class HomeLiveRoomListLiveUrlBean(var fluentPullUrl: String,
                                        var hdPullUrl: String,
                                        var highPullUrl: String,
+
                                        var originPullUrl: String)
+
+// gif礼物
+data class HomeLiveChatGifBean(var gifUrl: Int,
+                               var title: String,
+                               var gold: Int,
+                               var isSelect: Boolean)
+//    : PageGridView.ItemModel {
+//    override fun getItemGold(): String {
+//        return gold.toString()
+//    }
+//
+//    override fun setItemView(itemView: View?) {
+//    }
+//
+//    override fun setIcon(imageView: ImageView?) {
+//       imageView?.setImageResource(gifUrl)
+//    }
+//
+//    override fun getItemName(): String {
+//        return title
+//    }
+//}

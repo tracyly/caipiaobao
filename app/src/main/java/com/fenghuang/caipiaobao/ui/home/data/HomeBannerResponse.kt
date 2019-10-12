@@ -34,6 +34,10 @@ data class HomeGameListResponse(var anchor_id: Int,
                                 var live_status: Int,
                                 var live_status_txt: String,
                                 var name: String) : PageGridView.ItemModel {
+    override fun getItemGold(): String {
+        return ""
+    }
+
     override fun getItemName(): String {
         return name
     }
