@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@id/ivRedTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_62"
+        android:src="@color/color_FF513E"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
+
+    <com.fenghuang.baselib.widget.round.RoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_218"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/ivRedTitle"
+        app:rv_backgroundColor="@color/white"
+        app:rv_backgroundPressColor="@color/white"
+        app:rv_cornerRadius_BL="@dimen/dp_8"
+        app:rv_cornerRadius_BR="@dimen/dp_8">
+
+        <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_40"
+            app:rv_cornerRadius="@dimen/dp_32"
+            app:rv_strokeColor="@color/color_E2E2E2"
+            app:rv_strokeWidth="@dimen/dp_1">
+
+            <TextView
+                android:id="@id/tvRedTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_18"
+                android:text="@string/live_chat_red_envelope_total_amount"
+                android:textColor="@color/color_CCCCCC"
+                android:textSize="@dimen/sp_14" />
+
+            <EditText
+                android:id="@id/etRedEnvelopeTotal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/tvRedTotal"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="2"
+                android:numeric="integer"
+                android:paddingEnd="@dimen/dp_18"
+                android:singleLine="true"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="Autofill,HardcodedText,RtlSymmetry,TextFields" />
+        </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+        <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_40"
+            app:rv_cornerRadius="@dimen/dp_32"
+            app:rv_strokeColor="@color/color_E2E2E2"
+            app:rv_strokeWidth="@dimen/dp_1">
+
+            <TextView
+                android:id="@id/tvRedNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_18"
+                android:text="@string/live_chat_number_of_red_packets"
+                android:textColor="@color/color_CCCCCC"
+                android:textSize="@dimen/sp_14" />
+
+            <EditText
+                android:id="@id/etRedEnvelopeRedNumber"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/tvRedNumber"
+                android:background="@null"
+                android:gravity="center_vertical|end"
+                android:hint="2"
+                android:numeric="integer"
+                android:paddingEnd="@dimen/dp_18"
+                android:singleLine="true"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="Autofill,HardcodedText,RtlSymmetry,TextFields" />
+        </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+        <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_32"
+            android:layout_marginStart="@dimen/dp_40"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginEnd="@dimen/dp_40"
+            app:rv_cornerRadius="@dimen/dp_32"
+            app:rv_strokeColor="@color/color_E2E2E2"
+            app:rv_strokeWidth="@dimen/dp_1">
+
+            <EditText
+                android:id="@id/etRedEnvelopeContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_18"
+                android:layout_toEndOf="@id/tvRedNumber"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="@string/live_chat_red_hint"
+                android:paddingEnd="@dimen/dp_18"
+                android:singleLine="true"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/sp_14"
+                tools:ignore="Autofill,HardcodedText,RtlSymmetry,TextFields" />
+        </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@id/tvRedSend"
+            android:layout_width="@dimen/dp_98"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_20"
+            android:gravity="center"
+            android:text="@string/live_chat_send_red_envelope"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            app:rv_backgroundColor="@color/color_FF513E"
+            app:rv_backgroundPressColor="@color/color_FF513E"
+            app:rv_cornerRadius="@dimen/dp_8" />
+
+    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

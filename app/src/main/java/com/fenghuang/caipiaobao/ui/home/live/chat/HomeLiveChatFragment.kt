@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Build
+import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
 import android.view.View.VISIBLE
@@ -24,6 +25,7 @@ import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatPostEvenBean
 import com.fenghuang.caipiaobao.ui.widget.ChatGifTabView
+import com.fenghuang.caipiaobao.ui.widget.popup.RedEnvelopePopup
 import com.fenghuang.caipiaobao.widget.pagegridview.GridPager
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
@@ -173,6 +175,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         ivChatMore.setOnClickListener {
             scrollToBottom()
         }
+        // 获取列表的滑动事件，控制一键到底部
         getRecyclerView()?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == SCROLL_STATE_IDLE || newState == SCROLL_STATE_DRAGGING) {
@@ -180,7 +183,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
                 }
             }
         })
-
+        // 输入框的发送按钮事件
         chatEditText.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 sendMessage()
@@ -191,6 +194,15 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         // 礼物
         ivGift.setOnClickListener {
             mDialog.show()
+        }
+        // 红包
+        ivRedEnvelope.setOnClickListener {
+            val popup = RedEnvelopePopup(getPageActivity())
+            popup.width = ViewUtils.dp2px(280)
+            popup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
+            popup.setOnSendClickListener { total, redNumber, redContent ->
+
+            }
         }
     }
 

@@ -49,6 +49,13 @@
     <item name="pagerGridLottery" type="id" />
     <item name="tvGold" type="id" />
     <item name="gridPager" type="id" />
+    <item name="ivRedTitle" type="id" />
+    <item name="etRedEnvelopeContent" type="id" />
+    <item name="etRedEnvelopeRedNumber" type="id" />
+    <item name="etRedEnvelopeTotal" type="id" />
+    <item name="tvRedNumber" type="id" />
+    <item name="tvRedSend" type="id" />
+    <item name="tvRedTotal" type="id" />
 
     <!-- 排行 -->
     <item name="tvTabLeft" type="id" />
