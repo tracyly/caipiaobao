@@ -221,7 +221,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     fun updateGifList(listData: ArrayList<HomeLiveChatGifBean>) {
         mGridPager.setDataAllCount(listData.size)
                 .setViewPageHeight(150)
-                .setItemBindDataListener { imageView, tvTitle, tvTitleHint, linearLayout, position ->
+                .setItemBindDataListener { imageView, tvTitle, _, tvTitleHint, linearLayout, position ->
                     imageView.setImageResource(listData[position].gifUrl)
                     tvTitle.text = listData[position].title
                     tvTitleHint.text = listData[position].gold.toString()

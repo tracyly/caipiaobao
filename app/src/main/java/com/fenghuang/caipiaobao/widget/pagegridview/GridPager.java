@@ -420,7 +420,7 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
      * 绑定数据
      */
     public interface ItemBindDataListener {
-        void BindData(ImageView imageView, TextView tvTitle, TextView textView, LinearLayout linearLayout, int position);
+        void BindData(ImageView imageView, TextView tvTitle, ImageView ivHotLiveStatus, TextView textView, LinearLayout linearLayout, int position);
     }
 
     /**
@@ -571,6 +571,7 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
                 holder = new ViewHolder();
                 holder.linearLayout = convertView.findViewById(R.id.ll_layout);
                 holder.ivLogo = convertView.findViewById(R.id.item_image);
+                holder.ivHotLiveStatus = convertView.findViewById(R.id.ivHotLiveStatus);
                 holder.tvTitle = convertView.findViewById(R.id.item_title);
                 holder.tvTitleHint = convertView.findViewById(R.id.item_title_hint);
                 holder.ivLogo.setLayoutParams(imageParams);
@@ -589,7 +590,7 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
             final int pos = position + pageindex * pageSize;
             // 绑定数据
             if (itemBindDataListener != null) {
-                itemBindDataListener.BindData(holder.ivLogo, holder.tvTitle, holder.tvTitleHint, holder.linearLayout, pos);
+                itemBindDataListener.BindData(holder.ivLogo, holder.tvTitle, holder.ivHotLiveStatus, holder.tvTitleHint, holder.linearLayout, pos);
             }
             // item点击
             holder.linearLayout.setOnClickListener(v -> {
@@ -604,7 +605,7 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
             private LinearLayout linearLayout;
             private TextView tvTitle;
             private TextView tvTitleHint;
-            private ImageView ivLogo;
+            private ImageView ivLogo, ivHotLiveStatus;
         }
     }
 
