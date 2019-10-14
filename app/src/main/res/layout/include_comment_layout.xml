@@ -6,26 +6,26 @@
     android:layout_height="wrap_content"
     android:padding="10dp">
 
-    <!--<ImageView-->
-    <!--android:id="@id/ivChatEmoji"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginEnd="10dp"-->
-    <!--android:src="@mipmap/ic_live_chat_emoji"-->
-    <!--tools:ignore="ContentDescription" />-->
+    <!--    <ImageView-->
+    <!--    android:id="@id/ivChatEmoji"-->
+    <!--    android:layout_width="wrap_content"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:layout_marginEnd="10dp"-->
+    <!--    android:src="@mipmap/ic_live_chat_emoji"-->
+    <!--    tools:ignore="ContentDescription" />-->
 
-    <!--    <TextView-->
-    <!--        android:layout_width="@dimen/dp_124"-->
-    <!--        android:layout_height="@dimen/dp_32"-->
-    <!--        android:layout_marginEnd="10dp"-->
-    <!--        android:background="@drawable/shape_live_chat_edit"-->
-    <!--        android:gravity="center_vertical"-->
-    <!--        android:hint="@string/live_chat_edit_hint"-->
-    <!--        android:maxLength="48"-->
-    <!--        android:maxLines="4"-->
-    <!--        android:padding="@dimen/dp_6"-->
-    <!--        android:textColorHint="@color/text_grey_light"-->
-    <!--        android:textSize="@dimen/sp_14"/>-->
+    <!--        <TextView-->
+    <!--            android:layout_width="@dimen/dp_124"-->
+    <!--            android:layout_height="@dimen/dp_32"-->
+    <!--            android:layout_marginEnd="10dp"-->
+    <!--            android:background="@drawable/shape_live_chat_edit"-->
+    <!--            android:gravity="center_vertical"-->
+    <!--            android:hint="@string/live_chat_edit_hint"-->
+    <!--            android:maxLength="48"-->
+    <!--            android:maxLines="4"-->
+    <!--            android:padding="@dimen/dp_6"-->
+    <!--            android:textColorHint="@color/text_grey_light"-->
+    <!--            android:textSize="@dimen/sp_14"/>-->
     <EditText
         android:id="@id/chatEditText"
         android:layout_width="match_parent"
@@ -56,7 +56,7 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/ivRedEnvelope"
+        android:id="@id/ivRedEnvelope"
         android:layout_width="@dimen/dp_32"
         android:layout_height="@dimen/dp_32"
         android:layout_marginEnd="@dimen/dp_10"
@@ -64,6 +64,18 @@
         android:textColor="@color/white"
         android:textSize="@dimen/sp_14"
         android:src="@mipmap/ic_live_red_envelope"
+        android:visibility="visible"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@id/ivRecharge"
+        android:layout_width="@dimen/dp_32"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_toStartOf="@id/ivRedEnvelope"
+        android:src="@mipmap/ic_live_red_envelope"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_14"
         android:visibility="visible"
         tools:ignore="ContentDescription" />
 

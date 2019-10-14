@@ -151,10 +151,16 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         super.initEvent()
         rootView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
             val layoutParams = chatEditText.layoutParams as RelativeLayout.LayoutParams
-            //现在认为只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
+            // 只要控件将Activity向上推的高度超过了1/3屏幕高，就认为软键盘弹起
             if (oldBottom != 0 && bottom != 0 && (oldBottom - bottom > mKeyHeight)) {
-                layoutParams.marginEnd = ViewUtils.dp2px(100)
+                setGone(ivGift)
+                setGone(ivRedEnvelope)
+                setGone(ivRecharge)
+                layoutParams.marginEnd = ViewUtils.dp2px(0)
             } else if (oldBottom != 0 && bottom != 0 && (bottom - oldBottom > mKeyHeight)) {
+                setVisible(ivGift)
+                setVisible(ivRedEnvelope)
+                setVisible(ivRecharge)
                 layoutParams.marginEnd = ViewUtils.dp2px(240)
             }
             chatEditText.layoutParams = layoutParams
@@ -236,7 +242,9 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
                     }
                     listData[position].isSelect = true
                     adapter.notifyDataSetChanged()
-                }.show()
+                }
+                .show()
+
     }
 
     private fun sendMessage() {

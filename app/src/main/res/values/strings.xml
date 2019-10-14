@@ -31,6 +31,7 @@
     <string name="live_chat_ordinary">普通</string>
     <string name="live_chat_confession">表白</string>
     <string name="live_chat_lottery_ticket">彩票</string>
+    <string name="live_chat_hint_room">进入直播间</string>
     <!-- 排行 -->
     <string name="ranking_tab_anchor">主播</string>
     <string name="ranking_tab_expert">专家</string>

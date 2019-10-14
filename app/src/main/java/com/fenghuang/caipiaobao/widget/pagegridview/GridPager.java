@@ -90,6 +90,7 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
      */
     private ItemBindDataListener itemBindDataListener;
     private GridItemClickListener gridItemClickListener;
+    private GridAdapter gridAdapter;
 
     public GridPager(Context context) {
         this(context, null);
@@ -392,6 +393,44 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
     }
 
     /**
+     * GridAdapter
+     */
+    private AtMostGridViewAdapter atMostGridViewAdapter;
+
+    /**
+     * viewPager 页面切换监听
+     *
+     * @param i
+     * @param v
+     * @param i1
+     */
+    @Override
+    public void onPageScrolled(int i, float v, int i1) {
+
+    }
+
+    private GridView atMostGridView;
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
+
+    }
+
+    /**
+     * 绑定数据
+     */
+    public interface ItemBindDataListener {
+        void BindData(ImageView imageView, TextView tvTitle, TextView textView, LinearLayout linearLayout, int position);
+    }
+
+    /**
+     * item点击回调
+     */
+    public interface GridItemClickListener {
+        void click(int position, AtMostGridViewAdapter atMostGridViewAdapter);
+    }
+
+    /**
      * 显示
      */
     public void show() {
@@ -421,8 +460,10 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
             viewPagerParams.height = viewPageHeight;
         }
         viewPager.setLayoutParams(viewPagerParams);
-        viewPager.setAdapter(new GridAdapter());
+        gridAdapter = new GridAdapter();
+        viewPager.setAdapter(gridAdapter);
         viewPager.setCurrentItem(0);
+
         if (mIsShow) {
             // 显示指示器
             viewPager.addOnPageChangeListener(this);
@@ -451,46 +492,14 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
         }
     }
 
-    /**
-     * viewPager 页面切换监听
-     *
-     * @param i
-     * @param v
-     * @param i1
-     */
-    @Override
-    public void onPageScrolled(int i, float v, int i1) {
-
-    }
-
     @Override
     public void onPageSelected(int i) {
         andSelectCircleView.setSelectPosition(i);
+        gridAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onPageScrollStateChanged(int i) {
-
-    }
-
-    /**
-     * 绑定数据
-     */
-    public interface ItemBindDataListener {
-        void BindData(ImageView imageView, TextView tvTitle, TextView textView, LinearLayout linearLayout, int position);
-    }
-
-    /**
-     * item点击回调
-     */
-    public interface GridItemClickListener {
-        void click(int position, AtMostGridViewAdapter atMostGridViewAdapter);
-    }
-
-    /**
-     * GridAdapter
-     */
     private class GridAdapter extends PagerAdapter {
+
 
         @Override
         public int getCount() {
@@ -505,12 +514,13 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            GridView atMostGridView = (GridView) View.inflate(getContext(), R.layout.gridpager_mostgridview, null);
+            atMostGridView = (GridView) View.inflate(getContext(), R.layout.gridpager_mostgridview, null);
             atMostGridView.setNumColumns(columnCount);
             if (verticalSpacing > 0) {
                 atMostGridView.setVerticalSpacing(verticalSpacing);
             }
-            atMostGridView.setAdapter(new AtMostGridViewAdapter(getContext(), position));
+            atMostGridViewAdapter = new AtMostGridViewAdapter(getContext(), position);
+            atMostGridView.setAdapter(atMostGridViewAdapter);
             container.addView(atMostGridView);
             return atMostGridView;
         }
@@ -582,12 +592,9 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
                 itemBindDataListener.BindData(holder.ivLogo, holder.tvTitle, holder.tvTitleHint, holder.linearLayout, pos);
             }
             // item点击
-            holder.linearLayout.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (gridItemClickListener != null) {
-                        gridItemClickListener.click(pos, AtMostGridViewAdapter.this);
-                    }
+            holder.linearLayout.setOnClickListener(v -> {
+                if (gridItemClickListener != null) {
+                    gridItemClickListener.click(pos, AtMostGridViewAdapter.this);
                 }
             });
             return convertView;
@@ -600,4 +607,5 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
             private ImageView ivLogo;
         }
     }
+
 }

@@ -97,12 +97,10 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
                 super.onMessage(text)
                 LogUtils.d("WsManager-----onMessage$text")
                 val data = WebUrlProvider.getData<HomeLiveChatBean>(text, HomeLiveChatBean::class.java)
-                if (data?.type != "subscribe") {
-                    // 发送通知弹幕
-                    RxBus.get().post(data)
-                    if (data != null && mView.isActive()) {
-                        mView.addItem(data)
-                    }
+                // 发送通知弹幕
+                RxBus.get().post(data)
+                if (data != null && mView.isActive()) {
+                    mView.addItem(data)
                 }
             }
 
