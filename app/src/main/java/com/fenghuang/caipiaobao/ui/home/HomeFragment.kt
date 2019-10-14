@@ -62,7 +62,6 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         smartRefreshLayout.setRefreshHeader(MaterialHeader(context!!))
         mPresenter.loadCache()
         smartRefreshLayout.setOnRefreshListener {
-            showPageLoading()
             mAdapters?.clear()
             mDelegateAdapter?.clear()
             mPresenter.loadData()
@@ -117,9 +116,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
                 cardView.setOnClickListener {
-                    if (NetWorkUtils.isNetworkConnected())
-                        LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
-                    else ToastUtils.showError("网络连接已断开")
+                    startLiveRoom(data[position].live_status, data[position].anchor_id, data[position].live_intro)
                 }
             }
         }
@@ -144,9 +141,7 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
                 cardView.setOnClickListener {
-                    if (NetWorkUtils.isNetworkConnected())
-                        LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
-                    else ToastUtils.showError("网络连接已断开")
+                    startLiveRoom(data[position].live_status, data[position].anchor_id, data[position].live_intro)
                 }
             }
         }
@@ -186,8 +181,10 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                             ImageManager.loadHomeGameListLogo(it[position].image, imageView!!)
                             tvTitle.text = it[position].name
                         }
-                        .setGridItemClickListener { position, atMostGridViewAdapter ->
-
+                        .setGridItemClickListener { position, _ ->
+                            if (it[position].live_status == 1) {
+                                startLiveRoom(it[position].live_status, it[position].anchor_id, it[position].name)
+                            }
                         }
                         .show()
             }
@@ -241,6 +238,17 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         viewPool.setMaxRecycledViews(0, 20)
         mDelegateAdapter = DelegateAdapter(layoutManager, true)
         recyclerView.adapter = mDelegateAdapter
+    }
+
+    /**
+     * 跳转直播间
+     */
+    private fun startLiveRoom(status: Int, anchorId: Int, name: String) {
+        if (status == 1) {
+            if (NetWorkUtils.isNetworkConnected())
+                LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(anchorId, name))
+            else ToastUtils.showError("网络连接已断开")
+        }
     }
 
     private fun iniTitleView(type: Int) {
