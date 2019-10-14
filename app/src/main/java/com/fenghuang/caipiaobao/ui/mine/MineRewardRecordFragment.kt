@@ -1,10 +1,10 @@
 package com.fenghuang.caipiaobao.ui.mine
 
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.fenghuang.baselib.base.fragment.BaseNavFragment
+import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.mine.data.MineRewardRecordBean
+import com.fenghuang.caipiaobao.ui.mine.data.MineRewardRecordResponse
 import kotlinx.android.synthetic.main.fragment_mine_reward.*
 
 /**
@@ -15,13 +15,18 @@ import kotlinx.android.synthetic.main.fragment_mine_reward.*
  *
  */
 
-class MineRewardRecordFragment : BaseNavFragment() {
+class MineRewardRecordFragment : BaseMvpFragment<MineRewardRecordPresenter>() {
+    override fun attachView() = mPresenter.attachView(this)
+
+    override fun attachPresenter() = MineRewardRecordPresenter()
 
     override fun getContentResID() = R.layout.fragment_mine_reward
 
     override fun getPageTitle() = getString(R.string.mine_reward_record)
 
     override fun isShowBackIconWhite() = false
+
+    override fun isOverridePage() = false
 
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
@@ -32,15 +37,17 @@ class MineRewardRecordFragment : BaseNavFragment() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
     }
 
-    private val newResults = arrayListOf<MineRewardRecordBean>()
     override fun initData() {
-        newResults.add(MineRewardRecordBean("个人资料", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3677209778,3519789803&fm=26&gp=0.jpg", "1", "1", "1"))
-        newResults.add(MineRewardRecordBean("今晚赢球", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3677209778,3519789803&fm=26&gp=0.jpg", "1", "1", "1"))
-        newResults.add(MineRewardRecordBean("今夜有钱花", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3677209778,3519789803&fm=26&gp=0.jpg", "1", "1", "1"))
-        newResults.add(MineRewardRecordBean("天天有前花", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3677209778,3519789803&fm=26&gp=0.jpg", "1", "1", "1"))
-        newResults.add(MineRewardRecordBean("BeRich", "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3677209778,3519789803&fm=26&gp=0.jpg", "1", "1", "1"))
-        val mineRewardRecordAdapter = context?.let { MineRewardRecordAdapter(it) }
-        mineRewardRecordAdapter?.addAll(newResults)
+        mPresenter.getRewordRecord()
+    }
+
+    /**
+     *  更新打赏记录
+     */
+    fun upDateRewardRecord(data: List<MineRewardRecordResponse>) {
+//        smartRefreshLayout.finishRefresh()
+        val mineRewardRecordAdapter = MineRewardRecordAdapter(getPageActivity())
+        mineRewardRecordAdapter.addAll(data)
         rewardRecycle.adapter = mineRewardRecordAdapter
         val value = object : LinearLayoutManager(context) {
             override fun canScrollVertically(): Boolean {

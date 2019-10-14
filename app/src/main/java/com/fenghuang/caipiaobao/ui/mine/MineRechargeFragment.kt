@@ -28,8 +28,6 @@ class MineRechargeFragment : BaseFragment() {
 //        }
         fragments.add(MineRechargeItemFragment())
         fragments.add(MineRechargeCashOutFragment())
-
-
         setTabAdapter(viewPager, tabLayout, fragments, titles)
         ViewUtils.setTabLayoutTextStyle(tabLayout)
         // 设置第一条选中

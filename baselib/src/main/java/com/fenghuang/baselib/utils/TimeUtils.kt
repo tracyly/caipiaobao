@@ -18,7 +18,7 @@ object TimeUtils {
     private val formatHourMinute = SimpleDateFormat("HH:mm", Locale.getDefault())
     private val formatHourAndYear = SimpleDateFormat("HH:mm yyyy-MM-dd", Locale.getDefault())
 
-
+    private val formatYearMonthDayHourMinute = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     /**
      * 获取今天的日期，格式为 2019-01-10
      */
@@ -349,5 +349,13 @@ object TimeUtils {
      */
     fun getDateFormat(time: Long, dateFormat: SimpleDateFormat): String {
         return dateFormat.format(getDate(time))
+    }
+
+    /**
+     * long 类型转换成日期
+     */
+    fun longToDateString(long: Long): String? {
+        val date = Date(long * 1000)
+        return formatYearMonthDayHourMinute.format(date)
     }
 }

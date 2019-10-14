@@ -2,11 +2,13 @@ package com.fenghuang.caipiaobao.ui.mine
 
 import android.content.Context
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
+import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
-import com.fenghuang.caipiaobao.ui.mine.data.MineRewardRecordBean
+import com.fenghuang.caipiaobao.ui.mine.data.MineRewardRecordResponse
 
 /**
  *
@@ -16,19 +18,24 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineRewardRecordBean
  *
  */
 
-class MineRewardRecordAdapter(context: Context) : BaseRecyclerAdapter<MineRewardRecordBean>(context) {
+class MineRewardRecordAdapter(context: Context) : BaseRecyclerAdapter<MineRewardRecordResponse>(context) {
 
 
-    override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineRewardRecordBean> {
+    override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineRewardRecordResponse> {
         return MineRewardRecordHolder(parent)
     }
 
-    inner class MineRewardRecordHolder(parent: ViewGroup) : BaseViewHolder<MineRewardRecordBean>(getContext(), parent, R.layout.holder_mine_reward) {
-        override fun onBindData(data: MineRewardRecordBean) {
-            setText(R.id.tvRewardName, data.name)
-            ImageManager.loadRoundLogo(data.image, findView(R.id.imgRewardPhoto))
+    inner class MineRewardRecordHolder(parent: ViewGroup) : BaseViewHolder<MineRewardRecordResponse>(getContext(), parent, R.layout.holder_mine_reward) {
+        override fun onBindData(data: MineRewardRecordResponse) {
+            ImageManager.loadRoundLogo(data.avatar, findView(R.id.imgRewardPhoto))
+            setText(R.id.tvRewardName, data.nickname)
+            setText(R.id.tvRewardTime, TimeUtils.longToDateString(data.create_time))
+            setText(R.id.tvGiftName, data.giftname)
+            setText(R.id.tvGiftNum, data.gift_num.toString())
+            findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {
+                remove(getDataPosition())
+            }
         }
-
     }
 
 
