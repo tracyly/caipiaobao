@@ -56,4 +56,5 @@
         app:rv_backgroundColor="@color/color_FF513E"
         app:rv_cornerRadius="@dimen/dp_23" />
 
+
 </LinearLayout>

@@ -4,9 +4,9 @@ import android.view.View
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
-import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine_child_view.*
+
 
 /**
  *
@@ -20,17 +20,16 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
 
     override fun attachView() = mPresenter.attachView(this)
 
-    override fun attachPresenter()= MinePresenter()
+    override fun attachPresenter() = MinePresenter()
 
     override fun getLayoutResID() = R.layout.fragment_mine
 
 
 
+
     override fun initData() {
-        mPresenter.initList(getPageActivity(),listItem)
+        mPresenter.initList(getPageActivity(), listItem)
     }
-
-
 
 
     override fun initEvent() {
@@ -43,7 +42,9 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         }
 
         layoutMineSaveMoney.setOnClickListener {
-            startFragment(context, MineRechargeFragment())
+            //            startFragment(context, MineRechargeFragment())
+
+
         }
     }
 

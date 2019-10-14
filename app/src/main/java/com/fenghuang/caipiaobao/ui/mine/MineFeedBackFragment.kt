@@ -34,6 +34,10 @@ class MineFeedBackFragment : BaseNavFragment() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
     }
 
+    override fun initContentView() {
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
+    }
+
     override fun initEvent() {
         publish_ed_desc.addTextChangedListener(object : TextWatcher {
             //记录输入的字数

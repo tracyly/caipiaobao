@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import android.annotation.SuppressLint
 import android.view.View
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
@@ -28,18 +29,21 @@ class MineRechargeCashOutFragment : BaseMvpFragment<MineRechargeCashOutPresenter
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
     }
-
-    override fun initEvent() {
-        rlAddBank.setOnClickListener {
-            startFragment(context, MineAddBankCardFragment())
-        }
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
     }
 
+    override fun initEvent() {
+        rlAddBank.setOnClickListener {
+            startFragment(context, MineAddBankCardFragment())
+        }
+        rlBank.setOnClickListener {
+            startFragment(context, MineBankCardList())
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
     override fun initData() {
         val list = mPresenter.getBankList()
         if (list.isNotEmpty()) {
@@ -52,7 +56,8 @@ class MineRechargeCashOutFragment : BaseMvpFragment<MineRechargeCashOutPresenter
                 list[0].bankType == "4" -> imgBank.background = getDrawable(R.mipmap.ic_mine_zsyh)
             }
             tvBankName.text = list[0].bankName
-            tvBankCode.text = list[0].bankCode
+            tvBankCode.text = "尾号" + list[0].bankCode.substring(list[0].bankCode.length - 4, list[0].bankCode.length) + "储蓄号"
         }
     }
+
 }
