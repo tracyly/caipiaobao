@@ -15,13 +15,13 @@
     <item name="ivNotice" type="id" />
     <item name="tvNotice" type="id" />
     <item name="tvNoticeMassage" type="id" />
-    <item name="ivGameLogo" type="id" />
+    <item name="ivLogo" type="id" />
     <item name="recyclerView" type="id" />
     <item name="tabLayout" type="id" />
     <item name="divider" type="id" />
     <item name="viewPager" type="id" />
     <item name="smartRefreshLayout" type="id" />
-    <item name="tvGameName" type="id" />
+    <item name="tvName" type="id" />
     <item name="cardView" type="id" />
     <item name="pagerGrid" type="id" />
     <item name="ivHotLiveLogo" type="id" />
@@ -42,6 +42,20 @@
     <item name="tvRecommendProfit" type="id" />
     <item name="tvExpertRecommendGameName" type="id" />
     <item name="tvHomeMore" type="id" />
+    <item name="flChatGif" type="id" />
+    <item name="flChatGifLayout" type="id" />
+    <item name="pagerGridOrdinary" type="id" />
+    <item name="pagerGridConfession" type="id" />
+    <item name="pagerGridLottery" type="id" />
+    <item name="tvGold" type="id" />
+    <item name="gridPager" type="id" />
+    <item name="ivRedTitle" type="id" />
+    <item name="etRedEnvelopeContent" type="id" />
+    <item name="etRedEnvelopeRedNumber" type="id" />
+    <item name="etRedEnvelopeTotal" type="id" />
+    <item name="tvRedNumber" type="id" />
+    <item name="tvRedSend" type="id" />
+    <item name="tvRedTotal" type="id" />
 
     <!-- 排行 -->
     <item name="tvTabLeft" type="id" />
@@ -147,6 +161,18 @@
     <item name="ivAnchorLogo" type="id" />
     <item name="rlChatLayout" type="id" />
     <item name="rlAnchor" type="id" />
+    <item name="rlChatGifOrdinary" type="id" />
+    <item name="tvTabOrdinary" type="id" />
+    <item name="roundOrdinaryLine" type="id" />
+    <item name="rlChatTabConfession" type="id" />
+    <item name="tvTabConfession" type="id" />
+    <item name="roundConfessionLine" type="id" />
+    <item name="rlChatTabLottery" type="id" />
+    <item name="tvTabLottery" type="id" />
+    <item name="roundLotteryLine" type="id" />
+    <item name="chatGifTabView" type="id" />
+    <item name="ivRecharge" type="id" />
+    <!--    <item name="chatGifContent" type="id" />-->
 
 
 </resources>

@@ -45,8 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/dp_48"
-        android:gravity="center"
         android:background="@color/color_FBFBFB"
+        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
@@ -83,5 +83,33 @@
             android:layout_height="wrap_content"
             android:visibility="gone" />
     </LinearLayout>
+
+    <!--    <FrameLayout-->
+    <!--        android:id="@id/flChatGifLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:visibility="gone">-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_gravity="bottom"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <com.fenghuang.caipiaobao.ui.widget.ChatGifTabView-->
+    <!--                android:id="@id/chatGifTabView"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:background="@color/white" />-->
+
+    <!--            <androidx.viewpager.widget.ViewPager-->
+    <!--                android:id="@id/viewPager"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="@dimen/dp_210"-->
+    <!--                app:layout_constraintTop_toBottomOf="@id/chatGifTabView"-->
+    <!--                tools:ignore="UselessLeaf" />-->
+    <!--        </LinearLayout>-->
+
+    <!--    </FrameLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,4 +48,11 @@ data class HomeLiveRoomListBean(var liveUrl: HomeLiveRoomListLiveUrlBean,
 data class HomeLiveRoomListLiveUrlBean(var fluentPullUrl: String,
                                        var hdPullUrl: String,
                                        var highPullUrl: String,
+
                                        var originPullUrl: String)
+
+// gif礼物
+data class HomeLiveChatGifBean(var gifUrl: Int,
+                               var title: String,
+                               var gold: Int,
+                               var isSelect: Boolean)

@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.home
 
+import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,7 +22,7 @@ import com.fenghuang.caipiaobao.ui.home.live.HomeLiveDetailsFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.MarqueeTextView
 import com.fenghuang.caipiaobao.widget.cardview.LCardView
-import com.fenghuang.caipiaobao.widget.pagegridview.PageGridView
+import com.fenghuang.caipiaobao.widget.pagegridview.GridPager
 import com.hwangjr.rxbus.RxBus
 import com.pingerx.banner.BannerView
 import com.pingerx.banner.holder.BannerHolderCreator
@@ -62,7 +63,6 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         smartRefreshLayout.setRefreshHeader(MaterialHeader(context!!))
         mPresenter.loadCache()
         smartRefreshLayout.setOnRefreshListener {
-            showPageLoading()
             mAdapters?.clear()
             mDelegateAdapter?.clear()
             mPresenter.loadData()
@@ -116,10 +116,12 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 holder.setText(R.id.tvHotLiveTag, data[position].tags[0].title)
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
+                if (data[position].live_status == 1)
+                    holder.setVisible(R.id.ivHotLiveStatus, true)
+                else
+                    holder.setVisible(R.id.ivHotLiveStatus, false)
                 cardView.setOnClickListener {
-                    if (NetWorkUtils.isNetworkConnected())
-                        LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
-                    else ToastUtils.showError("网络连接已断开")
+                    startLiveRoom(data[position].live_status, data[position].anchor_id, data[position].live_intro)
                 }
             }
         }
@@ -143,10 +145,12 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 holder.setText(R.id.tvHotLiveTag, data[position].tags[0].title)
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
+                if (data[position].live_status == 1)
+                    holder.setVisible(R.id.ivHotLiveStatus, true)
+                else
+                    holder.setVisible(R.id.ivHotLiveStatus, false)
                 cardView.setOnClickListener {
-                    if (NetWorkUtils.isNetworkConnected())
-                        LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(data[position].anchor_id, data[position].live_intro))
-                    else ToastUtils.showError("网络连接已断开")
+                    startLiveRoom(data[position].live_status, data[position].anchor_id, data[position].live_intro)
                 }
             }
         }
@@ -180,8 +184,19 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         val mGameListAdapter = object : HomeDelegateAdapter(getPageActivity(), LinearLayoutHelper(), R.layout.holder_home_game_viewpager, 1, HomeViewTypeConstant.TYPE_GAME_LIST) {
             override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
                 super.onBindViewHolder(holder, position)
-                val mPagerGrid = holder.getView<PageGridView<HomeGameListResponse>>(R.id.pagerGrid)
-                mPagerGrid.setData(it)
+                val mPagerGrid = holder.getView<GridPager>(R.id.gridPager)
+                mPagerGrid.setDataAllCount(it.size)
+                        .setItemBindDataListener { imageView, tvTitle, ivLiveStatus, _, _, position ->
+                            ImageManager.loadHomeGameListLogo(it[position].image, imageView!!)
+                            tvTitle.text = it[position].name
+                            if (it[position].live_status == 1) ivLiveStatus.visibility = View.VISIBLE else ivLiveStatus.visibility = View.GONE
+                        }
+                        .setGridItemClickListener { position, _ ->
+                            if (it[position].live_status == 1) {
+                                startLiveRoom(it[position].live_status, it[position].anchor_id, it[position].name)
+                            }
+                        }
+                        .show()
             }
         }
         mAdapters?.add(mGameListAdapter)
@@ -233,6 +248,17 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         viewPool.setMaxRecycledViews(0, 20)
         mDelegateAdapter = DelegateAdapter(layoutManager, true)
         recyclerView.adapter = mDelegateAdapter
+    }
+
+    /**
+     * 跳转直播间
+     */
+    private fun startLiveRoom(status: Int, anchorId: Int, name: String) {
+        if (status == 1) {
+            if (NetWorkUtils.isNetworkConnected())
+                LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(anchorId, name))
+            else ToastUtils.showError("网络连接已断开")
+        }
     }
 
     private fun iniTitleView(type: Int) {

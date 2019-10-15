@@ -5,15 +5,28 @@
     android:layout_height="wrap_content"
     android:background="@color/white">
 
-    <com.fenghuang.caipiaobao.widget.pagegridview.PageGridView
-        android:id="@id/pagerGrid"
+    <com.fenghuang.caipiaobao.widget.pagegridview.GridPager
+        android:id="@id/gridPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dp_12"
+        android:layout_height="wrap_content"
+        app:background_color="@color/white"
+        app:column_count="3"
+        app:img_height="@dimen/dp_66"
+        app:img_width="@dimen/dp_76"
+        app:imgtext_margin="@dimen/dp_12"
         app:layout_constraintTop_toTopOf="parent"
-        app:numColumns="3"
-        app:pageSize="6"
-        app:itemView="@layout/holder_home_game_list"
-        app:vpPadding="1dp" />
+        app:point_height="@dimen/dp_2"
+        app:point_is_circle="false"
+        app:point_is_show="true"
+        app:point_margin="@dimen/dp_12"
+        app:point_margin_bottom="@dimen/dp_10"
+        app:point_margin_page="@dimen/dp_20"
+        app:point_normal_color="@color/color_EEEEEE"
+        app:point_select_color="@color/color_FF513E"
+        app:point_width="@dimen/dp_14"
+        app:row_count="2"
+        app:text_color="@color/color_333333"
+        app:text_size="@dimen/sp_12"
+        app:verticalSpacing="@dimen/dp_10" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,5 @@
 package com.fenghuang.caipiaobao.ui.home.data
 
-import android.view.View
-import android.widget.ImageView
-import com.fenghuang.caipiaobao.manager.ImageManager
-import com.fenghuang.caipiaobao.widget.pagegridview.PageGridView
-
 /**
  *  author : Peter
  *  date   : 2019/9/5 13:10
@@ -33,18 +28,7 @@ data class HomeGameListResponse(var anchor_id: Int,
                                 var image: String,
                                 var live_status: Int,
                                 var live_status_txt: String,
-                                var name: String) : PageGridView.ItemModel {
-    override fun getItemName(): String {
-        return name
-    }
-
-    override fun setIcon(imageView: ImageView?) {
-        ImageManager.loadHomeGameListLogo(image, imageView!!)
-    }
-
-    override fun setItemView(itemView: View?) {
-    }
-}
+                                var name: String)
 
 // 热门直播 & 专家直播
 data class HomeLiveListResponse(var anchor_id: Int,

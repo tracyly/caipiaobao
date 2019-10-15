@@ -80,6 +80,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/dp_4"
                 android:layout_toEndOf="@id/tvHotLiveName"
+                android:visibility="gone"
                 android:src="@mipmap/ic_home_hot_live_live_broadcast"
                 tools:ignore="ContentDescription" />
 

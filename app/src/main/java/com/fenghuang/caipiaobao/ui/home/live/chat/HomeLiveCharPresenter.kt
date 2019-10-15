@@ -2,10 +2,12 @@ package com.fenghuang.caipiaobao.ui.home.live.chat
 
 import android.content.Context
 import com.fenghuang.baselib.base.recycler.BaseRecyclerPresenter
+import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.data.api.WebUrlProvider
 import com.fenghuang.caipiaobao.socket.WsManager
 import com.fenghuang.caipiaobao.socket.listener.WsStatusListener
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean
 import com.hwangjr.rxbus.RxBus
 import me.jessyan.autosize.utils.LogUtils
 import okhttp3.OkHttpClient
@@ -95,12 +97,10 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
                 super.onMessage(text)
                 LogUtils.d("WsManager-----onMessage$text")
                 val data = WebUrlProvider.getData<HomeLiveChatBean>(text, HomeLiveChatBean::class.java)
-                if (data?.type != "subscribe") {
-                    // 发送通知弹幕
-                    RxBus.get().post(data)
-                    if (data != null && mView.isActive()) {
-                        mView.addItem(data)
-                    }
+                // 发送通知弹幕
+                RxBus.get().post(data)
+                if (data != null && mView.isActive()) {
+                    mView.addItem(data)
                 }
             }
 
@@ -133,5 +133,17 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
                 }
             }
         }
+    }
+
+
+    /**
+     * 获取gif礼物
+     */
+    fun loadGifData() {
+        var listData = arrayListOf<HomeLiveChatGifBean>()
+        for (i in 0..20) {
+            listData.add(HomeLiveChatGifBean(R.mipmap.ic_home_live_notice_1, "礼物$i", i, false))
+        }
+        mView.updateGifList(listData)
     }
 }

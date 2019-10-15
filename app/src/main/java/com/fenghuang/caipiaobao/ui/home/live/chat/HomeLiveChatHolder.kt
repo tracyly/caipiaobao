@@ -17,10 +17,13 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
 
     inner class ViewHolder(parent: ViewGroup) : BaseViewHolder<HomeLiveChatBean>(context, parent, R.layout.holder_live_chat) {
         override fun onBindData(data: HomeLiveChatBean) {
-
-            setText(R.id.tvLiveChatVip, data.room_id)
+            if (data.type == "subscribe") {
+                setText(R.id.tvLiveChatContent, getString(R.string.live_chat_hint_room))
+            } else {
+                if (isNotEmpty(data.text)) setText(R.id.tvLiveChatContent, data.text)
+            }
             setText(R.id.tvLiveChatUserName, data.userName)
-            if (isNotEmpty(data.text)) setText(R.id.tvLiveChatContent, data.text)
+            setText(R.id.tvLiveChatVip, data.room_id)
         }
 
     }

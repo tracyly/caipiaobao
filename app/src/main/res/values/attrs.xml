@@ -175,45 +175,6 @@
         <attr name="borderNum" format="integer" />
     </declare-styleable>
 
-    <declare-styleable name="PageGridView">
-        <!--每页大小-->
-        <attr name="pageSize" format="integer|reference" />
-        <!--是否显示指示点-->
-        <attr name="isShowIndicator" format="boolean" />
-        <!--选中指示点-->
-        <attr name="selectedIndicator" format="reference" />
-        <!--未选中指示点-->
-        <attr name="unSelectedIndicator" format="reference" />
-        <!--指示器位置-->
-        <attr name="indicatorGravity" format="enum">
-            <enum name="left" value="0" />
-            <enum name="center" value="1" />
-            <enum name="right" value="2" />
-        </attr>
-        <!--指示器左内边距-->
-        <attr name="indicatorPaddingLeft" format="dimension" />
-        <!--指示器右内边距-->
-        <attr name="indicatorPaddingRight" format="dimension" />
-        <!--指示器上内边距-->
-        <attr name="indicatorPaddingTop" format="dimension" />
-        <!--指示器下内边距-->
-        <attr name="indicatorPaddingBottom" format="dimension" />
-        <!--指示器内边距-->
-        <attr name="indicatorPadding" format="dimension" />
-        <!--指示器背景颜色-->
-        <attr name="indicatorBackground" format="color" />
-
-        <!--ViewPager背景资源-->
-        <attr name="vpBackground" format="reference|color" />
-
-        <!--ViewPager 内边距-->
-        <attr name="vpPadding" format="dimension" />
-        <!--列数-->
-        <attr name="numColumns" format="integer|reference" />
-        <!--Item布局-->
-        <attr name="itemView" format="reference" />
-
-    </declare-styleable>
 
     <!-- cardView -->
     <declare-styleable name="LCardView">
@@ -247,5 +208,61 @@
         <item>绿灯降序</item>
         <item>黄灯升序</item>
     </string-array>
+
+    <declare-styleable name="GridPager">
+        <!--背景颜色-->
+        <attr name="background_color" format="color|reference" />
+        <!--竖直方向的间距-->
+        <attr name="verticalSpacing" format="dimension" />
+        <!--icon 宽度-->
+        <attr name="img_width" format="dimension" />
+        <!--icon 高度-->
+        <attr name="img_height" format="dimension" />
+        <!--文字颜色-->
+        <attr name="text_color" format="color|reference" />
+        <!--文字大小-->
+        <attr name="text_size" format="dimension" />
+        <!--文字与icon的间距-->
+        <attr name="imgtext_margin" format="dimension" />
+        <!--行数-->
+        <attr name="row_count" format="integer" />
+        <!--列数-->
+        <attr name="column_count" format="integer" />
+
+        <!--指示点配置-->
+        <!-- 设置子控件显示的宽度 -->
+        <attr name="point_width" format="dimension" />
+        <!-- 设置子控件显示的高度 -->
+        <attr name="point_height" format="dimension" />
+        <!-- 设置子控件之间的间距 -->
+        <attr name="point_margin" format="dimension" />
+        <!-- 正常情况下显示的颜色 -->
+        <attr name="point_normal_color" format="color|reference" />
+        <!-- 选中的时候显示的颜色 -->
+        <attr name="point_select_color" format="color|reference" />
+        <!-- 子空间是否显示为圆形，默认为true，此时控件的大小为宽和高中的最小值 -->
+        <attr name="point_is_circle" format="boolean" />
+        <!-- 设置指示器与page的间距 -->
+        <attr name="point_margin_page" format="dimension" />
+        <!-- 设置指示器与底部的间距 -->
+        <attr name="point_margin_bottom" format="dimension" />
+        <!-- 是否展示指示器 -->
+        <attr name="point_is_show" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="AndSelectCircleView">
+        <!-- 设置子控件显示的宽度 -->
+        <attr name="child_width" format="dimension" />
+        <!-- 设置子控件显示的高度 -->
+        <attr name="child_height" format="dimension" />
+        <!-- 设置子控件之间的间距 -->
+        <attr name="child_margin" format="dimension" />
+        <!-- 子空间是否显示为圆形，默认为true，此时控件的大小为宽和高中的最小值 -->
+        <attr name="is_circle" format="boolean" />
+        <!-- 正常情况下显示的颜色 -->
+        <attr name="normal_color" format="color|reference" />
+        <!-- 选中的时候显示的颜色 -->
+        <attr name="select_color" format="color|reference" />
+    </declare-styleable>
 
 </resources>
