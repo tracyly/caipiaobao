@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Build
+import android.os.Bundle
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.View
@@ -20,7 +21,9 @@ import com.fenghuang.baselib.base.recycler.BaseMultiRecyclerFragment
 import com.fenghuang.baselib.utils.*
 import com.fenghuang.baselib.widget.dialog.MaterialBottomDialog
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.function.isEmpty
+import com.fenghuang.caipiaobao.function.isNotEmpty
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatPostEvenBean
@@ -200,8 +203,12 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
             val popup = RedEnvelopePopup(getPageActivity())
             popup.width = ViewUtils.dp2px(280)
             popup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
-            popup.setOnSendClickListener { total, redNumber, redContent ->
-
+            popup.setOnSendClickListener { total, redNumber, redContent, password ->
+                if (isNotEmpty(password)) {
+                    mPresenter.sendRedEnvelope(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                            ?: 0, IntentConstant.USER_ID, total.toInt(), redNumber.toInt(), redContent, password)
+                    popup.dismiss()
+                } else ToastUtils.showToast(getString(R.string.live_chat_red_hin_password))
             }
         }
     }
@@ -276,6 +283,16 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
                 LogUtils.d("WsManager----------网络不可用")
                 mPresenter.stopConnect()
             }
+        }
+    }
+
+    companion object {
+        fun newInstance(anchorId: Int): HomeLiveChatFragment {
+            val fragment = HomeLiveChatFragment()
+            val bundle = Bundle()
+            bundle.putInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID, anchorId)
+            fragment.arguments = bundle
+            return fragment
         }
     }
 }

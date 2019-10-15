@@ -19,7 +19,8 @@ data class HomeLiveChatBean(var position: String,
                             var color: String,
                             var isMe: Boolean,
                             var user_id: String,
-                            var userName: String) : Parcelable
+                            var userName: String,
+                            var vip: Int) : Parcelable
 
 // 横屏时发送的聊天弹幕消息
 data class HomeLiveChatPostEvenBean(var content: String)
@@ -56,3 +57,7 @@ data class HomeLiveChatGifBean(var gifUrl: Int,
                                var title: String,
                                var gold: Int,
                                var isSelect: Boolean)
+
+data class HomeLiveRedEnvelopeBean(var cade: Int,
+                                   var msg: String,
+                                   var time: String)

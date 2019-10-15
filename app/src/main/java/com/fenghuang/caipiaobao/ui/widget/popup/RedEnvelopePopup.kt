@@ -21,16 +21,19 @@ class RedEnvelopePopup(context: Context) : BasePopupWindow(context, R.layout.pop
         val etRedEnvelopeTotal = findView<EditText>(R.id.etRedEnvelopeTotal)
         val etRedEnvelopeRedNumber = findView<EditText>(R.id.etRedEnvelopeRedNumber)
         val etRedEnvelopeContent = findView<EditText>(R.id.etRedEnvelopeContent)
+        val etRedEnvelopePassword = findView<EditText>(R.id.etRedEnvelopePassword)
         findView<TextView>(R.id.tvRedSend).setOnClickListener {
             val total = if (etRedEnvelopeTotal.text.toString().isNotEmpty()) etRedEnvelopeTotal.text.toString() else etRedEnvelopeTotal.hint.toString()
             val number = if (etRedEnvelopeRedNumber.text.toString().isNotEmpty()) etRedEnvelopeRedNumber.text.toString() else etRedEnvelopeRedNumber.hint.toString()
             val content = if (etRedEnvelopeContent.text.toString().isNotEmpty()) etRedEnvelopeContent.text.toString() else etRedEnvelopeContent.hint.toString()
-            mListener?.invoke(total, number, content)
+            val password = etRedEnvelopePassword.text.toString()
+            mListener?.invoke(total, number, content, password)
         }
     }
 
-    private var mListener: ((total: String, redNumber: String, redContent: String) -> Unit)? = null
-    fun setOnSendClickListener(listener: (total: String, redNumber: String, redContent: String) -> Unit) {
+
+    private var mListener: ((total: String, redNumber: String, redContent: String, password: String) -> Unit)? = null
+    fun setOnSendClickListener(listener: (total: String, redNumber: String, redContent: String, password: String) -> Unit) {
         mListener = listener
     }
 

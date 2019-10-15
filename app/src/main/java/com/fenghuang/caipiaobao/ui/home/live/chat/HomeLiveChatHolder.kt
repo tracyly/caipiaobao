@@ -23,7 +23,7 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
                 if (isNotEmpty(data.text)) setText(R.id.tvLiveChatContent, data.text)
             }
             setText(R.id.tvLiveChatUserName, data.userName)
-            setText(R.id.tvLiveChatVip, data.room_id)
+            setText(R.id.tvLiveChatVip, "V" + data.vip.toString())
         }
 
     }

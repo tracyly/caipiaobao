@@ -2,10 +2,13 @@ package com.fenghuang.caipiaobao.ui.home.live.chat
 
 import android.content.Context
 import com.fenghuang.baselib.base.recycler.BaseRecyclerPresenter
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.data.api.WebUrlProvider
 import com.fenghuang.caipiaobao.socket.WsManager
 import com.fenghuang.caipiaobao.socket.listener.WsStatusListener
+import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean
 import com.hwangjr.rxbus.RxBus
@@ -31,7 +34,7 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
 
     override fun loadData(page: Int) {
         jsonObject.put("room_id", "100001")
-        jsonObject.put("user_id", "6")
+        jsonObject.put("user_id", IntentConstant.USER_ID)
         initStatusListener()
     }
 
@@ -63,7 +66,7 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
     fun sendMessage(content: String) {
         jsonObject.put("type", "publish")
         jsonObject.put("room_id", "100001")
-        jsonObject.put("user_id", "6")
+        jsonObject.put("user_id", IntentConstant.USER_ID)
         jsonObject.put("text", content)
         mWsManager?.sendMessage(jsonObject.toString())
     }
@@ -145,5 +148,19 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
             listData.add(HomeLiveChatGifBean(R.mipmap.ic_home_live_notice_1, "礼物$i", i, false))
         }
         mView.updateGifList(listData)
+    }
+
+    /**
+     * 发送红包
+     */
+    fun sendRedEnvelope(anchorId: Int, userId: Int, amount: Int, num: Int, text: String, password: String) {
+        HomeApi.getHomeLiveSendRedEnvelope(anchorId, userId, amount.toFloat(), num, text, password) {
+            onSuccess {
+                ToastUtils.showSuccess(it.msg)
+            }
+            onFailed {
+                ToastUtils.showError(it.getMsg())
+            }
+        }
     }
 }

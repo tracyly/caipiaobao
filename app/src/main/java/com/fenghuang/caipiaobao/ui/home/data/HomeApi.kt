@@ -23,6 +23,7 @@ object HomeApi : BaseApi {
     private const val HOME_EXPERT_RECOMMEND = "/index.php/api/v1/live/pro_red"
     private const val HOME_LIVE_CHAT_REWARD_LIST = "/index.php/api/v1/live/get_reward_list"
     private const val HOME_LIVE_ROOM = "index.php/api/v1/live/get_live_room"
+    private const val HOME_LIVE_SEND_RED_ENVELOPE = "api/v1/user/send_red"
 
     /**
      * 获取首页轮播图列表
@@ -133,6 +134,22 @@ object HomeApi : BaseApi {
         getApi().get<HomeLiveRoomBean>(HOME_LIVE_ROOM)
                 .params("anchor_id", anchorId)
                 .params("user_id", userId)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 直播间发送红包
+     */
+    fun getHomeLiveSendRedEnvelope(anchorId: Int, userId: Int, amount: Float, num: Int, text: String, password: String, function: ApiSubscriber<HomeLiveRedEnvelopeBean>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<HomeLiveRedEnvelopeBean>() {}
+        subscriber.function()
+        getApi().post<HomeLiveRedEnvelopeBean>(HOME_LIVE_SEND_RED_ENVELOPE)
+                .params("anchor_id", anchorId)
+                .params("user_id", userId)
+                .params("amount", amount)
+                .params("num", num)
+                .params("text", text)
+                .params("password", password)
                 .subscribe(subscriber)
     }
 }

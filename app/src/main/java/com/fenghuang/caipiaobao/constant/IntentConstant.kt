@@ -5,6 +5,9 @@ package com.fenghuang.caipiaobao.constant
  */
 object IntentConstant {
 
+    const val USER_ID = 157
+    const val PASSWORD = "123456"
+
     const val HOME_LIVE_CHAT_ANCHOR_ID = "HOME_LIVE_CHAT_ANCHOR_ID"
     const val HOME_LIVE_CHAT_TITLE = "HOME_LIVE_CHAT_TITLE"
 }

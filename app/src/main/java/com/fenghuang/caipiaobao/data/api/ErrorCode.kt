@@ -6,5 +6,6 @@ package com.fenghuang.caipiaobao.data.api
 object ErrorCode {
 
     const val SUCCESS = 1
+    const val FAILURE = 0
 
 }

@@ -41,7 +41,8 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     override fun initContentView() {
         super.initContentView()
         setStatusBarHeight(statusView)
-        mPresenter.loadLiveInfo(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID) ?: 0, 0)
+        mPresenter.loadLiveInfo(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                ?: 0, IntentConstant.USER_ID)
         initVideo()
         initPagerContent()
     }
@@ -97,7 +98,8 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     private fun initPagerContent() {
         loadRootFragment(R.id.rlTabLayout, HomeLiveRoomTopFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
                 ?: 0))
-        loadRootFragment(R.id.rlChatLayout, HomeLiveChatFragment())
+        loadRootFragment(R.id.rlChatLayout, HomeLiveChatFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                ?: 0))
     }
 
     override fun initData() {
