@@ -110,6 +110,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":baselib")
+    implementation project(":rxnetgo")
 //    implementation project(':dkplayer-java')
     // 官方api
     compileOnly appcompat
@@ -121,6 +122,7 @@ dependencies {
     compileOnly okhttp3
     compileOnly autoSize
     compileOnly rxbus
+    compileOnly rxandroid2
 
     implementation kotlin
     implementation ktx
@@ -143,7 +145,7 @@ dependencies {
     implementation ijkplayer
     implementation easy_player_armv7a
     // 网络
-    implementation rxnetgo
+//    implementation rxnetgo
 
     // banner
     implementation bannerview

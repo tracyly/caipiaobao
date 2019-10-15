@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/baselib/baselib.iml" filepath="$PROJECT_DIR$/baselib/baselib.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/caipiaobao.iml" filepath="$PROJECT_DIR$/.idea/caipiaobao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rxnetgo/rxnetgo.iml" filepath="$PROJECT_DIR$/rxnetgo/rxnetgo.iml" />
     </modules>
   </component>
 </project>
