@@ -22,14 +22,14 @@ class ApiConvert<T>(private var type: Type? = null,
         if (TextUtils.isEmpty(json)) throw ApiException(code = NetErrorEngine.DATA_ERROR)
         val bean = JsonUtils.fromJson(json, BaseApiBean::class.java)
         if (bean.code == ErrorCode.SUCCESS) {
-            val data = bean.data
             // 后端返回的code是成功的，但是data会空的
-            return if (data != null) {
-                return JsonUtils.fromJson(data, getType())
-            } else null
+            return if (bean.data != null && !bean.data.isJsonNull) {
+                return JsonUtils.fromJson(bean.data, getType())
+            } else return JsonUtils.fromJson(json, getType())
         } else {
             // 根据服务端的code来分发消息
             throw ApiException(msg = bean.msg)
+//            throw Exception(bean.msg)
         }
     }
 

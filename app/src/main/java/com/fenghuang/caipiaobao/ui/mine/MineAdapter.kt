@@ -10,7 +10,9 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineDataBean
 class MineAdapter(context: Context) : BaseRecyclerAdapter<MineDataBean>(context) {
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineDataBean> {
+
         return MineItemHolder(parent)
+
     }
 
     inner class MineItemHolder(parent: ViewGroup) : BaseViewHolder<MineDataBean>(getContext(), parent, R.layout.holder_mine_item) {
@@ -25,11 +27,7 @@ class MineAdapter(context: Context) : BaseRecyclerAdapter<MineDataBean>(context)
                 "打赏记录" -> startFragment(MineRewardRecordFragment())
                 "联系客服" -> startFragment(MineContactCustomerFragment())
                 "个人资料" -> startFragment(MinePersonalFragment())
-
             }
         }
-
-
     }
-
 }

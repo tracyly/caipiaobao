@@ -12,7 +12,9 @@ import com.fenghuang.caipiaobao.ui.home.data.HomeApi
  *
  */
 object MineApi : BaseApi {
-    private const val MINE_REWORD_RECOED = "/index.php/api/v1/user/user_reward_list/"
+    private const val MINE_REWORD_RECORD = "/index.php/api/v1/user/user_reward_list/"
+
+    private const val MINE_FEED_BACK = "/index.php/api/v1/user/user_feedback/"
 
     /**
      * 获取打赏记录
@@ -21,10 +23,26 @@ object MineApi : BaseApi {
     fun getRewardRecord(function: ApiSubscriber<List<MineRewardRecordResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineRewardRecordResponse>>() {}
         subscriber.function()
-        HomeApi.getApi().get<List<MineRewardRecordResponse>>(MINE_REWORD_RECOED)
+        HomeApi.getApi().get<List<MineRewardRecordResponse>>(MINE_REWORD_RECORD)
                 .params("user_id", 1)
                 .subscribe(subscriber)
+    }
 
+    /**
+     * 反馈意见
+     */
+
+    fun feedBack(user_id: Int, type: Int, text: String, phone: Long, qq: Int, email: String, function: ApiSubscriber<MineFeedBackResponse>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<MineFeedBackResponse>() {}
+        subscriber.function()
+        HomeApi.getApi().get<MineFeedBackResponse>(MINE_FEED_BACK)
+                .params("user_id", user_id)
+                .params("type", type)
+                .params("text", text)
+                .params("phone", phone)
+                .params("qq", qq)
+                .params("email", email)
+                .subscribe(subscriber)
     }
 
 }

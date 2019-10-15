@@ -44,6 +44,7 @@
 
 
     <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/btSubMit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46"
         android:layout_marginStart="@dimen/dp_34"

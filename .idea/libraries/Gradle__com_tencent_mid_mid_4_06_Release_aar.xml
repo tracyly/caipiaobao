@@ -2,8 +2,8 @@
   <library name="Gradle: com.tencent.mid:mid:4.06-Release@aar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mid-4.06-Release.aar/e8477dde0299a790275413e64fce4d16/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mid-4.06-Release.aar/e8477dde0299a790275413e64fce4d16/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mid-4.06-Release.aar/e8477dde0299a790275413e64fce4d16/jars/libs/mid-sdk-4.06.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mid-4.06-Release.aar/e8477dde0299a790275413e64fce4d16/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
