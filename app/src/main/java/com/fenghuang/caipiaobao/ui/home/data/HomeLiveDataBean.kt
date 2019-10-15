@@ -58,6 +58,4 @@ data class HomeLiveChatGifBean(var gifUrl: Int,
                                var gold: Int,
                                var isSelect: Boolean)
 
-data class HomeLiveRedEnvelopeBean(var cade: Int,
-                                   var msg: String,
-                                   var time: String)
+data class HomeLiveRedEnvelopeBean(var rid: String)

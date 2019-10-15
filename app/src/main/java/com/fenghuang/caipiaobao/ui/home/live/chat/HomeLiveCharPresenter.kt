@@ -156,11 +156,26 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
     fun sendRedEnvelope(anchorId: Int, userId: Int, amount: Int, num: Int, text: String, password: String) {
         HomeApi.getHomeLiveSendRedEnvelope(anchorId, userId, amount.toFloat(), num, text, password) {
             onSuccess {
-                ToastUtils.showSuccess(it.msg)
+                ToastUtils.showSuccess("发送红包成功")
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
             }
         }
     }
+
+    /**
+     * 验证支付密码
+     */
+    fun getIsPayPassword() {
+        HomeApi.getIsPayPassword(IntentConstant.USER_ID) {
+            onSuccess {
+                mView.sendRedEnvelope()
+            }
+            onFailed {
+                ToastUtils.showError(it.getMsg())
+            }
+        }
+    }
+
 }

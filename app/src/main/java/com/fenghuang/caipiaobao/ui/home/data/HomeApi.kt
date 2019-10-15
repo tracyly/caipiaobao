@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.home.data
 import com.fenghuang.caipiaobao.data.api.ApiConvert
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.fenghuang.caipiaobao.data.bean.BaseApiBean
 import com.google.gson.reflect.TypeToken
 import com.pingerx.rxnetgo.rxcache.CacheMode
 import io.reactivex.Flowable
@@ -23,7 +24,8 @@ object HomeApi : BaseApi {
     private const val HOME_EXPERT_RECOMMEND = "/index.php/api/v1/live/pro_red"
     private const val HOME_LIVE_CHAT_REWARD_LIST = "/index.php/api/v1/live/get_reward_list"
     private const val HOME_LIVE_ROOM = "index.php/api/v1/live/get_live_room"
-    private const val HOME_LIVE_SEND_RED_ENVELOPE = "api/v1/user/send_red"
+    private const val HOME_LIVE_SEND_RED_ENVELOPE = "index.php/api/v1/user/send_red"
+    private const val HOME_LIVE_PAY_PASSWORD = " index.php/api/v1/user/ver_pay_pass"
 
     /**
      * 获取首页轮播图列表
@@ -150,6 +152,17 @@ object HomeApi : BaseApi {
                 .params("num", num)
                 .params("text", text)
                 .params("password", password)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 验证是否设置支付密码
+     */
+    fun getIsPayPassword(userId: Int, function: ApiSubscriber<BaseApiBean>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<BaseApiBean>() {}
+        subscriber.function()
+        getApi().post<BaseApiBean>(HOME_LIVE_PAY_PASSWORD)
+                .params("user_id", userId)
                 .subscribe(subscriber)
     }
 }

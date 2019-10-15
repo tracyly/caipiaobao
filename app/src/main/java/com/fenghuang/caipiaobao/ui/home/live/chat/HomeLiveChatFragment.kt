@@ -51,8 +51,11 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     private lateinit var mDialog: MaterialBottomDialog
     // 依次为：普通礼物，表白礼物，彩票礼物
     private lateinit var mGridPager: GridPager
-
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
+    private var mTotal: Int = 0
+    private var mRedNumber: Int = 0
+    private var mRedContent: String = ""
+    private var mPassword: String = ""
 
     override fun getContentResID() = R.layout.fragment_live_chat
 
@@ -205,14 +208,24 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
             popup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
             popup.setOnSendClickListener { total, redNumber, redContent, password ->
                 if (isNotEmpty(password)) {
-                    mPresenter.sendRedEnvelope(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
-                            ?: 0, IntentConstant.USER_ID, total.toInt(), redNumber.toInt(), redContent, password)
                     popup.dismiss()
+                    mTotal = total.toInt()
+                    mRedNumber = redNumber.toInt()
+                    mRedContent = redContent
+                    mPassword = password
+                    mPresenter.getIsPayPassword()
                 } else ToastUtils.showToast(getString(R.string.live_chat_red_hin_password))
             }
         }
     }
 
+    /**
+     * 发送红包
+     */
+    fun sendRedEnvelope() {
+        mPresenter.sendRedEnvelope(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                ?: 0, IntentConstant.USER_ID, mTotal, mRedNumber, mRedContent, mPassword)
+    }
     /**
      * 初始化礼物数据dialog
      */
