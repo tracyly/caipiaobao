@@ -19,12 +19,14 @@
         <EditText
             android:id="@+id/publish_ed_desc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
-            android:layout_marginRight="@dimen/dp_12"
+            android:layout_height="match_parent"
             android:background="@null"
+            android:focusable="true"
+            android:gravity="start"
             android:hint="@string/mine_user_feed_descript"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_12"
             android:textColorHint="@color/color_CCCCCC"
             android:textSize="@dimen/sp_14" />
 

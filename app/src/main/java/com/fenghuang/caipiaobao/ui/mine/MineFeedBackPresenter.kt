@@ -53,9 +53,9 @@ class MineFeedBackPresenter : BaseMvpPresenter<MineFeedBackFragment>() {
     }
 
     fun subMitAdv(content: String) {
-        MineApi.feedBack(1, 1, content, 13565211120, 304467544, "2205qqq.com") {
+        MineApi.feedBack(1, 1, content, 13565211120, 304467544, "2205@qqq.com") {
             onSuccess {
-                if (it.code == 1) ToastUtils.showSuccess(it.msg) else ToastUtils.showSuccess("反馈失败：" + it.msg)
+                ToastUtils.showSuccess(it.msg)
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
