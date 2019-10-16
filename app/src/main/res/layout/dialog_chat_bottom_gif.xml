@@ -12,28 +12,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.fenghuang.caipiaobao.widget.pagegridview.GridPager
-        android:id="@id/gridPager"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
-        app:background_color="@color/white"
-        app:column_count="4"
-        app:img_height="@dimen/dp_32"
-        app:img_width="@dimen/dp_32"
-        app:imgtext_margin="@dimen/dp_4"
-        app:layout_constraintTop_toBottomOf="@id/chatGifTabView"
-        app:point_height="@dimen/dp_4"
-        app:point_is_circle="true"
-        app:point_is_show="true"
-        app:point_margin="@dimen/dp_2"
-        app:point_margin_bottom="@dimen/dp_10"
-        app:point_margin_page="@dimen/dp_10"
-        app:point_normal_color="@color/color_EEEEEE"
-        app:point_select_color="@color/color_FF513E"
-        app:point_width="@dimen/dp_4"
-        app:row_count="2"
-        app:text_color="@color/colorPrimary"
-        app:text_size="@dimen/sp_14"
-        app:verticalSpacing="@dimen/dp_10" />
+        android:layout_height="@dimen/dp_210"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/chatGifTabView">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@id/gifDot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:orientation="horizontal" />
+    </RelativeLayout>
+    <!--    <com.fenghuang.caipiaobao.widget.pagegridview.GridPager-->
+    <!--        android:id="@id/gridPager"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="@dimen/dp_0"-->
+    <!--        app:background_color="@color/white"-->
+    <!--        app:column_count="4"-->
+    <!--        app:img_height="@dimen/dp_32"-->
+    <!--        app:img_width="@dimen/dp_32"-->
+    <!--        app:imgtext_margin="@dimen/dp_4"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/chatGifTabView"-->
+    <!--        app:point_height="@dimen/dp_4"-->
+    <!--        app:point_is_circle="true"-->
+    <!--        app:point_is_show="true"-->
+    <!--        app:point_margin="@dimen/dp_2"-->
+    <!--        app:point_margin_bottom="@dimen/dp_10"-->
+    <!--        app:point_margin_page="@dimen/dp_10"-->
+    <!--        app:point_normal_color="@color/color_EEEEEE"-->
+    <!--        app:point_select_color="@color/color_FF513E"-->
+    <!--        app:point_width="@dimen/dp_4"-->
+    <!--        app:row_count="2"-->
+    <!--        app:text_color="@color/colorPrimary"-->
+    <!--        app:text_size="@dimen/sp_14"-->
+    <!--        app:verticalSpacing="@dimen/dp_10" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

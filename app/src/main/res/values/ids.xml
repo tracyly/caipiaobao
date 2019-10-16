@@ -185,6 +185,7 @@
     <item name="roundLotteryLine" type="id" />
     <item name="chatGifTabView" type="id" />
     <item name="ivRecharge" type="id" />
+    <item name="gifDot" type="id" />
     <!--    <item name="chatGifContent" type="id" />-->
 
 

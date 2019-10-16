@@ -9,14 +9,18 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.View.VISIBLE
+import android.widget.GridView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_DRAGGING
 import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE
+import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.recycler.BaseMultiRecyclerFragment
 import com.fenghuang.baselib.utils.*
 import com.fenghuang.baselib.widget.dialog.MaterialBottomDialog
@@ -32,10 +36,13 @@ import com.fenghuang.caipiaobao.ui.widget.ChatGifTabView
 import com.fenghuang.caipiaobao.ui.widget.popup.OpenRedEnvelopePopup
 import com.fenghuang.caipiaobao.ui.widget.popup.RedEnvelopePopup
 import com.fenghuang.caipiaobao.widget.pagegridview.GridPager
+import com.fenghuang.caipiaobao.widget.pagegridview.GridViewAdapter
+import com.fenghuang.caipiaobao.widget.pagegridview.ViewPagerAdapter
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_live_chat.*
 import kotlinx.android.synthetic.main.include_comment_layout.*
+import kotlin.math.ceil
 
 
 /**
@@ -51,6 +58,9 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     // 屏幕高度
     private var mScreenHeight = 0
     private lateinit var mDialog: MaterialBottomDialog
+    private lateinit var mDialogViewPager: ViewPager
+    // 礼物窗口的圆点
+    private lateinit var mGifDot: LinearLayout
     // 依次为：普通礼物，表白礼物，彩票礼物
     private lateinit var mGridPager: GridPager
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
@@ -254,7 +264,8 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         mDialog = MaterialBottomDialog(getPageActivity())
         mDialog.setContentView(R.layout.dialog_chat_bottom_gif)
         val chatGifTabView = mDialog.findViewById<ChatGifTabView>(R.id.chatGifTabView)
-        mGridPager = mDialog.findViewById<GridPager>(R.id.gridPager)!!
+        mDialogViewPager = mDialog.findViewById<ViewPager>(R.id.viewPager)!!
+        mGifDot = mDialog.findViewById<LinearLayout>(R.id.gifDot)!!
         chatGifTabView?.setChatGifTab()
         chatGifTabView?.setOnSelectListener {
             when (it) {
@@ -271,29 +282,55 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         }
     }
 
+    // 礼物数据源
     fun updateGifList(listData: ArrayList<HomeLiveChatGifBean>) {
-        mGridPager.setDataAllCount(listData.size)
-                .setViewPageHeight(150)
-                .setItemBindDataListener { imageView, tvTitle, _, tvTitleHint, linearLayout, position ->
-                    imageView.setImageResource(listData[position].gifUrl)
-                    tvTitle.text = listData[position].title
-                    tvTitleHint.text = listData[position].gold.toString()
-                    tvTitleHint.visibility = VISIBLE
-                    if (listData[position].isSelect) {
-                        linearLayout.background = getDrawable(R.drawable.shape_home_live_chat_gif_selected_bg)
+        val pageSize = 8
+        var curIndex = 0
+        var inflater = LayoutInflater.from(getPageActivity())
+        // 总的页数=总数/每页数量，并取整
+        val pageCount = ceil(listData.size * 1.0 / pageSize).toInt()
+        val gridViewList = arrayOfNulls<GridViewAdapter>(pageCount)
+        // 页面集合
+        var pagerList = arrayListOf<View>()
+        for (i in 0 until pageCount) {
+            val gridView = inflater.inflate(R.layout.bottom_vp_gridview, mDialogViewPager, false) as GridView
+            val gridViewAdapter = GridViewAdapter(getPageActivity(), listData, i)
+            gridView.adapter = gridViewAdapter
+            gridViewList[i] = gridViewAdapter
+            gridView.setOnItemClickListener { _, _, _, id ->
+                listData.forEachIndexed { index, homeLiveChatGifBean ->
+                    if (index == id.toInt()) {
+                        homeLiveChatGifBean.isSelect = !homeLiveChatGifBean.isSelect
                     } else {
-                        linearLayout.background = getDrawable(R.drawable.shape_home_live_chat_gif_normal_bg)
+                        homeLiveChatGifBean.isSelect = false
                     }
                 }
-                .setGridItemClickListener { position, adapter ->
-                    listData.forEach {
-                        it.isSelect = false
-                    }
-                    listData[position].isSelect = true
-                    adapter.notifyDataSetChanged()
-                }
-                .show()
+                gridViewAdapter.notifyDataSetChanged()
+            }
+            pagerList.add(gridView)
+        }
+        mDialogViewPager.adapter = ViewPagerAdapter(pagerList)
+        // 设置圆点
+        for (i in 0 until pageCount) {
+            mGifDot.addView(inflater.inflate(R.layout.layout_gif_dot, null))
+        }
+        mGifDot.getChildAt(0).findViewById<View>(R.id.viewDot).setBackgroundResource(R.drawable.shape_emoji_indicator_select)
+        mDialogViewPager.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
 
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                gridViewList[0]?.notifyDataSetChanged()
+                gridViewList[1]?.notifyDataSetChanged()
+                gridViewList[2]?.notifyDataSetChanged()
+                mGifDot.getChildAt(curIndex).findViewById<View>(R.id.viewDot).setBackgroundResource(R.drawable.shape_emoji_indicator_normal)
+                mGifDot.getChildAt(position).findViewById<View>(R.id.viewDot).setBackgroundResource(R.drawable.shape_emoji_indicator_select)
+                curIndex = position
+            }
+        })
     }
 
     private fun sendMessage() {
