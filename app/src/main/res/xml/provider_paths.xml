@@ -12,7 +12,9 @@
     <external-files-path
         name="images"
         path="files/Pictures/OriPicture" />
-
+    <external-path
+        name="external_files"
+        path="." />
     <!--千万不能删除-->
     <!--Bugly安装应用查找URI必须-->
     <!-- /storage/emulated/0/Download/${applicationId}/.beta/apk-->

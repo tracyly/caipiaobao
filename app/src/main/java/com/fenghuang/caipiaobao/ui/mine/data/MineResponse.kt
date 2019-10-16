@@ -16,10 +16,3 @@ data class MineRewardRecordResponse(var id: Int,
                                     var gift_num: Int,
                                     var avatar: String
 )
-
-// 意見反饋
-data class MineFeedBackResponse(var code: Int,
-                                var msg: String,
-                                var time: Long
-
-)

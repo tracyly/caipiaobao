@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.mine.data
 
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.fenghuang.caipiaobao.data.bean.BaseApiBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 
 /**
@@ -32,10 +33,10 @@ object MineApi : BaseApi {
      * 反馈意见
      */
 
-    fun feedBack(user_id: Int, type: Int, text: String, phone: Long, qq: Int, email: String, function: ApiSubscriber<MineFeedBackResponse>.() -> Unit) {
-        val subscriber = object : ApiSubscriber<MineFeedBackResponse>() {}
+    fun feedBack(user_id: Int, type: Int, text: String, phone: Long, qq: Int, email: String, function: ApiSubscriber<BaseApiBean>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<BaseApiBean>() {}
         subscriber.function()
-        HomeApi.getApi().get<MineFeedBackResponse>(MINE_FEED_BACK)
+        HomeApi.getApi().get<BaseApiBean>(MINE_FEED_BACK)
                 .params("user_id", user_id)
                 .params("type", type)
                 .params("text", text)
