@@ -20,6 +20,11 @@ data class HomeLiveChatBean(var position: String,
                             var isMe: Boolean,
                             var user_id: String,
                             var userName: String,
+                            var gift_id: Int,
+                            var gift_type: Int,
+                            var gift_name: String,
+                            var gift_price: Float,
+                            var gift_num: Int,
                             var vip: Int) : Parcelable
 
 // 横屏时发送的聊天弹幕消息
@@ -58,4 +63,13 @@ data class HomeLiveChatGifBean(var gifUrl: Int,
                                var gold: Int,
                                var isSelect: Boolean)
 
+// 发送红包
 data class HomeLiveRedEnvelopeBean(var rid: String)
+
+// 接收红包消息通知
+data class HomeLiveRedMessageBean(var rid: Int)
+
+data class HomeLiveRedReceiveBean(var amount: Float,
+                                  var send_user_name: Int,
+                                  var send_user_avatar: Int,
+                                  var count: Int)

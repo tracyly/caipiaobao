@@ -9,8 +9,9 @@
         android:id="@id/ivRedTitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_62"
-        android:src="@color/color_FF513E"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
+        android:src="@mipmap/ic_live_chat_red_envelope_title"
         tools:ignore="ContentDescription" />
 
     <com.fenghuang.baselib.widget.round.RoundLinearLayout

@@ -220,6 +220,7 @@
     <dimen name="dp_262">262dp</dimen>
     <dimen name="dp_270">270dp</dimen>
     <dimen name="dp_288">288dp</dimen>
+    <dimen name="dp_290">290dp</dimen>
     <dimen name="dp_350">350dp</dimen>
     <dimen name="dp_316">316dp</dimen>
     <dimen name="dp_300">300dp</dimen>
@@ -287,6 +288,7 @@
     <dimen name="sp_58">58sp</dimen>
     <dimen name="sp_59">59sp</dimen>
     <dimen name="sp_60">60sp</dimen>
+    <dimen name="sp_66">66sp</dimen>
 
     <!--额外的大小配置-->
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>

@@ -24,17 +24,22 @@ import java.util.concurrent.TimeUnit
  * author : Peter
  * date   : 2019/8/31 11:11
  */
-class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLiveChatFragment>() {
+class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : BaseRecyclerPresenter<HomeLiveChatFragment>() {
 
     private var mWsManager: WsManager? = null
     private var mTimer: Timer? = null
     private var mWsStatusListener: WsStatusListener? = null
-    private var jsonObject = JSONObject()
     private var isShowPageEmpty: Boolean = true
+    // 推送
+    private val TYPE_SUBSCRIBE = "subscribe"
+    // 初始化
+    private val TYPE_PUBLISH = "publish"
+    // 心跳
+    private val TYPE_PING = "ping"
+    // 礼物&红包
+    private val TYPE_GIFT = "gift"
 
     override fun loadData(page: Int) {
-        jsonObject.put("room_id", "100001")
-        jsonObject.put("user_id", IntentConstant.USER_ID)
         initStatusListener()
     }
 
@@ -64,11 +69,7 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
      * 发送一条消息
      */
     fun sendMessage(content: String) {
-        jsonObject.put("type", "publish")
-        jsonObject.put("room_id", "100001")
-        jsonObject.put("user_id", IntentConstant.USER_ID)
-        jsonObject.put("text", content)
-        mWsManager?.sendMessage(jsonObject.toString())
+        mWsManager?.sendMessage(getPublishParams(content))
     }
 
 
@@ -78,18 +79,15 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
             override fun onOpen(response: Response) {
                 super.onOpen(response)
                 LogUtils.d("WsManager-----onOpen response=$response")
-                jsonObject.put("type", "subscribe")
-                jsonObject.put("userName", "指法大仙")
                 if (isShowPageEmpty) {
                     mView.showPageEmpty()
                     isShowPageEmpty = false
                 }
-                mWsManager?.sendMessage(jsonObject.toString())
+                mWsManager?.sendMessage(getSubscribeParams())
                 if (mTimer == null) mTimer = Timer()
                 mTimer?.schedule(object : TimerTask() {
                     override fun run() {
-                        jsonObject.put("type", "ping")
-                        mWsManager?.sendMessage(jsonObject.toString())
+                        mWsManager?.sendMessage(getPingParams())
                         LogUtils.d("WsManager-----发送了心跳")
                     }
                 }, 0, 1000 * 54)
@@ -157,9 +155,25 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
         HomeApi.getHomeLiveSendRedEnvelope(anchorId, userId, amount.toFloat(), num, text, password) {
             onSuccess {
                 ToastUtils.showSuccess("发送红包成功")
+                mWsManager?.sendMessage(getGifParams(4, "", amount.toFloat(), num))
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
+            }
+        }
+    }
+
+    /**
+     * 抢红包
+     */
+    fun sendRedReceive(rid: Int) {
+        HomeApi.getRedReceive(IntentConstant.USER_ID, rid) {
+            onSuccess {
+
+            }
+
+            onFailed {
+
             }
         }
     }
@@ -170,7 +184,9 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
     fun getIsPayPassword() {
         HomeApi.getIsPayPassword(IntentConstant.USER_ID) {
             onSuccess {
-                mView.sendRedEnvelope()
+                if (it.code == 1) {
+                    mView.sendRedEnvelope()
+                } else ToastUtils.showError(it.msg)
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
@@ -178,4 +194,45 @@ class HomeLiveCharPresenter(val context: Context) : BaseRecyclerPresenter<HomeLi
         }
     }
 
+    private fun getSubscribeParams(): String {
+        var jsonObject = JSONObject()
+        jsonObject.put("room_id", anchorId)
+        jsonObject.put("user_id", IntentConstant.USER_ID)
+        jsonObject.put("type", TYPE_SUBSCRIBE)
+        jsonObject.put("userName", "指法大仙")
+        return jsonObject.toString()
+    }
+
+    private fun getPublishParams(content: String): String {
+        var jsonObject = JSONObject()
+        jsonObject.put("room_id", anchorId)
+        jsonObject.put("user_id", IntentConstant.USER_ID)
+        jsonObject.put("type", TYPE_PUBLISH)
+        jsonObject.put("userName", "指法大仙")
+        jsonObject.put("text", content)
+        return jsonObject.toString()
+    }
+
+    private fun getPingParams(): String {
+        var jsonObject = JSONObject()
+        jsonObject.put("room_id", anchorId)
+        jsonObject.put("user_id", IntentConstant.USER_ID)
+        jsonObject.put("type", TYPE_PING)
+        jsonObject.put("userName", "指法大仙")
+        return jsonObject.toString()
+    }
+
+    private fun getGifParams(gifType: Int, giftName: String, giftPrice: Float, giftNum: Int): String {
+        var jsonObject = JSONObject()
+        jsonObject.put("room_id", anchorId)
+        jsonObject.put("user_id", IntentConstant.USER_ID)
+        jsonObject.put("type", TYPE_GIFT)
+        jsonObject.put("userName", "指法大仙")
+        // gift_type: 礼物类型 1-普通 2-表白 3-彩票  4-红包
+        jsonObject.put("gift_type", gifType)
+        jsonObject.put("gift_name", giftName)
+        jsonObject.put("gift_price", giftPrice)
+        jsonObject.put("gift_num", giftNum)
+        return jsonObject.toString()
+    }
 }
