@@ -49,7 +49,7 @@
         android:layout_height="@dimen/dp_32"
         android:layout_marginEnd="@dimen/dp_10"
         android:layout_alignParentEnd="true"
-        android:src="@mipmap/ic_live_gift"
+        android:src="@mipmap/ic_live_chat_gif"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_14"
         android:visibility="visible"
@@ -63,7 +63,7 @@
         android:layout_toStartOf="@id/ivGift"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_14"
-        android:src="@mipmap/ic_live_red_envelope"
+        android:src="@mipmap/ic_live_chat_red_envelope"
         android:visibility="visible"
         tools:ignore="ContentDescription" />
 
@@ -73,7 +73,7 @@
         android:layout_height="@dimen/dp_32"
         android:layout_marginEnd="@dimen/dp_10"
         android:layout_toStartOf="@id/ivRedEnvelope"
-        android:src="@mipmap/ic_live_red_envelope"
+        android:src="@mipmap/ic_live_chat_recharge"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_14"
         android:visibility="visible"

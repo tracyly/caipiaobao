@@ -37,6 +37,12 @@
     <string name="live_chat_red_hint">恭喜发财</string>
     <string name="live_chat_send_red_envelope">发送红包</string>
     <string name="live_chat_red_hin_password">请输入密码</string>
+    <string name="live_chat_open_red_hin">红包来了，快拆啊～</string>
+    <string name="live_chat_open_red_yuan">元</string>
+    <string name="live_chat_open_red_obtain">恭喜获得</string>
+    <string name="live_chat_recharge_tip">余额不足，请充值！</string>
+    <string name="live_chat_recharge_cancel">取消</string>
+    <string name="live_chat_go_recharge">去充值</string>
     <!-- 排行 -->
     <string name="ranking_tab_anchor">主播</string>
     <string name="ranking_tab_expert">专家</string>

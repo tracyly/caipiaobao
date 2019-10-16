@@ -57,6 +57,18 @@
     <item name="tvRedSend" type="id" />
     <item name="tvRedTotal" type="id" />
     <item name="etRedEnvelopePassword" type="id" />
+    <item name="ivEnvelopeTips" type="id" />
+    <item name="ivOpenRedLogo" type="id" />
+    <item name="ivOpenRedResult" type="id" />
+    <item name="tvRedName" type="id" />
+    <item name="tvRedContent" type="id" />
+    <item name="tvRedMoney" type="id" />
+    <item name="rlOpenRed" type="id" />
+    <item name="ivOpenRed" type="id" />
+    <item name="layoutOpenRedMoney" type="id" />
+    <item name="ivRedDelete" type="id" />
+    <item name="tvRechargeCancel" type="id" />
+    <item name="tvGoRecharge" type="id" />
 
     <!-- 排行 -->
     <item name="tvTabLeft" type="id" />

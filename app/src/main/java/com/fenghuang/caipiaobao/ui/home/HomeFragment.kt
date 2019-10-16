@@ -254,11 +254,11 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
      * 跳转直播间
      */
     private fun startLiveRoom(status: Int, anchorId: Int, name: String) {
-        if (status == 1) {
+//        if (status == 1) {
             if (NetWorkUtils.isNetworkConnected())
                 LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(anchorId, name))
             else ToastUtils.showError("网络连接已断开")
-        }
+//        }
     }
 
     private fun iniTitleView(type: Int) {

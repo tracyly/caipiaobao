@@ -27,7 +27,9 @@ import com.fenghuang.caipiaobao.function.isNotEmpty
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatPostEvenBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRedMessageBean
 import com.fenghuang.caipiaobao.ui.widget.ChatGifTabView
+import com.fenghuang.caipiaobao.ui.widget.popup.OpenRedEnvelopePopup
 import com.fenghuang.caipiaobao.ui.widget.popup.RedEnvelopePopup
 import com.fenghuang.caipiaobao.widget.pagegridview.GridPager
 import com.hwangjr.rxbus.annotation.Subscribe
@@ -51,8 +53,11 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     private lateinit var mDialog: MaterialBottomDialog
     // 依次为：普通礼物，表白礼物，彩票礼物
     private lateinit var mGridPager: GridPager
-
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
+    private var mTotal: Int = 0
+    private var mRedNumber: Int = 0
+    private var mRedContent: String = ""
+    private var mPassword: String = ""
 
     override fun getContentResID() = R.layout.fragment_live_chat
 
@@ -62,7 +67,9 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     override fun isRegisterRxBus() = true
     override fun isEnableLoadMore() = false
     override fun isEnableRefresh() = false
-    override fun attachPresenter() = HomeLiveCharPresenter(getPageActivity())
+    override fun attachPresenter() = HomeLiveCharPresenter(getPageActivity(), arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+            ?: 0)
+
     override fun initPageView() {
         super.initPageView()
         mScreenHeight = getPageActivity().windowManager.defaultDisplay.height
@@ -148,6 +155,22 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         mPresenter.sendMessage(eventBean.content)
     }
 
+    /**
+     * 接收红包, 礼物通知
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onIsShowRedEnvelope(eventBean: HomeLiveRedMessageBean) {
+        if (eventBean.rid == 4) {
+            setVisible(ivEnvelopeTips)
+            val openRedPopup = OpenRedEnvelopePopup(getPageActivity())
+            openRedPopup.setOnOpenClickListener {
+                //                mPresenter.sendMessage()
+                openRedPopup.isShowRedLogo(true)
+            }
+            openRedPopup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
+        }
+    }
+
     override fun initEvent() {
         super.initEvent()
         rootView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
@@ -205,12 +228,23 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
             popup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
             popup.setOnSendClickListener { total, redNumber, redContent, password ->
                 if (isNotEmpty(password)) {
-                    mPresenter.sendRedEnvelope(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
-                            ?: 0, IntentConstant.USER_ID, total.toInt(), redNumber.toInt(), redContent, password)
                     popup.dismiss()
+                    mTotal = total.toInt()
+                    mRedNumber = redNumber.toInt()
+                    mRedContent = redContent
+                    mPassword = password
+                    mPresenter.getIsPayPassword()
                 } else ToastUtils.showToast(getString(R.string.live_chat_red_hin_password))
             }
         }
+    }
+
+    /**
+     * 发送红包
+     */
+    fun sendRedEnvelope() {
+        mPresenter.sendRedEnvelope(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                ?: 0, IntentConstant.USER_ID, mTotal, mRedNumber, mRedContent, mPassword)
     }
 
     /**

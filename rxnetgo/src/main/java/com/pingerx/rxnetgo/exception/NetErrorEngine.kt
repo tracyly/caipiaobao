@@ -87,12 +87,7 @@ object NetErrorEngine {
             SERVER_ERROR_CODE -> e.setMsg(SERVER_ERROR_MSG)
             UNKNOW_HOST_ERROR_CODE -> e.setMsg(UNKNOW_HOST_ERROR_MSG)
             NETWORK_UNCONNECTED -> e.setMsg(NETWORK_UNCONNECTED_MSG)
-            DATA_ERROR -> {
-                val cause = e.cause
-                val toString = e.cause?.cause?.message
-                val message = e.cause?.message
-                e.setMsg(e.getMsg()!!)
-            }
+            DATA_ERROR -> e.setMsg(e.getMsg()!!)
         }
         return e
     }

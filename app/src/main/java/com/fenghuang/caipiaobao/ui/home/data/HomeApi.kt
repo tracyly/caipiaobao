@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.home.data
 import com.fenghuang.caipiaobao.data.api.ApiConvert
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.fenghuang.caipiaobao.data.bean.BaseApiBean
 import com.google.gson.reflect.TypeToken
 import com.pingerx.rxnetgo.rxcache.CacheMode
 import io.reactivex.Flowable
@@ -14,6 +15,9 @@ import io.reactivex.Flowable
  */
 object HomeApi : BaseApi {
 
+    private const val TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzEyMTE5NTAsIm5iZiI6MTU3MTIxMTk1MCwiZXhwIjoxNTcxMjEzMTUwLCJkYXRhIjp7InVzZXJfaWQiOjIsInVzZXJuYW1lIjoiYmlsbDAwIn19.oubUkkgg42gy0qVmzv5IW0mAa55WMR-eDTlQeWvUycg"
+
+
     private const val HOME_BANNER_LIST = "/index.php/api/v1/user/get_banner"
     private const val HONE_NOTICE = "/index.php/api/v1/user/system_notice"
     private const val HOME_GAME_LIST = "/index.php/api/v1/live/get_game_list"
@@ -23,7 +27,9 @@ object HomeApi : BaseApi {
     private const val HOME_EXPERT_RECOMMEND = "/index.php/api/v1/live/pro_red"
     private const val HOME_LIVE_CHAT_REWARD_LIST = "/index.php/api/v1/live/get_reward_list"
     private const val HOME_LIVE_ROOM = "index.php/api/v1/live/get_live_room"
-    private const val HOME_LIVE_SEND_RED_ENVELOPE = "api/v1/user/send_red"
+    private const val HOME_LIVE_SEND_RED_ENVELOPE = "index.php/api/v1/user/send_red"
+    private const val HOME_LIVE_PAY_PASSWORD = "index.php/api/v1/user/ver_pay_pass"
+    private const val HOME_LIVE_RED_RECEIVE = "api/v1/user/receive_red"
 
     /**
      * 获取首页轮播图列表
@@ -144,12 +150,38 @@ object HomeApi : BaseApi {
         val subscriber = object : ApiSubscriber<HomeLiveRedEnvelopeBean>() {}
         subscriber.function()
         getApi().post<HomeLiveRedEnvelopeBean>(HOME_LIVE_SEND_RED_ENVELOPE)
+                .headers("token", TOKEN)
                 .params("anchor_id", anchorId)
                 .params("user_id", userId)
                 .params("amount", amount)
                 .params("num", num)
                 .params("text", text)
                 .params("password", password)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 验证是否设置支付密码
+     */
+    fun getIsPayPassword(userId: Int, function: ApiSubscriber<BaseApiBean>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<BaseApiBean>() {}
+        subscriber.function()
+        getApi().post<BaseApiBean>(HOME_LIVE_PAY_PASSWORD)
+                .headers("token", TOKEN)
+                .params("user_id", userId)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 抢红包
+     */
+    fun getRedReceive(userId: Int, rid: Int, function: ApiSubscriber<HomeLiveRedReceiveBean>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<HomeLiveRedReceiveBean>() {}
+        subscriber.function()
+        getApi().post<HomeLiveRedReceiveBean>(HOME_LIVE_RED_RECEIVE)
+                .headers("token", TOKEN)
+                .params("user_id", userId)
+                .params("rid", rid)
                 .subscribe(subscriber)
     }
 }
