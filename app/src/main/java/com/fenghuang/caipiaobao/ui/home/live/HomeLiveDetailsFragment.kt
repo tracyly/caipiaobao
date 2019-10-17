@@ -2,9 +2,11 @@ package com.fenghuang.caipiaobao.ui.home.live
 
 import android.os.Bundle
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
+import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
+import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.function.isNotEmpty
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
@@ -42,7 +44,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         super.initContentView()
         setStatusBarHeight(statusView)
         mPresenter.loadLiveInfo(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
-                ?: 0, IntentConstant.USER_ID)
+                ?: 0, SpUtils.getInt(UserConstant.USER_ID, 0))
         initVideo()
         initPagerContent()
     }

@@ -2,10 +2,11 @@ package com.fenghuang.caipiaobao.ui.home.live.chat
 
 import android.content.Context
 import com.fenghuang.baselib.base.recycler.BaseRecyclerPresenter
+import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.widget.dialog.MaterialLoadingDialog
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.constant.IntentConstant
+import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.data.api.WebUrlProvider
 import com.fenghuang.caipiaobao.socket.WsManager
 import com.fenghuang.caipiaobao.socket.listener.WsStatusListener
@@ -45,7 +46,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
 
     override fun loadData(page: Int) {
         initStatusListener()
-        getRoomRed(IntentConstant.USER_ID)
+        getRoomRed(SpUtils.getInt(UserConstant.USER_ID, 0))
     }
 
     fun startWebSocketConnect() {
@@ -161,7 +162,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
      * 发送红包
      */
     fun sendRedEnvelope(anchorId: Int, userId: Int, amount: Int, num: Int, text: String, password: String) {
-        HomeApi.getHomeLiveSendRedEnvelope(anchorId, userId, amount.toFloat(), num, text, password) {
+        HomeApi.getHomeLiveSendRedEnvelope(anchorId, userId, amount, num, text, password) {
             onSuccess {
                 ToastUtils.showSuccess("发送红包成功")
                 // 通知直播间有红包
@@ -182,7 +183,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
      * 抢红包
      */
     fun sendRedReceive(rid: Int) {
-        HomeApi.getRedReceive(IntentConstant.USER_ID, rid) {
+        HomeApi.getRedReceive(SpUtils.getInt(UserConstant.USER_ID, 0), rid) {
             onSuccess {
                 mView.showOpenRedContent(it)
             }
@@ -207,7 +208,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
                 }
             }
             onFailed {
-                ToastUtils.showError(it.getMsg() + "====")
+                //                ToastUtils.showError(it.getMsg())
             }
         }
     }
@@ -217,7 +218,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
      */
     fun getIsPayPassword() {
         val dialog = MaterialLoadingDialog.Builder(context).show("红包发送中...")
-        HomeApi.getIsPayPassword(IntentConstant.USER_ID) {
+        HomeApi.getIsPayPassword(SpUtils.getInt(UserConstant.USER_ID, 0)) {
             onSuccess {
                 dialog.dismiss()
                 mView.sendRedEnvelope()
@@ -249,7 +250,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
     private fun getSubscribeParams(): String {
         var jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
-        jsonObject.put("user_id", IntentConstant.USER_ID)
+        jsonObject.put("user_id", SpUtils.getInt(UserConstant.USER_ID, 0))
         jsonObject.put("type", TYPE_SUBSCRIBE)
         jsonObject.put("userName", "指法大仙")
         return jsonObject.toString()
@@ -258,7 +259,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
     private fun getPublishParams(content: String): String {
         var jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
-        jsonObject.put("user_id", IntentConstant.USER_ID)
+        jsonObject.put("user_id", SpUtils.getInt(UserConstant.USER_ID, 0))
         jsonObject.put("type", TYPE_PUBLISH)
         jsonObject.put("userName", "指法大仙")
         jsonObject.put("text", content)
@@ -268,7 +269,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
     private fun getPingParams(): String {
         var jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
-        jsonObject.put("user_id", IntentConstant.USER_ID)
+        jsonObject.put("user_id", SpUtils.getInt(UserConstant.USER_ID, 0))
         jsonObject.put("type", TYPE_PING)
         jsonObject.put("userName", "指法大仙")
         return jsonObject.toString()
@@ -277,7 +278,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
     private fun getGifParams(gifType: Int, rId: Int, giftName: String, giftPrice: Float, giftNum: Int): String {
         var jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
-        jsonObject.put("user_id", IntentConstant.USER_ID)
+        jsonObject.put("user_id", SpUtils.getInt(UserConstant.USER_ID, 0))
         jsonObject.put("type", TYPE_GIFT)
         jsonObject.put("userName", "指法大仙")
         // gift_type: 礼物类型 1-普通 2-表白 3-彩票  4-红包

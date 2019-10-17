@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.login
 import android.widget.TextView
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.baselib.utils.SpUtils
+import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.login.data.LoginApi
 
 /**
@@ -41,11 +42,11 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
         LoginApi.userLogin(phone, code) {
             onSuccess {
                 textView.text = it.token
-                SpUtils.putString("token", it.token)
-                SpUtils.putInt("user_id", it.user_id)
+                SpUtils.putString(UserConstant.TOKEN, it.token)
+                SpUtils.putInt(UserConstant.USER_ID, it.user_id)
             }
             onFailed {
-                textView.text = it.toString()
+                textView.text = it.getMsg()
             }
         }
     }

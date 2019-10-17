@@ -1,5 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home.data
 
+import com.fenghuang.baselib.utils.SpUtils
+import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.data.api.ApiConvert
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
@@ -15,7 +17,6 @@ import io.reactivex.Flowable
  */
 object HomeApi : BaseApi {
 
-    private const val TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzEzMDQ5MjIsIm5iZiI6MTU3MTMwNDkyMiwiZXhwIjoxNTcxMzkxMzIyLCJkYXRhIjp7InVzZXJfaWQiOjMsInVzZXJuYW1lIjoiYmlsbDExIn19.IC450T8PHhf4jsGSXO1tvkoAGfjPbVwl4yfPzfKJYtE"
 
 
     private const val HOME_BANNER_LIST = "/index.php/api/v1/user/get_banner"
@@ -149,11 +150,11 @@ object HomeApi : BaseApi {
     /**
      * 直播间发送红包
      */
-    fun getHomeLiveSendRedEnvelope(anchorId: Int, userId: Int, amount: Float, num: Int, text: String, password: String, function: ApiSubscriber<HomeLiveRedEnvelopeBean>.() -> Unit) {
+    fun getHomeLiveSendRedEnvelope(anchorId: Int, userId: Int, amount: Int, num: Int, text: String, password: String, function: ApiSubscriber<HomeLiveRedEnvelopeBean>.() -> Unit) {
         val subscriber = object : ApiSubscriber<HomeLiveRedEnvelopeBean>() {}
         subscriber.function()
         getApi().post<HomeLiveRedEnvelopeBean>(HOME_LIVE_SEND_RED_ENVELOPE)
-                .headers("token", TOKEN)
+                .headers("token", SpUtils.getString(UserConstant.TOKEN))
                 .params("anchor_id", anchorId)
                 .params("user_id", userId)
                 .params("amount", amount)
@@ -170,7 +171,7 @@ object HomeApi : BaseApi {
         val subscriber = EmptySubscriber()
         subscriber.function()
         getApi().post<String>(HOME_LIVE_PAY_PASSWORD)
-                .headers("token", TOKEN)
+                .headers("token", SpUtils.getString(UserConstant.TOKEN))
                 .params("user_id", userId)
                 .subscribe(subscriber)
     }
@@ -184,7 +185,7 @@ object HomeApi : BaseApi {
         subscriber.function()
         getApiOther().post<String>(HOME_LIVE_RED_SET_PASS)
 //                .headers("token", TOKEN)
-                .headers("Authorization", "Bearer $TOKEN")
+                .headers("Authorization", "Bearer " + SpUtils.getString(UserConstant.TOKEN))
                 .params("old_password", oldPassword)
                 .params("new_password", newPassword)
 //                .params("new_password_repeat", newPasswordRepeat)
@@ -198,7 +199,7 @@ object HomeApi : BaseApi {
         val subscriber = object : ApiSubscriber<HomeLiveRedReceiveBean>() {}
         subscriber.function()
         getApi().post<HomeLiveRedReceiveBean>(HOME_LIVE_RED_RECEIVE)
-                .headers("token", TOKEN)
+                .headers("token", SpUtils.getString(UserConstant.TOKEN))
                 .params("user_id", userId)
                 .params("rid", rid)
                 .subscribe(subscriber)
@@ -211,7 +212,7 @@ object HomeApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<HomeLiveRedRoom>>() {}
         subscriber.function()
         getApi().get<List<HomeLiveRedRoom>>(HOME_LIVE_RED_RECEIVE_ROOM)
-                .headers("token", TOKEN)
+                .headers("token", SpUtils.getString(UserConstant.TOKEN))
                 .params("user_id", userId)
                 .params("anchor_id", anchorId)
                 .subscribe(subscriber)
