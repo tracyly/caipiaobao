@@ -16,3 +16,11 @@ data class MineRewardRecordResponse(var id: Int,
                                     var gift_num: Int,
                                     var avatar: String
 )
+
+// 关注列表
+data class MineAttentionResponse(var type: String,
+                                 var nickname: String,
+                                 var anchor_id: String,
+                                 var livestatus: String,
+                                 var avatar: String,
+                                 var intro: String)

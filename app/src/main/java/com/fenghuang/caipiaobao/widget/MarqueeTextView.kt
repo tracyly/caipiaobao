@@ -25,7 +25,7 @@ class MarqueeTextView : View {
             field = (if (speed < 0) 0 else speed) as Float
             invalidate()
         } //The default text scroll speed
-    var isScroll = true
+    private var isScroll = true
         set(isScroll) {
             field = isScroll
             invalidate()

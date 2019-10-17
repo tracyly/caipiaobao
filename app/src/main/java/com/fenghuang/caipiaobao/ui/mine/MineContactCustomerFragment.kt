@@ -19,6 +19,8 @@ class MineContactCustomerFragment : BaseNavFragment() {
 
     override fun getPageTitle() = getString(R.string.mine_contact_customer)
 
+    override fun isShowBackIconWhite() = false
+
 
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)

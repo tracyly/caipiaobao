@@ -272,10 +272,11 @@
             </androidx.recyclerview.widget.RecyclerView>
 
             <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/btExitLogin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_60"
                 android:layout_marginStart="@dimen/dp_12"
-                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginTop="@dimen/dp_40"
                 android:layout_marginEnd="@dimen/dp_12"
                 android:gravity="center"
                 android:text="@string/mine_login_out"

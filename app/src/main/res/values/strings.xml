@@ -58,7 +58,7 @@
     <!--我的-->
     <string name="mine_user_description">这是你成为会员的第20天</string>
     <string name="mine_colored_coins">彩币</string>
-    <string name="mine_attention">我的关注</string>
+
     <string name="mine_watch_history">观看历史</string>
     <string name="mine_vip">VIP</string>
     <string name="mine_wallet">我的钱包</string>
@@ -256,6 +256,9 @@
     <string name="mine_card_address_edit">请输入您的开户网点</string>
     <string name="mine_card_number_edit">请输入您的银行卡号</string>
     <string name="mine_card_list">银行卡列表</string>
+    <string name="mine_attention">我的关注</string>
+    <string name="mine_into_room">进入直播间</string>
+    <string name="mine_cancel_attention">取消\n关注</string>
     <!-- 开奖 -->
     <string name="lottery_open">开奖</string>
 </resources>

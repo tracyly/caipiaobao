@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:hint="手机号" />
+
+    <Button
+        android:id="@+id/btCode"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:text="验证码" />
+
+    <TextView
+        android:id="@+id/tvTextShow1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/sp_16" />
+
+    <Button
+        android:id="@+id/btRegist"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:text="注册" />
+
+    <TextView
+        android:id="@+id/tvTextShow"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/sp_16" />
+
+    <Button
+        android:id="@+id/btLogin"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:text="登录" />
+
+    <TextView
+        android:id="@+id/tvTextShow2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_marginTop="@dimen/dp_20"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/sp_16" />
+
+</LinearLayout>
