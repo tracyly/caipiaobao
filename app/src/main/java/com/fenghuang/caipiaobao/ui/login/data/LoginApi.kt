@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.login.data
 
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.fenghuang.caipiaobao.data.bean.BaseApiBean
 import me.jessyan.autosize.utils.LogUtils
 
@@ -21,6 +22,7 @@ object LoginApi : BaseApi {
 
     private const val REGISTER = "/reg/index"
 
+
     fun userGetCode(phone: String, function: ApiSubscriber<RegisterCode>.() -> Unit) {
         val subscriber = object : ApiSubscriber<RegisterCode>() {}
         subscriber.function()
@@ -39,6 +41,18 @@ object LoginApi : BaseApi {
                 .params("mode", 3)
                 .subscribe(subscriber)
     }
+
+
+    fun userRegisterByCount(username: String, password: String, function: EmptySubscriber.() -> Unit) {
+        val subscriber = EmptySubscriber()
+        subscriber.function()
+        LoginApi.getApiOther().post<String>(REGISTER)
+                .params("username", username)
+                .params("password", password)
+                .params("mode", 1)
+                .subscribe(subscriber)
+    }
+
 
     fun userLogin(username: String, password: String, function: ApiSubscriber<LoginResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<LoginResponse>() {}

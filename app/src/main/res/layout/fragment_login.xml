@@ -5,16 +5,11 @@
     android:orientation="vertical">
 
     <EditText
+        android:visibility="gone"
         android:id="@+id/etPhone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
         android:hint="手机号" />
-
-    <Button
-        android:id="@+id/btCode"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_60"
-        android:text="验证码" />
 
     <TextView
         android:id="@+id/tvTextShow1"
@@ -22,7 +17,27 @@
         android:layout_height="@dimen/dp_60"
         android:layout_marginTop="@dimen/dp_20"
         android:textColor="@color/text_red"
-        android:textSize="@dimen/sp_16" />
+        android:textSize="@dimen/sp_16"
+        android:visibility="gone" />
+    <Button
+        android:visibility="gone"
+        android:id="@+id/btCode"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:text="验证码" />
+
+    <EditText
+        android:id="@+id/etCount"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:hint="账号" />
+
+    <EditText
+        android:id="@+id/etPass"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:hint="账号" />
+
 
     <Button
         android:id="@+id/btRegist"

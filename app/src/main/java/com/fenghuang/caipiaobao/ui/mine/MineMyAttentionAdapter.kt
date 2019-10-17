@@ -29,12 +29,10 @@ class MineMyAttentionAdapter(context: Context) : BaseRecyclerAdapter<MineAttenti
             ImageManager.loadRoundLogo(data.avatar, findView(R.id.imgAttPhoto))
             setText(R.id.tvAttName, data.nickname)
             setText(R.id.tvAttDes, data.intro)
-            if (data.livestatus == "1") setVisibility(R.id.imgIsLive, true)
+            if (data.live_status == "1") setVisibility(R.id.imgIsLive, true)
             findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {
                 remove(getDataPosition())
             }
         }
     }
-
-
 }

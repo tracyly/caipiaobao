@@ -21,6 +21,6 @@ data class MineRewardRecordResponse(var id: Int,
 data class MineAttentionResponse(var type: String,
                                  var nickname: String,
                                  var anchor_id: String,
-                                 var livestatus: String,
+                                 var live_status: String,
                                  var avatar: String,
                                  var intro: String)

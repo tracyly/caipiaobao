@@ -20,7 +20,6 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
             onSuccess {
                 textView.text = it.code
             }
-
             onFailed {
                 textView.text = it.toString()
             }
@@ -32,11 +31,9 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
             onSuccess {
                 textView.text = it.toString()
             }
-
             onFailed {
                 textView.text = it.toString()
             }
-
         }
     }
 
@@ -46,6 +43,17 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
                 textView.text = it.token
                 SpUtils.putString("token", it.token)
                 SpUtils.putInt("user_id", it.user_id)
+            }
+            onFailed {
+                textView.text = it.toString()
+            }
+        }
+    }
+
+    fun userRegisterByCount(username: String, password: String, textView: TextView) {
+        LoginApi.userRegisterByCount(username, password) {
+            onSuccess {
+                textView.text = it
             }
             onFailed {
                 textView.text = it.toString()
