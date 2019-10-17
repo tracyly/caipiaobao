@@ -2,7 +2,6 @@ package com.fenghuang.caipiaobao.ui.main
 
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.fragment.BasePageFragment
-import com.fenghuang.baselib.base.fragment.PlaceholderFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.bet.BetFragment
@@ -10,6 +9,7 @@ import com.fenghuang.caipiaobao.ui.home.HomeFragment
 import com.fenghuang.caipiaobao.ui.home.data.HomeClickMine
 import com.fenghuang.caipiaobao.ui.lottery.LotteryFragment
 import com.fenghuang.caipiaobao.ui.mine.MineFragment
+import com.fenghuang.caipiaobao.ui.quiz.QuizFragment
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,8 +26,7 @@ class MainFragment : BasePageFragment() {
         mFragments.add(HomeFragment())
         mFragments.add(LotteryFragment())
         mFragments.add(BetFragment())
-//        mFragments.add(RankingRootFragment())
-        mFragments.add(PlaceholderFragment.newInstance("竞猜", isMainPage = true, placeholder = R.mipmap.ic_placeholder_empty))
+        mFragments.add(QuizFragment())
         mFragments.add(MineFragment())
         loadMultipleRootFragment(R.id.mainContainer, 0,
                 mFragments[0], mFragments[1], mFragments[2], mFragments[3], mFragments[4])
@@ -86,6 +85,7 @@ class MainFragment : BasePageFragment() {
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onClickMine(clickMine: HomeClickMine) {
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
         tabMine.isChecked = true
         tabHome.isChecked = false
         tabLive.isChecked = false

@@ -4,9 +4,6 @@ import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import kotlinx.android.synthetic.main.fragment_mine_recharge.*
-import kotlinx.android.synthetic.main.fragment_mine_recharge.tabLayout
-import kotlinx.android.synthetic.main.fragment_mine_recharge.viewPager
-import kotlinx.android.synthetic.main.fragment_ranking.*
 
 
 /**
