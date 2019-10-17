@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.mine
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
+import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineAttentionResponse
 import kotlinx.android.synthetic.main.fragment_mine_attention.*
@@ -28,6 +29,15 @@ class MineMyAttentionFragment : BaseMvpFragment<MineMyAttentionPresenter>() {
 
     override fun isOverridePage() = false
 
+    override fun initContentView() {
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
+    }
 
     override fun initData() {
         mPresenter.getAttentionList()
