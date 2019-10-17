@@ -43,6 +43,12 @@
     <string name="live_chat_recharge_tip">余额不足，请充值！</string>
     <string name="live_chat_recharge_cancel">取消</string>
     <string name="live_chat_go_recharge">去充值</string>
+    <string name="live_chat_setting_password">设置支付密码</string>
+    <string name="live_chat_pay_password">支付密码</string>
+    <string name="live_chat_setting_password_ok">确认密码</string>
+    <string name="live_chat_ok">确认</string>
+    <string name="live_chat_red_damn">哎呀～</string>
+    <string name="live_chat_red_damn_next">手速慢了哦，下次要加油鸭</string>
     <!-- 排行 -->
     <string name="ranking_tab_anchor">主播</string>
     <string name="ranking_tab_expert">专家</string>

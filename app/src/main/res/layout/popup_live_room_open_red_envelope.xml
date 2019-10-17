@@ -44,20 +44,20 @@
     <LinearLayout
         android:id="@id/layoutOpenRedMoney"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="310dp"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@id/ivRedDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:src="@mipmap/ic_live_chat_red_delete"
-            tools:ignore="ContentDescription" />
+        <!--        <ImageView-->
+        <!--            android:id="@id/ivRedDelete"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_gravity="end"-->
+        <!--            android:src="@mipmap/ic_live_chat_red_delete"-->
+        <!--            tools:ignore="ContentDescription" />-->
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                 android:layout_width="@dimen/dp_66"
                 android:layout_height="@dimen/dp_66"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_96"
+                android:layout_marginTop="@dimen/dp_60"
                 android:src="@mipmap/ic_live_chat_open_red"
                 tools:ignore="ContentDescription" />
 
@@ -89,7 +89,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ivOpenRedLogo"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_10"
                 android:textColor="@color/color_fdd638"
                 android:textSize="@dimen/sp_14"
                 tools:text="鸵鸟MMP" />
@@ -99,8 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvRedName"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_16">
+                android:layout_centerHorizontal="true">
 
                 <View
                     android:layout_width="@dimen/dp_22"
@@ -130,8 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/llContent"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp_14">
+                android:layout_centerHorizontal="true">
 
                 <TextView
                     android:id="@id/tvRedMoney"
@@ -156,11 +153,48 @@
                 android:layout_below="@id/llMoney"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="@dimen/dp_8"
-                android:layout_marginTop="@dimen/dp_10"
                 android:text="@string/live_chat_open_red_obtain"
                 android:textColor="@color/color_fdd638"
                 android:textSize="@dimen/sp_18" />
         </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/llRedOver"
+        android:layout_width="wrap_content"
+        android:layout_height="310dp"
+        android:background="@mipmap/ic_live_chat_open_result"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_100"
+            android:text="@string/live_chat_red_damn"
+            android:textColor="@color/color_fdd638"
+            android:textSize="@dimen/sp_32" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_28"
+            android:text="@string/live_chat_red_damn_next"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:id="@id/ivOpenRedKnew"
+            android:layout_width="@dimen/dp_166"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_40"
+            android:src="@mipmap/ic_live_chat_damn_knew_button"
+            tools:ignore="ContentDescription" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,7 @@ package com.fenghuang.caipiaobao.ui.home.data
 import com.fenghuang.caipiaobao.data.api.ApiConvert
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
-import com.fenghuang.caipiaobao.data.bean.BaseApiBean
+import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.google.gson.reflect.TypeToken
 import com.pingerx.rxnetgo.rxcache.CacheMode
 import io.reactivex.Flowable
@@ -15,7 +15,7 @@ import io.reactivex.Flowable
  */
 object HomeApi : BaseApi {
 
-    private const val TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzEyMTE5NTAsIm5iZiI6MTU3MTIxMTk1MCwiZXhwIjoxNTcxMjEzMTUwLCJkYXRhIjp7InVzZXJfaWQiOjIsInVzZXJuYW1lIjoiYmlsbDAwIn19.oubUkkgg42gy0qVmzv5IW0mAa55WMR-eDTlQeWvUycg"
+    private const val TOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NzEzMDQ5MjIsIm5iZiI6MTU3MTMwNDkyMiwiZXhwIjoxNTcxMzkxMzIyLCJkYXRhIjp7InVzZXJfaWQiOjMsInVzZXJuYW1lIjoiYmlsbDExIn19.IC450T8PHhf4jsGSXO1tvkoAGfjPbVwl4yfPzfKJYtE"
 
 
     private const val HOME_BANNER_LIST = "/index.php/api/v1/user/get_banner"
@@ -30,6 +30,9 @@ object HomeApi : BaseApi {
     private const val HOME_LIVE_SEND_RED_ENVELOPE = "index.php/api/v1/user/send_red"
     private const val HOME_LIVE_PAY_PASSWORD = "index.php/api/v1/user/ver_pay_pass"
     private const val HOME_LIVE_RED_RECEIVE = "api/v1/user/receive_red"
+    private const val HOME_LIVE_RED_RECEIVE_ROOM = "api/v1/live/get_room_red"
+
+    private const val HOME_LIVE_RED_SET_PASS = "index/set-fund-password"
 
     /**
      * 获取首页轮播图列表
@@ -163,12 +166,28 @@ object HomeApi : BaseApi {
     /**
      * 验证是否设置支付密码
      */
-    fun getIsPayPassword(userId: Int, function: ApiSubscriber<BaseApiBean>.() -> Unit) {
-        val subscriber = object : ApiSubscriber<BaseApiBean>() {}
+    fun getIsPayPassword(userId: Int, function: EmptySubscriber.() -> Unit) {
+        val subscriber = EmptySubscriber()
         subscriber.function()
-        getApi().post<BaseApiBean>(HOME_LIVE_PAY_PASSWORD)
+        getApi().post<String>(HOME_LIVE_PAY_PASSWORD)
                 .headers("token", TOKEN)
                 .params("user_id", userId)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 设置支付密码
+     * oldPassword= 老密码（选填） newPassword=新密码  newPasswordRepeat=确认新密码
+     */
+    fun getSettingPayPassword(oldPassword: String, newPassword: String, newPasswordRepeat: String, function: EmptySubscriber.() -> Unit) {
+        val subscriber = EmptySubscriber()
+        subscriber.function()
+        getApiOther().post<String>(HOME_LIVE_RED_SET_PASS)
+//                .headers("token", TOKEN)
+                .headers("Authorization", "Bearer $TOKEN")
+                .params("old_password", oldPassword)
+                .params("new_password", newPassword)
+//                .params("new_password_repeat", newPasswordRepeat)
                 .subscribe(subscriber)
     }
 
@@ -184,4 +203,19 @@ object HomeApi : BaseApi {
                 .params("rid", rid)
                 .subscribe(subscriber)
     }
+
+    /**
+     * 获取直播间红包队列
+     */
+    fun getRoomRed(userId: Int, anchorId: Int, function: ApiSubscriber<List<HomeLiveRedRoom>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<HomeLiveRedRoom>>() {}
+        subscriber.function()
+        getApi().get<List<HomeLiveRedRoom>>(HOME_LIVE_RED_RECEIVE_ROOM)
+                .headers("token", TOKEN)
+                .params("user_id", userId)
+                .params("anchor_id", anchorId)
+                .subscribe(subscriber)
+    }
+
+
 }

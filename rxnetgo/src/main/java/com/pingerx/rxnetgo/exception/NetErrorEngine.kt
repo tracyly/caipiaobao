@@ -88,6 +88,7 @@ object NetErrorEngine {
             UNKNOW_HOST_ERROR_CODE -> e.setMsg(UNKNOW_HOST_ERROR_MSG)
             NETWORK_UNCONNECTED -> e.setMsg(NETWORK_UNCONNECTED_MSG)
             DATA_ERROR -> e.setMsg(e.getMsg()!!)
+
         }
         return e
     }
