@@ -20,13 +20,15 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
             if (data.type == "subscribe") {
                 setText(R.id.tvLiveChatContent, getString(R.string.live_chat_hint_room))
             } else {
-                if (isNotEmpty(data.text)) setText(R.id.tvLiveChatContent, data.text)
+                if (data.gift_type == 4) {
+                    // 红包
+                    setText(R.id.tvLiveChatContent, "在直播间发送了红包")
+                } else {
+                    if (isNotEmpty(data.text)) setText(R.id.tvLiveChatContent, data.text)
+                }
             }
 
-            if (data.gift_type == 4) {
-                // 红包
-//                RxBus.get().post(HomeLiveRedMessageBean(4))
-            }
+
             setText(R.id.tvLiveChatUserName, data.userName)
             setText(R.id.tvLiveChatVip, "V" + data.vip.toString())
         }

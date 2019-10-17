@@ -203,7 +203,6 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
             onSuccess {
                 if (it.isNotEmpty()) {
                     val homeLiveRedRoom = it[it.size - 1]
-                    ToastUtils.showToast(homeLiveRedRoom.id.toString())
                     mView.onIsShowRedEnvelope(HomeLiveRedMessageBean(4, homeLiveRedRoom.id))
                 }
             }
