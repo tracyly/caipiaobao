@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.widget.popup
 
 import android.app.Activity
 import android.content.Context
+import android.widget.EditText
 import android.widget.TextView
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.widget.popup.BasePopupWindow
@@ -10,27 +11,24 @@ import com.fenghuang.caipiaobao.R
 /**
  *  author : Peter
  *  date   : 2019/10/16 15:34
- *  desc   : 直播间余额不足提示充值的窗口
+ *  desc   : 提示设置支付密码
  */
-class ReChargePopup(context: Context) : BasePopupWindow(context, R.layout.popup_live_chat_recharge) {
+class SettingPayPasswordPopup(context: Context) : BasePopupWindow(context, R.layout.popup_live_chat_setting_password) {
 
     init {
-        width = ViewUtils.dp2px(314)
-        height = ViewUtils.dp2px(260)
+        width = ViewUtils.dp2px(280)
         addBackground()
         isFocusable = true
-        findView<TextView>(R.id.tvRechargeCancel).setOnClickListener {
-            dismiss()
-        }
-        findView<TextView>(R.id.tvGoRecharge).setOnClickListener {
-            dismiss()
-            mListener?.invoke()
+        val etPayPassword = findView<EditText>(R.id.etPayPassword)
+        val etOkPassword = findView<EditText>(R.id.etOkPassword)
+        findView<TextView>(R.id.tvRedSend).setOnClickListener {
+            mListener?.invoke(etPayPassword.text.toString().trim(), etOkPassword.text.toString().trim())
         }
     }
 
 
-    private var mListener: (() -> Unit)? = null
-    fun setOnSendClickListener(listener: () -> Unit) {
+    private var mListener: ((password: String, passwordOk: String) -> Unit)? = null
+    fun setOnSendClickListener(listener: (password: String, passwordOk: String) -> Unit) {
         mListener = listener
     }
 

@@ -28,14 +28,12 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.function.isEmpty
 import com.fenghuang.caipiaobao.function.isNotEmpty
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatPostEvenBean
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRedMessageBean
+import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.widget.ChatGifTabView
 import com.fenghuang.caipiaobao.ui.widget.popup.OpenRedEnvelopePopup
+import com.fenghuang.caipiaobao.ui.widget.popup.ReChargePopup
 import com.fenghuang.caipiaobao.ui.widget.popup.RedEnvelopePopup
-import com.fenghuang.caipiaobao.widget.pagegridview.GridPager
+import com.fenghuang.caipiaobao.ui.widget.popup.SettingPayPasswordPopup
 import com.fenghuang.caipiaobao.widget.pagegridview.GridViewAdapter
 import com.fenghuang.caipiaobao.widget.pagegridview.ViewPagerAdapter
 import com.hwangjr.rxbus.annotation.Subscribe
@@ -61,13 +59,12 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     private lateinit var mDialogViewPager: ViewPager
     // 礼物窗口的圆点
     private lateinit var mGifDot: LinearLayout
-    // 依次为：普通礼物，表白礼物，彩票礼物
-    private lateinit var mGridPager: GridPager
     private lateinit var mNetWorkReceiver: NetWorkChangReceiver
     private var mTotal: Int = 0
     private var mRedNumber: Int = 0
     private var mRedContent: String = ""
     private var mPassword: String = ""
+    private lateinit var mOpenRedPopup: OpenRedEnvelopePopup
 
     override fun getContentResID() = R.layout.fragment_live_chat
 
@@ -168,17 +165,43 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
     /**
      * 接收红包, 礼物通知
      */
-    @Subscribe(thread = EventThread.MAIN_THREAD)
+//    @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onIsShowRedEnvelope(eventBean: HomeLiveRedMessageBean) {
-        if (eventBean.rid == 4) {
+        if (eventBean.gift_type == 4) {
+            // 通知有可抢的红包
             setVisible(ivEnvelopeTips)
-            val openRedPopup = OpenRedEnvelopePopup(getPageActivity())
-            openRedPopup.setOnOpenClickListener {
-                //                mPresenter.sendMessage()
-                openRedPopup.isShowRedLogo(true)
+            ivEnvelopeTips.setOnClickListener {
+                mOpenRedPopup = OpenRedEnvelopePopup(getPageActivity())
+                mOpenRedPopup.setOnOpenClickListener {
+                    mPresenter.sendRedReceive(eventBean.rid)
+                }
+                mOpenRedPopup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
             }
-            openRedPopup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
         }
+
+    }
+
+    /**
+     * 抢到红包后的回调
+     */
+    fun showOpenRedContent(it: HomeLiveRedReceiveBean) {
+        setGone(ivEnvelopeTips)
+        mPresenter.getRoomRed(IntentConstant.USER_ID)
+        mOpenRedPopup.setRedContent(it.send_text)
+        mOpenRedPopup.setRedMoney(it.count.toString())
+        mOpenRedPopup.setRedUserName(it.send_user_name)
+        if (null != it.send_user_avatar) mOpenRedPopup.setRedLogo(it.send_user_avatar)
+        mOpenRedPopup.isShowRedLogo(true)
+
+    }
+
+    /**
+     * 提示该红包已抢完
+     */
+    fun showOpenRedOverKnew() {
+        setGone(ivEnvelopeTips)
+        mPresenter.getRoomRed(IntentConstant.USER_ID)
+        mOpenRedPopup.showRedOver()
     }
 
     override fun initEvent() {
@@ -344,6 +367,34 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
         }
     }
 
+
+    /**
+     * 设置支付密码
+     */
+    fun settingPayPasswordPopup() {
+        val passwordPopup = SettingPayPasswordPopup(getPageActivity())
+        passwordPopup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
+        passwordPopup.setOnSendClickListener { password, passwordOk ->
+            if (password != passwordOk) {
+                ToastUtils.showToast("密码不一致，请重新输入")
+            } else {
+                passwordPopup.dismiss()
+                mPresenter.getSettingPayPassword(password, passwordOk)
+            }
+        }
+    }
+
+    /**
+     * 显示余额不足
+     */
+    fun showReChargePopup() {
+        val reChargePopup = ReChargePopup(getPageActivity())
+        reChargePopup.setOnSendClickListener {
+            // TODO 跳转充值
+        }
+        reChargePopup.showAtLocation(rootView, Gravity.CENTER, 0, 0)
+
+    }
 
     inner class NetWorkChangReceiver : BroadcastReceiver() {
         @RequiresApi(Build.VERSION_CODES.LOLLIPOP)

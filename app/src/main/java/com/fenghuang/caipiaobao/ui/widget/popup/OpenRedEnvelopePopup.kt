@@ -20,8 +20,10 @@ class OpenRedEnvelopePopup(context: Context) : BasePopupWindow(context, R.layout
 
     private lateinit var mOpenRed: RelativeLayout
     private lateinit var mOpenRedMoney: LinearLayout
+    private lateinit var mRedOver: LinearLayout
     private lateinit var mOpenRedLogo: ImageView
-    private lateinit var mRedDelete: ImageView
+    //    private lateinit var mRedDelete: ImageView
+    private lateinit var mOpenRedKnew: ImageView
     private lateinit var mRedContent: TextView
     private lateinit var mUserName: TextView
     private lateinit var mRedMoney: TextView
@@ -29,21 +31,26 @@ class OpenRedEnvelopePopup(context: Context) : BasePopupWindow(context, R.layout
     init {
 //        width = ViewUtils.getScreenWidth()
         addBackground()
-        isFocusable = false
-        isOutsideTouchable = false
+        isFocusable = true
+        isOutsideTouchable = true
         mOpenRed = findView<RelativeLayout>(R.id.rlOpenRed)
         mOpenRedMoney = findView<LinearLayout>(R.id.layoutOpenRedMoney)
         mOpenRedLogo = findView<ImageView>(R.id.ivOpenRedLogo)
-        mRedDelete = findView<ImageView>(R.id.ivRedDelete)
+//        mRedDelete = findView<ImageView>(R.id.ivRedDelete)
         mRedContent = findView<TextView>(R.id.tvRedContent)
         mUserName = findView<TextView>(R.id.tvRedName)
         mRedMoney = findView<TextView>(R.id.tvRedMoney)
+
+        mRedOver = findView<LinearLayout>(R.id.llRedOver)
+        findView<ImageView>(R.id.ivOpenRedKnew).setOnClickListener {
+            dismiss()
+        }
         findView<ImageView>(R.id.ivOpenRed).setOnClickListener {
             mListener?.invoke()
         }
-        mRedDelete.setOnClickListener {
-            dismiss()
-        }
+//        mRedDelete.setOnClickListener {
+//            dismiss()
+//        }
     }
 
     private var mListener: (() -> Unit)? = null
@@ -63,7 +70,7 @@ class OpenRedEnvelopePopup(context: Context) : BasePopupWindow(context, R.layout
     }
 
     fun setRedLogo(url: String) {
-        ImageManager.loadRoundLogo(url, mOpenRedLogo)
+        if (url.isNotEmpty()) ImageManager.loadRoundLogo(url, mOpenRedLogo)
     }
 
     fun setRedUserName(userName: String) {
@@ -83,5 +90,9 @@ class OpenRedEnvelopePopup(context: Context) : BasePopupWindow(context, R.layout
             mOpenRed.visibility = View.GONE
             mOpenRedMoney.visibility = View.VISIBLE
         }
+    }
+
+    fun showRedOver() {
+        mRedOver.visibility = View.VISIBLE
     }
 }

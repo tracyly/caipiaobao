@@ -28,7 +28,7 @@ class ApiConvert<T>(private var type: Type? = null,
             } else return JsonUtils.fromJson(json, getType())
         } else {
             // 根据服务端的code来分发消息
-            throw ApiException(msg = bean.msg)
+            throw ApiException(code = bean.code, msg = bean.msg)
 //            throw Exception(bean.msg)
         }
     }
