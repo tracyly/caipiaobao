@@ -3,13 +3,13 @@ package com.fenghuang.caipiaobao.data.api
 import com.fenghuang.baselib.utils.DebugUtils
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER
 import com.pingerx.rxnetgo.RxNetGo
 
 /**
  * 网络请求基类
  */
 interface BaseApi {
-
 
     /**
      * 获取URL
@@ -29,4 +29,14 @@ interface BaseApi {
     fun getApi(): RxNetGo {
         return RxNetGo.getInstance().getRetrofitService(getBaseUrl())
     }
+
+    /**
+     * 登录其他的BaseUrl
+     */
+    fun getApiOther(): RxNetGo {
+        return RxNetGo.getInstance().getRetrofitService(API_URL_DEV_OTHER)
+    }
+
+
+
 }
