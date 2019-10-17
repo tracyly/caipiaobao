@@ -26,6 +26,7 @@ import com.fenghuang.baselib.utils.*
 import com.fenghuang.baselib.widget.dialog.MaterialBottomDialog
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
+import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.function.isEmpty
 import com.fenghuang.caipiaobao.function.isNotEmpty
 import com.fenghuang.caipiaobao.ui.home.data.*
@@ -186,7 +187,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
      */
     fun showOpenRedContent(it: HomeLiveRedReceiveBean) {
         setGone(ivEnvelopeTips)
-        mPresenter.getRoomRed(IntentConstant.USER_ID)
+        mPresenter.getRoomRed(SpUtils.getInt(UserConstant.USER_ID, 0))
         mOpenRedPopup.setRedContent(it.send_text)
         mOpenRedPopup.setRedMoney(it.count.toString())
         mOpenRedPopup.setRedUserName(it.send_user_name)
@@ -200,7 +201,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
      */
     fun showOpenRedOverKnew() {
         setGone(ivEnvelopeTips)
-        mPresenter.getRoomRed(IntentConstant.USER_ID)
+        mPresenter.getRoomRed(SpUtils.getInt(UserConstant.USER_ID, 0))
         mOpenRedPopup.showRedOver()
     }
 
@@ -277,7 +278,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
      */
     fun sendRedEnvelope() {
         mPresenter.sendRedEnvelope(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
-                ?: 0, IntentConstant.USER_ID, mTotal, mRedNumber, mRedContent, mPassword)
+                ?: 0, SpUtils.getInt(UserConstant.USER_ID, 0), mTotal, mRedNumber, mRedContent, mPassword)
     }
 
     /**
