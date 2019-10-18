@@ -14,4 +14,7 @@ object ApiConstant {
     const val API_URL_DEV = "http://47.244.212.147"
 
     const val API_URL_DEV_OTHER = "http://154.206.43.213:18306"
+
+    // 竞猜
+    const val API_URL_QUIZ = "http://154.206.43.213:18308"
 }

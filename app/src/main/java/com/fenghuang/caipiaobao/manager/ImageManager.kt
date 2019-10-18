@@ -73,5 +73,12 @@ object ImageManager {
         loadRound(url, imageView, ViewUtils.dp2px(10), RoundType.ALL)
     }
 
+    /**
+     * 加载竞猜热门讨论图片
+     */
+    fun loadQuizImageRes(url: String?, imageView: ImageView) {
+        loadRound(url, imageView, ViewUtils.dp2px(6), RoundType.ALL)
+    }
+
 
 }

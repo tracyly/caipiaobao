@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/ivQuizTop"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_150"
+    android:layout_marginStart="@dimen/dp_10"
+    android:layout_marginEnd="@dimen/dp_10"
+    android:scaleType="fitXY"
+    android:src="@mipmap/ic_quiz_title_image">
+
+</ImageView>

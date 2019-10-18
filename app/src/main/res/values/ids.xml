@@ -190,6 +190,18 @@
     <item name="etPayPassword" type="id" />
     <item name="etOkPassword" type="id" />
     <item name="llRedOver" type="id" />
+
+    <!-- 竟猜 -->
+    <item name="ivQuizLogo" type="id" />
+    <item name="tvQuizName" type="id" />
+    <item name="tvQuizDate" type="id" />
+    <item name="tvQuizTitle" type="id" />
+    <item name="tvQuizGameName" type="id" />
+    <item name="tvQuizPeriod" type="id" />
+    <item name="tvQuizLike" type="id" />
+    <item name="ivQuizImage" type="id" />
+    <item name="tvQuizListTitle" type="id" />
+    <item name="ivQuizTop" type="id" />
     <!--    <item name="chatGifContent" type="id" />-->
 
 
