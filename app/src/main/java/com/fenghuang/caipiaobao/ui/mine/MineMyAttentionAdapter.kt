@@ -24,7 +24,7 @@ class MineMyAttentionAdapter(context: Context) : BaseRecyclerAdapter<MineAttenti
         return MineMyAttentionHolder(parent)
     }
 
-    inner class MineMyAttentionHolder(parent: ViewGroup) : BaseViewHolder<MineAttentionResponse>(getContext(), parent, R.layout.holder_attention) {
+    inner class MineMyAttentionHolder(parent: ViewGroup) : BaseViewHolder<MineAttentionResponse>(getContext(), parent, R.layout.holder_mine_attention) {
         override fun onBindData(data: MineAttentionResponse) {
             ImageManager.loadRoundLogo(data.avatar, findView(R.id.imgAttPhoto))
             setText(R.id.tvAttName, data.nickname)
