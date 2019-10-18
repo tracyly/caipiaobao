@@ -6,7 +6,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.login.LoginFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
-import com.fenghuang.caipiaobao.widget.dialog.ExitDialog
+import com.fenghuang.caipiaobao.widget.dialog.TipsConfirmDialog
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine_child_view.*
 
@@ -32,7 +32,7 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         mPresenter.initList(getPageActivity(), listItem)
     }
 
-    private lateinit var dialog: ExitDialog
+    private lateinit var dialog: TipsConfirmDialog
 
     override fun initEvent() {
 
@@ -49,12 +49,10 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         }
 
         btExitLogin.setOnClickListener {
-            dialog = ExitDialog(getPageActivity(), "确认是否退出?", "确认", "取消", View.OnClickListener {
+            dialog = TipsConfirmDialog(getPageActivity(), "确认是否退出?", "确认", "取消")
+            dialog.setConfirmClickListener {
                 startFragment(context, LoginFragment())
-                dialog.dismiss()
-            }, View.OnClickListener {
-                dialog.dismiss()
-            })
+            }
             dialog.show()
         }
 

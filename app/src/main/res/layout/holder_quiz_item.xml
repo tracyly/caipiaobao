@@ -94,18 +94,36 @@
             android:textSize="@dimen/sp_12"
             tools:text="25期" />
 
-        <TextView
-            android:id="@id/tvQuizLike"
+        <LinearLayout
+            android:id="@id/quizLikeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:drawableStart="@drawable/selector_quiz_lick"
-            android:drawablePadding="@dimen/dp_6"
-            android:gravity="center"
-            android:textColor="@color/color_bfc8d9"
-            android:textSize="@dimen/sp_10"
-            tools:ignore="RelativeOverlap"
-            tools:text="565" />
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            tools:ignore="RelativeOverlap,UseCompoundDrawables">
+
+            <ImageView
+                android:id="@id/ivQuizLike"
+                android:layout_width="@dimen/dp_14"
+                android:layout_height="@dimen/dp_14"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_quiz_like_normal"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@id/tvQuizLike"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/dp_6"
+                android:enabled="false"
+                android:textColor="@color/color_bfc8d9"
+                android:textSize="@dimen/sp_10"
+                tools:ignore="RelativeOverlap"
+                tools:text="565" />
+        </LinearLayout>
+
     </RelativeLayout>
 
 </com.fenghuang.baselib.widget.round.RoundLinearLayout>

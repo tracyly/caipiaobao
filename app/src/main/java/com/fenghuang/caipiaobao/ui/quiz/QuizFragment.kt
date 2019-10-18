@@ -2,9 +2,12 @@ package com.fenghuang.caipiaobao.ui.quiz
 
 import com.fenghuang.baselib.base.recycler.BaseMultiRecyclerNavFragment
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.ui.login.LoginFragment
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizResponse
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTitleBean
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTopImageBean
+import com.fenghuang.caipiaobao.utils.LaunchUtils
+import com.fenghuang.caipiaobao.widget.dialog.TipsConfirmDialog
 
 /**
  *  author : Peter
@@ -12,6 +15,8 @@ import com.fenghuang.caipiaobao.ui.quiz.data.QuizTopImageBean
  *  desc   : 竟猜
  */
 class QuizFragment : BaseMultiRecyclerNavFragment<QuizPresenter>() {
+
+    private lateinit var mQuizHolder: QuizHolder
 
     override fun getPageTitle() = getString(R.string.tab_quiz)
     override fun attachPresenter() = QuizPresenter()
@@ -27,9 +32,27 @@ class QuizFragment : BaseMultiRecyclerNavFragment<QuizPresenter>() {
 
     override fun initPageView() {
         super.initPageView()
-        register(QuizResponse::class.java, QuizHolder())
+        mQuizHolder = QuizHolder()
+        register(QuizResponse::class.java, mQuizHolder)
         register(QuizTitleBean::class.java, QuizTitleHolder())
         register(QuizTopImageBean::class.java, QuizTopImageHolder())
     }
 
+    override fun initEvent() {
+        mQuizHolder.setOnSendLikeClickListener {
+            mPresenter.postQuizLike(it)
+        }
+    }
+
+
+    /**
+     * 提示登陆
+     */
+    fun showLoginTips() {
+        val tipsConfirmDialog = TipsConfirmDialog(getPageActivity(), "请登录后再操作", "去登录", "下次再说")
+        tipsConfirmDialog.setConfirmClickListener {
+            LaunchUtils.startFragment(getPageActivity(), LoginFragment())
+        }
+        tipsConfirmDialog.show()
+    }
 }

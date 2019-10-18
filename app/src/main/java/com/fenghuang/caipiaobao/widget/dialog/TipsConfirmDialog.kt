@@ -15,12 +15,12 @@ import kotlinx.android.synthetic.main.dialog_fonfirm.*
  *
  * @ Author  QinTian
  * @ Date  2019/10/17- 14:53
- * @ Describe 退出Dialog
+ * @ Describe : 公共提示确认对话框
  *
  */
 
 
-class ExitDialog(context: Context, title: String, confirm: String, cancel: String, confirmClickListener: View.OnClickListener, canCelClickListener: View.OnClickListener) : Dialog(context) {
+class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel: String) : Dialog(context) {
 
     init {
         setContentView(com.fenghuang.caipiaobao.R.layout.dialog_exit)
@@ -31,10 +31,10 @@ class ExitDialog(context: Context, title: String, confirm: String, cancel: Strin
         lp.height = ViewUtils.dp2px(146)  // 高度
 //      lp.alpha = 0.7f // 透明度
         window!!.attributes = lp
-        initText(title, confirm, cancel, confirmClickListener, canCelClickListener)
+        initText(title, confirm, cancel)
     }
 
-    private fun initText(content: String, confirm: String, cancel: String, confirmClickListener: View.OnClickListener, canCelClickListener: View.OnClickListener) {
+    private fun initText(content: String, confirm: String, cancel: String) {
         if (!TextUtils.isEmpty(content)) {
             tvContent.visibility = View.VISIBLE
             tvContent.text = content
@@ -48,10 +48,20 @@ class ExitDialog(context: Context, title: String, confirm: String, cancel: Strin
             tvCancel.text = cancel
         }
         if (tvConfirm !== null) {
-            tvConfirm.setOnClickListener(confirmClickListener)
+            tvConfirm.setOnClickListener {
+                dismiss()
+                mListener?.invoke()
+            }
         }
         if (tvCancel !== null) {
-            tvCancel.setOnClickListener(canCelClickListener)
+            tvCancel.setOnClickListener {
+                dismiss()
+            }
         }
+    }
+
+    private var mListener: (() -> Unit)? = null
+    fun setConfirmClickListener(listener: () -> Unit) {
+        mListener = listener
     }
 }

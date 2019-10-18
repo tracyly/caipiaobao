@@ -1,7 +1,10 @@
 package com.fenghuang.caipiaobao.ui.quiz
 
 import com.fenghuang.baselib.base.recycler.BaseRecyclerPresenter
+import com.fenghuang.baselib.utils.SpUtils
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizApi
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTitleBean
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTopImageBean
@@ -35,7 +38,21 @@ class QuizPresenter : BaseRecyclerPresenter<QuizFragment>() {
                 mView.showPageError(it.getMsg())
             }
         }
+    }
 
+    /**
+     * 点赞
+     */
+    fun postQuizLike(articleId: Int) {
+        QuizApi.getQuizArticleLikeResult(articleId, SpUtils.getInt(UserConstant.USER_ID)) {
+            onSuccess {
+                ToastUtils.showSuccess("点赞成功")
+            }
+
+            onFailed {
+                mView.showLoginTips()
+            }
+        }
     }
 
 }

@@ -19,6 +19,7 @@ object TimeUtils {
     private val formatHourAndYear = SimpleDateFormat("HH:mm yyyy-MM-dd", Locale.getDefault())
 
     private val formatYearMonthDayHourMinute = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+
     /**
      * 获取今天的日期，格式为 2019-01-10
      */
@@ -357,5 +358,28 @@ object TimeUtils {
     fun longToDateString(long: Long): String? {
         val date = Date(long * 1000)
         return formatYearMonthDayHourMinute.format(date)
+    }
+
+
+    /**
+     * 将日期格式化成友好的字符串：几分钟前、几小时前、几天前、几月前、几年前、刚刚
+     *
+     * @param timestamp
+     * @return
+     */
+    fun formatFriendly(timestamp: Long): String {
+        val currentSeconds = System.currentTimeMillis() / 1000
+        val timeGap = currentSeconds - timestamp// 与现在时间相差秒数
+        var timeStr: String? = null
+        if (timeGap > 24 * 60 * 60) {// 1天以上
+            timeStr = (timeGap / (24 * 60 * 60)).toString() + "天前"
+        } else if (timeGap > 60 * 60) {// 1小时-24小时
+            timeStr = (timeGap / (60 * 60)).toString() + "小时前"
+        } else if (timeGap > 60) {// 1分钟-59分钟
+            timeStr = (timeGap / 60).toString() + "分钟前"
+        } else {// 1秒钟-59秒钟
+            timeStr = "刚刚"
+        }
+        return timeStr
     }
 }
