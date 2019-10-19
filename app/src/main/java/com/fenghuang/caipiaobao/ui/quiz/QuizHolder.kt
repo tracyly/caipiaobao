@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.quiz
 
 import android.content.Context
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
@@ -38,15 +39,34 @@ class QuizHolder : MultiTypeViewHolder<QuizResponse, QuizHolder.ViewHolder>() {
         }
 
         override fun onBindData(data: QuizResponse) {
-            setText(R.id.tvQuizName, data.nickname)
             setText(R.id.tvQuizDate, data.created)
             setText(R.id.tvQuizTitle, data.title)
+            setText(R.id.tvQuizName, data.nickname)
             setText(R.id.tvQuizGameName, data.lottery_name)
             setText(R.id.tvQuizPeriod, data.issue)
             setText(R.id.tvQuizLike, data.like.toString())
-            val images = data.images
-            adapter?.setData(images)
+            setOnClick(R.id.quizLikeLayout)
+            adapter?.setData(data.images)
+            val findView = findView<TextView>(R.id.tvQuizLike)
+            if (data.is_like == 1) {
+                setTextColor(findView, getColor(R.color.color_FF513E))
+                setImageResource(findView(R.id.ivQuizLike), R.mipmap.ic_quiz_like_select)
+            } else {
+                setTextColor(findView, getColor(R.color.color_bfc8d9))
+                setImageResource(findView(R.id.ivQuizLike), R.mipmap.ic_quiz_like_normal)
+            }
         }
+
+        override fun onClick(id: Int) {
+            if (id == R.id.quizLikeLayout) {
+                mListener?.invoke(getData()?.id!!)
+            }
+        }
+    }
+
+    private var mListener: ((id: Int) -> Unit)? = null
+    fun setOnSendLikeClickListener(listener: (id: Int) -> Unit) {
+        mListener = listener
     }
 
     inner class QuizHolderImageAdapter(context: Context) : BaseRecyclerAdapter<String>(context) {

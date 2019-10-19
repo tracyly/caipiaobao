@@ -22,6 +22,7 @@ import com.fenghuang.caipiaobao.ui.home.live.HomeLiveDetailsFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.MarqueeTextView
 import com.fenghuang.caipiaobao.widget.cardview.LCardView
+import com.fenghuang.caipiaobao.widget.gif.GifImageView
 import com.fenghuang.caipiaobao.widget.pagegridview.GridPager
 import com.hwangjr.rxbus.RxBus
 import com.pingerx.banner.BannerView
@@ -116,10 +117,14 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 holder.setText(R.id.tvHotLiveTag, data[position].tags[0].title)
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
-                if (data[position].live_status == 1)
+                if (data[position].live_status == 1) {
+                    val ivHotLiveStatus = holder.getView<GifImageView>(R.id.ivHotLiveStatus)
+                    ivHotLiveStatus.setGifResource(R.drawable.ic_home_live_gif)
+                    ivHotLiveStatus.play(-1)
                     holder.setVisible(R.id.ivHotLiveStatus, true)
-                else
+                } else {
                     holder.setVisible(R.id.ivHotLiveStatus, false)
+                }
                 cardView.setOnClickListener {
                     startLiveRoom(data[position].live_status, data[position].anchor_id, data[position].live_intro)
                 }
@@ -145,10 +150,15 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                 holder.setText(R.id.tvHotLiveTag, data[position].tags[0].title)
                 ImageManager.loadHomeHotLive(data[position].avatar, ivHotLiveLogo)
                 ImageManager.loadHomeGameListLogo(data[position].tags[0].icon, ivHotLiveTag)
-                if (data[position].live_status == 1)
+                if (data[position].live_status == 1) {
+                    val ivHotLiveStatus = holder.getView<GifImageView>(R.id.ivHotLiveStatus)
+                    ivHotLiveStatus.setGifResource(R.drawable.ic_home_live_gif)
+                    ivHotLiveStatus.play(-1)
                     holder.setVisible(R.id.ivHotLiveStatus, true)
-                else
+
+                } else {
                     holder.setVisible(R.id.ivHotLiveStatus, false)
+                }
                 cardView.setOnClickListener {
                     startLiveRoom(data[position].live_status, data[position].anchor_id, data[position].live_intro)
                 }
@@ -189,7 +199,13 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
                         .setItemBindDataListener { imageView, tvTitle, ivLiveStatus, _, _, position ->
                             ImageManager.loadHomeGameListLogo(it[position].image, imageView!!)
                             tvTitle.text = it[position].name
-                            if (it[position].live_status == 1) ivLiveStatus.visibility = View.VISIBLE else ivLiveStatus.visibility = View.GONE
+                            if (it[position].live_status == 1) {
+                                ivLiveStatus.setGifResource(R.drawable.ic_home_live_gif)
+                                ivLiveStatus.play(-1)
+                                ivLiveStatus.visibility = View.VISIBLE
+                            } else {
+                                ivLiveStatus.visibility = View.GONE
+                            }
                         }
                         .setGridItemClickListener { position, _ ->
                             if (it[position].live_status == 1) {

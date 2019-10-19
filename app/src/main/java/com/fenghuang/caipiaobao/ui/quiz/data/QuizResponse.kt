@@ -8,7 +8,8 @@ data class QuizResponse(var created: String,
                         var like: Int,
                         var lottery_name: String,
                         var nickname: String,
-                        var title: String)
+                        var title: String,
+                        var is_like: Int)
 
 data class QuizTitleBean(var title: String)
 data class QuizTopImageBean(var logo: Int)

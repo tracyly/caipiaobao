@@ -27,10 +27,16 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
                     if (isNotEmpty(data.text)) setText(R.id.tvLiveChatContent, data.text)
                 }
             }
-
-
+            when (data.vip) {
+                1 -> setImageResource(findView(R.id.ivLiveVip), R.mipmap.ic_live_chat_vip1)
+                2 -> setImageResource(findView(R.id.ivLiveVip), R.mipmap.ic_live_chat_vip2)
+                3 -> setImageResource(findView(R.id.ivLiveVip), R.mipmap.ic_live_chat_vip3)
+                4 -> setImageResource(findView(R.id.ivLiveVip), R.mipmap.ic_live_chat_vip4)
+                5 -> setImageResource(findView(R.id.ivLiveVip), R.mipmap.ic_live_chat_vip5)
+                6 -> setImageResource(findView(R.id.ivLiveVip), R.mipmap.ic_live_chat_vip6)
+            }
             setText(R.id.tvLiveChatUserName, data.userName)
-            setText(R.id.tvLiveChatVip, "V" + data.vip.toString())
+//            setText(R.id.tvLiveChatVip, "V" + data.vip.toString())
         }
 
     }
