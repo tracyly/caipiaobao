@@ -22,6 +22,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.fenghuang.baselib.utils.ViewUtils;
 import com.fenghuang.caipiaobao.R;
+import com.fenghuang.caipiaobao.widget.gif.GifImageView;
 
 
 /**
@@ -420,7 +421,7 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
      * 绑定数据
      */
     public interface ItemBindDataListener {
-        void BindData(ImageView imageView, TextView tvTitle, ImageView ivHotLiveStatus, TextView textView, LinearLayout linearLayout, int position);
+        void BindData(ImageView imageView, TextView tvTitle, GifImageView ivHotLiveStatus, TextView textView, LinearLayout linearLayout, int position);
     }
 
     /**
@@ -605,7 +606,8 @@ public class GridPager extends FrameLayout implements ViewPager.OnPageChangeList
             private LinearLayout linearLayout;
             private TextView tvTitle;
             private TextView tvTitleHint;
-            private ImageView ivLogo, ivHotLiveStatus;
+            private ImageView ivLogo;
+            private GifImageView ivHotLiveStatus;
         }
     }
 

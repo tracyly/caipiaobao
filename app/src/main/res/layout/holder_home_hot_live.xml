@@ -73,7 +73,7 @@
                 android:textSize="@dimen/sp_12"
                 tools:text="大美女" />
 
-            <ImageView
+            <com.fenghuang.caipiaobao.widget.gif.GifImageView
                 android:id="@id/ivHotLiveStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                 android:layout_marginStart="@dimen/dp_4"
                 android:layout_toEndOf="@id/tvHotLiveName"
                 android:visibility="gone"
-                android:src="@mipmap/ic_home_hot_live_live_broadcast"
+                android:src="@drawable/ic_home_live_gif"
                 tools:ignore="ContentDescription" />
 
             <TextView

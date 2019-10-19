@@ -50,7 +50,8 @@ class QuizPresenter : BaseRecyclerPresenter<QuizFragment>() {
             }
 
             onFailed {
-                mView.showLoginTips()
+                //                mView.showLoginTips()
+                ToastUtils.showError(it.getMsg())
             }
         }
     }
