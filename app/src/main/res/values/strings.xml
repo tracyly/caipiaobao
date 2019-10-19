@@ -16,6 +16,8 @@
     <string name="home_expert_play_average_odds">平均赔率</string>
     <string name="home_live_notice_attention">关注</string>
     <string name="home_profit">盈利</string>
+    <string name="home_anchor_attention">关注</string>
+    <string name="home_anchor_fan">粉丝</string>
 
     <!-- 直播 -->
     <string name="string_live">LIVE</string>
@@ -49,6 +51,9 @@
     <string name="live_chat_ok">确认</string>
     <string name="live_chat_red_damn">哎呀～</string>
     <string name="live_chat_red_damn_next">手速慢了哦，下次要加油鸭</string>
+    <string name="live_anchor_room">直播间</string>
+    <string name="live_anchor_dynamic">动态</string>
+    <string name="live_anchor_data">资料</string>
     <!-- 排行 -->
     <string name="ranking_tab_anchor">主播</string>
     <string name="ranking_tab_expert">专家</string>
