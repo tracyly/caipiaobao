@@ -70,6 +70,23 @@
     <item name="tvRechargeCancel" type="id" />
     <item name="tvGoRecharge" type="id" />
     <item name="ivOpenRedKnew" type="id" />
+    <item name="ivLiveVip" type="id" />
+    <item name="ivAnchorBack" type="id" />
+    <item name="anchorLiveStatusLayout" type="id" />
+    <item name="ivAnchorLiveStatus" type="id" />
+    <item name="tvAnchorUsername" type="id" />
+    <item name="ivAnchorSex" type="id" />
+    <item name="tvAnchorAge" type="id" />
+    <item name="tvAnchorSignature" type="id" />
+    <item name="tvAnchorAttention" type="id" />
+    <item name="tvAnchorFan" type="id" />
+    <item name="tvAnchorAttentionHint" type="id" />
+    <item name="tvAnchorAddAttention" type="id" />
+    <item name="ivAnchorLogo" type="id" />
+    <item name="rlAnchorTabLeft" type="id" />
+    <item name="rlAnchorTabRight" type="id" />
+    <item name="cvAnchor" type="id" />
+    <item name="anchorTabView" type="id" />
 
     <!-- 排行 -->
     <item name="tvTabLeft" type="id" />
@@ -172,7 +189,6 @@
     <item name="tvTopUserName" type="id" />
     <item name="tvTopPeople" type="id" />
     <item name="ivUserLogo" type="id" />
-    <item name="ivAnchorLogo" type="id" />
     <item name="rlChatLayout" type="id" />
     <item name="rlAnchor" type="id" />
     <item name="rlChatGifOrdinary" type="id" />
