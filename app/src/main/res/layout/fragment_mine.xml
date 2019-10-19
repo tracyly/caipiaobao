@@ -95,7 +95,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_82"
+                    android:layout_marginTop="@dimen/dp_72"
+                    android:paddingTop="@dimen/dp_10"
                     android:layout_toEndOf="@+id/userPhoto"
                     android:orientation="vertical"
                     tools:ignore="RelativeOverlap">
@@ -103,7 +104,7 @@
                     <TextView
                         android:id="@+id/tvLogin"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/dp_30"
                         android:layout_centerHorizontal="true"
                         android:text="@string/mine_please_login"
                         android:textColor="@color/white"

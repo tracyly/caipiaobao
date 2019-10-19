@@ -81,7 +81,7 @@ object NetErrorEngine {
 
     private fun parseApiException(e: ApiException): ApiException {
         when (e.getCode()) {
-            UNKNOWN_CODE -> e.setMsg(UNKNOW_MSG)
+            UNKNOWN_CODE -> e.setMsg(e.getMsg()!!)
             PARSE_ERROR_CODE -> e.setMsg(PARSE_ERROR_MSG)
             NETWORD_ERROR_CODE -> e.setMsg(NETWORD_ERROR_MSG)
             SERVER_ERROR_CODE -> e.setMsg(SERVER_ERROR_MSG)

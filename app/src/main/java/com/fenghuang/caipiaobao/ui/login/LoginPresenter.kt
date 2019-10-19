@@ -1,10 +1,13 @@
 package com.fenghuang.caipiaobao.ui.login
 
+import android.widget.EditText
 import android.widget.TextView
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.baselib.utils.SpUtils
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.login.data.LoginApi
+import com.fenghuang.caipiaobao.widget.timer.CountDownTimerUtils
 
 /**
  *
@@ -16,49 +19,65 @@ import com.fenghuang.caipiaobao.ui.login.data.LoginApi
 
 class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
 
-    fun userGetCode(textView: TextView, phone: String) {
-        LoginApi.userGetCode(phone) {
+
+    /**
+     * 倒计时
+     */
+
+    fun time(textView: TextView) {
+        val mCountDownTimerUtils = CountDownTimerUtils(textView, 60000, 1000)
+        mCountDownTimerUtils.start()
+    }
+
+
+    /**
+     * 获取验证码
+     */
+
+    fun userGetCode(editText: EditText, phone: String, type: String) {
+        LoginApi.userGetCode(phone, type) {
             onSuccess {
-                textView.text = it.code
+                editText.setText(it.code)
             }
             onFailed {
-                textView.text = it.toString()
+                ToastUtils.showError(it.toString())
             }
         }
     }
 
-    fun userRegister(textView: TextView, phone: String, code: String) {
-        LoginApi.userRegister(phone, code) {
-            onSuccess {
-                textView.text = it.toString()
-            }
-            onFailed {
-                textView.text = it.toString()
-            }
-        }
-    }
 
-    fun useLogin(textView: TextView, phone: String, code: String) {
-        LoginApi.userLogin(phone, code) {
+    /**
+     * 验证码登录
+     */
+    fun userLoginWithIdentify(phone: String, code: String, isAutoLogin: Int) {
+        LoginApi.userLoginWithIdentify(phone, code, isAutoLogin) {
             onSuccess {
-                textView.text = it.token
+                //                textView.text = it.token
                 SpUtils.putString(UserConstant.TOKEN, it.token)
                 SpUtils.putInt(UserConstant.USER_ID, it.user_id)
+                ToastUtils.showSuccess("登录成功" + it.token)
             }
             onFailed {
-                textView.text = it.getMsg()
+                ToastUtils.showError(it.getMsg())
             }
         }
     }
 
-    fun userRegisterByCount(username: String, password: String, textView: TextView) {
-        LoginApi.userRegisterByCount(username, password) {
+
+    /**
+     * 密码登录
+     */
+    fun userLoginWithPassWord(phone: String, passWord: String) {
+        LoginApi.userLoginWithPassWord(phone, passWord) {
             onSuccess {
-                textView.text = it
+                SpUtils.putString(UserConstant.TOKEN, it.token)
+                SpUtils.putInt(UserConstant.USER_ID, it.user_id)
+                ToastUtils.showSuccess("登录成功" + it.token)
             }
             onFailed {
-                textView.text = it.toString()
+                ToastUtils.showError(it.getMsg())
             }
         }
     }
+
 }
