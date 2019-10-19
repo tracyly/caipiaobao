@@ -46,12 +46,13 @@ class QuizPresenter : BaseRecyclerPresenter<QuizFragment>() {
     fun postQuizLike(articleId: Int) {
         QuizApi.getQuizArticleLikeResult(articleId, SpUtils.getInt(UserConstant.USER_ID)) {
             onSuccess {
+                mView.notifyQuizHolder()
                 ToastUtils.showSuccess("点赞成功")
             }
 
             onFailed {
                 //                mView.showLoginTips()
-                ToastUtils.showError(it.getMsg())
+//                ToastUtils.showError(it.getMsg())
             }
         }
     }

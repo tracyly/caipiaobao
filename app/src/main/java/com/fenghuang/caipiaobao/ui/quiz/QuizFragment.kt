@@ -39,11 +39,17 @@ class QuizFragment : BaseMultiRecyclerNavFragment<QuizPresenter>() {
     }
 
     override fun initEvent() {
-        mQuizHolder.setOnSendLikeClickListener {
-            mPresenter.postQuizLike(it)
+        mQuizHolder.setOnSendLikeClickListener { id, data ->
+            if (data.is_like == 0) {
+                data.is_like = 1
+            } else data.is_like = 0
+            mPresenter.postQuizLike(id)
         }
     }
 
+    fun notifyQuizHolder() {
+        mQuizHolder.mMultiTypeAdapter?.notifyDataSetChanged()
+    }
 
     /**
      * 提示登陆

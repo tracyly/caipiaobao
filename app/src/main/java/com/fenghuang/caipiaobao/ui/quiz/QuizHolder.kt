@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.base.recycler.decorate.GridItemSpaceDecoration
+import com.fenghuang.baselib.base.recycler.multitype.MultiTypeAdapter
 import com.fenghuang.baselib.base.recycler.multitype.MultiTypeViewHolder
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
@@ -23,12 +24,14 @@ import com.fenghuang.caipiaobao.ui.quiz.data.QuizTopImageBean
  */
 class QuizHolder : MultiTypeViewHolder<QuizResponse, QuizHolder.ViewHolder>() {
 
+    internal var mMultiTypeAdapter: MultiTypeAdapter? = null
     override fun onCreateViewHolder(parent: ViewGroup) = ViewHolder(parent)
 
     inner class ViewHolder(parent: ViewGroup) : BaseViewHolder<QuizResponse>(context, parent, R.layout.holder_quiz_item) {
 
         private var adapter: QuizHolderImageAdapter? = null
         override fun onBindView(context: Context?) {
+            mMultiTypeAdapter = getAdapter()
             context?.apply {
                 val recyclerView = findView<RecyclerView>(R.id.recyclerView)
                 adapter = QuizHolderImageAdapter(context)
@@ -59,13 +62,14 @@ class QuizHolder : MultiTypeViewHolder<QuizResponse, QuizHolder.ViewHolder>() {
 
         override fun onClick(id: Int) {
             if (id == R.id.quizLikeLayout) {
-                mListener?.invoke(getData()?.id!!)
+                mListener?.invoke(getData()?.id!!, getData()!!)
+
             }
         }
     }
 
-    private var mListener: ((id: Int) -> Unit)? = null
-    fun setOnSendLikeClickListener(listener: (id: Int) -> Unit) {
+    private var mListener: ((id: Int, data: QuizResponse) -> Unit)? = null
+    fun setOnSendLikeClickListener(listener: (id: Int, data: QuizResponse) -> Unit) {
         mListener = listener
     }
 
