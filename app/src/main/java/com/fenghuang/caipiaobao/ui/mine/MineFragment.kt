@@ -4,7 +4,6 @@ import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.login.LoginFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
-import com.fenghuang.caipiaobao.widget.dialog.ExitDialog
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine_child_view.*
 
@@ -30,7 +29,6 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         mPresenter.initList(getPageActivity(), listItem)
     }
 
-    private lateinit var dialog: ExitDialog
 
     override fun initEvent() {
 
