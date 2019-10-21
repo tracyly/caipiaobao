@@ -18,6 +18,10 @@
     <string name="home_profit">盈利</string>
     <string name="home_anchor_attention">关注</string>
     <string name="home_anchor_fan">粉丝</string>
+    <string name="home_anchor_good_at_game">擅长彩种:</string>
+    <string name="home_anchor_tag">主播标签:</string>
+    <string name="home_anchor_live_date">播放时长:</string>
+    <string name="home_anchor_live_open_date">开播时间:</string>
 
     <!-- 直播 -->
     <string name="string_live">LIVE</string>
@@ -54,6 +58,9 @@
     <string name="live_anchor_room">直播间</string>
     <string name="live_anchor_dynamic">动态</string>
     <string name="live_anchor_data">资料</string>
+    <string name="live_anchor_data_information">主播信息</string>
+    <string name="live_anchor_gift">礼物</string>
+    <string name="live_anchor_live_recording">直播记录</string>
     <!-- 排行 -->
     <string name="ranking_tab_anchor">主播</string>
     <string name="ranking_tab_expert">专家</string>

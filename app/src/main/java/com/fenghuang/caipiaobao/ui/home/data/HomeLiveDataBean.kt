@@ -81,3 +81,12 @@ data class HomeLiveRedReceiveBean(var amount: String,
 // 红包队列
 data class HomeLiveRedRoom(var id: Int,
                            var text: String)
+
+// 主播信息动态数据
+data class HomeLiveAnchorDynamicBean(var created: String,
+                                     var id: Int,
+                                     var images: List<String>,
+                                     var like: Int,
+                                     var nickname: String,
+                                     var title: String,
+                                     var is_like: Int)

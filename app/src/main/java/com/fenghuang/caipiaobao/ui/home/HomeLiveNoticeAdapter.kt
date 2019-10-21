@@ -46,5 +46,10 @@ class HomeLiveNoticeAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePopR
             setText(R.id.tvLiveNoticeGameName, data.name)
             setText(R.id.tvLiveNoticeDate, TimeUtils.getHourMinute(data.starttime) + "～" + TimeUtils.getHourMinute(data.endtime))
         }
+
+        override fun onItemClick(data: HomeLivePopResponse) {
+            super.onItemClick(data)
+            startFragment(HomeAnchorFragment())
+        }
     }
 }

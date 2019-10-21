@@ -87,6 +87,18 @@
     <item name="rlAnchorTabRight" type="id" />
     <item name="cvAnchor" type="id" />
     <item name="anchorTabView" type="id" />
+    <item name="tvAnchorGame" type="id" />
+    <item name="layoutAnchorGame" type="id" />
+    <item name="tvAnchorTag" type="id" />
+    <item name="layoutAnchorTag" type="id" />
+    <item name="tvAnchorDate" type="id" />
+    <item name="layoutAnchorDate" type="id" />
+    <item name="tvAnchorOpenDate" type="id" />
+    <item name="layoutAnchorGift" type="id" />
+    <item name="anchorGiftNumber" type="id" />
+    <item name="anchorGiftRecyclerView" type="id" />
+    <item name="ivAnchorLiveRecording" type="id" />
+    <item name="layoutAnchorLiveRecording" type="id" />
 
     <!-- 排行 -->
     <item name="tvTabLeft" type="id" />
@@ -206,6 +218,14 @@
     <item name="etPayPassword" type="id" />
     <item name="etOkPassword" type="id" />
     <item name="llRedOver" type="id" />
+    <item name="liveRecordingRecycler" type="id" />
+    <item name="tvDynamicLike" type="id" />
+    <item name="ivDynamicLike" type="id" />
+    <item name="dynamicLikeLayout" type="id" />
+    <item name="tvDynamicDate" type="id" />
+    <item name="tvDynamicTitle" type="id" />
+    <item name="tvDynamicName" type="id" />
+    <item name="ivDynamicLogo" type="id" />
 
     <!-- 竟猜 -->
     <item name="ivQuizLogo" type="id" />

@@ -22,38 +22,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@id/ivQuizLogo"
+            android:id="@id/ivDynamicLogo"
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_30"
             android:src="@mipmap/ic_home_top_user"
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@id/tvQuizName"
+            android:id="@id/tvDynamicName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_10"
-            android:layout_toEndOf="@id/ivQuizLogo"
+            android:layout_toEndOf="@id/ivDynamicLogo"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_14"
             tools:text="林子大了好多鸟" />
 
-        <TextView
-            android:id="@id/tvQuizDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:textColor="@color/color_CCCCCC"
-            android:textSize="@dimen/sp_12"
-            tools:ignore="RelativeOverlap"
-            tools:text="真是个沙雕" />
-
     </RelativeLayout>
 
     <TextView
-        android:id="@id/tvQuizTitle"
+        android:id="@id/tvDynamicTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_16"
@@ -74,28 +63,17 @@
         android:layout_marginTop="@dimen/dp_14">
 
         <TextView
-            android:id="@id/tvQuizGameName"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_20"
-            android:background="@drawable/shape_quiz_game_name"
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_12"
-            tools:text="幸运飞艇" />
-
-        <TextView
-            android:id="@id/tvQuizPeriod"
+            android:id="@id/tvDynamicDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/dp_6"
-            android:layout_toEndOf="@id/tvQuizGameName"
-            android:textColor="@color/color_999999"
+            android:textColor="@color/color_CCCCCC"
             android:textSize="@dimen/sp_12"
-            tools:text="25期" />
+            tools:ignore="RelativeOverlap"
+            tools:text="真是个沙雕" />
 
         <LinearLayout
-            android:id="@id/quizLikeLayout"
+            android:id="@id/dynamicLikeLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -104,7 +82,7 @@
             tools:ignore="RelativeOverlap,UseCompoundDrawables">
 
             <ImageView
-                android:id="@id/ivQuizLike"
+                android:id="@id/ivDynamicLike"
                 android:layout_width="@dimen/dp_14"
                 android:layout_height="@dimen/dp_14"
                 android:layout_gravity="center"
@@ -112,7 +90,7 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@id/tvQuizLike"
+                android:id="@id/tvDynamicLike"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
