@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@id/smartRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/color_f7f7f7">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@id/rvLotteryType"
@@ -119,5 +115,4 @@
 
         </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
 
-    </LinearLayout>
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</LinearLayout>

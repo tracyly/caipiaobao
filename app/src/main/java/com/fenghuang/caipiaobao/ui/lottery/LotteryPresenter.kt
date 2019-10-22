@@ -20,6 +20,7 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
             onSuccess {
                 mView.initLotteryType(it)
                 getLotteryOpenCode(it[0].lottery_id)
+                mView.getLotteryHistoryCode(it[0].lottery_id)
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
@@ -38,6 +39,7 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
         LotteryApi.getLotteryNewCode(lotteryId) {
             onSuccess {
                 mView.initLotteryOpenCode(it)
+
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
@@ -57,14 +59,5 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
 //        mView.initLotteryOpenCode(codeResults)
     }
 
-    fun getLotteryOpenHistoryCode(lotteryId: Int, date: String) {
-        LotteryApi.getLotteryHistoryCode(lotteryId, date) {
-            onSuccess {
-                mView.getLotteryHistoryCode(it)
-            }
-            onFailed {
-                ToastUtils.showError(it.getMsg())
-            }
-        }
-    }
+
 }

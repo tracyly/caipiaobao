@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseFragment
+import com.fenghuang.baselib.base.fragment.PlaceholderFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
-import com.fenghuang.baselib.base.recycler.header.material.MaterialHeader
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeHistoryResponse
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeNewResponse
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGerId
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
-import kotlinx.android.synthetic.main.fragment_home_new.smartRefreshLayout
+import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_lottery.*
 
 
@@ -43,13 +43,10 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
     override fun initContentView() {
         super.initContentView()
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-        smartRefreshLayout.setRefreshHeader(MaterialHeader(context!!))
         anchorTabView.setRankingTab()
         anchorTabView.setTabBackgroundColor(getColor(R.color.white))
         anchorTabView.setTabText("历史开奖", "专家计划")
         mPresenter.getLotteryType()
-//        mPresenter.getLotteryOpenCode()
-
     }
 
     /**
@@ -62,8 +59,9 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         rvLotteryType.adapter = lotteryTypeAdapter
         rvLotteryType.layoutManager = value
         lotteryTypeAdapter.setOnItemClickListener { data, position ->
-            mPresenter.getLotteryOpenCode(data.lottery_id)
             lotteryTypeAdapter.changeBackground(position)
+            mPresenter.getLotteryOpenCode(data.lottery_id)
+            RxBus.get().post(LotteryGerId(data.lottery_id))
         }
     }
 
@@ -75,7 +73,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
     @SuppressLint("SetTextI18n")
     fun initLotteryOpenCode(data: LotteryCodeNewResponse?) {
         tvOpenCount.text = "第 " + data!!.issue + " 期开奖结果"
-        tvTime.text = "- - : - -"
+        tvTime.text = "-- : --"
         cutDown?.cancel()
         cuntDownTime(data.next_lottery_time.toLong() * 1000, data.lottery_id)
         cutDown?.start()
@@ -117,14 +115,20 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         }
     }
 
-    private val fragments = arrayListOf<BaseFragment>()
 
     /**
      * 历史开奖号码
      */
-    fun getLotteryHistoryCode(data: List<LotteryCodeHistoryResponse>) {
-        fragments.clear()
-        fragments.add(LotteryHistoryOpenCodeFragment(data))
+    fun getLotteryHistoryCode(lotteryId: Int) {
+        val fragments = arrayListOf<BaseFragment>(
+                LotteryHistoryOpenCodeFragment.newInstance(lotteryId),
+                PlaceholderFragment.newInstance("专家计划", isMainPage = true, placeholder = R.mipmap.ic_placeholder_empty)
+        )
+        val adapter = BaseFragmentPageAdapter(childFragmentManager, fragments)
+        viewPagers.adapter = adapter
+        viewPagers.currentItem = 0
+        viewPagers.offscreenPageLimit = fragments.size
+        showContent(placeholders)
     }
 
 
@@ -132,12 +136,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
      *  历史开奖 专家计划
      */
     override fun initData() {
-        val adapter = BaseFragmentPageAdapter(childFragmentManager, fragments)
-        viewPagers.adapter = adapter
-        viewPagers.currentItem = 0
-        viewPagers.offscreenPageLimit = fragments.size
-        placeholders.showEmpty("暂无")
-        showContent(placeholders)
+
     }
 
     override fun initEvent() {

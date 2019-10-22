@@ -13,3 +13,5 @@ data class LotteryTypeResponse(var lottery_id: Int, var cname: String, var logo_
 data class LotteryCodeNewResponse(var lottery_id: Int, var issue: String, var code: String, var next_lottery_time: String, var input_time: String)
 
 data class LotteryCodeHistoryResponse(var issue: String, var code: String, var input_time: String)
+
+data class LotteryGerId(var lottery_id: Int)
