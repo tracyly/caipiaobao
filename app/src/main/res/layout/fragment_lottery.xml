@@ -1,27 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@id/smartRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7">
 
-    android:orientation="vertical">
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@id/smartRefreshLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@id/recyclerView"
-            android:layout_height="match_parent"
+            android:id="@id/rvLotteryType"
             android:layout_width="match_parent"
-            android:background="@color/bg_grey" />
+            android:layout_height="@dimen/dp_102"
+            android:background="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvCenter"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_98"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0"
+            app:layout_constraintTop_toBottomOf="@+id/rvLotteryType">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/tvOpenCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:textColor="@color/color_333333"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:layout_toStartOf="@+id/tvTime"
+                    android:text="距下次"
+                    android:textColor="@color/color_333333" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:layout_marginEnd="@dimen/dp_4"
+                    android:layout_toStartOf="@+id/imgSp"
+                    android:textColor="@color/color_333333"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imgSp"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    android:background="@mipmap/ic_lottery_sp"
+                    android:contentDescription="@string/app_name" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvOpenCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/tvTime"
+                    android:paddingStart="@dimen/dp_14"
+                    android:paddingTop="@dimen/dp_18"
+                    android:paddingEnd="@dimen/dp_0" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginEnd="@dimen/dp_10"
+
+            app:layout_constraintTop_toBottomOf="@+id/cvCenter"
+            app:rv_backgroundColor="@color/white"
+            app:rv_cornerRadius_TL="@dimen/dp_5"
+            app:rv_cornerRadius_TR="@dimen/dp_5">
+
+            <com.fenghuang.caipiaobao.ui.widget.AnchorTabView
+                android:id="@id/anchorTabView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_marginEnd="@dimen/dp_4" />
+
+            <com.google.android.material.widget.XViewPager
+                android:id="@+id/viewPagers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/anchorTabView"
+                android:layout_marginTop="@dimen/dp_6" />
+
+            <com.fenghuang.baselib.widget.placeholder.PlaceholderView
+                android:id="@+id/placeholders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/anchorTabView" />
+
+
+        </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+    </LinearLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

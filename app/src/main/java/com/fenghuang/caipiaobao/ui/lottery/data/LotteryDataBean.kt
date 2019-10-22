@@ -12,4 +12,4 @@ data class LotteryDataBean(var title: String, var image: Int)
 
 data class LotteryOpenCodeDataBean(var code: String)
 
-data class LotterySettingChooseDataBean(var des: String, var image: Int)
+data class LotteryHistoryOpenCodeBean(var code: String, var issue: String, var input_time: String)

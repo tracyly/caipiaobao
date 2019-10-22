@@ -6,14 +6,14 @@
     "apkInfo": {
       "type": "MAIN",
       "splits": [],
-      "versionCode": 3754,
+      "versionCode": 4421,
       "versionName": "0.1",
       "enabled": true,
-      "outputFile": "android_V0.1.3754.apk",
+      "outputFile": "android_V0.1.4421.apk",
       "fullName": "alphaDebug",
       "baseName": "alpha-debug"
     },
-    "path": "android_V0.1.3754.apk",
+    "path": "android_V0.1.4421.apk",
     "properties": {}
   }
 ]

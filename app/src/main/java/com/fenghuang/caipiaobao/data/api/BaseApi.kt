@@ -4,6 +4,7 @@ import com.fenghuang.baselib.utils.DebugUtils
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_OPEN
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_QUIZ
 import com.pingerx.rxnetgo.RxNetGo
 
@@ -43,12 +44,31 @@ interface BaseApi {
         return RxNetGo.getInstance().getRetrofitService(getQuizBaseUrl())
     }
 
+
+    /**
+     * 开奖
+     */
+    fun getAipOpenUrl(): RxNetGo {
+        return RxNetGo.getInstance().getRetrofitService(getOpenPriseBaseUrl())
+    }
+
     /**
      * 获取URL
      */
     fun getQuizBaseUrl(): String {
         return if (DebugUtils.isDebugModel()) {
             API_URL_QUIZ
+        } else {
+            API_URL
+        }
+    }
+
+    /**
+     * 获取开奖URL
+     */
+    fun getOpenPriseBaseUrl(): String {
+        return if (DebugUtils.isDebugModel()) {
+            API_URL_OPEN
         } else {
             API_URL
         }

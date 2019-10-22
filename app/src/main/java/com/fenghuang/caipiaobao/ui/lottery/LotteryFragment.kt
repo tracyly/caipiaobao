@@ -1,22 +1,21 @@
 package com.fenghuang.caipiaobao.ui.lottery
 
-import androidx.recyclerview.widget.GridLayoutManager
+import android.annotation.SuppressLint
+import android.os.CountDownTimer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.alibaba.android.vlayout.DelegateAdapter
-import com.alibaba.android.vlayout.VirtualLayoutManager
-import com.alibaba.android.vlayout.layout.LinearLayoutHelper
+import androidx.viewpager.widget.ViewPager
+import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
+import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.base.recycler.header.material.MaterialHeader
+import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.constant.LotteryViewTypeConstant
-import com.fenghuang.caipiaobao.ui.home.HomeDelegateAdapter
-import com.fenghuang.caipiaobao.ui.lottery.data.LotteryDataBean
-import com.fenghuang.caipiaobao.ui.lottery.data.LotteryOpenCodeDataBean
-import com.fenghuang.caipiaobao.ui.lottery.data.LotterySettingChooseDataBean
-import com.yc.cn.ycbaseadapterlib.BaseViewHolder
-import kotlinx.android.synthetic.main.fragment_home_new.*
-import java.util.*
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeHistoryResponse
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeNewResponse
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
+import kotlinx.android.synthetic.main.fragment_home_new.smartRefreshLayout
+import kotlinx.android.synthetic.main.fragment_lottery.*
+
 
 /**
  *
@@ -28,9 +27,6 @@ import java.util.*
 
 class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
-    // 存放各个模块的适配器
-    private var mAdapters: MutableList<DelegateAdapter.Adapter<*>>? = null
-    private var mDelegateAdapter: DelegateAdapter? = null
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -46,93 +42,119 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
     override fun initContentView() {
         super.initContentView()
-//        loadRootFragment(R.id.linLotteryType, LotteryTypeFragment())
-        mAdapters = LinkedList()
-        initRecycler()
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
         smartRefreshLayout.setRefreshHeader(MaterialHeader(context!!))
-    }
-
-    override fun initData() {
+        anchorTabView.setRankingTab()
+        anchorTabView.setTabBackgroundColor(getColor(R.color.white))
+        anchorTabView.setTabText("历史开奖", "专家计划")
         mPresenter.getLotteryType()
-        initMoreView()
-        mDelegateAdapter?.setAdapters(mAdapters)
-    }
-
-    /**
-     * 初始化Recycler
-     */
-    private fun initRecycler() {
-        val layoutManager = VirtualLayoutManager(getPageActivity())
-        recyclerView.layoutManager = layoutManager
-        // 设置回收复用池大小，（如果一屏内相同类型的 View 个数比较多，需要设置一个合适的大小，防止来回滚动时重新创建 View）
-        val viewPool = RecyclerView.RecycledViewPool()
-        recyclerView.setRecycledViewPool(viewPool)
-        viewPool.setMaxRecycledViews(0, 20)
-        mDelegateAdapter = DelegateAdapter(layoutManager, true)
-        recyclerView.adapter = mDelegateAdapter
+//        mPresenter.getLotteryOpenCode()
 
     }
 
     /**
      * 彩种
      */
-    fun initLotteryType(data: List<LotteryDataBean>?) {
-        val lotteryTypeAdapter = object : LotteryDelegateAdapter(getPageActivity(), LinearLayoutHelper(), R.layout.holder_lottery_type, 1, LotteryViewTypeConstant.TYPE_LOTTERY) {
-            override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-                val recyclerView = holder.getView<RecyclerView>(R.id.rvLotteryType)
-                recyclerView.layoutManager = LinearLayoutManager(getPageActivity(), LinearLayoutManager.HORIZONTAL, false)
-                val lotteryTypeAdapter = LotteryTypeAdapter(getPageActivity())
-                lotteryTypeAdapter.addAll(data)
-                recyclerView.adapter = lotteryTypeAdapter
+    fun initLotteryType(data: List<LotteryTypeResponse>?) {
+        val value = LinearLayoutManager(getPageActivity(), LinearLayoutManager.HORIZONTAL, false)
+        val lotteryTypeAdapter = LotteryTypeAdapter(getPageActivity())
+        lotteryTypeAdapter.addAll(data)
+        rvLotteryType.adapter = lotteryTypeAdapter
+        rvLotteryType.layoutManager = value
+        lotteryTypeAdapter.setOnItemClickListener { data, position ->
+            mPresenter.getLotteryOpenCode(data.lottery_id)
+            lotteryTypeAdapter.changeBackground(position)
+        }
+    }
+
+    /**
+     * 开奖号码
+     */
+    private var cutDown: CountDownTimer? = null
+
+    @SuppressLint("SetTextI18n")
+    fun initLotteryOpenCode(data: LotteryCodeNewResponse?) {
+        tvOpenCount.text = "第 " + data!!.issue + " 期开奖结果"
+        tvTime.text = "- - : - -"
+        cutDown?.cancel()
+        cuntDownTime(data.next_lottery_time.toLong() * 1000, data.lottery_id)
+        cutDown?.start()
+        val value = LinearLayoutManager(getPageActivity(), LinearLayoutManager.HORIZONTAL, false)
+        val lotteryOpenCodeAdapter = LotteryOpenCodeAdapter(getPageActivity())
+        lotteryOpenCodeAdapter.addAll(data.code.split(","))
+        rvOpenCode.adapter = lotteryOpenCodeAdapter
+        rvOpenCode.layoutManager = value
+    }
+
+    /**
+     * 倒计时
+     */
+    private fun cuntDownTime(millisUntilFinished: Long, lotteryId: Int) {
+        cutDown = object : CountDownTimer(millisUntilFinished, 1000) {
+            @SuppressLint("SetTextI18n")
+            override fun onTick(millisUntilFinished: Long) {
+                val day: Long = millisUntilFinished / (1000 * 60 * 60 * 24)/*单位 天*/
+                val hour: Long = (millisUntilFinished - day * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)/*单位 时*/
+                val minute: Long = (millisUntilFinished - day * (1000 * 60 * 60 * 24) - hour * (1000 * 60 * 60)) / (1000 * 60)/*单位 分*/
+                val second: Long = (millisUntilFinished - day * (1000 * 60 * 60 * 24) - hour * (1000 * 60 * 60) - minute * (1000 * 60)) / 1000 /*单位 秒*/
+                if (minute < 10 && second < 10) {
+                    tvTime.text = "0$minute:0$second"
+                }
+                if (minute < 10 && second > 10) {
+                    tvTime.text = "0$minute:$second"
+                }
+                if (minute > 10 && second > 10) {
+                    tvTime.text = "$minute:$second"
+                }
+                if (minute > 10 && second < 10) {
+                    tvTime.text = "$minute:0$second"
+                }
             }
 
+            override fun onFinish() {
+                mPresenter.getLotteryOpenCode(lotteryId)
+            }
         }
-        mAdapters?.add(lotteryTypeAdapter)
+    }
 
+    private val fragments = arrayListOf<BaseFragment>()
+
+    /**
+     * 历史开奖号码
+     */
+    fun getLotteryHistoryCode(data: List<LotteryCodeHistoryResponse>) {
+        fragments.clear()
+        fragments.add(LotteryHistoryOpenCodeFragment(data))
     }
 
 
     /**
-     *  开奖记录 分析工具
+     *  历史开奖 专家计划
      */
-    fun initLotteryInfo(data: List<LotteryOpenCodeDataBean>?, item: List<LotterySettingChooseDataBean>?) {
-        val lotteryTypeAdapter = object : LotteryDelegateAdapter(getPageActivity(), LinearLayoutHelper(), R.layout.holder_lottery_info, 1, LotteryViewTypeConstant.TYPE_LOTTERY_HISTORY) {
-            override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-                val rvOpenCode = holder.getView<RecyclerView>(R.id.rvOpenCode)
-                rvOpenCode.layoutManager = LinearLayoutManager(getPageActivity(), LinearLayoutManager.HORIZONTAL, false)
-                val lotteryTypeAdapter = LotteryOpenCodeAdapter(getPageActivity())
-                lotteryTypeAdapter.addAll(data)
-                rvOpenCode.adapter = lotteryTypeAdapter
-
-                val rvLotterySettingChoose = holder.getView<RecyclerView>(R.id.rvSettingChoose)
-                rvLotterySettingChoose.layoutManager = GridLayoutManager(getPageActivity(), 4, RecyclerView.VERTICAL, false)
-                val lotterySettingChooseAdapter = LotterySettingChoose(getPageActivity())
-                lotterySettingChooseAdapter.addAll(item)
-                rvLotterySettingChoose.adapter = lotterySettingChooseAdapter
-            }
-        }
-        mAdapters?.add(lotteryTypeAdapter)
+    override fun initData() {
+        val adapter = BaseFragmentPageAdapter(childFragmentManager, fragments)
+        viewPagers.adapter = adapter
+        viewPagers.currentItem = 0
+        viewPagers.offscreenPageLimit = fragments.size
+        placeholders.showEmpty("暂无")
+        showContent(placeholders)
     }
 
-
-    /**
-     *  专家计划
-     */
-    fun expertPlan() {
-        val expertPlanAdapter = object : LotteryDelegateAdapter(getPageActivity(), LinearLayoutHelper(), R.layout.holder_expert_plan, 5, LotteryViewTypeConstant.TYPE_PLAN) {
-
+    override fun initEvent() {
+        anchorTabView.setOnSelectListener {
+            viewPagers.currentItem = it
         }
-    }
-
-
-    private fun initMoreView() {
-        val moreAdapter = object : HomeDelegateAdapter(getPageActivity(), LinearLayoutHelper(), R.layout.holder_home_more, 1, LotteryViewTypeConstant.TYPE_BOTTOM) {
-            override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-                super.onBindViewHolder(holder, position)
-                holder.setText(R.id.tvHomeMore, getString(R.string.home_list_more))
+        viewPagers.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
             }
-        }
-        mAdapters?.add(moreAdapter)
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                anchorTabView.setTabSelect(position)
+            }
+        })
     }
 
 }

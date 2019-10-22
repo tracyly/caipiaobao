@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.widget.round.RoundTextView
 import com.fenghuang.caipiaobao.R
+import kotlinx.android.synthetic.main.layout_anchor_data_tab_view.view.*
 
 /**
  * 排行榜的TabView自定义样式
@@ -86,6 +87,9 @@ class AnchorTabView : FrameLayout {
         }
     }
 
+    fun setTabBackgroundColor(color: Int) {
+        tabBack.setBackgroundColor(color)
+    }
 
     private fun initEvent() {
         rlAnchorTabLeft.setOnClickListener {

@@ -55,7 +55,8 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
                 //                textView.text = it.token
                 SpUtils.putString(UserConstant.TOKEN, it.token)
                 SpUtils.putInt(UserConstant.USER_ID, it.user_id)
-                ToastUtils.showSuccess("登录成功" + it.token)
+//                ToastUtils.showSuccess("登录成功" + it.token)
+                mView.pop()
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
@@ -72,7 +73,8 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
             onSuccess {
                 SpUtils.putString(UserConstant.TOKEN, it.token)
                 SpUtils.putInt(UserConstant.USER_ID, it.user_id)
-                ToastUtils.showSuccess("登录成功" + it.token)
+//                ToastUtils.showSuccess("登录成功" + it.tok/en)
+                mView.pop()
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())

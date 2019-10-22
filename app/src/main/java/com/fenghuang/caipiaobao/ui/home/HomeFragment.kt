@@ -183,7 +183,6 @@ class HomeFragment : BaseMvpFragment<HomePresenter>() {
         }
         mAdapters?.add(mExpertAdapter)
         initMoreView()
-
         mDelegateAdapter?.setAdapters(mAdapters)
     }
 

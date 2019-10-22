@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@color/color_f7f7f7"
+    android:id="@+id/tabBack"
     android:gravity="center"
     android:orientation="horizontal">
 
