@@ -40,8 +40,7 @@ class LotteryHistoryOpenCodeFragment : BaseRecyclerFragment<LotteryHistoryOpenCo
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onReciveID(eventBean: LotteryGerId) {
-        mBundle.putInt(IntentConstant.LOTTERY_HISTORY_OPEN_CODE_ID, eventBean.lottery_id)
-        mPresenter.getHisttoryData(eventBean.lottery_id, TimeUtils.getToday())
+        mPresenter.getHistoryData(eventBean.lottery_id, TimeUtils.getToday())
     }
 
     companion object {

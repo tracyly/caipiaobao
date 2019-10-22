@@ -11,11 +11,12 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryApi
  *
  */
 
-class LotteryHistoryOpenCodePresenter(val lotteryId: Int, val date: String) : BaseRecyclerPresenter<LotteryHistoryOpenCodeFragment>() {
+class LotteryHistoryOpenCodePresenter(var mLotteryId: Int, var date: String) : BaseRecyclerPresenter<LotteryHistoryOpenCodeFragment>() {
 
 
-    fun getHisttoryData(lotteryId: Int, date: String) {
-        LotteryApi.getLotteryHistoryCode(lotteryId, date) {
+    fun getHistoryData(lotteryId: Int, date: String) {
+        mLotteryId = lotteryId
+        LotteryApi.getLotteryHistoryCode(mLotteryId, date) {
             onSuccess {
                 if (it.isNotEmpty()) {
                     if (mView.getStartPage() == 1) {
@@ -33,7 +34,7 @@ class LotteryHistoryOpenCodePresenter(val lotteryId: Int, val date: String) : Ba
     }
 
     override fun loadData(page: Int) {
-        getHisttoryData(lotteryId, date)
+        getHistoryData(mLotteryId, date)
     }
 
 }
