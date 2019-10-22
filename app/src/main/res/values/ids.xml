@@ -99,6 +99,7 @@
     <item name="anchorGiftRecyclerView" type="id" />
     <item name="ivAnchorLiveRecording" type="id" />
     <item name="layoutAnchorLiveRecording" type="id" />
+    <item name="llAnchorOpenDate" type="id" />
 
     <!-- 排行 -->
     <item name="tvTabLeft" type="id" />
@@ -226,6 +227,9 @@
     <item name="tvDynamicTitle" type="id" />
     <item name="tvDynamicName" type="id" />
     <item name="ivDynamicLogo" type="id" />
+    <item name="ivAnchorVip" type="id" />
+    <item name="anchorTagRecyclerView" type="id" />
+    <item name="ivAnchorTag" type="id" />
 
     <!-- 竟猜 -->
     <item name="ivQuizLogo" type="id" />

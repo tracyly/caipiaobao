@@ -49,7 +49,7 @@ class HomeLiveNoticeAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePopR
 
         override fun onItemClick(data: HomeLivePopResponse) {
             super.onItemClick(data)
-            startFragment(HomeAnchorFragment())
+            startFragment(HomeAnchorFragment.newInstance(data.aid))
         }
     }
 }

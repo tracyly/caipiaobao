@@ -29,14 +29,15 @@
             android:layout_marginTop="@dimen/dp_60"
             app:rv_backgroundColor="@color/white"
             app:rv_backgroundPressColor="@color/white"
+            android:visibility="gone"
             app:rv_cornerRadius_BL="@dimen/dp_10"
             app:rv_cornerRadius_TL="@dimen/dp_10"
             tools:ignore="RtlHardcoded">
 
             <com.fenghuang.caipiaobao.widget.gif.GifImageView
                 android:id="@id/ivAnchorLiveStatus"
-                android:layout_width="@dimen/dp_14"
-                android:layout_height="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/dp_8"
                 android:src="@drawable/ic_home_live_gif" />
@@ -79,7 +80,7 @@
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_18"
                 android:textStyle="bold"
-                tools:text="大卫小儿" />
+                tools:text="小心沙雕" />
 
             <com.fenghuang.baselib.widget.round.RoundLinearLayout
                 android:layout_width="@dimen/dp_30"
@@ -112,6 +113,7 @@
             </com.fenghuang.baselib.widget.round.RoundLinearLayout>
 
             <ImageView
+                android:id="@id/ivAnchorVip"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_12"
                 android:layout_gravity="center_vertical"
@@ -225,6 +227,7 @@
             android:gravity="center"
             android:text="@string/live_tab_anchor"
             android:textSize="@dimen/sp_10"
+            android:textColor="@color/white"
             app:rv_backgroundColor="@color/color_FF513E"
             app:rv_backgroundPressColor="@color/color_FF513E"
             app:rv_cornerRadius_BR="@dimen/dp_8"

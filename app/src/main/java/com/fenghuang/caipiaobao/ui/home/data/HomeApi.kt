@@ -32,6 +32,7 @@ object HomeApi : BaseApi {
     private const val HOME_LIVE_PAY_PASSWORD = "index.php/api/v1/user/ver_pay_pass"
     private const val HOME_LIVE_RED_RECEIVE = "api/v1/user/receive_red"
     private const val HOME_LIVE_RED_RECEIVE_ROOM = "api/v1/live/get_room_red"
+    private const val HOME_LIVE_ANCHOR_INFO = "/api/v1/live/get_anchor_info"
 
     private const val HOME_LIVE_RED_SET_PASS = "index/set-fund-password"
 
@@ -218,5 +219,17 @@ object HomeApi : BaseApi {
                 .subscribe(subscriber)
     }
 
+    /**
+     * 获取直播间红包队列
+     */
+    fun getHomeLiveAnchorInfo(userId: Int, anchorId: Int, function: ApiSubscriber<HomeLiveAnchorInfoBean>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<HomeLiveAnchorInfoBean>() {}
+        subscriber.function()
+        getApi().get<HomeLiveAnchorInfoBean>(HOME_LIVE_ANCHOR_INFO)
+                .headers("token", SpUtils.getString(UserConstant.TOKEN))
+                .params("user_id", userId)
+                .params("anchor_id", anchorId)
+                .subscribe(subscriber)
+    }
 
 }

@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.ui.home.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 /**
  *  author : Peter
@@ -90,3 +91,35 @@ data class HomeLiveAnchorDynamicBean(var created: String,
                                      var nickname: String,
                                      var title: String,
                                      var is_like: Int)
+
+data class HomeLiveAnchorInfoBean(var anchor_id: Int,
+                                  var avatar: String,
+                                  var duration: Int,
+                                  var fans: Int,
+                                  var follow_num: Int,
+                                  var giftList: List<HomeLiveAnchorGiftListBean>,
+                                  var giftNum: Int,
+                                  var isFollow: Boolean,
+                                  var level: Int,
+                                  var liveStatus: Int,
+                                  var live_record: List<HomeLiveAnchorLiveRecordBean>,
+                                  var lottery: List<HomeLiveAnchorLotteryBean>,
+                                  var nickname: String,
+                                  var sex: Int,
+                                  var age: Int,
+                                  var liveStartTime: Long,
+                                  var liveEndTime: Long,
+                                  var sign: String,
+                                  var tagList: List<HomeLiveAnchorTagListBean>) : Serializable
+
+data class HomeLiveAnchorGiftListBean(var gift_id: Int,
+                                      var icon: String) : Serializable
+
+data class HomeLiveAnchorLiveRecordBean(var name: String,
+                                        var startTime: Long,
+                                        var startTimeTxt: String,
+                                        var tip: String) : Serializable
+
+data class HomeLiveAnchorLotteryBean(var name: String) : Serializable
+data class HomeLiveAnchorTagListBean(var icon: String,
+                                     var title: String) : Serializable
