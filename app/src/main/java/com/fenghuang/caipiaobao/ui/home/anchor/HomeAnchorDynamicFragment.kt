@@ -1,4 +1,4 @@
-package com.fenghuang.caipiaobao.ui.home
+package com.fenghuang.caipiaobao.ui.home.anchor
 
 import com.fenghuang.baselib.base.recycler.BaseRecyclerFragment
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorDynamicBean
