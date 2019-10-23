@@ -33,6 +33,7 @@ class LotteryExpertPlanAdapter(context: Context) : BaseRecyclerAdapter<LotteryEx
             setText(R.id.tvExpertName, data.nickname)
             setText(R.id.tvExpertIssue, data.issue + "期")
             setText(R.id.tvRate, (data.hit_rate.toDouble() * 100).toString())
+            codeResults.clear()
             for (i in data.code.split(",")) {
                 codeResults.add(i)
             }

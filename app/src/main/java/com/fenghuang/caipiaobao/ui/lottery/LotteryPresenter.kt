@@ -41,8 +41,6 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
         LotteryApi.getLotteryNewCode(lotteryId) {
             onSuccess {
                 mView.initLotteryOpenCode(it)
-
-
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())

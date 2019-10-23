@@ -47,9 +47,12 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         anchorTabView.setRankingTab()
         anchorTabView.setTabBackgroundColor(getColor(R.color.white))
         anchorTabView.setTabText("历史开奖", "专家计划")
-        mPresenter.getLotteryType()
     }
 
+    override fun initData() {
+        super.initData()
+        mPresenter.getLotteryType()
+    }
     /**
      * 彩种
      */

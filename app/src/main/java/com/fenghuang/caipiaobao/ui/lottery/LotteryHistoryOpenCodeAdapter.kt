@@ -29,7 +29,7 @@ class LotteryHistoryOpenCodeAdapter(context: Context) : BaseRecyclerAdapter<Lott
         override fun onBindData(data: LotteryCodeHistoryResponse) {
             setText(R.id.tvOpenCount, data.issue + "期")
             setText(R.id.tvOpenTime, data.input_time)
-
+            codeResults.clear()
             for (i in data.code.split(",")) {
                 codeResults.add(i)
             }
