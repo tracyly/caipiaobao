@@ -5,12 +5,13 @@ import android.os.CountDownTimer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
-import com.fenghuang.baselib.base.fragment.PlaceholderFragment
+import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeNewResponse
-import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGerId
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetExpert
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetId
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_lottery.*
@@ -26,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_lottery.*
 
 class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
+    private var isLoadBottom: Boolean = false
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -60,7 +62,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         lotteryTypeAdapter.setOnItemClickListener { data, position ->
             lotteryTypeAdapter.changeBackground(position)
             mPresenter.getLotteryOpenCode(data.lottery_id)
-            RxBus.get().post(LotteryGerId(data.lottery_id))
+
         }
     }
 
@@ -70,17 +72,31 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
     private var cutDown: CountDownTimer? = null
 
     @SuppressLint("SetTextI18n")
-    fun initLotteryOpenCode(data: LotteryCodeNewResponse?) {
-        tvOpenCount.text = "第 " + data!!.issue + " 期开奖结果"
-        tvTime.text = "-- : --"
+    fun initLotteryOpenCode(data: LotteryCodeNewResponse) {
+        RxBus.get().post(LotteryGetExpert(data.lottery_id, data.issue))
         cutDown?.cancel()
-        cuntDownTime(data.next_lottery_time.toLong() * 1000, data.lottery_id)
-        cutDown?.start()
+        tvOpenCount.text = "第 " + data.issue + " 期开奖结果"
+        tvTime.text = "-- : --"
         val value = LinearLayoutManager(getPageActivity(), LinearLayoutManager.HORIZONTAL, false)
         val lotteryOpenCodeAdapter = LotteryOpenCodeAdapter(getPageActivity())
         lotteryOpenCodeAdapter.addAll(data.code.split(","))
         rvOpenCode.adapter = lotteryOpenCodeAdapter
         rvOpenCode.layoutManager = value
+        //判断底部view是否已经初始化
+        if (!isLoadBottom) {
+            getLotteryHistoryExpertPlan(data.lottery_id, data.issue)
+            isLoadBottom = true
+        } else {
+            RxBus.get().post(LotteryGetId(data.lottery_id))
+            RxBus.get().post(LotteryGetExpert(data.lottery_id, data.issue))
+        }
+        if (data.next_lottery_time.toLong() > 0) {
+            cuntDownTime(data.next_lottery_time.toLong() * 1000, data.lottery_id)
+            cutDown?.start()
+        } else {
+            Thread.sleep(2000)
+            cutDown?.onFinish()
+        }
     }
 
     /**
@@ -114,14 +130,13 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         }
     }
 
-
     /**
-     * 历史开奖号码
+     * 历史开奖号码,专家计划
      */
-    fun getLotteryHistoryCode(lotteryId: Int) {
-        val fragments = arrayListOf(
+    private fun getLotteryHistoryExpertPlan(lotteryId: Int, issue: String) {
+        val fragments = arrayListOf<BaseFragment>(
                 LotteryHistoryOpenCodeFragment.newInstance(lotteryId),
-                PlaceholderFragment.newInstance("专家计划", isMainPage = true, placeholder = R.mipmap.ic_placeholder_empty)
+                LotteryExpertPlanFragment.newInstance(lotteryId, issue)
         )
         val adapter = BaseFragmentPageAdapter(childFragmentManager, fragments)
         viewPagers.adapter = adapter
@@ -129,7 +144,6 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         viewPagers.offscreenPageLimit = fragments.size
         showContent(placeholders)
     }
-
 
     override fun initEvent() {
         anchorTabView.setOnSelectListener {

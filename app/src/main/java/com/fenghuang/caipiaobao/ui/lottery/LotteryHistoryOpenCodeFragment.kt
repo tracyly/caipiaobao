@@ -6,7 +6,7 @@ import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeHistoryResponse
-import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGerId
+import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetId
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 
@@ -39,7 +39,7 @@ class LotteryHistoryOpenCodeFragment : BaseRecyclerFragment<LotteryHistoryOpenCo
      * 接收LotteryId
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
-    fun onReciveID(eventBean: LotteryGerId) {
+    fun onReciveID(eventBean: LotteryGetId) {
         mPresenter.getHistoryData(eventBean.lottery_id, TimeUtils.getToday())
     }
 

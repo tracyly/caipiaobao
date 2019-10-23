@@ -19,6 +19,7 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeHistoryResponse
 
 class LotteryHistoryOpenCodeAdapter(context: Context) : BaseRecyclerAdapter<LotteryCodeHistoryResponse>(context) {
 
+    val codeResults = arrayListOf<String>()
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<LotteryCodeHistoryResponse> {
         return LotteryHistoryOpenCodeHolder(parent)
@@ -28,7 +29,7 @@ class LotteryHistoryOpenCodeAdapter(context: Context) : BaseRecyclerAdapter<Lott
         override fun onBindData(data: LotteryCodeHistoryResponse) {
             setText(R.id.tvOpenCount, data.issue + "期")
             setText(R.id.tvOpenTime, data.input_time)
-            val codeResults = arrayListOf<String>()
+
             for (i in data.code.split(",")) {
                 codeResults.add(i)
             }

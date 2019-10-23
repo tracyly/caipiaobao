@@ -6,17 +6,18 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryApi
 /**
  *
  * @ Author  QinTian
- * @ Date  2019/10/21- 15:39
+ * @ Date  2019/10/23- 12:02
  * @ Describe
  *
  */
 
-class LotteryHistoryOpenCodePresenter(var mLotteryId: Int, var date: String) : BaseRecyclerPresenter<LotteryHistoryOpenCodeFragment>() {
+class LotteryExpertPlanPresenter(var mLotteryId: Int, var mIssue: String) : BaseRecyclerPresenter<LotteryExpertPlanFragment>() {
 
 
-    fun getHistoryData(lotteryId: Int, date: String) {
-        mLotteryId = lotteryId
-        LotteryApi.getLotteryHistoryCode(mLotteryId, date) {
+    fun getExpertPlan(lottery_id: Int, issue: String) {
+        mLotteryId = lottery_id
+        mIssue = issue
+        LotteryApi.getExpertPlan(lottery_id, issue) {
             onSuccess {
                 if (it.isNotEmpty()) {
                     if (mView.getStartPage() == 1) {
@@ -26,7 +27,6 @@ class LotteryHistoryOpenCodePresenter(var mLotteryId: Int, var date: String) : B
                 } else {
                     mView.showPageEmpty()
                 }
-
             }
             onFailed {
                 mView.showPageError(it.getMsg())
@@ -35,7 +35,7 @@ class LotteryHistoryOpenCodePresenter(var mLotteryId: Int, var date: String) : B
     }
 
     override fun loadData(page: Int) {
-        getHistoryData(mLotteryId, date)
+        getExpertPlan(mLotteryId, mIssue)
     }
 
 }

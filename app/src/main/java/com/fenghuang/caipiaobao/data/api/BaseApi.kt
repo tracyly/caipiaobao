@@ -52,6 +52,15 @@ interface BaseApi {
         return RxNetGo.getInstance().getRetrofitService(getOpenPriseBaseUrl())
     }
 
+
+    /**
+     * 竞彩接口
+     */
+    fun getAipJcUrl(): RxNetGo {
+        return RxNetGo.getInstance().getRetrofitService("http://154.206.43.213:18308")
+    }
+
+
     /**
      * 获取URL
      */

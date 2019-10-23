@@ -2,6 +2,7 @@ package com.fenghuang.baselib.base.fragment
 
 import android.os.Bundle
 import com.fenghuang.baselib.R
+import com.fenghuang.baselib.utils.StatusBarUtils
 import kotlinx.android.synthetic.main.base_fragment_placeholder.*
 
 
@@ -16,6 +17,7 @@ open class PlaceholderFragment : BaseNavFragment() {
         private const val INTENT_TOOL_BAR: String = "INTENT_TOOL_BAR"
         private const val INTENT_MAIN_PAGE: String = "INTENT_MAIN_PAGE"
         private const val PLACEHOLDER: String = "PLACEHOLDER"
+        private const val STATUS_BAR_IS_BLACK: String = "PLACEHOLDER"
 
         @JvmStatic
         fun newInstance(
@@ -23,7 +25,8 @@ open class PlaceholderFragment : BaseNavFragment() {
                 description: String = "暂无数据",
                 isShowToolbar: Boolean = true,
                 isMainPage: Boolean = false,
-                placeholder: Int = 0
+                placeholder: Int = 0,
+                statusBarIsBlack: Boolean = false
         ): BaseFragment {
             val bundle = Bundle()
             bundle.putString(INTENT_TITLE, title)
@@ -31,6 +34,7 @@ open class PlaceholderFragment : BaseNavFragment() {
             bundle.putBoolean(INTENT_TOOL_BAR, isShowToolbar)
             bundle.putBoolean(INTENT_MAIN_PAGE, isMainPage)
             bundle.putInt(PLACEHOLDER, placeholder)
+            bundle.putBoolean(STATUS_BAR_IS_BLACK, statusBarIsBlack)
             val fragment = PlaceholderFragment()
             fragment.arguments = bundle
             return fragment
@@ -58,6 +62,8 @@ open class PlaceholderFragment : BaseNavFragment() {
     override fun isMainPage(): Boolean = arguments?.getBoolean(INTENT_MAIN_PAGE) ?: false
 
     override fun initContentView() {
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), arguments?.getBoolean(STATUS_BAR_IS_BLACK)
+                ?: false)
         val placeholder = arguments?.getInt(PLACEHOLDER)
         if (placeholder != null && placeholder != 0) {
             ivPlaceholder.setImageResource(placeholder)

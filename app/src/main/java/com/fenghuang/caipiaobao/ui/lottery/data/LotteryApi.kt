@@ -19,6 +19,8 @@ object LotteryApi : BaseApi {
     private const val LOTTERY_NEW_CODE = "/idx/indexNewOne"
 
     private const val LOTTERY_HISTORY_CODE = "/idx/history"
+
+    private const val LOTTERY_EXPERT_PLAN = "/plan/index"
     /**
      * 获取彩种
      */
@@ -57,4 +59,20 @@ object LotteryApi : BaseApi {
                 .params("belong_date", date)
                 .subscribe(subscriber)
     }
+
+
+    /**
+     * 获取专家计划
+     */
+
+    fun getExpertPlan(lottery_id: Int, issue: String, function: ApiSubscriber<List<LotteryExpertPlanResponse>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<LotteryExpertPlanResponse>>() {}
+        subscriber.function()
+        LotteryApi.getAipJcUrl()
+                .get<List<LotteryExpertPlanResponse>>(LOTTERY_EXPERT_PLAN)
+                .params("lottery_id", lottery_id)
+                .params("issue", issue)
+                .subscribe(subscriber)
+    }
+
 }

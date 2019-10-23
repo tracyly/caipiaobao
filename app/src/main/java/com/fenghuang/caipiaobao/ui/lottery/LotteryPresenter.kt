@@ -20,7 +20,9 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
             onSuccess {
                 mView.initLotteryType(it)
                 getLotteryOpenCode(it[0].lottery_id)
-                mView.getLotteryHistoryCode(it[0].lottery_id)
+
+//                mView.getLotteryHistoryExpertPlan(it.lottery_id, it.issue)
+//                RxBus.get().post(LotteryGetExpert(it.lottery_id, it.issue))
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
@@ -39,6 +41,7 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
         LotteryApi.getLotteryNewCode(lotteryId) {
             onSuccess {
                 mView.initLotteryOpenCode(it)
+
 
             }
             onFailed {
