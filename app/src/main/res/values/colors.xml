@@ -76,4 +76,15 @@
     <color name="dkplayer_theme_color_translucent">#9939C5BB</color>
     <color name="theme_color">#39C5BB</color>
     <color name="dkplayer_background_color">#96000000</color>
+
+    <color name="color_F8E96B">#F8E96B</color>
+    <color name="color_73CCF9">#73CCF9</color>
+    <color name="color_888888">#888888</color>
+    <color name="color_FAA056">#FAA056</color>
+    <color name="color_5EF0BA">#5EF0BA</color>
+    <color name="color_6653DD">#6653DD</color>
+    <color name="color_BBBBBB">#BBBBBB</color>
+    <color name="color_F8767A">#F8767A</color>
+    <color name="color_E03940">#E03940</color>
+    <color name="color_84EC7F">#84EC7F</color>
 </resources>

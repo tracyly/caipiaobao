@@ -5,7 +5,6 @@ import android.os.CountDownTimer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
-import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.fragment.PlaceholderFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
@@ -120,7 +119,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
      * 历史开奖号码
      */
     fun getLotteryHistoryCode(lotteryId: Int) {
-        val fragments = arrayListOf<BaseFragment>(
+        val fragments = arrayListOf(
                 LotteryHistoryOpenCodeFragment.newInstance(lotteryId),
                 PlaceholderFragment.newInstance("专家计划", isMainPage = true, placeholder = R.mipmap.ic_placeholder_empty)
         )
@@ -131,13 +130,6 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         showContent(placeholders)
     }
 
-
-    /**
-     *  历史开奖 专家计划
-     */
-    override fun initData() {
-
-    }
 
     override fun initEvent() {
         anchorTabView.setOnSelectListener {

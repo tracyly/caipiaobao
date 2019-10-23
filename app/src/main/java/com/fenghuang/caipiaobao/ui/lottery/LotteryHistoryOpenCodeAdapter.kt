@@ -26,7 +26,7 @@ class LotteryHistoryOpenCodeAdapter(context: Context) : BaseRecyclerAdapter<Lott
 
     inner class LotteryHistoryOpenCodeHolder(parent: ViewGroup) : BaseViewHolder<LotteryCodeHistoryResponse>(getContext(), parent, R.layout.holder_lottery_history_opencode) {
         override fun onBindData(data: LotteryCodeHistoryResponse) {
-            setText(R.id.tvOpenCount, data.issue)
+            setText(R.id.tvOpenCount, data.issue + "期")
             setText(R.id.tvOpenTime, data.input_time)
             val codeResults = arrayListOf<String>()
             for (i in data.code.split(",")) {
