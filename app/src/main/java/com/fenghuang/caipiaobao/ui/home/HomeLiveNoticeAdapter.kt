@@ -7,6 +7,7 @@ import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
+import com.fenghuang.caipiaobao.ui.home.anchor.HomeAnchorFragment
 import com.fenghuang.caipiaobao.ui.home.data.HomeLivePopResponse
 
 /**

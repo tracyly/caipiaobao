@@ -1,4 +1,4 @@
-package com.fenghuang.caipiaobao.ui.home
+package com.fenghuang.caipiaobao.ui.home.anchor
 
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
