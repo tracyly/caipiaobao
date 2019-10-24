@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_home_anchor_information.*
 /**
  *  author : Peter
  *  date   : 2019/10/19 16:19
- *  desc   : 直播详情页
+ *  desc   : 主播详情页
  */
 class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
 
@@ -75,7 +75,7 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
     private fun setFragmentViewPager(it: HomeLiveAnchorInfoBean) {
         val fragments = arrayListOf<BaseFragment>(
                 HomeAnchorDataFragment.newInstance(it),
-                HomeAnchorDynamicFragment()
+                HomeAnchorDynamicFragment.newInstance(it.anchor_id)
         )
         val adapter = BaseFragmentPageAdapter(childFragmentManager, fragments)
         viewPager.adapter = adapter

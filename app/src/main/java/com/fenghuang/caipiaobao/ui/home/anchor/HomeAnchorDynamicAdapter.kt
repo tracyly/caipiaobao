@@ -20,10 +20,10 @@ import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorDynamicBean
  */
 class HomeAnchorDynamicAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveAnchorDynamicBean>(context) {
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<HomeLiveAnchorDynamicBean> {
-        return LiveRoomTopHolder(parent)
+        return HomeAnchorDynamicHolder(parent)
     }
 
-    inner class LiveRoomTopHolder(parent: ViewGroup) : BaseViewHolder<HomeLiveAnchorDynamicBean>(getContext(), parent, R.layout.holder_anchor_dynamic) {
+    inner class HomeAnchorDynamicHolder(parent: ViewGroup) : BaseViewHolder<HomeLiveAnchorDynamicBean>(getContext(), parent, R.layout.holder_anchor_dynamic) {
 
         lateinit var mAdapter: AnchorDynamicImageAdapter
         override fun onBindView(context: Context?) {
@@ -38,12 +38,12 @@ class HomeAnchorDynamicAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveA
 
         override fun onBindData(data: HomeLiveAnchorDynamicBean) {
             setText(R.id.tvDynamicName, data.nickname)
-            setText(R.id.tvDynamicTitle, data.title)
-            setText(R.id.tvDynamicDate, data.created)
-            setText(R.id.tvDynamicLike, data.like.toString())
-            mAdapter.setData(data.images)
+            setText(R.id.tvDynamicTitle, data.text)
+            setText(R.id.tvDynamicDate, getContext()?.resources?.getString(R.string.live_anchor_live_dynamic_create_time, data.create_time_txt))
+            setText(R.id.tvDynamicLike, data.zans.toString())
+            mAdapter.setData(data.media)
             val findView = findView<TextView>(R.id.tvDynamicLike)
-            if (data.is_like == 1) {
+            if (data.isZan) {
                 setTextColor(findView, getColor(R.color.color_FF513E))
                 setImageResource(findView(R.id.ivDynamicLike), R.mipmap.ic_quiz_like_select)
             } else {

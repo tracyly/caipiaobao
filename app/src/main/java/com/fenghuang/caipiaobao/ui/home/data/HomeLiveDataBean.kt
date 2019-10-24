@@ -83,14 +83,6 @@ data class HomeLiveRedReceiveBean(var amount: String,
 data class HomeLiveRedRoom(var id: Int,
                            var text: String)
 
-// 主播信息动态数据
-data class HomeLiveAnchorDynamicBean(var created: String,
-                                     var id: Int,
-                                     var images: List<String>,
-                                     var like: Int,
-                                     var nickname: String,
-                                     var title: String,
-                                     var is_like: Int)
 
 data class HomeLiveAnchorInfoBean(var anchor_id: Int,
                                   var avatar: String,
@@ -123,3 +115,22 @@ data class HomeLiveAnchorLiveRecordBean(var name: String,
 data class HomeLiveAnchorLotteryBean(var name: String) : Serializable
 data class HomeLiveAnchorTagListBean(var icon: String,
                                      var title: String) : Serializable
+
+// 主播信息动态数据
+data class HomeLiveAnchorDynamicBean(var anchor_id: Int,
+                                     var avatar: String,
+                                     var create_time: Long,
+                                     var create_time_txt: String,
+                                     var id: Int,
+                                     var isZan: Boolean,
+                                     var media: List<String>,
+                                     var nickname: String,
+                                     var pls: Int,
+                                     var shares: Int,
+                                     var text: String,
+                                     var time_tip: String,
+                                     var zans: Int)
+
+
+
+

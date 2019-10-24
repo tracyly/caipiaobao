@@ -63,6 +63,7 @@
     <string name="live_anchor_live_recording">直播记录</string>
     <string name="live_anchor_live_did_not_receive_gift">暂未收到礼物</string>
     <string name="live_anchor_live_not_receive">暂无直播记录</string>
+    <string name="live_anchor_live_dynamic_create_time">发表于%1$s</string>
     <!-- 排行 -->
     <string name="ranking_tab_anchor">主播</string>
     <string name="ranking_tab_expert">专家</string>
