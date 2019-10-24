@@ -17,12 +17,14 @@ import kotlinx.android.synthetic.main.fragment_home_anchor_data.*
 class HomeAnchorDataFragment : BaseContentFragment() {
     private lateinit var mHomeAnchorTagAdapter: HomeAnchorTagAdapter
     private lateinit var mHomeAnchorGiftAdapter: HomeAnchorGiftAdapter
+    private lateinit var mHomeAnchorLiveRecordAdapter: HomeAnchorLiveRecordAdapter
     override fun getContentResID() = R.layout.fragment_home_anchor_data
 
     override fun initContentView() {
         super.initContentView()
         initAnchorTagAdapter()
         initAnchorGiftAdapter()
+        initAnchorLiveRecordAdapter()
     }
 
     override fun initData() {
@@ -34,15 +36,19 @@ class HomeAnchorDataFragment : BaseContentFragment() {
             }
             setText(R.id.tvAnchorGame, sb.toString())
         }
-        if (data.tagList.isNotEmpty()) {
-            mHomeAnchorTagAdapter.addAll(data.tagList)
-        }
-        if (data.giftList.isNotEmpty()) {
-            mHomeAnchorGiftAdapter.addAll(data.giftList)
-        }
+        if (data.tagList.isNotEmpty()) mHomeAnchorTagAdapter.addAll(data.tagList)
+        if (data.giftList.isNotEmpty()) mHomeAnchorGiftAdapter.addAll(data.giftList)
         setText(R.id.tvAnchorDate, data.duration.toString())
         setText(R.id.tvAnchorOpenDate, TimeUtils.longToDateString(data.liveStartTime) + "-" + TimeUtils.longToDateString(data.liveEndTime))
         setText(R.id.anchorGiftNumber, data.giftNum.toString() + "件")
+        if (data.live_record.isNotEmpty()) mHomeAnchorLiveRecordAdapter.addAll(data.live_record)
+    }
+
+    private fun initAnchorLiveRecordAdapter() {
+        mHomeAnchorLiveRecordAdapter = HomeAnchorLiveRecordAdapter(getPageActivity())
+        liveRecordingRecycler.adapter = mHomeAnchorLiveRecordAdapter
+        val linearLayoutManager = LinearLayoutManager(getPageActivity())
+        liveRecordingRecycler.layoutManager = linearLayoutManager
     }
 
     private fun initAnchorGiftAdapter() {

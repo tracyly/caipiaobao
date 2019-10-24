@@ -101,6 +101,10 @@
     <item name="layoutAnchorLiveRecording" type="id" />
     <item name="llAnchorOpenDate" type="id" />
     <item name="ivAnchorGif" type="id" />
+    <item name="tvAnchorRecordGameName" type="id" />
+    <item name="tvAnchorRecordStatus" type="id" />
+    <item name="tvAnchorRecordTime" type="id" />
+    <item name="tvAnchorRecordDate" type="id" />
 
     <!-- 排行 -->
     <item name="tvTabLeft" type="id" />
