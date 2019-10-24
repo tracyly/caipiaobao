@@ -11,7 +11,7 @@ import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorTagListBean
 /**
  *  author : Peter
  *  date   : 2019/10/21 13:31
- *  desc   : 主播信息动态页适配器
+ *  desc   : 主播信息标签适配器
  */
 class HomeAnchorTagAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveAnchorTagListBean>(context) {
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<HomeLiveAnchorTagListBean> {

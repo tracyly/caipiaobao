@@ -131,6 +131,7 @@
             android:layout_marginEnd="@dimen/dp_10"
             android:ellipsize="end"
             android:maxLines="2"
+            android:gravity="center"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_12"
             tools:text="小心沙雕！堤防小人！小心沙雕！堤防小人！小心沙雕！堤防小人！" />

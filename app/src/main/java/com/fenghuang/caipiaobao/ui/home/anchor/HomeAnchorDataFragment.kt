@@ -7,7 +7,6 @@ import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorInfoBean
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorTagListBean
 import kotlinx.android.synthetic.main.fragment_home_anchor_data.*
 
 /**
@@ -16,8 +15,15 @@ import kotlinx.android.synthetic.main.fragment_home_anchor_data.*
  *  desc   :主播信息资料页
  */
 class HomeAnchorDataFragment : BaseContentFragment() {
-
+    private lateinit var mHomeAnchorTagAdapter: HomeAnchorTagAdapter
+    private lateinit var mHomeAnchorGiftAdapter: HomeAnchorGiftAdapter
     override fun getContentResID() = R.layout.fragment_home_anchor_data
+
+    override fun initContentView() {
+        super.initContentView()
+        initAnchorTagAdapter()
+        initAnchorGiftAdapter()
+    }
 
     override fun initData() {
         val data = arguments?.getSerializable(IntentConstant.HOME_LIVE_ANCHOR_DATA) as HomeLiveAnchorInfoBean
@@ -28,21 +34,31 @@ class HomeAnchorDataFragment : BaseContentFragment() {
             }
             setText(R.id.tvAnchorGame, sb.toString())
         }
-        setAnchorTagAdapter(data.tagList)
+        if (data.tagList.isNotEmpty()) {
+            mHomeAnchorTagAdapter.addAll(data.tagList)
+        }
+        if (data.giftList.isNotEmpty()) {
+            mHomeAnchorGiftAdapter.addAll(data.giftList)
+        }
         setText(R.id.tvAnchorDate, data.duration.toString())
         setText(R.id.tvAnchorOpenDate, TimeUtils.longToDateString(data.liveStartTime) + "-" + TimeUtils.longToDateString(data.liveEndTime))
         setText(R.id.anchorGiftNumber, data.giftNum.toString() + "件")
     }
 
-    private fun setAnchorTagAdapter(tagList: List<HomeLiveAnchorTagListBean>) {
-        if (tagList.isNotEmpty()) {
-            val homeAnchorTagAdapter = HomeAnchorTagAdapter(getPageActivity())
-            homeAnchorTagAdapter.addAll(tagList)
-            anchorTagRecyclerView.adapter = homeAnchorTagAdapter
-            val linearLayoutManager = LinearLayoutManager(getPageActivity())
-            linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-            anchorTagRecyclerView.layoutManager = linearLayoutManager
-        }
+    private fun initAnchorGiftAdapter() {
+        mHomeAnchorGiftAdapter = HomeAnchorGiftAdapter(getPageActivity())
+        anchorGiftRecyclerView.adapter = mHomeAnchorGiftAdapter
+        val linearLayoutManager = LinearLayoutManager(getPageActivity())
+        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        anchorGiftRecyclerView.layoutManager = linearLayoutManager
+    }
+
+    private fun initAnchorTagAdapter() {
+        mHomeAnchorTagAdapter = HomeAnchorTagAdapter(getPageActivity())
+        anchorTagRecyclerView.adapter = mHomeAnchorTagAdapter
+        val linearLayoutManager = LinearLayoutManager(getPageActivity())
+        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        anchorTagRecyclerView.layoutManager = linearLayoutManager
     }
 
     companion object {
