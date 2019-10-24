@@ -222,11 +222,27 @@
                     tools:text="243件" />
             </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@id/anchorGiftRecyclerView"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_22" />
+                android:layout_marginTop="@dimen/dp_22">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@id/anchorGiftRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@id/tvNotReceiveGift"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/live_anchor_live_did_not_receive_gift"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="gone" />
+            </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -268,10 +284,26 @@
                     tools:ignore="MissingConstraints" />
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@id/liveRecordingRecycler"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@id/liveRecordingRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@id/tvNotLiveReceive"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/live_anchor_live_not_receive"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/sp_14"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
         </LinearLayout>
     </ScrollView>
 

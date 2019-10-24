@@ -105,6 +105,8 @@
     <item name="tvAnchorRecordStatus" type="id" />
     <item name="tvAnchorRecordTime" type="id" />
     <item name="tvAnchorRecordDate" type="id" />
+    <item name="tvNotReceiveGift" type="id" />
+    <item name="tvNotLiveReceive" type="id" />
 
     <!-- 排行 -->
     <item name="tvTabLeft" type="id" />

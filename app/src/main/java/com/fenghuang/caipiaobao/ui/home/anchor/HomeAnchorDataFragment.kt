@@ -37,11 +37,21 @@ class HomeAnchorDataFragment : BaseContentFragment() {
             setText(R.id.tvAnchorGame, sb.toString())
         }
         if (data.tagList.isNotEmpty()) mHomeAnchorTagAdapter.addAll(data.tagList)
-        if (data.giftList.isNotEmpty()) mHomeAnchorGiftAdapter.addAll(data.giftList)
+        if (data.giftList.isNotEmpty())
+            mHomeAnchorGiftAdapter.addAll(data.giftList)
+        else {
+            setGone(anchorGiftRecyclerView)
+            setVisible(tvNotReceiveGift)
+        }
         setText(R.id.tvAnchorDate, data.duration.toString())
         setText(R.id.tvAnchorOpenDate, TimeUtils.longToDateString(data.liveStartTime) + "-" + TimeUtils.longToDateString(data.liveEndTime))
         setText(R.id.anchorGiftNumber, data.giftNum.toString() + "件")
-        if (data.live_record.isNotEmpty()) mHomeAnchorLiveRecordAdapter.addAll(data.live_record)
+        if (data.live_record.isNotEmpty())
+            mHomeAnchorLiveRecordAdapter.addAll(data.live_record)
+        else {
+            setGone(liveRecordingRecycler)
+            setVisible(tvNotLiveReceive)
+        }
     }
 
     private fun initAnchorLiveRecordAdapter() {
