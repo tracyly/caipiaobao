@@ -1,4 +1,4 @@
-package com.fenghuang.caipiaobao.ui.widget.CheckPhoto
+package com.fenghuang.caipiaobao.ui.CheckPhoto
 
 import android.os.Bundle
 import android.view.View
