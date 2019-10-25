@@ -27,7 +27,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_2"
             android:gravity="center"
             android:text="@string/mine_deposit"
@@ -56,7 +56,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_2"
             android:gravity="center"
             android:text="@string/mine_draw_money"
@@ -73,28 +73,50 @@
         android:paddingTop="@dimen/dp_20"
         tools:ignore="UseCompoundDrawables">
 
-        <ImageView
-            android:layout_width="@dimen/dp_36"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_36"
             android:layout_gravity="center"
-            android:background="@mipmap/ic_mine_vip_info"
-            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:text="￥ 0.00"
+            android:textColor="@color/color_333333"
+            android:textStyle="bold"
             tools:ignore="NestedWeights" />
 
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_2"
             android:gravity="center"
-            android:text="@string/mine_vip_info"
-            android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_12" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvBalcnce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="@string/mine_balances"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/sp_12" />
+
+            <ImageView
+                android:layout_width="@dimen/dp_13"
+                android:layout_height="@dimen/dp_10"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_4"
+                android:layout_toEndOf="@+id/tvBalcnce"
+                android:background="@mipmap/ic_mine_refresh"
+                android:contentDescription="@string/app_name" />
+
+        </RelativeLayout>
 
     </LinearLayout>
 
 
     <LinearLayout
+        android:id="@+id/linChangeDiamond"
         android:layout_width="@dimen/dp_0"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -114,7 +136,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_20"
             android:layout_marginTop="@dimen/dp_2"
             android:gravity="center"
             android:orientation="horizontal">
@@ -125,17 +147,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center"
-                android:text="@string/mine_wallet"
+                android:text="@string/mine_diamond"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_12" />
 
             <ImageView
-                android:layout_width="@dimen/dp_12"
-                android:layout_height="@dimen/dp_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_4"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/dp_2"
                 android:layout_toEndOf="@+id/tv_wallet"
-                android:background="@mipmap/ic_mine_refresh"
+                android:background="@mipmap/ic_ming_add"
                 android:contentDescription="@string/app_name" />
         </RelativeLayout>
 

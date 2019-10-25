@@ -1,11 +1,14 @@
 package com.fenghuang.caipiaobao.ui.mine
 
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.login.LoginFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
+import com.fenghuang.caipiaobao.widget.dialog.DiamondDialog
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine_child_view.*
+import kotlinx.android.synthetic.main.fragment_mine_child_view_login.*
 
 
 /**
@@ -49,14 +52,13 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             startFragment(context, MineRechargeFragment())
         }
 
-        btExitLogin.setOnClickListener {
-            //            dialog = ExitDialog(getPageActivity(), "确认是否退出?", "确认", "取消", View.OnClickListener {
-//                startFragment(context, LoginFragment())
-//                dialog.dismiss()
-//            }, View.OnClickListener {
-//                dialog.dismiss()
-//            })
-//            dialog.show()
+        linChangeDiamond.setOnClickListener {
+            val dialog = DiamondDialog(getPageActivity())
+            dialog.setConfirmClickListener {
+                ToastUtils.showSuccess("成功")
+                dialog.dismiss()
+            }
+            dialog.show()
         }
 
     }
