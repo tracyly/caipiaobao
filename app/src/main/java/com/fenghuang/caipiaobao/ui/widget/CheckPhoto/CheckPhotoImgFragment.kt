@@ -1,4 +1,4 @@
-package com.fenghuang.caipiaobao.ui.quiz
+package com.fenghuang.caipiaobao.ui.widget.CheckPhoto
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,6 @@ import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.fragment.BaseContentFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.quiz.CheckPhoto.MyImageAdapter
 import kotlinx.android.synthetic.main.fragment_quiz_check_img.*
 
 
@@ -19,20 +18,20 @@ import kotlinx.android.synthetic.main.fragment_quiz_check_img.*
  *
  */
 
-class QuizCheckImgFragment : BaseContentFragment() {
+class CheckPhotoImgFragment : BaseContentFragment() {
 
 
     var mCurrentIndex: Int = 0
 
-    var urlList = arrayListOf<String>()
+    var mUrlList = arrayListOf<String>()
 
     override fun getLayoutResID() = R.layout.fragment_quiz_check_img
 
 
     override fun initContentView() {
         mCurrentIndex = arguments?.getInt("position") ?: 0
-        urlList = arguments?.getStringArrayList("urlList")!!
-        val mAdapters = MyImageAdapter(this, urlList, View.OnClickListener { this.pop() })
+        mUrlList = arguments?.getStringArrayList("urlList")!!
+        val mAdapters = CheckPhotoImageAdapter(this, mUrlList, View.OnClickListener { this.pop() })
         viewPagers.adapter = mAdapters
         viewPagers.currentItem = mCurrentIndex
     }
@@ -61,8 +60,8 @@ class QuizCheckImgFragment : BaseContentFragment() {
 
     companion object {
         private lateinit var mBundle: Bundle
-        fun newInstance(urlList: ArrayList<String>, position: Int): QuizCheckImgFragment {
-            val fragment = QuizCheckImgFragment()
+        fun newInstance(urlList: ArrayList<String>, position: Int): CheckPhotoImgFragment {
+            val fragment = CheckPhotoImgFragment()
             mBundle = Bundle()
             mBundle.putStringArrayList("urlList", urlList)
             mBundle.putInt("position", position)
@@ -79,7 +78,7 @@ class QuizCheckImgFragment : BaseContentFragment() {
     private fun getCircle() {
         var view: View
         var isp = 0
-        while (isp < urlList.size) {
+        while (isp < mUrlList.size) {
             view = View(context)
             view.setBackgroundResource(R.drawable.round_point)
             view.isEnabled = false

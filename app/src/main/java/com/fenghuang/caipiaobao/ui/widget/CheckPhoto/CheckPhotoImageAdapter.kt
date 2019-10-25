@@ -1,4 +1,4 @@
-package com.fenghuang.caipiaobao.ui.quiz.CheckPhoto
+package com.fenghuang.caipiaobao.ui.widget.CheckPhoto
 
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ import java.util.*
  *
  */
 
-class MyImageAdapter(private val fragment: Fragment, private val imageUrls: ArrayList<String>, private val clickListener: View.OnClickListener) : PagerAdapter() {
+class CheckPhotoImageAdapter(private val fragment: Fragment, private val imageUrls: ArrayList<String>, private val clickListener: View.OnClickListener) : PagerAdapter() {
 
 
     override fun instantiateItem(container: ViewGroup, position: Int): Any {

@@ -12,6 +12,7 @@ import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorDynamicBean
+import com.fenghuang.caipiaobao.ui.widget.CheckPhoto.CheckPhotoImgFragment
 
 /**
  *  author : Peter
@@ -74,6 +75,11 @@ class HomeAnchorDynamicAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveA
         inner class AnchorDynamicImageHolder(parent: ViewGroup) : BaseViewHolder<String>(getContext(), parent, R.layout.holder_quiz_image_item) {
             override fun onBindData(data: String) {
                 ImageManager.loadQuizImageRes(data, findView(R.id.ivQuizImage))
+                setOnClick(R.id.ivQuizImage)
+            }
+
+            override fun onClick(id: Int) {
+                if (id == R.id.ivQuizImage) startFragment(CheckPhotoImgFragment.newInstance((getAllData() as ArrayList<String>), getDataPosition()))
             }
         }
     }

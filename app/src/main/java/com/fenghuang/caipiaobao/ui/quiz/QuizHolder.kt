@@ -16,6 +16,7 @@ import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizResponse
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTitleBean
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTopImageBean
+import com.fenghuang.caipiaobao.ui.widget.CheckPhoto.CheckPhotoImgFragment
 import java.util.*
 
 /**
@@ -88,7 +89,7 @@ class QuizHolder : MultiTypeViewHolder<QuizResponse, QuizHolder.ViewHolder>() {
 
             override fun onClick(id: Int) {
                 if (id == R.id.ivQuizImage) {
-                    startFragment(QuizCheckImgFragment.newInstance(getAllData() as ArrayList<String>, getDataPosition()))
+                    startFragment(CheckPhotoImgFragment.newInstance(getAllData() as ArrayList<String>, getDataPosition()))
                 }
             }
         }
