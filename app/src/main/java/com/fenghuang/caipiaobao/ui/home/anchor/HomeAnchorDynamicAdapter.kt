@@ -42,6 +42,7 @@ class HomeAnchorDynamicAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveA
             setText(R.id.tvDynamicDate, getContext()?.resources?.getString(R.string.live_anchor_live_dynamic_create_time, data.create_time_txt))
             setText(R.id.tvDynamicLike, data.zans.toString())
             ImageManager.loadRoundLogo(data.avatar, findView(R.id.ivDynamicLogo))
+            setOnClick(R.id.dynamicLikeLayout)
             mAdapter.setData(data.media)
             val findView = findView<TextView>(R.id.tvDynamicLike)
             if (data.isZan) {
@@ -52,8 +53,18 @@ class HomeAnchorDynamicAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveA
                 setImageResource(findView(R.id.ivDynamicLike), R.mipmap.ic_quiz_like_normal)
             }
         }
+
+        override fun onClick(id: Int) {
+            if (id == R.id.dynamicLikeLayout) {
+                mListener?.invoke(getData()?.id!!, getDataPosition(), getData()!!)
+            }
+        }
     }
 
+    private var mListener: ((id: Int, position: Int, data: HomeLiveAnchorDynamicBean) -> Unit)? = null
+    fun setOnSendLikeClickListener(listener: (id: Int, position: Int, data: HomeLiveAnchorDynamicBean) -> Unit) {
+        mListener = listener
+    }
     inner class AnchorDynamicImageAdapter(context: Context) : BaseRecyclerAdapter<String>(context) {
 
         override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<String> {

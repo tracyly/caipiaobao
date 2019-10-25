@@ -18,7 +18,6 @@ import io.reactivex.Flowable
 object HomeApi : BaseApi {
 
 
-
     private const val HOME_BANNER_LIST = "/index.php/api/v1/user/get_banner"
     private const val HONE_NOTICE = "/index.php/api/v1/user/system_notice"
     private const val HOME_GAME_LIST = "/index.php/api/v1/live/get_game_list"
@@ -34,6 +33,7 @@ object HomeApi : BaseApi {
     private const val HOME_LIVE_RED_RECEIVE_ROOM = "/index.php/api/v1/live/get_room_red"
     private const val HOME_LIVE_ANCHOR_INFO = "/index.php/api/v1/live/get_anchor_info"
     private const val HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC = "/index.php/api/v1/live/get_anchor_dynamic"
+    private const val HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC_LIKE = "/index.php/api/v1/live/dynamic_like"
 
     private const val HOME_LIVE_RED_SET_PASS = "index/set-fund-password"
 
@@ -235,12 +235,23 @@ object HomeApi : BaseApi {
     /**
      * 获取主播信息动态列表
      */
-    fun getHomeLiveAnchorDynammicInfo(userId: Int, anchorId: Int, function: ApiSubscriber<List<HomeLiveAnchorDynamicBean>>.() -> Unit) {
+    fun getHomeLiveAnchorDynamicInfo(userId: Int, anchorId: Int, page: Int, function: ApiSubscriber<List<HomeLiveAnchorDynamicBean>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<HomeLiveAnchorDynamicBean>>() {}
         subscriber.function()
         getApi().get<List<HomeLiveAnchorDynamicBean>>(HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC)
                 .params("user_id", userId)
                 .params("anchor_id", anchorId)
+                .params("page", page)
+                .subscribe(subscriber)
+    }
+
+    fun getAnchorDynamicLike(userId: Int, dynamicId: Int, function: EmptySubscriber.() -> Unit) {
+        val subscriber = EmptySubscriber()
+        subscriber.function()
+        getApi().post<String>(HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC_LIKE)
+                .headers("token", SpUtils.getString(UserConstant.TOKEN))
+                .params("user_id", userId)
+                .params("dynamic_id", dynamicId)
                 .subscribe(subscriber)
     }
 

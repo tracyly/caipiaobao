@@ -2,7 +2,6 @@ package com.fenghuang.caipiaobao.ui.quiz
 
 import com.fenghuang.baselib.base.recycler.BaseRecyclerPresenter
 import com.fenghuang.baselib.utils.SpUtils
-import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizApi
@@ -47,7 +46,7 @@ class QuizPresenter : BaseRecyclerPresenter<QuizFragment>() {
         QuizApi.getQuizArticleLikeResult(articleId, SpUtils.getInt(UserConstant.USER_ID)) {
             onSuccess {
                 mView.notifyQuizHolder()
-                ToastUtils.showSuccess("点赞成功")
+//                ToastUtils.showSuccess(it)
             }
 
             onFailed {

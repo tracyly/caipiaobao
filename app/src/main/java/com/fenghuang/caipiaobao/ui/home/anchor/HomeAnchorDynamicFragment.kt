@@ -37,4 +37,22 @@ class HomeAnchorDynamicFragment : BaseRecyclerFragment<HomeAnchorDynamicPresente
             return fragment
         }
     }
+
+    override fun initEvent() {
+        super.initEvent()
+        (mAdapter as HomeAnchorDynamicAdapter).setOnSendLikeClickListener { id, position, data ->
+            if (data.isZan) {
+                data.isZan = false
+                data.zans--
+            } else {
+                data.isZan = true
+                data.zans++
+            }
+            mPresenter.getAnchorDynamicLike(id, position)
+        }
+    }
+
+    fun notifyChanged(position: Int) {
+        mAdapter.notifyItemChanged(position)
+    }
 }
