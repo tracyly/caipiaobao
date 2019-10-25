@@ -26,7 +26,7 @@ class HomeAnchorDynamicAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveA
 
     inner class HomeAnchorDynamicHolder(parent: ViewGroup) : BaseViewHolder<HomeLiveAnchorDynamicBean>(getContext(), parent, R.layout.holder_anchor_dynamic) {
 
-        lateinit var mAdapter: AnchorDynamicImageAdapter
+        private lateinit var mAdapter: AnchorDynamicImageAdapter
         override fun onBindView(context: Context?) {
             context?.apply {
                 val recyclerView = findView<RecyclerView>(R.id.recyclerView)
