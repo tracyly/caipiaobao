@@ -41,6 +41,7 @@ class HomeAnchorDynamicAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveA
             setText(R.id.tvDynamicTitle, data.text)
             setText(R.id.tvDynamicDate, getContext()?.resources?.getString(R.string.live_anchor_live_dynamic_create_time, data.create_time_txt))
             setText(R.id.tvDynamicLike, data.zans.toString())
+            ImageManager.loadRoundLogo(data.avatar, findView(R.id.ivDynamicLogo))
             mAdapter.setData(data.media)
             val findView = findView<TextView>(R.id.tvDynamicLike)
             if (data.isZan) {
