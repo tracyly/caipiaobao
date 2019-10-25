@@ -1,7 +1,7 @@
 package com.fenghuang.caipiaobao.ui.quiz.data
 
 // 竞猜
-data class QuizResponse(var created: String,
+data class QuizResponse(var created: Long,
                         var id: Int,
                         var images: ArrayList<String>,
                         var issue: String,

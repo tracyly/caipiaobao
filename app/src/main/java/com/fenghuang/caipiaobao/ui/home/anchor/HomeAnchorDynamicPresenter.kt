@@ -11,7 +11,7 @@ import com.fenghuang.caipiaobao.ui.home.data.HomeApi
  *  date   : 2019/10/19 17:57
  *  desc   :
  */
-class HomeAnchorDynamicPresenter(val mAnchorId: Int) : BaseRecyclerPresenter<HomeAnchorDynamicFragment>() {
+class HomeAnchorDynamicPresenter(private val mAnchorId: Int) : BaseRecyclerPresenter<HomeAnchorDynamicFragment>() {
 
     override fun loadData(page: Int) {
 

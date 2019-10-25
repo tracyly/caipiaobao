@@ -18,6 +18,13 @@ object TimeUtils {
     private val formatHourMinute = SimpleDateFormat("HH:mm", Locale.getDefault())
     private val formatHourAndYear = SimpleDateFormat("HH:mm yyyy-MM-dd", Locale.getDefault())
 
+    private const val minute = (60 * 1000).toLong()// 1分钟
+    private const val hour = 60 * minute// 1小时
+    private const val day = 24 * hour// 1天
+    private const val month = 31 * day// 月
+    private val year = 12 * month// 年
+
+
     private val formatYearMonthDayHourMinute = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
 
     /**
@@ -364,22 +371,36 @@ object TimeUtils {
     /**
      * 将日期格式化成友好的字符串：几分钟前、几小时前、几天前、几月前、几年前、刚刚
      *
-     * @param timestamp
+     * @param date
      * @return
      */
-    fun formatFriendly(timestamp: Long): String {
-        val currentSeconds = System.currentTimeMillis() / 1000
-        val timeGap = currentSeconds - timestamp// 与现在时间相差秒数
-        var timeStr: String? = null
-        if (timeGap > 24 * 60 * 60) {// 1天以上
-            timeStr = (timeGap / (24 * 60 * 60)).toString() + "天前"
-        } else if (timeGap > 60 * 60) {// 1小时-24小时
-            timeStr = (timeGap / (60 * 60)).toString() + "小时前"
-        } else if (timeGap > 60) {// 1分钟-59分钟
-            timeStr = (timeGap / 60).toString() + "分钟前"
-        } else {// 1秒钟-59秒钟
-            timeStr = "刚刚"
+    fun formatFriendly(time: Long): String {
+        val date = getDate(time)
+        val diff = Date().time - date.time
+        var r: Long = 0
+        when {
+            diff > year -> {
+                r = diff / year
+                return longToDateString(time)!!
+            }
+            diff > month -> {
+                r = diff / month
+                return longToDateString(time)!!
+            }
+            diff > day -> {
+                r = diff / day
+                return r.toString() + "天前"
+            }
+            diff > hour -> {
+                r = diff / hour
+                return r.toString() + "个小时前"
+            }
+            diff > minute -> {
+                r = diff / minute
+                return r.toString() + "分钟前"
+            }
+            else -> return "刚刚"
         }
-        return timeStr
+
     }
 }

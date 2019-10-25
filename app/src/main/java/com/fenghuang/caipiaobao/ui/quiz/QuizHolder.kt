@@ -10,6 +10,7 @@ import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.base.recycler.decorate.GridItemSpaceDecoration
 import com.fenghuang.baselib.base.recycler.multitype.MultiTypeAdapter
 import com.fenghuang.baselib.base.recycler.multitype.MultiTypeViewHolder
+import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
@@ -44,7 +45,7 @@ class QuizHolder : MultiTypeViewHolder<QuizResponse, QuizHolder.ViewHolder>() {
         }
 
         override fun onBindData(data: QuizResponse) {
-            setText(R.id.tvQuizDate, data.created)
+            setText(R.id.tvQuizDate, TimeUtils.formatFriendly(data.created))
             setText(R.id.tvQuizTitle, data.title)
             setText(R.id.tvQuizName, data.nickname)
             setText(R.id.tvQuizGameName, data.lottery_name)
