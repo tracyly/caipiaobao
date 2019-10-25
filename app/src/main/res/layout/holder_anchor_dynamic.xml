@@ -4,13 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dp_10"
-    android:layout_marginTop="@dimen/dp_10"
-    android:layout_marginEnd="@dimen/dp_10"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="@dimen/dp_14"
     app:rv_backgroundColor="@color/white"
+    android:padding="@dimen/dp_14"
     app:rv_backgroundPressColor="@color/white"
     app:rv_cornerRadius="@dimen/dp_6">
 
