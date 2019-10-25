@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
+import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.manager.ImageManager
@@ -102,5 +103,10 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
             fragment.arguments = bundle
             return fragment
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
     }
 }

@@ -15,7 +15,7 @@ class HomeAnchorDynamicPresenter(val mAnchorId: Int) : BaseRecyclerPresenter<Hom
 
     override fun loadData(page: Int) {
 
-        HomeApi.getHomeLiveAnchorDynamicInfo(SpUtils.getInt(UserConstant.USER_ID), 100010, page) {
+        HomeApi.getHomeLiveAnchorDynamicInfo(SpUtils.getInt(UserConstant.USER_ID), mAnchorId, page) {
             onSuccess {
                 if (it.isNotEmpty()) {
                     mView.showDatas(it)
