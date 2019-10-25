@@ -16,6 +16,7 @@ import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizResponse
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTitleBean
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTopImageBean
+import java.util.*
 
 /**
  *  author : Peter
@@ -74,14 +75,21 @@ class QuizHolder : MultiTypeViewHolder<QuizResponse, QuizHolder.ViewHolder>() {
     }
 
     inner class QuizHolderImageAdapter(context: Context) : BaseRecyclerAdapter<String>(context) {
+
         override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<String> {
             return QuizHolderImageHolder(parent)
         }
 
         inner class QuizHolderImageHolder(parent: ViewGroup) : BaseViewHolder<String>(getContext(), parent, R.layout.holder_quiz_image_item) {
             override fun onBindData(data: String) {
-
                 ImageManager.loadQuizImageRes(data, findView(R.id.ivQuizImage))
+                setOnClick(R.id.ivQuizImage)
+            }
+
+            override fun onClick(id: Int) {
+                if (id == R.id.ivQuizImage) {
+                    startFragment(QuizCheckImgFragment.newInstance(getAllData() as ArrayList<String>, getDataPosition()))
+                }
             }
         }
     }

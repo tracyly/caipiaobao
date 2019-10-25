@@ -22,7 +22,6 @@
     <string name="home_anchor_tag">主播标签:</string>
     <string name="home_anchor_live_date">播放时长:</string>
     <string name="home_anchor_live_open_date">开播时间:</string>
-
     <!-- 直播 -->
     <string name="string_live">LIVE</string>
     <string name="string_live_attention">+关注\n602086</string>
@@ -83,7 +82,7 @@
     <string name="mine_watch_history">观看历史</string>
     <string name="mine_vip">VIP</string>
     <string name="mine_wallet">我的钱包</string>
-
+    <string name="mine_diamond">砖石</string>
     <string name="mine_message">我的消息</string>
     <string name="mine_concern">我的关注</string>
 
@@ -134,7 +133,7 @@
     <string name="mine_cash_out_all">全部提现</string>
     <string name="mine_wallet_cash_out_count"> 提现金额</string>
     <string name="mine_wallet_money_type"> ￥</string>
-    <string name="mine_balance_cash_out">可提现金额(彩币)</string>
+    <string name="mine_balances">余额</string>
     <string name="mine_invest_money">请选择充值金额</string>
     <string name="mine_setting">设置</string>
     <string name="mine_invest_money_12">12</string>
@@ -280,6 +279,15 @@
     <string name="mine_attention">我的关注</string>
     <string name="mine_into_room">进入直播间</string>
     <string name="mine_cancel_attention">取消\n关注</string>
+    <string name="mine_not_set_pay_password">暂未设置支付密码</string>
+    <string name="mine_set_pay_password">支付密码设置</string>
+
+    <string name="mine_diamond_change">钻石兑换</string>
+    <string name="mine_diamond_balance">余额:</string>
+    <string name="mine_diamond_scale">兑换比例1:1</string>
+    <string name="mine_diamond_all">全部兑换</string>
+    <string name="mine_diamond_edit">请输入兑换金额</string>
+    <string name="mine_diamond_change_">兑换</string>
     <!-- 开奖 -->
     <string name="lottery_open">开奖</string>
 

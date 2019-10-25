@@ -3,7 +3,7 @@ package com.fenghuang.caipiaobao.ui.quiz.data
 // 竞猜
 data class QuizResponse(var created: String,
                         var id: Int,
-                        var images: List<String>,
+                        var images: ArrayList<String>,
                         var issue: String,
                         var like: Int,
                         var lottery_name: String,

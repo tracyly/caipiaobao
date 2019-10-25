@@ -8,7 +8,7 @@ import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
 import com.fenghuang.baselib.utils.ViewUtils
-import kotlinx.android.synthetic.main.dialog_fonfirm.*
+import kotlinx.android.synthetic.main.dialog_tips_confirm.*
 
 
 /**
@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.dialog_fonfirm.*
 class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel: String) : Dialog(context) {
 
     init {
-        setContentView(com.fenghuang.caipiaobao.R.layout.dialog_exit)
+        setContentView(com.fenghuang.caipiaobao.R.layout.dialog_tips_confirm)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setGravity(Gravity.CENTER or Gravity.CENTER)
         val lp = window!!.attributes
@@ -64,4 +64,13 @@ class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel
     fun setConfirmClickListener(listener: () -> Unit) {
         mListener = listener
     }
+
+    fun setEnable(enable: Boolean) {
+        tvConfirm.isEnabled = enable
+    }
+
+    fun setConfirmColor(color: Int) {
+        tvConfirm.delegate.backgroundColor = color
+    }
+
 }

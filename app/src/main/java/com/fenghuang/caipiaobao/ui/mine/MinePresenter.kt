@@ -22,6 +22,7 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
 //        newResults.add(MineDataBean("新手教程", R.mipmap.ic_mine_jc))
         newResults.add(MineDataBean("意见反馈", R.mipmap.ic_mine_advice))
         newResults.add(MineDataBean("联系客服", R.mipmap.ic_mine_contact))
+        newResults.add(MineDataBean("设置", R.mipmap.ic_mine_setting))
         val mineItemAdapter = MineAdapter(context)
         mineItemAdapter.addAll(newResults)
         listItem.adapter = mineItemAdapter

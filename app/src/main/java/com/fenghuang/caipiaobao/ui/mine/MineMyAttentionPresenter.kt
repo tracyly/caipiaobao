@@ -19,7 +19,7 @@ class MineMyAttentionPresenter : BaseMvpPresenter<MineMyAttentionFragment>() {
                 if (mView.isActive()) mView.upDateAttentionList(it)
             }
             onFailed {
-                mView.showPageError()
+                mView.showPageEmpty(it.getMsg())
             }
         }
     }

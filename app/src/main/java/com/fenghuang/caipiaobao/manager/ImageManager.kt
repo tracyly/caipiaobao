@@ -80,5 +80,11 @@ object ImageManager {
         loadRound(url, imageView, ViewUtils.dp2px(6), RoundType.ALL)
     }
 
+    /**
+     * 加载预览大图
+     */
+    fun loadImage(url: String?, imageView: ImageView) {
+        Glide.with(imageView.context).load(url).into(imageView)
+    }
 
 }

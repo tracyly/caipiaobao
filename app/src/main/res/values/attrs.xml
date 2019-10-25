@@ -276,4 +276,6 @@
         <!--播放完成后是否停留在最后一帧，默认false-->
         <attr name="end_last_frame" format="boolean" />
     </declare-styleable>
+
+
 </resources>

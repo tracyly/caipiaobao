@@ -11,7 +11,6 @@ import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeNewResponse
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetExpert
-import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetId
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_lottery.*
@@ -53,6 +52,8 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         super.initData()
         mPresenter.getLotteryType()
     }
+
+
     /**
      * 彩种
      */
@@ -65,7 +66,6 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         lotteryTypeAdapter.setOnItemClickListener { data, position ->
             lotteryTypeAdapter.changeBackground(position)
             mPresenter.getLotteryOpenCode(data.lottery_id)
-
         }
     }
 
@@ -90,14 +90,13 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
             getLotteryHistoryExpertPlan(data.lottery_id, data.issue)
             isLoadBottom = true
         } else {
-            RxBus.get().post(LotteryGetId(data.lottery_id))
             RxBus.get().post(LotteryGetExpert(data.lottery_id, data.issue))
         }
         if (data.next_lottery_time.toLong() > 0) {
             cuntDownTime(data.next_lottery_time.toLong() * 1000, data.lottery_id)
             cutDown?.start()
         } else {
-            Thread.sleep(2000)
+            Thread.sleep(3500)
             cutDown?.onFinish()
         }
     }
@@ -153,15 +152,15 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
             viewPagers.currentItem = it
         }
         viewPagers.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
             override fun onPageScrollStateChanged(state: Int) {
             }
-
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
-
             override fun onPageSelected(position: Int) {
                 anchorTabView.setTabSelect(position)
             }
+
         })
     }
 
