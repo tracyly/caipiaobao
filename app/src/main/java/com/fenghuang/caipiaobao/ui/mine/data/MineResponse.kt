@@ -31,4 +31,4 @@ data class MineAttentionResponse(var type: String,
                                  var intro: String)
 
 //修改用户信息
-data class MineEditUserInfo(var username: String,var sex : Int ,var profile:String ,var avatar:String)
+data class MineEditUserInfo(var username: String, var sex: Int, var profile: String, var avatar: String)

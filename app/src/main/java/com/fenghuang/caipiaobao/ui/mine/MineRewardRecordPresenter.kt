@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import ExceptionDialog
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 
@@ -20,8 +21,9 @@ class MineRewardRecordPresenter : BaseMvpPresenter<MineRewardRecordFragment>() {
                 if (mView.isActive()) mView.upDateRewardRecord(it)
             }
             onFailed {
-                ExceptionDialog.showExpireDialog(mView.requireContext(),it)
+                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
                 mView.showPageEmpty(it.getMsg())
+                mView.pop()
             }
         }
     }

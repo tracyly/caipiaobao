@@ -8,8 +8,8 @@
     <com.fenghuang.baselib.widget.round.RoundLinearLayout
         android:layout_width="@dimen/dp_190"
         android:layout_height="@dimen/dp_80"
-        app:rv_backgroundColor="@color/white"
         android:layout_centerInParent="true"
+        app:rv_backgroundColor="@color/white"
         app:rv_cornerRadius="@dimen/dp_10">
 
         <ImageView

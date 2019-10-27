@@ -229,7 +229,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
                 if (it.getMsg() == "未设置支付密码") {
                     mView.settingPayPasswordPopup()
                 }
-                ToastUtils.showError(it.getMsg())
+                ToastUtils.showError(it.getMsg() + "----------")
             }
         }
     }
@@ -251,7 +251,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
     private fun getSubscribeParams(): String {
         var jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
-        jsonObject.put("user_id",UserInfoSp.getUserId())
+        jsonObject.put("user_id", UserInfoSp.getUserId())
         jsonObject.put("type", TYPE_SUBSCRIBE)
         jsonObject.put("userName", "指法大仙")
         return jsonObject.toString()
@@ -270,7 +270,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
     private fun getPingParams(): String {
         var jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
-        jsonObject.put("user_id",UserInfoSp.getUserId())
+        jsonObject.put("user_id", UserInfoSp.getUserId())
         jsonObject.put("type", TYPE_PING)
         jsonObject.put("userName", "指法大仙")
         return jsonObject.toString()

@@ -16,7 +16,7 @@ object UserInfoSp {
     /**
      * 是否登录
      */
-    fun putIsLogin(isLogin:Boolean){
+    fun putIsLogin(isLogin: Boolean) {
         SpUtils.putBoolean(UserConstant.USER_LOGIN, isLogin)
     }
 
@@ -104,7 +104,7 @@ object UserInfoSp {
     }
 
     fun getUserPhone(): String? {
-        return SpUtils.getString(UserConstant.USER_PHONE,defValue = "0")
+        return SpUtils.getString(UserConstant.USER_PHONE, defValue = "0")
     }
 
     /**
@@ -128,6 +128,7 @@ object UserInfoSp {
     fun getUserSex(): Int {
         return SpUtils.getInt(UserConstant.USER_SEX, 1)
     }
+
     /**
      * 个性签名
      */

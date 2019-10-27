@@ -1,7 +1,5 @@
 package com.fenghuang.caipiaobao.ui.home.data
 
-import com.fenghuang.baselib.utils.SpUtils
-import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.data.api.ApiConvert
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
@@ -187,7 +185,7 @@ object HomeApi : BaseApi {
         val subscriber = EmptySubscriber()
         subscriber.function()
         getApiOther().post<String>(HOME_LIVE_RED_SET_PASS)
-                .headers("Authorization",  UserInfoSp.getTokenWithBearer())
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("old_password", oldPassword)
                 .params("new_password", newPassword)
 //                .params("new_password_repeat", newPasswordRepeat)

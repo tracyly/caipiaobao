@@ -12,19 +12,19 @@ object UserConstant {
     // userid
     const val USER_ID = "userId"
     // userName
-    const val USER_NAME="user_name"
+    const val USER_NAME = "user_name"
     // userNickName
-    const val USER_NICK_NAME="user_nick_name"
+    const val USER_NICK_NAME = "user_nick_name"
     // userPhone
-    const val USER_PHONE="user_phone"
+    const val USER_PHONE = "user_phone"
     // userAvatar
-    const val USER_AVATAR="user_avatar"
+    const val USER_AVATAR = "user_avatar"
     //sex
-    const val USER_SEX="user_sex"
+    const val USER_SEX = "user_sex"
     //个性签名
-    const val USER_PROFILE="user_profile"
+    const val USER_PROFILE = "user_profile"
     // 是否设置支付密码
-    const val USER_SET_PAY_PASSWORD="user_set_pay_password"
+    const val USER_SET_PAY_PASSWORD = "user_set_pay_password"
     //银行卡
-    const val USER_BANK="user_bank"
+    const val USER_BANK = "user_bank"
 }

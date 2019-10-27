@@ -1,7 +1,6 @@
 package com.fenghuang.caipiaobao.ui.mine
 
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.caipiaobao.ui.mine.data.MineBankCardBean
 import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.fenghuang.caipiaobao.utils.UserInfoSp

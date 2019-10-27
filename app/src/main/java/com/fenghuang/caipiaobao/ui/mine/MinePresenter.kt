@@ -8,9 +8,7 @@ import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineDataBean
-import com.fenghuang.caipiaobao.ui.mine.data.MineEditUserInfo
 import com.fenghuang.caipiaobao.utils.UserInfoSp
-import com.hwangjr.rxbus.RxBus
 
 class MinePresenter : BaseMvpPresenter<MineFragment>() {
 
@@ -41,7 +39,7 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
                 UserInfoSp.putUserName(it.username)
                 UserInfoSp.putUserPhoto(it.avatar)
                 UserInfoSp.putUserNickName(it.nickname)
-                mView.setUserInfo(it.nickname, it.avatar,it.gender,it.profile)
+                mView.setUserInfo(it.nickname, it.avatar, it.gender, it.profile)
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())

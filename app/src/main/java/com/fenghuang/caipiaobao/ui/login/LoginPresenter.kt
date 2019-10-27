@@ -3,10 +3,7 @@ package com.fenghuang.caipiaobao.ui.login
 import android.widget.EditText
 import android.widget.TextView
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.baselib.utils.LogUtils
-import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.baselib.utils.ToastUtils
-import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.login.data.LoginApi
 import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
 import com.fenghuang.caipiaobao.utils.UserInfoSp
@@ -57,7 +54,7 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
         mView.showPageLoadingDialog("登录中...")
         LoginApi.userLoginWithIdentify(phone, code, isAutoLogin) {
             onSuccess {
-                setUserInfo(it.token, it.user_id, phone,it.password_not_set)
+                setUserInfo(it.token, it.user_id, phone, it.password_not_set)
                 mView.hidePageLoadingDialog()
                 mView.pop()
             }
@@ -76,7 +73,7 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
         mView.showPageLoadingDialog("登录中...")
         LoginApi.userLoginWithPassWord(phone, passWord) {
             onSuccess {
-                setUserInfo(it.token, it.user_id, phone,it.password_not_set)
+                setUserInfo(it.token, it.user_id, phone, it.password_not_set)
                 mView.hidePageLoadingDialog()
                 mView.pop()
             }
@@ -86,11 +83,11 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
         }
     }
 
-    private fun setUserInfo(token: String, userId: Int, phone: String,password_not_set:Int) {
+    private fun setUserInfo(token: String, userId: Int, phone: String, password_not_set: Int) {
         UserInfoSp.putToken(token)
         UserInfoSp.putUserId(userId)
         UserInfoSp.putUserPhone(phone)
         UserInfoSp.putUserIsSetPassWord(password_not_set)
-        RxBus.get().post(LoginSuccess(true,token, userId, phone,password_not_set))
+        RxBus.get().post(LoginSuccess(true, token, userId, phone, password_not_set))
     }
 }

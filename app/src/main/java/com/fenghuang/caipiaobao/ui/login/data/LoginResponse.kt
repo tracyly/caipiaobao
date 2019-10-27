@@ -7,10 +7,10 @@ package com.fenghuang.caipiaobao.ui.login.data
  * @ Describe
  *
  */
-data class LoginRegisterSuccess(var phone:String)
+data class LoginRegisterSuccess(var phone: String)
 
 //登录成功后 expire 过期时间，时间戳
-data class LoginSuccess(var loginOrExit:Boolean,var token : String ,var userId : Int , var userPhone :String,var password_not_set:Int)
+data class LoginSuccess(var loginOrExit: Boolean, var token: String, var userId: Int, var userPhone: String, var password_not_set: Int)
 
 
 

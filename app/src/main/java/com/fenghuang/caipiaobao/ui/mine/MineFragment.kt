@@ -67,27 +67,41 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         tvLogin.setOnClickListener {
             startFragment(context, LoginFragment())
         }
+        //头像
         userPhoto.setOnClickListener {
             if (UserInfoSp.getIsLogin()) {
                 startFragment(context, MinePersonalFragment())
-            } else {
-                startFragment(context, LoginFragment())
-            }
+            } else startFragment(context, LoginFragment())
         }
-
+        //存款
         layoutMineSaveMoney.setOnClickListener {
-            startFragment(context, MineRechargeFragment())
+            if (UserInfoSp.getIsLogin()) {
+                startFragment(context, MineRechargeFragment())
+            } else startFragment(context, LoginFragment())
         }
 
+        //钻石兑换
         linChangeDiamond.setOnClickListener {
-            val dialog = DiamondDialog(getPageActivity())
-            dialog.setConfirmClickListener {
-                ToastUtils.showSuccess("成功")
-                dialog.dismiss()
-            }
-            dialog.show()
+            if (UserInfoSp.getIsLogin()) {
+                val dialog = DiamondDialog(getPageActivity())
+                dialog.setConfirmClickListener {
+                    ToastUtils.showSuccess("成功")
+                    dialog.dismiss()
+                }
+                dialog.show()
+            } else startFragment(context, LoginFragment())
         }
+
+        //充值
         linRecharge.setOnClickListener {
+            if (UserInfoSp.getIsLogin()) {
+            } else startFragment(context, LoginFragment())
+        }
+        //提现
+        linDrawMoney.setOnClickListener {
+            if (UserInfoSp.getIsLogin()) {
+
+            } else startFragment(context, LoginFragment())
         }
 
     }
@@ -127,5 +141,8 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         }
     }
 
+    fun judgeIsLogin() {
+
+    }
 
 }

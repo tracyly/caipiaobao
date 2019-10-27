@@ -9,7 +9,6 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.login.data.LoginApi
 import com.fenghuang.caipiaobao.ui.login.data.LoginRegisterSuccess
-import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
 import com.fenghuang.caipiaobao.widget.dialog.SuccessDialog
 import com.fenghuang.caipiaobao.widget.timer.CountDownTimerUtils
 import com.hwangjr.rxbus.RxBus

@@ -31,10 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:visibility="gone"
-            android:textSize="@dimen/sp_14"
+            android:text="若要进行兑换等消费操作,请联系客服"
             android:textColor="@color/color_999999"
-            android:text="若要进行兑换等消费操作,请联系客服"/>
+            android:textSize="@dimen/sp_14"
+            android:visibility="gone" />
 
         <LinearLayout
             android:layout_width="match_parent"

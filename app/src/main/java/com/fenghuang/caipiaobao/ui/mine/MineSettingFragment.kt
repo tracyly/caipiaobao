@@ -4,7 +4,6 @@ import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
-import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.fenghuang.caipiaobao.widget.dialog.TipsConfirmDialog
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_setting.*

@@ -1,9 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home.anchor
 
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.baselib.utils.ToastUtils
-import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.utils.UserInfoSp
 

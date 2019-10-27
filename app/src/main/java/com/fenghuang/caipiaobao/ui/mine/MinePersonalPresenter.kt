@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import ExceptionDialog
 import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -119,9 +120,10 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
                 ToastUtils.showInfo("wocao")
             }
             onFailed {
-                ExceptionDialog.showExpireDialog(mView.requireContext(),it)
+                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
             }
 
         }
     }
+
 }

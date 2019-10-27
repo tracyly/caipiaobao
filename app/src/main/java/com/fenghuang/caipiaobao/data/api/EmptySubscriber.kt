@@ -22,7 +22,7 @@ open class EmptySubscriber : ApiSubscriber<String>() {
             return bean.data?.toString()
         } else {
             // 根据服务端的code来分发消息
-            throw ApiException(code = bean.code, msg = bean.msg)
+            throw ApiException(code = bean.code, msg = bean.msg, dataCode = bean.data)
         }
     }
 }
