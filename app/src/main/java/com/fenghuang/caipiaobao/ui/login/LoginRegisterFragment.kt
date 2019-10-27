@@ -29,6 +29,8 @@ class LoginRegisterFragment : BaseMvpFragment<LoginRegisterPresenter>() {
 
     override fun getContentResID() = R.layout.fragment_login_register
 
+    override fun isRegisterRxBus() = true
+
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
     }

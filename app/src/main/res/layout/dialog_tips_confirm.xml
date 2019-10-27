@@ -6,12 +6,13 @@
 
     <com.fenghuang.baselib.widget.round.RoundLinearLayout
         android:layout_width="@dimen/dp_316"
-        android:layout_height="@dimen/dp_146"
+        android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:rv_backgroundColor="@color/white"
+        android:paddingBottom="@dimen/dp_30"
         app:rv_cornerRadius="@dimen/dp_12">
 
         <TextView
@@ -21,8 +22,19 @@
             android:layout_marginTop="@dimen/dp_30"
             android:gravity="center_horizontal"
             android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_16"
+            android:textStyle="bold" />
 
+
+        <TextView
+            android:id="@+id/tvContentDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="@dimen/sp_14"
+            android:textColor="@color/color_999999"
+            android:text="若要进行兑换等消费操作,请联系客服"/>
 
         <LinearLayout
             android:layout_width="match_parent"

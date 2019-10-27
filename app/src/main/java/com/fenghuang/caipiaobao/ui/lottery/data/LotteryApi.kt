@@ -68,7 +68,7 @@ object LotteryApi : BaseApi {
     fun getExpertPlan(lottery_id: Int, issue: String, function: ApiSubscriber<List<LotteryExpertPlanResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<LotteryExpertPlanResponse>>() {}
         subscriber.function()
-        LotteryApi.getAipJcUrl()
+        LotteryApi.getAipQuizUrl()
                 .get<List<LotteryExpertPlanResponse>>(LOTTERY_EXPERT_PLAN)
                 .params("lottery_id", lottery_id)
                 .params("issue", issue)

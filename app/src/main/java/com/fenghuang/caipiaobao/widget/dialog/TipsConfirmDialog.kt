@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.opengl.Visibility
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
@@ -20,7 +21,7 @@ import kotlinx.android.synthetic.main.dialog_tips_confirm.*
  */
 
 
-class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel: String) : Dialog(context) {
+class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel: String,contentDes:String) : Dialog(context) {
 
     init {
         setContentView(com.fenghuang.caipiaobao.R.layout.dialog_tips_confirm)
@@ -31,10 +32,10 @@ class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel
         lp.height = ViewUtils.dp2px(146)  // 高度
 //      lp.alpha = 0.7f // 透明度
         window!!.attributes = lp
-        initText(title, confirm, cancel)
+        initText(title, confirm, cancel,contentDes)
     }
 
-    private fun initText(content: String, confirm: String, cancel: String) {
+    private fun initText(content: String, confirm: String, cancel: String,contentDes:String) {
         if (!TextUtils.isEmpty(content)) {
             tvContent.visibility = View.VISIBLE
             tvContent.text = content
@@ -46,6 +47,10 @@ class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel
         if (!TextUtils.isEmpty(cancel)) {
             tvCancel.visibility = View.VISIBLE
             tvCancel.text = cancel
+        }
+        if (!TextUtils.isEmpty(contentDes)){
+            tvContentDescription.visibility = View.VISIBLE
+            tvContentDescription.text=contentDes
         }
         if (tvConfirm !== null) {
             tvConfirm.setOnClickListener {
@@ -72,5 +77,6 @@ class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel
     fun setConfirmColor(color: Int) {
         tvConfirm.delegate.backgroundColor = color
     }
+
 
 }

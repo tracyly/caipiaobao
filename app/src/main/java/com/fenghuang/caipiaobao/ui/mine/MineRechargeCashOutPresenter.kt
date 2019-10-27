@@ -4,6 +4,7 @@ import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.caipiaobao.ui.mine.data.MineBankCardBean
 import com.fenghuang.caipiaobao.utils.JsonUtils
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 
 /**
  *
@@ -22,8 +23,8 @@ class MineRechargeCashOutPresenter : BaseMvpPresenter<MineRechargeCashOutFragmen
         bankCard.add(MineBankCardBean("2", "2222222222222222222", "中国建设银行"))
         bankCard.add(MineBankCardBean("3", "3333333333333333333", "上海浦发银行"))
         bankCard.add(MineBankCardBean("4", "4444444444444444444", "招商银行"))
-        SpUtils.putString("BankCard", JsonUtils.toJson(bankCard))
-        return JsonUtils.fromJson(SpUtils.getString("BankCard").toString(), Array<MineBankCardBean>::class.java)
+        UserInfoSp.putUserBank(JsonUtils.toJson(bankCard))
+        return JsonUtils.fromJson(UserInfoSp.getUserBank().toString(), Array<MineBankCardBean>::class.java)
     }
 
 }

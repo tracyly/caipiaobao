@@ -1,17 +1,24 @@
 package com.fenghuang.caipiaobao.ui.mine
 
 import android.Manifest.permission
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
+import android.widget.EditText
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.utils.CameraUtils
 import com.fenghuang.caipiaobao.widget.IosBottomListWindow
 
@@ -71,4 +78,50 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
         }
     }
 
+    //输入限制
+    fun initEditPersonal(editText: EditText, textView: TextView) {
+        val num = 0
+        val mMaxNum = 50
+        editText.addTextChangedListener(object : TextWatcher {
+            //记录输入的字数
+            var wordNum: CharSequence? = null
+            var selectionStart: Int = 0
+            var selectionEnd: Int = 0
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                wordNum = s
+            }
+
+            @SuppressLint("SetTextI18n")
+            override fun afterTextChanged(s: Editable?) {
+                val number = num + s!!.length
+                textView.text = "$number/50"
+                selectionStart = editText.selectionStart
+                selectionEnd = editText.selectionEnd
+                //判断大于最大值
+                if (wordNum!!.length > mMaxNum) {
+                    s.delete(selectionStart - 1, selectionEnd)
+                    val tempSelection = selectionEnd
+                    editText.text = s
+                    editText.setSelection(tempSelection)
+                    ToastUtils.showInfo("最多输入50字")
+                }
+            }
+        })
+    }
+
+    //上传个人资料
+    fun upLoadPersonalInfo() {
+        MineApi.upLoadPersonalInfo("", 0, "") {
+            onSuccess {
+                ToastUtils.showInfo("wocao")
+            }
+            onFailed {
+                ExceptionDialog.showExpireDialog(mView.requireContext(),it)
+            }
+
+        }
+    }
 }

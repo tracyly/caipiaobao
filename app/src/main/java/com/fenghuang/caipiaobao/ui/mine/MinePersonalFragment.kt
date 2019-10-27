@@ -20,7 +20,9 @@ import com.fenghuang.caipiaobao.utils.CameraUtils.getRealFilePath
 import com.fenghuang.caipiaobao.utils.CameraUtils.imageCropUri
 import com.fenghuang.caipiaobao.utils.CameraUtils.mCameraImagePath
 import com.fenghuang.caipiaobao.utils.CameraUtils.mCameraUri
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.tbruyelle.rxpermissions2.RxPermissions
+import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_mine_presonal.*
 
 
@@ -46,21 +48,29 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
 
     override fun isShowBackIconWhite() = false
 
-
-    override fun initContentView() {
-        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
+    }
+    override fun initContentView() {
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
+        mPresenter.initEditPersonal(publish_ed_desc,publish_text_num)
+    }
+
+    override fun initData() {
+        ImageManager.loadRoundFrameUserLogo(UserInfoSp.getUserPhoto(), imgUserPhoto, 12, getColor(R.color.white))
+        edUserName.setText(UserInfoSp.getUserNickName())
+        edUserSex.setText( if(UserInfoSp.getUserSex() == 1) "男" else "女")
+        publish_ed_desc.setText(UserInfoSp.getUserProfile())
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initEvent() {
         imgSetPhoto.setOnClickListener {
             mPresenter.getPhotoFromPhone(getPageActivity())
+        }
+        btUpLoadUserInfo.setOnClickListener {
+            mPresenter.upLoadPersonalInfo()
         }
     }
 

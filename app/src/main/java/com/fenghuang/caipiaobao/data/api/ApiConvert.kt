@@ -23,16 +23,14 @@ class ApiConvert<T>(private var type: Type? = null,
         val bean = JsonUtils.fromJson(json, BaseApiBean::class.java)
         if (bean.code == ErrorCode.SUCCESS) {
             // 后端返回的code是成功的，但是data会空的
-            return if (bean.data != null && !bean.data.isJsonNull) {
-                return JsonUtils.fromJson(bean.data, getType())
-            } else return JsonUtils.fromJson(json, getType())
+            return return if (bean.data != null && !bean.data.isJsonNull) {
+                JsonUtils.fromJson(bean.data, getType())
+            } else JsonUtils.fromJson(json, getType())
         } else {
             // 根据服务端的code来分发消息
-            throw ApiException(code = bean.code, msg = bean.msg)
-//            throw Exception(bean.msg)
+            throw ApiException(code = bean.code, msg = bean.msg, dataCode = bean.data)
         }
     }
-
 
     override fun getType(): Type {
         val type = type

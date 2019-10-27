@@ -24,7 +24,7 @@ object SpUtils {
     }
 
     @JvmOverloads
-    fun getBoolean(key: String, defValue: Boolean = true): Boolean {
+    fun getBoolean(key: String, defValue: Boolean = false): Boolean {
         return sp.getBoolean(key, defValue)
     }
 
@@ -84,5 +84,9 @@ object SpUtils {
         return sp.edit().remove(key).commit()
     }
 
+    // =====================clearAll=====================
+    fun clearAll() {
+        sp.edit().clear().apply()
+    }
 
 }

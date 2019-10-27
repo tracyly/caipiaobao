@@ -1,7 +1,9 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import ExceptionDialog
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 
 /**
  *
@@ -14,11 +16,12 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 class MineMyAttentionPresenter : BaseMvpPresenter<MineMyAttentionFragment>() {
 
     fun getAttentionList() {
-        MineApi.getAttentionList(1) {
+        MineApi.getAttentionList{
             onSuccess {
                 if (mView.isActive()) mView.upDateAttentionList(it)
             }
             onFailed {
+                ExceptionDialog.showExpireDialog(mView.requireContext(),it)
                 mView.showPageEmpty(it.getMsg())
             }
         }

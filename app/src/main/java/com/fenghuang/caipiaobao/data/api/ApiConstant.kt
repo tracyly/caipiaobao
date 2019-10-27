@@ -11,7 +11,7 @@ object ApiConstant {
 
     const val API_URL = "https://api.xiaomingsport.com"
 
-    const val API_URL_DEV = "http://47.244.212.147"
+    const val API_URL_DEV = "https://www.cpbadmin.com"
 
     const val API_URL_DEV_OTHER = "http://154.206.43.213:18306"
 
@@ -20,5 +20,5 @@ object ApiConstant {
 
 
     // 开奖
-    const val API_URL_OPEN = "http://58.82.225.27:18306"
+    const val API_URL_OPEN = "http://47.75.167.133:18306"
 }

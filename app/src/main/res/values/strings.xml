@@ -260,6 +260,7 @@
     <string name="mine_user_sign_edit">请输入您的个性签名</string>
     <string name="mine_sign_num">0/50</string>
     <string name="mine_edit_name">请输入用户名</string>
+    <string name="mine_edit_sex">男</string>
     <string name="mine_recharge">充值提现</string>
     <string name="mine_balance">账户余额</string>
     <string name="mine_recharge_type">选择充值方式</string>

@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.manager
 
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.fenghuang.baselib.utils.ViewUtils
@@ -32,8 +33,8 @@ object ImageManager {
     /**
      * 加载圆形图片带有边框（用户头像）
      */
-    fun loadRoundFrameUserLogo(url: String?, imageView: ImageView, color: Int) {
-        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = 6, borderColor = color)
+    fun loadRoundFrameUserLogo(url: String?, imageView: ImageView, borderWidth:Int,color: Int) {
+        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = borderWidth, borderColor = color)
     }
 
 
@@ -41,7 +42,7 @@ object ImageManager {
      * 加载圆形图片带有边框（Bitmap）
      */
     fun loadRoundFromBitmap(url: Bitmap?, imageView: ImageView, color: Int) {
-        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = 16, borderColor = color)
+        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = 12, borderColor = color)
     }
 
     /**
@@ -86,5 +87,14 @@ object ImageManager {
     fun loadImage(url: String?, imageView: ImageView) {
         Glide.with(imageView.context).load(url).into(imageView)
     }
+
+
+    /**
+     * 加载圆形图片带有边框 本地图
+     */
+    fun loadRoundFromBitmap(url: Int?, imageView: ImageView, color: Int) {
+        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = 12, borderColor = color)
+    }
+
 
 }

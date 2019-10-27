@@ -35,6 +35,7 @@ import com.fenghuang.caipiaobao.ui.widget.popup.OpenRedEnvelopePopup
 import com.fenghuang.caipiaobao.ui.widget.popup.ReChargePopup
 import com.fenghuang.caipiaobao.ui.widget.popup.RedEnvelopePopup
 import com.fenghuang.caipiaobao.ui.widget.popup.SettingPayPasswordPopup
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.fenghuang.caipiaobao.widget.pagegridview.GridViewAdapter
 import com.fenghuang.caipiaobao.widget.pagegridview.ViewPagerAdapter
 import com.hwangjr.rxbus.annotation.Subscribe
@@ -187,7 +188,7 @@ class HomeLiveChatFragment : BaseMultiRecyclerFragment<HomeLiveCharPresenter>() 
      */
     fun showOpenRedContent(it: HomeLiveRedReceiveBean) {
         setGone(ivEnvelopeTips)
-        mPresenter.getRoomRed(SpUtils.getInt(UserConstant.USER_ID, 0))
+        mPresenter.getRoomRed(UserInfoSp.getUserId())
         mOpenRedPopup.setRedContent(it.send_text)
         mOpenRedPopup.setRedMoney(it.count.toString())
         mOpenRedPopup.setRedUserName(it.send_user_name)

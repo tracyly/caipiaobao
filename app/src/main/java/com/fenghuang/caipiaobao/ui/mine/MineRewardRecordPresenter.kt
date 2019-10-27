@@ -20,6 +20,7 @@ class MineRewardRecordPresenter : BaseMvpPresenter<MineRewardRecordFragment>() {
                 if (mView.isActive()) mView.upDateRewardRecord(it)
             }
             onFailed {
+                ExceptionDialog.showExpireDialog(mView.requireContext(),it)
                 mView.showPageEmpty(it.getMsg())
             }
         }

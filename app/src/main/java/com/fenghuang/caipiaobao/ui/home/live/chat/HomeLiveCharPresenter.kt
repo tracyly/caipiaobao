@@ -14,6 +14,7 @@ import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRedMessageBean
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.hwangjr.rxbus.RxBus
 import me.jessyan.autosize.utils.LogUtils
 import okhttp3.OkHttpClient
@@ -46,7 +47,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
 
     override fun loadData(page: Int) {
         initStatusListener()
-        getRoomRed(SpUtils.getInt(UserConstant.USER_ID, 0))
+        getRoomRed(UserInfoSp.getUserId())
     }
 
     fun startWebSocketConnect() {
@@ -183,7 +184,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
      * 抢红包
      */
     fun sendRedReceive(rid: Int) {
-        HomeApi.getRedReceive(SpUtils.getInt(UserConstant.USER_ID, 0), rid) {
+        HomeApi.getRedReceive(UserInfoSp.getUserId(), rid) {
             onSuccess {
                 mView.showOpenRedContent(it)
             }
@@ -218,7 +219,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
      */
     fun getIsPayPassword() {
         val dialog = MaterialLoadingDialog.Builder(context).show("红包发送中...")
-        HomeApi.getIsPayPassword(SpUtils.getInt(UserConstant.USER_ID, 0)) {
+        HomeApi.getIsPayPassword(UserInfoSp.getUserId()) {
             onSuccess {
                 dialog.dismiss()
                 mView.sendRedEnvelope()
@@ -250,7 +251,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
     private fun getSubscribeParams(): String {
         var jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
-        jsonObject.put("user_id", SpUtils.getInt(UserConstant.USER_ID, 0))
+        jsonObject.put("user_id",UserInfoSp.getUserId())
         jsonObject.put("type", TYPE_SUBSCRIBE)
         jsonObject.put("userName", "指法大仙")
         return jsonObject.toString()
@@ -269,7 +270,7 @@ class HomeLiveCharPresenter(val context: Context, private val anchorId: Int) : B
     private fun getPingParams(): String {
         var jsonObject = JSONObject()
         jsonObject.put("room_id", anchorId)
-        jsonObject.put("user_id", SpUtils.getInt(UserConstant.USER_ID, 0))
+        jsonObject.put("user_id",UserInfoSp.getUserId())
         jsonObject.put("type", TYPE_PING)
         jsonObject.put("userName", "指法大仙")
         return jsonObject.toString()

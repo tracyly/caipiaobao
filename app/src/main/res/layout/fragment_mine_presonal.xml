@@ -48,6 +48,7 @@
         app:rv_cornerRadius="@dimen/dp_5">
 
         <EditText
+            android:id="@+id/edUserName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
@@ -77,10 +78,11 @@
         app:rv_cornerRadius="@dimen/dp_5">
 
         <EditText
+            android:id="@+id/edUserSex"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@null"
-            android:hint="@string/mine_edit_name"
+            android:hint="@string/mine_edit_sex"
             android:paddingStart="@dimen/dp_16"
             android:paddingEnd="@dimen/dp_8"
             android:textSize="@dimen/sp_14" />
@@ -110,10 +112,11 @@
         <EditText
             android:id="@+id/publish_ed_desc"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:layout_marginTop="@dimen/dp_12"
-            android:layout_marginRight="@dimen/dp_12"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_12"
+            android:gravity="start"
             android:background="@null"
             android:hint="@string/mine_user_sign_edit"
             android:textColorHint="@color/color_CCCCCC"
@@ -135,6 +138,7 @@
 
 
     <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/btUpLoadUserInfo"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46"
         android:layout_marginStart="@dimen/dp_34"

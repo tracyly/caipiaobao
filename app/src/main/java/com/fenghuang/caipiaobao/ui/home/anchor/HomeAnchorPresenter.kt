@@ -5,6 +5,7 @@ import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 
 /**
  *  author : Peter
@@ -14,7 +15,7 @@ import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 class HomeAnchorPresenter : BaseMvpPresenter<HomeAnchorFragment>() {
 
     fun loadData(anchorId: Int) {
-        HomeApi.getHomeLiveAnchorInfo(SpUtils.getInt(UserConstant.USER_ID), anchorId) {
+        HomeApi.getHomeLiveAnchorInfo(UserInfoSp.getUserId(), anchorId) {
             onSuccess {
                 mView.updateInfo(it)
             }

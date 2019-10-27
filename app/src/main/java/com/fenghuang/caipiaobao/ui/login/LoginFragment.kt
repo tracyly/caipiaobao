@@ -5,7 +5,11 @@ import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.ui.login.data.LoginRegisterSuccess
+import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
 import com.fenghuang.caipiaobao.utils.CheckUtils
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_login.*
 
 /**
@@ -24,14 +28,17 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
 
     override fun isShowBackIconWhite() = false
 
+    override fun isRegisterRxBus() = true
+
     override fun getPageTitle() = getString(R.string.login_with_identify_code)
 
     override fun getContentResID() = R.layout.fragment_login
 
+
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-    }
 
+    }
 
     override fun initEvent() {
         tvLoginType.setOnClickListener {
@@ -78,4 +85,10 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
             start(LoginRegisterFragment())
         }
     }
+
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onRegisterSuccess(eventBean: LoginRegisterSuccess) {
+        etPhoneNum.setText(eventBean.phone)
+    }
+
 }

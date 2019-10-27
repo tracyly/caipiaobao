@@ -55,7 +55,7 @@ class QuizFragment : BaseMultiRecyclerNavFragment<QuizPresenter>() {
      * 提示登陆
      */
     fun showLoginTips() {
-        val tipsConfirmDialog = TipsConfirmDialog(getPageActivity(), "请登录后再操作", "去登录", "下次再说")
+        val tipsConfirmDialog = TipsConfirmDialog(getPageActivity(), "请登录后再操作", "去登录", "下次再说","")
         tipsConfirmDialog.setConfirmClickListener {
             LaunchUtils.startFragment(getPageActivity(), LoginFragment())
         }

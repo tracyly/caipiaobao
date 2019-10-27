@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import ExceptionDialog
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,7 @@ import android.widget.TextView
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 
 /**
  *
@@ -53,15 +55,13 @@ class MineFeedBackPresenter : BaseMvpPresenter<MineFeedBackFragment>() {
     }
 
     fun subMitAdv(content: String) {
-        MineApi.feedBack(1, 1, content, 13565211120, 304467544, "2205@qqq.com") {
+        MineApi.feedBack(content, UserInfoSp.getUserPhone()?.toLong()!!, 0, "") {
             onSuccess {
                 ToastUtils.showSuccess(it.msg)
             }
             onFailed {
-                ToastUtils.showError(it.getMsg())
+                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
             }
         }
     }
-
-
 }

@@ -14,6 +14,7 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetExpert
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_lottery.*
+import java.util.*
 
 
 /**
@@ -63,9 +64,9 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         lotteryTypeAdapter.addAll(data)
         rvLotteryType.adapter = lotteryTypeAdapter
         rvLotteryType.layoutManager = value
-        lotteryTypeAdapter.setOnItemClickListener { data, position ->
+        lotteryTypeAdapter.setOnItemClickListener { dates, position ->
             lotteryTypeAdapter.changeBackground(position)
-            mPresenter.getLotteryOpenCode(data.lottery_id)
+            mPresenter.getLotteryOpenCode(dates.lottery_id)
         }
     }
 
@@ -96,8 +97,13 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
             cuntDownTime(data.next_lottery_time.toLong() * 1000, data.lottery_id)
             cutDown?.start()
         } else {
-            Thread.sleep(3500)
-            cutDown?.onFinish()
+            val t = Timer()
+            t.schedule(object : TimerTask() {
+                override fun run() {
+                    cutDown?.onFinish()
+                    t.cancel()
+                }
+            }, 3500)
         }
     }
 
@@ -155,8 +161,10 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
             override fun onPageScrollStateChanged(state: Int) {
             }
+
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
+
             override fun onPageSelected(position: Int) {
                 anchorTabView.setTabSelect(position)
             }
