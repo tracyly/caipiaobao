@@ -8,7 +8,7 @@ package com.fenghuang.caipiaobao.ui.lottery.data
  *
  */
 
-data class LotteryTypeResponse(var lottery_id: Int, var cname: String, var logo_url: String)
+data class LotteryTypeResponse(var lottery_id: Int, var cname: String, var logo_url: String, var video_url: String)
 
 data class LotteryCodeNewResponse(var lottery_id: Int, var issue: String, var code: String, var next_lottery_time: String, var input_time: String)
 

@@ -11,7 +11,7 @@ import com.fenghuang.baselib.base.recycler.decorate.GridItemSpaceDecoration
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
-import com.fenghuang.caipiaobao.ui.CheckPhoto.CheckPhotoImgFragment
+import com.fenghuang.caipiaobao.ui.checkphoto.CheckPhotoImgFragment
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorDynamicBean
 
 /**

@@ -2,6 +2,8 @@ package com.fenghuang.caipiaobao.ui.lottery
 
 import android.annotation.SuppressLint
 import android.os.CountDownTimer
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
@@ -12,6 +14,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeNewResponse
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetExpert
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
+import com.fenghuang.caipiaobao.ui.widget.X5WebView.initWebViewSettings
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_lottery.*
 import java.util.*
@@ -28,6 +31,8 @@ import java.util.*
 class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
     private var isLoadBottom: Boolean = false
+
+    private var lotterySpUrl: String = ""
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -59,6 +64,10 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
      * 彩种
      */
     fun initLotteryType(data: List<LotteryTypeResponse>?) {
+        setPageTitle(data?.get(0)?.cname)
+        val videoUrl = data?.get(0)?.video_url.toString()
+        isShowView(videoUrl)
+        lotterySpUrl = videoUrl
         val value = LinearLayoutManager(getPageActivity(), LinearLayoutManager.HORIZONTAL, false)
         val lotteryTypeAdapter = LotteryTypeAdapter(getPageActivity())
         lotteryTypeAdapter.addAll(data)
@@ -67,7 +76,16 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         lotteryTypeAdapter.setOnItemClickListener { dates, position ->
             lotteryTypeAdapter.changeBackground(position)
             mPresenter.getLotteryOpenCode(dates.lottery_id)
+            setPageTitle(dates.cname)
+            isShowView(dates.video_url + "")
+            lotterySpUrl = dates.video_url
         }
+    }
+
+    private fun isShowView(url: String) {
+        if (url != "null") {
+            setVisibility(R.id.imgSp, true)
+        } else setVisibility(R.id.imgSp, false)
     }
 
     /**
@@ -170,6 +188,44 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
             }
 
         })
+        imgSp.setOnClickListener {
+            x5webLottery.onResume()
+            x5webLottery.setBackgroundColor(getColor(R.color.black))
+            initWebViewSettings(x5webLottery)
+            relWebSp.startAnimation(showAnimation())
+            setVisibility(R.id.relWebSp, true)
+            x5webLottery.loadUrl(lotterySpUrl)
+        }
+        relClose.setOnClickListener {
+            relWebSp.startAnimation(hideAnimation())
+            setGone(R.id.relWebSp)
+            x5webLottery.onPause()
+        }
+    }
+
+    //显示动画
+    private fun showAnimation(): TranslateAnimation {
+        val mShowAction = TranslateAnimation(Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f, Animation.RELATIVE_TO_SELF, 0.0f)
+        mShowAction.duration = 500
+        return mShowAction
+    }
+
+    //隐藏动画
+    private fun hideAnimation(): TranslateAnimation {
+        val mHiddenAction = TranslateAnimation(Animation.RELATIVE_TO_SELF,
+                0.0f, Animation.RELATIVE_TO_SELF, 0.0f,
+                Animation.RELATIVE_TO_SELF, 0.0f, Animation.RELATIVE_TO_SELF,
+                -1.0f)
+        mHiddenAction.duration = 500
+        return mHiddenAction
+    }
+
+    override fun onDestroy() {
+        cutDown?.cancel()
+        x5webLottery.destroy()
+        super.onDestroy()
     }
 
 }

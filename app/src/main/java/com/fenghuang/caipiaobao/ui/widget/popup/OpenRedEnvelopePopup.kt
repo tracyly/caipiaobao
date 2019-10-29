@@ -18,30 +18,30 @@ import com.fenghuang.caipiaobao.manager.ImageManager
  */
 class OpenRedEnvelopePopup(context: Context) : BasePopupWindow(context, R.layout.popup_live_room_open_red_envelope) {
 
-    private lateinit var mOpenRed: RelativeLayout
-    private lateinit var mOpenRedMoney: LinearLayout
-    private lateinit var mRedOver: LinearLayout
-    private lateinit var mOpenRedLogo: ImageView
+    private var mOpenRed: RelativeLayout
+    private var mOpenRedMoney: LinearLayout
+    private var mRedOver: LinearLayout
+    private var mOpenRedLogo: ImageView
     //    private lateinit var mRedDelete: ImageView
     private lateinit var mOpenRedKnew: ImageView
-    private lateinit var mRedContent: TextView
-    private lateinit var mUserName: TextView
-    private lateinit var mRedMoney: TextView
+    private var mRedContent: TextView
+    private var mUserName: TextView
+    private var mRedMoney: TextView
 
     init {
 //        width = ViewUtils.getScreenWidth()
         addBackground()
         isFocusable = true
         isOutsideTouchable = true
-        mOpenRed = findView<RelativeLayout>(R.id.rlOpenRed)
-        mOpenRedMoney = findView<LinearLayout>(R.id.layoutOpenRedMoney)
-        mOpenRedLogo = findView<ImageView>(R.id.ivOpenRedLogo)
+        mOpenRed = findView(R.id.rlOpenRed)
+        mOpenRedMoney = findView(R.id.layoutOpenRedMoney)
+        mOpenRedLogo = findView(R.id.ivOpenRedLogo)
 //        mRedDelete = findView<ImageView>(R.id.ivRedDelete)
-        mRedContent = findView<TextView>(R.id.tvRedContent)
-        mUserName = findView<TextView>(R.id.tvRedName)
-        mRedMoney = findView<TextView>(R.id.tvRedMoney)
+        mRedContent = findView(R.id.tvRedContent)
+        mUserName = findView(R.id.tvRedName)
+        mRedMoney = findView(R.id.tvRedMoney)
 
-        mRedOver = findView<LinearLayout>(R.id.llRedOver)
+        mRedOver = findView(R.id.llRedOver)
         findView<ImageView>(R.id.ivOpenRedKnew).setOnClickListener {
             dismiss()
         }

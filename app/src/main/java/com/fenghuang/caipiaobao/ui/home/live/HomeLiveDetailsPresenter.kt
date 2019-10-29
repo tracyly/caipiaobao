@@ -18,8 +18,9 @@ class HomeLiveDetailsPresenter : BaseMvpPresenter<HomeLiveDetailsFragment>() {
         HomeApi.getHomeLiveRoomResult(anchorId, userId) {
             onSuccess {
                 it.liveInfo.forEachIndexed { _, homeLiveRoomListBean ->
-                    if (homeLiveRoomListBean.type == "RTMP") {
+                    if (homeLiveRoomListBean.type == "HDL") {
                         mVideos["标清"] = homeLiveRoomListBean.liveUrl.originPullUrl
+
                     }
                 }
                 mView.setLogoInfo(it)

@@ -1,19 +1,24 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import ExceptionDialog
+import ExceptionDialog.showExpireDialog
 import android.content.Context
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineDataBean
 import com.fenghuang.caipiaobao.utils.UserInfoSp
+import kotlinx.android.synthetic.main.fragment_mine_child_view_login.*
 
 class MinePresenter : BaseMvpPresenter<MineFragment>() {
 
     private val newResults = arrayListOf<MineDataBean>()
-
+    private lateinit var rotateAnimation: Animation
 
     fun initList(context: Context, listItem: RecyclerView) {
         newResults.add(MineDataBean("个人资料", R.mipmap.ic_mine_preson))
@@ -33,17 +38,58 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
         listItem.layoutManager = value
     }
 
+    //获取用户信息
     fun getUserInfo() {
-        MineApi.getUserInfo {
+        if (UserInfoSp.getIsLogin()) {
+            MineApi.getUserInfo {
+                onSuccess {
+                    UserInfoSp.putUserName(it.username)
+                    UserInfoSp.putUserPhoto(it.avatar)
+                    UserInfoSp.putUserNickName(it.nickname)
+                    mView.setUserInfo(it.nickname, it.avatar, it.gender, it.profile)
+                    getUserBalance()
+                }
+                onFailed {
+                    showExpireDialog(mView.requireContext(), it)
+                    mView.finishRefresh()
+                }
+            }
+        } else {
+            mView.finishRefresh()
+            showExpireDialog(mView.requireContext())
+        }
+    }
+
+    //获取余额
+    fun getUserBalance() {
+        rotateAnimation = AnimationUtils.loadAnimation(mView.requireContext(), R.anim.anim_circle_rotate)
+        val interpolator = LinearInterpolator()
+        rotateAnimation.interpolator = interpolator
+        mView.imgBalance.startAnimation(rotateAnimation)
+        MineApi.getUserBalance {
             onSuccess {
-                UserInfoSp.putUserName(it.username)
-                UserInfoSp.putUserPhoto(it.avatar)
-                UserInfoSp.putUserNickName(it.nickname)
-                mView.setUserInfo(it.nickname, it.avatar, it.gender, it.profile)
+                mView.imgBalance.clearAnimation()
+                mView.setUserBalance(it.balance.toString())
+                getUserDiamond()
             }
             onFailed {
-                ToastUtils.showError(it.getMsg())
+                mView.imgBalance.clearAnimation()
+                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
             }
         }
+    }
+
+    //获取钻石
+    private fun getUserDiamond() {
+        MineApi.getUserDiamond {
+            onSuccess {
+                mView.setUserDiamond(it.diamond)
+                mView.finishRefresh()
+            }
+            onFailed {
+                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+            }
+        }
+
     }
 }

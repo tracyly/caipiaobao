@@ -8,7 +8,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/rlAddBank"
+        android:id="@+id/rlAddBankItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_80"
         android:layout_marginTop="@dimen/dp_20"
@@ -51,7 +51,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rlBank"
+        android:id="@+id/rlBankItem"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_80"
         android:layout_marginTop="@dimen/dp_20"
@@ -60,7 +60,7 @@
         android:visibility="gone">
 
         <ImageView
-            android:id="@+id/imgBank"
+            android:id="@+id/imgBankItem"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"
             android:layout_centerVertical="true"
@@ -71,19 +71,19 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/dp_10"
-            android:layout_toEndOf="@+id/imgBank"
+            android:layout_toEndOf="@+id/imgBankItem"
             android:orientation="vertical"
             tools:ignore="RelativeOverlap">
 
             <TextView
-                android:id="@+id/tvBankName"
+                android:id="@+id/tvBankNameItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_14" />
 
             <TextView
-                android:id="@+id/tvBankCode"
+                android:id="@+id/tvBankCodeItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_4"
@@ -142,7 +142,7 @@
             android:layout_marginStart="@dimen/dp_9"
             android:layout_toEndOf="@+id/tvFirst"
             android:background="@null"
-            android:text="0"
+            android:inputType="numberDecimal"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_30" />
 
@@ -153,7 +153,8 @@
             android:layout_centerVertical="true"
             android:text="@string/mine_get_all_money"
             android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_14" />
+            android:textSize="@dimen/sp_14"
+            tools:ignore="RelativeOverlap" />
 
         <View
             android:layout_width="match_parent"

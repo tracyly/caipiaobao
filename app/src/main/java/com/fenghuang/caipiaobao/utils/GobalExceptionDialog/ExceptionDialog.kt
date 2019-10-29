@@ -1,5 +1,4 @@
 import android.content.Context
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.ui.login.LoginFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
@@ -20,7 +19,6 @@ object ExceptionDialog {
 
     //登录过期
     fun showExpireDialog(context: Context, exception: ApiException) {
-        LogUtils.e("--->" + exception.getMsg() + "-+++-" + exception.message + "---")
         if (exception.getDataCode().toString() == "401" || exception.getCode() == 2002 || exception.getCode() == 2000 || exception.getCode() == 2001) {
             val dialog = TipsConfirmDialog(context, "未登录或登录已过期", "去登录", "下次再说", "")
             dialog.setConfirmClickListener {

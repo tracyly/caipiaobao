@@ -40,7 +40,7 @@ class MineSettingFragment : BaseNavFragment() {
         btExitLogin.setOnClickListener {
             val dialog = TipsConfirmDialog(getPageActivity(), "确认是否退出?", "确认", "取消", "")
             dialog.setConfirmClickListener {
-                RxBus.get().post(LoginSuccess(false, "", 0, "", 0))
+                RxBus.get().post(LoginSuccess(false, "", -1, "", -1))
                 this.pop()
             }
             dialog.show()

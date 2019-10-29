@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">彩票宝</string>
+    <string name="app_name">乐购直播</string>
 
     <string name="tab_home">首页</string>
     <string name="tab_live">直播</string>
@@ -289,9 +289,12 @@
     <string name="mine_diamond_all">全部兑换</string>
     <string name="mine_diamond_edit">请输入兑换金额</string>
     <string name="mine_diamond_change_">兑换</string>
+    <string name="mine_online_invest">在线充值</string>
+    <string name="mine_online_invest_money">请输入充值金额</string>
     <!-- 开奖 -->
     <string name="lottery_open">开奖</string>
-
+    <string name="lottery_open_video">开奖视频</string>
+    <string name="lottery_open_time">距下次</string>
     <!-- 登录 -->
     <string name="login">登录</string>
     <string name="login_finish">完成</string>
@@ -305,5 +308,6 @@
     <string name="login_forget_password">忘记密码</string>
     <string name="login_identify_code">验证码登录</string>
     <string name="login_user_register">用户注册</string>
+
 
 </resources>

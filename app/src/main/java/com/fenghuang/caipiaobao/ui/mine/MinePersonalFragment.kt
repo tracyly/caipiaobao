@@ -70,7 +70,7 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
             mPresenter.getPhotoFromPhone(getPageActivity())
         }
         btUpLoadUserInfo.setOnClickListener {
-            mPresenter.upLoadPersonalInfo()
+            mPresenter.upLoadPersonalInfo(edUserName.text.toString(), if (edUserSex.text.toString() == "男") 1 else 0, publish_ed_desc.text.toString())
         }
     }
 

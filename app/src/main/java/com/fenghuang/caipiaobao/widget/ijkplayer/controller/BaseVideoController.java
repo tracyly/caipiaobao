@@ -96,12 +96,9 @@ public abstract class BaseVideoController extends FrameLayout {
         hideStatusView();
         if (playState == VideoView.STATE_ERROR) {
             mStatusView.setMessage(getResources().getString(R.string.dkplayer_error_message));
-            mStatusView.setButtonTextAndAction(getResources().getString(R.string.dkplayer_retry), new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    hideStatusView();
-                    mMediaPlayer.replay(false);
-                }
+            mStatusView.setButtonTextAndAction(getResources().getString(R.string.dkplayer_retry), v -> {
+                hideStatusView();
+                mMediaPlayer.replay(false);
             });
             this.addView(mStatusView, 0);
         }

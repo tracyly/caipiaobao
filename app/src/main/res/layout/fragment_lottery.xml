@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@id/smartRefreshLayout"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/color_f7f7f7">
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_f7f7f7"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@id/rvLotteryType"
@@ -39,40 +46,49 @@
                     android:textColor="@color/color_333333"
                     android:textStyle="bold" />
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/linTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_14"
-                    android:layout_marginEnd="@dimen/dp_6"
-                    android:layout_toStartOf="@+id/tvTime"
-                    android:text="距下次"
-                    android:textColor="@color/color_333333" />
-
-                <TextView
-                    android:id="@+id/tvTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_14"
-                    android:layout_marginEnd="@dimen/dp_4"
-                    android:layout_toStartOf="@+id/imgSp"
-                    android:textColor="@color/color_333333"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/imgSp"
-                    android:layout_width="@dimen/dp_20"
-                    android:layout_height="@dimen/dp_16"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_14"
-                    android:background="@mipmap/ic_lottery_sp"
-                    android:contentDescription="@string/app_name" />
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/dp_0"
+                    android:paddingEnd="@dimen/dp_10"
+                    tools:ignore="RelativeOverlap">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:layout_marginEnd="@dimen/dp_6"
+                        android:text="@string/lottery_open_time"
+                        android:textColor="@color/color_333333" />
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_14"
+                        android:layout_marginEnd="@dimen/dp_4"
+                        android:textColor="@color/color_333333"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgSp"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginTop="@dimen/dp_12"
+                        android:contentDescription="@string/app_name"
+                        android:src="@mipmap/ic_lottery_sp" />
+
+                </LinearLayout>
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvOpenCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/tvTime"
+                    android:layout_below="@+id/linTime"
                     android:paddingStart="@dimen/dp_14"
                     android:paddingTop="@dimen/dp_18"
                     android:paddingEnd="@dimen/dp_0" />
@@ -110,9 +126,55 @@
                 android:id="@+id/placeholders"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/anchorTabView" />
+                android:layout_below="@+id/anchorTabView"
+                android:layout_marginTop="-33dp" />
 
 
         </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+    </LinearLayout>
 
-</LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relWebSp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingTop="@dimen/dp_10"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tvTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="@string/lottery_open_video"
+            android:textColor="@color/white"
+            tools:ignore="RelativeOverlap" />
+
+        <RelativeLayout
+            android:id="@+id/relClose"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_20"
+            android:layout_alignParentEnd="true">
+
+            <ImageView
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_dialog_close"
+                android:contentDescription="@string/app_name" />
+        </RelativeLayout>
+
+
+        <com.tencent.smtt.sdk.WebView
+            android:id="@+id/x5webLottery"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_270"
+            android:layout_below="@+id/tvTitles"
+            android:layout_marginTop="@dimen/dp_10"
+            tools:ignore="UnknownIdInLayout" />
+    </RelativeLayout>
+
+</FrameLayout>

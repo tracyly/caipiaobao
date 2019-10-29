@@ -189,6 +189,8 @@ dependencies {
     }
     //photoView
     implementation photoview
+
+    api x5WebView
 }
 
 afterEvaluate {

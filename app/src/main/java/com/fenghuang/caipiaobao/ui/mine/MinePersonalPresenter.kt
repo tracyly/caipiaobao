@@ -114,10 +114,10 @@ class MinePersonalPresenter : BaseMvpPresenter<MinePersonalFragment>() {
     }
 
     //上传个人资料
-    fun upLoadPersonalInfo() {
-        MineApi.upLoadPersonalInfo("", 0, "") {
+    fun upLoadPersonalInfo(nickName: String, gender: Int, profile: String) {
+        MineApi.upLoadPersonalInfo(nickName, gender, profile) {
             onSuccess {
-                ToastUtils.showInfo("wocao")
+                ToastUtils.showSuccess("修改成功")
             }
             onFailed {
                 ExceptionDialog.showExpireDialog(mView.requireContext(), it)

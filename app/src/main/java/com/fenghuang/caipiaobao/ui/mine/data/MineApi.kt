@@ -26,7 +26,16 @@ object MineApi : BaseApi {
     private const val USER_INFO = "/index/index"
     //修改用户信息
     private const val USER_INFO_EDIT = "/index/edit"
-
+    //获取钻石
+    private const val USER_DIAMOND = "/index.php/api/v1/user/diamond_now/"
+    //获取余额
+    private const val USER_BALANCE = "/index/balance"
+    //获取支付列表
+    private const val PAY_TYPE_LIST = "/api/v1/Recharge/getList"
+    //充值
+    private const val INVEST_MONEY = "/api/v1/Recharge/createorder"
+    //银行卡列表
+    private const val BANK_LIST = "index/bank-list"
     /**
      * 获取用户信息
      */
@@ -91,11 +100,69 @@ object MineApi : BaseApi {
         subscriber.function()
         MineApi.getApiOther().post<String>(USER_INFO_EDIT)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
-                .params("nickname", "111")
-                .params("gender", 1)
-                .params("profile", "666666666666666666666")
+                .params("nickname", nickname)
+                .params("gender", gender)
+                .params("profile", profile)
                 .subscribe(subscriber)
     }
 
+    /**
+     * 获取钻石
+     */
+    fun getUserDiamond(function: ApiSubscriber<MineUserDiamond>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<MineUserDiamond>() {}
+        subscriber.function()
+        MineApi.getApi().get<MineUserDiamond>(USER_DIAMOND)
+                .headers("token", UserInfoSp.getToken())
+                .subscribe(subscriber)
+    }
+
+
+    /**
+     * 获取余额
+     */
+    fun getUserBalance(function: ApiSubscriber<MineUserBalance>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<MineUserBalance>() {}
+        subscriber.function()
+        MineApi.getApiOther().get<MineUserBalance>(USER_BALANCE)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 获取 支付通道列表
+     */
+    fun getPayTypeList(function: ApiSubscriber<List<MinePayTypeList>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<MinePayTypeList>>() {}
+        subscriber.function()
+        MineApi.getApi().post<List<MinePayTypeList>>(PAY_TYPE_LIST)
+                .headers("token", UserInfoSp.getToken())
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 获取 支付URL
+     */
+    fun getPayUrl(amount: Float, channels_id: Int, function: ApiSubscriber<MinePayUrl>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<MinePayUrl>() {}
+        subscriber.function()
+        MineApi.getApi().post<MinePayUrl>(INVEST_MONEY)
+                .headers("token", UserInfoSp.getToken())
+                .params("user_id", UserInfoSp.getUserId())
+                .params("amount", amount)
+                .params("channels_id", channels_id)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 获取 银行卡列表
+     */
+    fun getBankList(function: ApiSubscriber<List<MineBankList>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<MineBankList>>() {}
+        subscriber.function()
+        MineApi.getApiOther().get<List<MineBankList>>(BANK_LIST)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .subscribe(subscriber)
+    }
 
 }

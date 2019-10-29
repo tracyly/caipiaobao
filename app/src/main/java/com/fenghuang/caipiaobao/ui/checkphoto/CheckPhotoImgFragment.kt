@@ -1,4 +1,4 @@
-package com.fenghuang.caipiaobao.ui.CheckPhoto
+package com.fenghuang.caipiaobao.ui.checkphoto
 
 import android.os.Bundle
 import android.view.View
@@ -23,7 +23,7 @@ class CheckPhotoImgFragment : BaseContentFragment() {
 
     var mCurrentIndex: Int = 0
 
-    var mUrlList = arrayListOf<String>()
+    private var mUrlList = arrayListOf<String>()
 
     override fun getLayoutResID() = R.layout.fragment_quiz_check_img
 

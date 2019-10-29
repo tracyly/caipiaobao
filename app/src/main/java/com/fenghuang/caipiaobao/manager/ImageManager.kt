@@ -96,4 +96,12 @@ object ImageManager {
     }
 
 
+    /**
+     * 加载支付方式
+     */
+
+    fun loadPayTypeListLogo(url: String?, imageView: ImageView) {
+        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_mine_alipay).into(imageView)
+    }
+
 }

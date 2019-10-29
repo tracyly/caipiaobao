@@ -30,5 +30,18 @@ data class MineAttentionResponse(var type: String,
                                  var avatar: String,
                                  var intro: String)
 
-//修改用户信息
-data class MineEditUserInfo(var username: String, var sex: Int, var profile: String, var avatar: String)
+//用户余额
+data class MineUserBalance(var balance: Float)
+
+//用户钻石
+data class MineUserDiamond(var diamond: String)
+
+//支付通道列表
+data class MinePayTypeList(var id: Int, var channels_type: String, var low_money: String, var high_money: String, var icon: String)
+
+//支付Url
+data class MinePayUrl(var url: String)
+
+//银行卡列表
+data class MineBankList(var name: String, var img: String, var code: String)
+

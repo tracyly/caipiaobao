@@ -20,21 +20,11 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
             onSuccess {
                 mView.initLotteryType(it)
                 getLotteryOpenCode(it[0].lottery_id)
-
-//                mView.getLotteryHistoryExpertPlan(it.lottery_id, it.issue)
-//                RxBus.get().post(LotteryGetExpert(it.lottery_id, it.issue))
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
             }
         }
-//        val newResults = arrayListOf<LotteryDataBean>()
-//        newResults.add(LotteryDataBean("北京赛车(PK10)", R.mipmap.logo))
-//        newResults.add(LotteryDataBean("幸运飞艇", R.mipmap.logo))
-//        newResults.add(LotteryDataBean("澳洲幸运10", R.mipmap.logo))
-//        newResults.add(LotteryDataBean("极速赛车", R.mipmap.logo))
-//        newResults.add(LotteryDataBean("欢乐赛车", R.mipmap.logo))
-
     }
 
     fun getLotteryOpenCode(lotteryId: Int) {
@@ -46,18 +36,6 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
                 ToastUtils.showError(it.getMsg())
             }
         }
-//        val codeResults = arrayListOf<LotteryOpenCodeDataBean>()
-//        codeResults.add(LotteryOpenCodeDataBean("09"))
-//        codeResults.add(LotteryOpenCodeDataBean("10"))
-//        codeResults.add(LotteryOpenCodeDataBean("01"))
-//        codeResults.add(LotteryOpenCodeDataBean("02"))
-//        codeResults.add(LotteryOpenCodeDataBean("03"))
-//        codeResults.add(LotteryOpenCodeDataBean("04"))
-//        codeResults.add(LotteryOpenCodeDataBean("05"))
-//        codeResults.add(LotteryOpenCodeDataBean("06"))
-//        codeResults.add(LotteryOpenCodeDataBean("07"))
-//        codeResults.add(LotteryOpenCodeDataBean("08"))
-//        mView.initLotteryOpenCode(codeResults)
     }
 
 
