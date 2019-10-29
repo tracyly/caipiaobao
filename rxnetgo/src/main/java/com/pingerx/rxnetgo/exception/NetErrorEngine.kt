@@ -29,6 +29,7 @@ object NetErrorEngine {
 
     // 本地请求数据和解析等发生的异常码
     const val UNKNOWN_CODE = 1000
+    const val UNKNOWN_TOKEN_CODE = 2000
     const val SERVER_ERROR_CODE = 1003
     const val PARSE_ERROR_CODE = 1001
     private const val NETWORD_ERROR_CODE = 1002
@@ -82,6 +83,7 @@ object NetErrorEngine {
     private fun parseApiException(e: ApiException): ApiException {
         when (e.getCode()) {
             UNKNOWN_CODE -> e.setMsg(e.getMsg()!!)
+            UNKNOWN_TOKEN_CODE -> e.setMsg(e.getMsg()!!)
             PARSE_ERROR_CODE -> e.setMsg(PARSE_ERROR_MSG)
             NETWORD_ERROR_CODE -> e.setMsg(NETWORD_ERROR_MSG)
             SERVER_ERROR_CODE -> e.setMsg(SERVER_ERROR_MSG)
