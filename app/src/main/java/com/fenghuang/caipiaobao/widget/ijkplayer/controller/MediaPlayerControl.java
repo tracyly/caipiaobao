@@ -3,7 +3,6 @@ package com.fenghuang.caipiaobao.widget.ijkplayer.controller;
 import android.graphics.Bitmap;
 
 public interface MediaPlayerControl {
-
     void start();
 
     void pause();
@@ -24,13 +23,11 @@ public interface MediaPlayerControl {
 
     boolean isFullScreen();
 
-    boolean isMute();
-
     void setMute(boolean isMute);
 
-    void setLock(boolean isLocked);
+    boolean isMute();
 
-    void setScreenScale(int screenScale);
+    void setScreenScaleType(int screenScaleType);
 
     void setSpeed(float speed);
 

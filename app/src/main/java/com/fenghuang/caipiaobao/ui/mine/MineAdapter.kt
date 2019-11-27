@@ -12,9 +12,7 @@ import com.fenghuang.caipiaobao.utils.UserInfoSp
 class MineAdapter(context: Context) : BaseRecyclerAdapter<MineDataBean>(context) {
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineDataBean> {
-
         return MineItemHolder(parent)
-
     }
 
     inner class MineItemHolder(parent: ViewGroup) : BaseViewHolder<MineDataBean>(getContext(), parent, R.layout.holder_mine_item) {

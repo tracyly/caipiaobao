@@ -17,7 +17,7 @@
     <string name="app_recycler_empty">暂无数据</string>
     <string name="app_recycler_error">网络出了小差，连接失败~</string>
     <string name="app_click_retry">重新加载</string>
-    <string name="app_desperately_loading">拼命加载中…</string>
+    <string name="app_desperately_loading">加载中…</string>
     <string name="app_web_empty">您访问的链接为空，请稍候重试。</string>
     <string name="app_loading_error">加载发生异常</string>
     <string name="app_refresh">刷新</string>

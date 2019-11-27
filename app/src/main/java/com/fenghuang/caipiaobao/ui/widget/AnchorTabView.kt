@@ -29,12 +29,12 @@ class AnchorTabView : FrameLayout {
     private var position = 0
     private var isAnchorTab = true
 
-    private val tvTabLeft: TextView  by lazy<TextView> { findViewById(R.id.tvTabLeft) }
-    private val tvTabRight: TextView  by lazy<TextView> { findViewById(R.id.tvTabRight) }
-    private val roundLeftLine: RoundTextView  by lazy<RoundTextView> { findViewById(R.id.roundLeftLine) }
-    private val roundRightLine: RoundTextView  by lazy<RoundTextView> { findViewById(R.id.roundRightLine) }
-    private val rlAnchorTabLeft: RelativeLayout  by lazy<RelativeLayout> { findViewById(R.id.rlAnchorTabLeft) }
-    private val rlAnchorTabRight: RelativeLayout  by lazy<RelativeLayout> { findViewById(R.id.rlAnchorTabRight) }
+    private val tvTabLeft: TextView by lazy { findViewById<TextView>(R.id.tvTabLeft) }
+    private val tvTabRight: TextView by lazy { findViewById<TextView>(R.id.tvTabRight) }
+    private val roundLeftLine: RoundTextView by lazy { findViewById<RoundTextView>(R.id.roundLeftLine) }
+    private val roundRightLine: RoundTextView by lazy { findViewById<RoundTextView>(R.id.roundRightLine) }
+    private val rlAnchorTabLeft: RelativeLayout by lazy { findViewById<RelativeLayout>(R.id.rlAnchorTabLeft) }
+    private val rlAnchorTabRight: RelativeLayout by lazy { findViewById<RelativeLayout>(R.id.rlAnchorTabRight) }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.layout_anchor_data_tab_view, this)
@@ -46,7 +46,7 @@ class AnchorTabView : FrameLayout {
     private fun setTabSelectStyle(selectView: TextView, unSelectView: TextView) {
         selectView.setTextColor(ViewUtils.getColor(R.color.color_333333))
         selectView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
-        unSelectView.setTextColor(ViewUtils.getColor(R.color.color_CCCCCC))
+        unSelectView.setTextColor(ViewUtils.getColor(R.color.color_333333))
         unSelectView.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
     }
 

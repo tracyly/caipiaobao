@@ -2,6 +2,7 @@ package com.google.android.material.widget
 
 import android.content.Context
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 
@@ -21,5 +22,14 @@ class XViewPager : ViewPager {
             return true
         }
         return super.canScroll(v, checkV, dx, x, y)
+    }
+
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        try {
+            return super.onInterceptTouchEvent(ev)
+        } catch (ex: IllegalArgumentException) {
+            ex.printStackTrace()
+        }
+        return false
     }
 }

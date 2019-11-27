@@ -14,7 +14,11 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeNewResponse
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetExpert
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryTypeResponse
-import com.fenghuang.caipiaobao.ui.widget.X5WebView.initWebViewSettings
+import com.fenghuang.caipiaobao.widget.lighter.Lighter
+import com.fenghuang.caipiaobao.widget.lighter.parameter.Direction
+import com.fenghuang.caipiaobao.widget.lighter.parameter.LighterParameter
+import com.fenghuang.caipiaobao.widget.lighter.parameter.MarginOffset
+import com.fenghuang.caipiaobao.widget.lighter.shape.CircleShape
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fragment_lottery.*
 import java.util.*
@@ -29,6 +33,8 @@ import java.util.*
  */
 
 class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
+
+    private lateinit var lighter: Lighter
 
     private var isLoadBottom: Boolean = false
 
@@ -189,17 +195,35 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
         })
         imgSp.setOnClickListener {
-            x5webLottery.onResume()
-            x5webLottery.setBackgroundColor(getColor(R.color.black))
-            initWebViewSettings(x5webLottery)
-            relWebSp.startAnimation(showAnimation())
-            setVisibility(R.id.relWebSp, true)
-            x5webLottery.loadUrl(lotterySpUrl)
+            // x5webLottery.setBackgroundColor(getColor(R.color.black))
+//            initWebViewSettings(x5webLottery, getPageActivity())
+//            relWebSp.startAnimation(showAnimation())
+//            setVisibility(R.id.relWebSp, true)
+//            x5webLottery.loadUrl(lotterySpUrl)
+
+//            LotteryGuideDialog(getPageActivity()).show()
+            lighter = Lighter.with(activity)
+            lighter.setAutoNext(true)
+                    .addHighlight(
+                            LighterParameter.Builder()
+                                    .setHighlightedViewId(R.id.imgSp)
+                                    .setTipLayoutId(R.layout.dialog_guide_lottery)
+                                    .setLighterShape(CircleShape(20f))
+                                    .setTipViewRelativeDirection(Direction.TOP)
+                                    .setTipViewRelativeOffset(MarginOffset(30, 0, 0, 30))
+                                    .build(),
+                            LighterParameter.Builder()
+                                    .setHighlightedViewId(R.id.tipTabView)
+                                    .setTipLayoutId(R.layout.dialog_guide_lottery_plan)
+                                    .setTipViewRelativeDirection(Direction.BOTTOM)
+                                    .setTipViewRelativeOffset(MarginOffset(0, -120, 0, 0))
+                                    .build()).setBackgroundColor(getColor(R.color.transparent_82))
+                    .show()
         }
         relClose.setOnClickListener {
             relWebSp.startAnimation(hideAnimation())
             setGone(R.id.relWebSp)
-            x5webLottery.onPause()
+            x5webLottery.loadUrl("about:blank")
         }
     }
 
@@ -224,7 +248,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
     override fun onDestroy() {
         cutDown?.cancel()
-        x5webLottery.destroy()
+        if (x5webLottery != null) x5webLottery.destroy()
         super.onDestroy()
     }
 

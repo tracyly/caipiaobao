@@ -61,7 +61,6 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
             onFailed {
                 mView.hidePageLoadingDialog()
                 ToastUtils.showError(it.getMsg())
-
             }
         }
     }
@@ -79,6 +78,7 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
+                mView.hidePageLoadingDialog()
             }
         }
     }

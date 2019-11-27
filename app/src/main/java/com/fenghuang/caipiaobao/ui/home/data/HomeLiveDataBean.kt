@@ -13,21 +13,25 @@ import java.io.Serializable
 @Parcelize
 data class HomeLiveChatBean(var position: String,
                             var room_id: String,
-                            var sendTime: String,
+                            var sendTime: Long,
+                            var sendTimeTxt: String,
+                            var gift_text: String,
                             var size: String,
                             var type: String,
                             var text: String,
                             var color: String,
                             var isMe: Boolean,
-                            var user_id: String,
+                            var user_id: Int,
+                            var userType: String,
                             var userName: String,
                             var gift_id: Int,
                             var gift_type: Int,
                             var gift_name: String,
                             var gift_price: Float,
                             var gift_num: Int,
-                            var vip: Int,
-                            var r_id: Int) : Parcelable
+                            var vip: String,
+                            var icon: String,
+                            var r_id: Int, var avatar: String?, var code: Int) : Parcelable
 
 // 横屏时发送的聊天弹幕消息
 data class HomeLiveChatPostEvenBean(var content: String)
@@ -59,18 +63,28 @@ data class HomeLiveRoomListLiveUrlBean(var fluentPullUrl: String,
 
                                        var originPullUrl: String)
 
-// gif礼物
-data class HomeLiveChatGifBean(var gifUrl: Int,
-                               var title: String,
-                               var gold: Int,
-                               var isSelect: Boolean)
+// gif礼物-------------------
 
+
+data class HomeLiveChatGifBean(var id: Int, var type: Int,
+                               var name: String,
+                               var amount: String,
+                               var icon: String,
+                               var isSelect: Boolean
+)
+
+data class HomeLiveChatGifTitleBean(var xk: ArrayList<HomeLiveChatGifBean>, var lm: ArrayList<HomeLiveChatGifBean>, var zg: ArrayList<HomeLiveChatGifBean>)
+
+// gif礼物------------------- end
 // 发送红包
 data class HomeLiveRedEnvelopeBean(var rid: Int)
 
 // 接收红包消息通知
 data class HomeLiveRedMessageBean(var gift_type: Int,
-                                  var rid: Int)
+                                  var rid: Int,
+                                  var gift_text: String,
+                                  var userName: String
+)
 
 // 抢红包
 data class HomeLiveRedReceiveBean(var amount: String,
@@ -131,6 +145,12 @@ data class HomeLiveAnchorDynamicBean(var anchor_id: Int,
                                      var time_tip: String,
                                      var zans: Int)
 
+
+//礼物小动画Rx
+data class HomeLiveSmallAnimatorBean(var gift_id: Int, var git_name: String, var gift_icon: String, var user_id: Int, var user_icon: String, var user_name: String)
+
+//關閉鍵盤
+data class HomeLiveColseSoftKeyBord(var isClose: Boolean)
 
 
 

@@ -64,7 +64,6 @@
     <item name="tvRedContent" type="id" />
     <item name="tvRedMoney" type="id" />
     <item name="rlOpenRed" type="id" />
-    <item name="ivOpenRed" type="id" />
     <item name="layoutOpenRedMoney" type="id" />
     <item name="ivRedDelete" type="id" />
     <item name="tvRechargeCancel" type="id" />

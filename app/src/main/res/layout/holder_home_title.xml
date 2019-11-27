@@ -4,20 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/dp_20"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_20"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_14"
+        android:layout_height="@dimen/dp_40"
+        android:paddingStart="@dimen/dp_14"
+        android:paddingTop="@dimen/dp_10"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry">
 
         <com.fenghuang.baselib.widget.round.RoundTextView
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_6"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_8"
             app:rv_backgroundColor="@color/color_FFD4AF"
             app:rv_backgroundPressColor="@color/color_FFD4AF"
             app:rv_cornerRadius="@dimen/dp_6" />
@@ -26,6 +29,7 @@
             android:id="@id/tvHomeListTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_16"
             android:textStyle="bold"

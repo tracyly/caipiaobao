@@ -86,10 +86,10 @@ public class DefinitionController extends StandardVideoController {
         super.setPlayerState(playerState);
         switch (playerState) {
             case VideoView.PLAYER_NORMAL:
-                multiRate.setVisibility(VISIBLE);
+                multiRate.setVisibility(GONE);
                 break;
             case VideoView.PLAYER_FULL_SCREEN:
-                multiRate.setVisibility(VISIBLE);
+                multiRate.setVisibility(GONE);
                 break;
         }
     }
@@ -116,6 +116,7 @@ public class DefinitionController extends StandardVideoController {
         mPopupWindow.showAsDropDown(multiRate, -((mPopLayout.getMeasuredWidth() - multiRate.getMeasuredWidth()) / 2),
                 -(mPopLayout.getMeasuredHeight() + multiRate.getMeasuredHeight() + PlayerUtils.dp2px(getContext(), 10)));
     }
+
 
     @Override
     protected int setProgress() {

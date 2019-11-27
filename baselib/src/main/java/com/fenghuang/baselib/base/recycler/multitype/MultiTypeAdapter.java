@@ -72,9 +72,15 @@ public class MultiTypeAdapter extends BaseRecyclerAdapter<Object> {
         }
     }
 
-    public void setItems(@NonNull List<?> items) {
+    public void setAll(@NonNull List<?> items) {
         Preconditions.checkNotNull(items);
         addAll(items);
+    }
+
+
+    public void setItems(@NonNull Class<?> items) {
+        Preconditions.checkNotNull(items);
+        add(items);
     }
 
     public @NonNull
@@ -165,4 +171,6 @@ public class MultiTypeAdapter extends BaseRecyclerAdapter<Object> {
         MultiTypeViewHolder<?, ?> binder = typePool.getItemViewBinder(viewType);
         return binder.onCreateViewHolder(parent);
     }
+
+
 }

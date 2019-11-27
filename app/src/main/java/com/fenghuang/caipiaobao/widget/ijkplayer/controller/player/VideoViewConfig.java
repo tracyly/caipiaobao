@@ -8,28 +8,35 @@ import androidx.annotation.Nullable;
  */
 public class VideoViewConfig {
 
+
+    public final boolean mPlayOnMobileNetwork;
+    public final boolean mEnableMediaCodec;
+    public final boolean mUsingSurfaceView;
+    public final boolean mEnableOrientation;
+    public final boolean mEnableAudioFocus;
+    public final boolean mEnableParallelPlay;
+    public final ProgressManager mProgressManager;
+
     public final boolean mIsEnableLog;
-    final boolean mPlayOnMobileNetwork;
-    final boolean mEnableMediaCodec;
-    final boolean mUsingSurfaceView;
-    final boolean mAutoRotate;
-    final boolean mEnableAudioFocus;
-    final boolean mEnableParallelPlay;
-    final ProgressManager mProgressManager;
-    final PlayerFactory mPlayerFactory;
-    final int mScreenScaleType;
+    public final PlayerFactory mPlayerFactory;
+    public final int mScreenScaleType;
 
     private VideoViewConfig(Builder builder) {
         mIsEnableLog = builder.mIsEnableLog;
-        mAutoRotate = builder.mAutoRotate;
+        mEnableOrientation = builder.mEnableOrientation;
         mUsingSurfaceView = builder.mUsingSurfaceView;
         mPlayOnMobileNetwork = builder.mPlayOnMobileNetwork;
         mEnableMediaCodec = builder.mEnableMediaCodec;
         mEnableAudioFocus = builder.mEnableAudioFocus;
         mProgressManager = builder.mProgressManager;
         mEnableParallelPlay = builder.mEnableParallelPlay;
-        mPlayerFactory = builder.mPlayerFactory;
         mScreenScaleType = builder.mScreenScaleType;
+        if (builder.mPlayerFactory == null) {
+            //默认为AndroidMediaPlayer
+            mPlayerFactory = AndroidMediaPlayerFactory.create();
+        } else {
+            mPlayerFactory = builder.mPlayerFactory;
+        }
     }
 
     public static Builder newBuilder() {
@@ -41,7 +48,7 @@ public class VideoViewConfig {
         private boolean mIsEnableLog;
         private boolean mPlayOnMobileNetwork;
         private boolean mUsingSurfaceView;
-        private boolean mAutoRotate;
+        private boolean mEnableOrientation;
         private boolean mEnableMediaCodec;
         private boolean mEnableAudioFocus = true;
         private boolean mEnableParallelPlay;
@@ -50,10 +57,10 @@ public class VideoViewConfig {
         private int mScreenScaleType;
 
         /**
-         * 是否通过重力感应切换全屏/半屏播放器， 默认不开启
+         * 是否监听设备方向来切换全屏/半屏， 默认不开启
          */
-        public Builder setAutoRotate(boolean autoRotate) {
-            mAutoRotate = autoRotate;
+        public Builder setEnableOrientation(boolean enableOrientation) {
+            mEnableOrientation = enableOrientation;
             return this;
         }
 
@@ -124,7 +131,7 @@ public class VideoViewConfig {
         /**
          * 设置视频比例
          */
-        public Builder setScreenScale(int screenScaleType) {
+        public Builder setScreenScaleType(int screenScaleType) {
             mScreenScaleType = screenScaleType;
             return this;
         }

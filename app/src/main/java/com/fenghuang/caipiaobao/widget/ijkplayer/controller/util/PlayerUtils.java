@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.widget.ijkplayer.controller.util;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Resources;
@@ -18,23 +19,13 @@ import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.ContextThemeWrapper;
-
 /**
  * 播放器相关工具类
  * Created by Devlin_n on 2017/4/10.
  */
 
-public class PlayerUtils {
 
-    public static final int NETWORK_MOBILE = 4;
-    private static final int NO_NETWORK = 0;
-    private static final int NETWORK_CLOSED = 1;
-    private static final int NETWORK_ETHERNET = 2;
-    private static final int NETWORK_WIFI = 3;
-    private static final int NETWORK_UNKNOWN = -1;
+public class PlayerUtils {
 
     /**
      * 获取状态栏高度
@@ -50,38 +41,8 @@ public class PlayerUtils {
         return statusBarHeight;
     }
 
-    /**
-     * 获取NavigationBar的高度
-     */
-    private static int getNavigationBarHeight(Context context) {
-        if (!hasNavigationBar(context)) {
-            return 0;
-        }
-        Resources resources = context.getResources();
-        int resourceId = resources.getIdentifier("navigation_bar_height",
-                "dimen", "android");
-        //获取NavigationBar的高度
-        return resources.getDimensionPixelSize(resourceId);
-    }
-
-    /**
-     * 是否存在NavigationBar
-     */
-    @SuppressLint("ObsoleteSdkInt")
-    private static boolean hasNavigationBar(Context context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            Display display = getWindowManager(context).getDefaultDisplay();
-            Point size = new Point();
-            Point realSize = new Point();
-            display.getSize(size);
-            display.getRealSize(realSize);
-            return realSize.x != size.x || realSize.y != size.y;
-        } else {
-            boolean menu = ViewConfiguration.get(context).hasPermanentMenuKey();
-            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-            return !(menu || back);
-        }
-    }
+    public static final int NO_NETWORK = 0;
+    public static final int NETWORK_CLOSED = 1;
 
     /**
      * 获取屏幕宽度
@@ -94,65 +55,13 @@ public class PlayerUtils {
         }
     }
 
-    /**
-     * 获取屏幕高度
-     */
-    private static int getScreenHeight(Context context, boolean isIncludeNav) {
-        if (isIncludeNav) {
-            return context.getResources().getDisplayMetrics().heightPixels + getNavigationBarHeight(context);
-        } else {
-            return context.getResources().getDisplayMetrics().heightPixels;
-        }
-    }
-
-    /**
-     * 隐藏ActionBar
-     */
-    @SuppressLint("RestrictedApi")
-    public static void hideActionBar(Context context) {
-        AppCompatActivity appCompatActivity = getAppCompatActivity(context);
-        if (appCompatActivity != null) {
-            ActionBar ab = appCompatActivity.getSupportActionBar();
-            if (ab != null && ab.isShowing()) {
-                ab.setShowHideAnimationEnabled(false);
-                ab.hide();
-            }
-        }
-    }
-
-    /**
-     * 显示ActionBar
-     */
-    @SuppressLint("RestrictedApi")
-    public static void showActionBar(final Context context) {
-        AppCompatActivity appCompatActivity = getAppCompatActivity(context);
-        if (appCompatActivity != null) {
-            ActionBar ab = appCompatActivity.getSupportActionBar();
-            if (ab != null && !ab.isShowing()) {
-                ab.setShowHideAnimationEnabled(false);
-                ab.show();
-            }
-        }
-    }
+    public static final int NETWORK_ETHERNET = 2;
 
     /**
      * 获取Activity
      */
     public static Activity scanForActivity(Context context) {
         return context == null ? null : (context instanceof Activity ? (Activity) context : (context instanceof ContextWrapper ? scanForActivity(((ContextWrapper) context).getBaseContext()) : null));
-    }
-
-    /**
-     * Get AppCompatActivity from context
-     */
-    private static AppCompatActivity getAppCompatActivity(Context context) {
-        if (context == null) return null;
-        if (context instanceof AppCompatActivity) {
-            return (AppCompatActivity) context;
-        } else if (context instanceof ContextThemeWrapper) {
-            return getAppCompatActivity(((ContextThemeWrapper) context).getBaseContext());
-        }
-        return null;
     }
 
     /**
@@ -187,6 +96,53 @@ public class PlayerUtils {
                 || e.getRawY() > getScreenHeight(context, true) - edgeSize;
     }
 
+    public static final int NETWORK_WIFI = 3;
+    public static final int NETWORK_MOBILE = 4;
+    public static final int NETWORK_UNKNOWN = -1;
+
+    /**
+     * 获取NavigationBar的高度
+     */
+    public static int getNavigationBarHeight(Context context) {
+        if (!hasNavigationBar(context)) {
+            return 0;
+        }
+        Resources resources = context.getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height",
+                "dimen", "android");
+        //获取NavigationBar的高度
+        return resources.getDimensionPixelSize(resourceId);
+    }
+
+    /**
+     * 是否存在NavigationBar
+     */
+    public static boolean hasNavigationBar(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Display display = getWindowManager(context).getDefaultDisplay();
+            Point size = new Point();
+            Point realSize = new Point();
+            display.getSize(size);
+            display.getRealSize(realSize);
+            return realSize.x != size.x || realSize.y != size.y;
+        } else {
+            boolean menu = ViewConfiguration.get(context).hasPermanentMenuKey();
+            boolean back = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            return !(menu || back);
+        }
+    }
+
+    /**
+     * 获取屏幕高度
+     */
+    public static int getScreenHeight(Context context, boolean isIncludeNav) {
+        if (isIncludeNav) {
+            return context.getResources().getDisplayMetrics().heightPixels + getNavigationBarHeight(context);
+        } else {
+            return context.getResources().getDisplayMetrics().heightPixels;
+        }
+    }
+
     /**
      * 判断当前网络类型-1为未知网络0为没有网络连接1网络断开或关闭2为以太网3为WiFi4为2G5为3G6为4G
      */
@@ -217,12 +173,13 @@ public class PlayerUtils {
         } else if (networkInfo.getType() == ConnectivityManager.TYPE_MOBILE) {
             // 移动数据连接,不能与连接共存,如果wifi打开，则自动关闭
             switch (networkInfo.getSubtype()) {
+                // 2G
                 case TelephonyManager.NETWORK_TYPE_GPRS:
                 case TelephonyManager.NETWORK_TYPE_EDGE:
                 case TelephonyManager.NETWORK_TYPE_CDMA:
                 case TelephonyManager.NETWORK_TYPE_1xRTT:
                 case TelephonyManager.NETWORK_TYPE_IDEN:
-                    // 2G网络
+                    // 3G
                 case TelephonyManager.NETWORK_TYPE_UMTS:
                 case TelephonyManager.NETWORK_TYPE_EVDO_0:
                 case TelephonyManager.NETWORK_TYPE_EVDO_A:
@@ -232,13 +189,28 @@ public class PlayerUtils {
                 case TelephonyManager.NETWORK_TYPE_EVDO_B:
                 case TelephonyManager.NETWORK_TYPE_EHRPD:
                 case TelephonyManager.NETWORK_TYPE_HSPAP:
-                    // 3G网络
+                    // 4G
                 case TelephonyManager.NETWORK_TYPE_LTE:
-                    // 4G网络
-                    return NETWORK_MOBILE;
+                    // 5G
+//                case TelephonyManager.NETWORK_TYPE_NR:
+//                    return NETWORK_MOBILE;
             }
         }
         // 未知网络
         return NETWORK_UNKNOWN;
+    }
+
+    /**
+     * 通过反射获取Application
+     */
+    @SuppressLint("PrivateApi")
+    public static Application getApplication() {
+        try {
+            return (Application) Class.forName("android.app.ActivityThread")
+                    .getMethod("currentApplication").invoke(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

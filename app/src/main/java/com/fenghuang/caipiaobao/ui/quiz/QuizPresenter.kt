@@ -16,7 +16,6 @@ import com.fenghuang.caipiaobao.ui.quiz.data.QuizTopImageBean
 class QuizPresenter : BaseRecyclerPresenter<QuizFragment>() {
 
     override fun loadData(page: Int) {
-
         QuizApi.getQuizArticleListResult(10, page) {
             onSuccess {
                 if (it.isNotEmpty()) {
@@ -32,7 +31,6 @@ class QuizPresenter : BaseRecyclerPresenter<QuizFragment>() {
                     mView.showPageEmpty()
                 }
             }
-
             onFailed {
                 mView.showPageError(it.getMsg())
             }

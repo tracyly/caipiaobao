@@ -224,6 +224,7 @@ public class DefinitionVideoView extends VideoView implements DefinitionMediaPla
         }
     }
 
+
     @Override
     protected void startPrepare(boolean needReset) {
         super.startPrepare(needReset);
@@ -241,7 +242,6 @@ public class DefinitionVideoView extends VideoView implements DefinitionMediaPla
     public void switchDefinition(String definition) {
         String url = mDefinitionMap.get(definition);
         if (definition.equals(mCurrentDefinition)) return;
-        mCurrentUrl = url;
         if (mIsLive) {
             replay(true);
         } else {
@@ -254,7 +254,6 @@ public class DefinitionVideoView extends VideoView implements DefinitionMediaPla
 
     public void setDefinitionVideos(LinkedHashMap<String, String> videos) {
         this.mDefinitionMap = videos;
-        this.mCurrentUrl = getValueFromLinkedMap(videos, 0);
     }
 
     public void setIsLive(boolean isLive) {

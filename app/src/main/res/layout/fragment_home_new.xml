@@ -1,49 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@id/smartRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <!--列表-->
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@id/smartRefreshLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@id/recyclerView"
+        android:orientation="vertical">
+        <!--列表-->
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white" />
+            android:scrollbars="none"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Banner -->
+                <com.pingerx.banner.BannerView
+                    android:id="@+id/mBannerViews"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_150"
+                    android:background="@color/white"
+                    app:bannerAutoLoop="true"
+                    app:bannerCoverMargin="10dp"
+                    app:bannerFarMargin="10dp"
+                    app:bannerPageAlpha="0.6"
+                    app:bannerPageMode="far"
+                    app:bannerPagePadding="20dp"
+                    app:bannerPageScale="0.9"
+                    app:bannerSlideAnim="true"
+                    app:indicatorPaddingBottom="12dp"
+                    app:indicatorPaddingLeft="12dp"
+                    app:indicatorPaddingRight="12dp"
+                    tools:ignore="MissingDefaultResource" />
 
-    <com.fenghuang.baselib.widget.placeholder.PlaceholderView
-        android:id="@id/placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+                <!--.Marquee -->
+                <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    app:rv_backgroundColor="@color/color_fff7ef"
+                    app:rv_backgroundPressColor="@color/color_fff7ef"
+                    app:rv_cornerRadius="@dimen/dp_36">
 
-    <!--    <com.pingerx.banner.BannerView-->
-    <!--        android:id="@id/mBannerView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="@dimen/dp_160"-->
-    <!--        app:bannerAutoLoop="true"-->
-    <!--        app:bannerCoverMargin="10dp"-->
-    <!--        app:bannerFarMargin="10dp"-->
-    <!--        app:bannerPageAlpha="0.6"-->
-    <!--        app:bannerPageMode="far"-->
-    <!--        app:bannerPagePadding="20dp"-->
-    <!--        app:bannerPageScale="0.9"-->
-    <!--        app:bannerSlideAnim="true"-->
-    <!--        app:indicatorPaddingBottom="12dp"-->
-    <!--        app:indicatorPaddingLeft="12dp"-->
-    <!--        app:indicatorPaddingRight="12dp"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />-->
+                    <ImageView
+                        android:id="@id/ivNotice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:src="@mipmap/ic_home_notice"
+                        tools:ignore="ContentDescription" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.fenghuang.caipiaobao.widget.MarqueeTextView
+                        android:id="@+id/tvNoticeMassages"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_toEndOf="@+id/ivNotice"
+                        android:ellipsize="marquee"
+                        android:gravity="center"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:padding="@dimen/dp_6"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="@color/color_notice_message"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="我是推送消息!我是推送消息!我是推送消息!我是推送消息!我是推送消息!" />
+                </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+
+                <!--.游戏种类 -->
+                <com.fenghuang.caipiaobao.widget.pagegridview.GridPager
+                    android:id="@+id/gameTypeGridPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:background_color="@color/white"
+                    app:column_count="3"
+                    app:img_height="@dimen/dp_66"
+                    app:img_width="@dimen/dp_76"
+                    app:imgtext_margin="@dimen/dp_12"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:point_height="@dimen/dp_2"
+                    app:point_is_circle="false"
+                    app:point_is_show="true"
+                    app:point_margin="@dimen/dp_12"
+                    app:point_margin_bottom="@dimen/dp_10"
+                    app:point_margin_page="@dimen/dp_20"
+                    app:point_normal_color="@color/color_EEEEEE"
+                    app:point_select_color="@color/color_FF513E"
+                    app:point_width="@dimen/dp_14"
+                    app:row_count="2"
+                    app:text_color="@color/color_333333"
+                    app:text_size="@dimen/sp_12"
+                    app:verticalSpacing="@dimen/dp_10" />
+                <!--.热门直播 -->
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:paddingStart="@dimen/dp_14"
+                    android:paddingTop="@dimen/dp_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlSymmetry">
+
+                    <com.fenghuang.baselib.widget.round.RoundTextView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_6"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        app:rv_backgroundColor="@color/color_FFD4AF"
+                        app:rv_backgroundPressColor="@color/color_FFD4AF"
+                        app:rv_cornerRadius="@dimen/dp_6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_live_hot"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvHotLive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:background="@color/white" />
+                </RelativeLayout>
+                <!--.直播预告 -->
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:paddingStart="@dimen/dp_14"
+                    android:paddingTop="@dimen/dp_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlSymmetry">
+
+                    <com.fenghuang.baselib.widget.round.RoundTextView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_6"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        app:rv_backgroundColor="@color/color_FFD4AF"
+                        app:rv_backgroundPressColor="@color/color_FFD4AF"
+                        app:rv_cornerRadius="@dimen/dp_6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_live_pre"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvLivePre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@color/white" />
+
+                <ImageView
+                    android:id="@+id/imgHomeAd"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_60"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:layout_marginEnd="@dimen/dp_14"
+                    android:background="@mipmap/ic_home_ad"
+                    tools:ignore="ContentDescription" />
+
+
+                <!--.专家直播 -->
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:paddingStart="@dimen/dp_14"
+                    android:paddingTop="@dimen/dp_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlSymmetry">
+
+                    <com.fenghuang.baselib.widget.round.RoundTextView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_6"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        app:rv_backgroundColor="@color/color_FFD4AF"
+                        app:rv_backgroundPressColor="@color/color_FFD4AF"
+                        app:rv_cornerRadius="@dimen/dp_6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_expert_live"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvExpertLive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:background="@color/white" />
+                </RelativeLayout>
+
+                <!--.专家推荐 -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvExpertRecommendLive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white" />
+                </RelativeLayout>
+
+                <include layout="@layout/holder_home_more" />
+            </LinearLayout>
+        </ScrollView>
+
+        <com.fenghuang.baselib.widget.placeholder.PlaceholderView
+            android:id="@id/placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!--    <com.pingerx.banner.BannerView-->
+        <!--        android:id="@id/mBannerView"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="@dimen/dp_160"-->
+        <!--        app:bannerAutoLoop="true"-->
+        <!--        app:bannerCoverMargin="10dp"-->
+        <!--        app:bannerFarMargin="10dp"-->
+        <!--        app:bannerPageAlpha="0.6"-->
+        <!--        app:bannerPageMode="far"-->
+        <!--        app:bannerPagePadding="20dp"-->
+        <!--        app:bannerPageScale="0.9"-->
+        <!--        app:bannerSlideAnim="true"-->
+        <!--        app:indicatorPaddingBottom="12dp"-->
+        <!--        app:indicatorPaddingLeft="12dp"-->
+        <!--        app:indicatorPaddingRight="12dp"-->
+        <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--        app:layout_constraintRight_toRightOf="parent"-->
+        <!--        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

@@ -1,6 +1,11 @@
 package com.fenghuang.caipiaobao.app
 
 import android.os.StrictMode
+import android.util.Log
+import com.facebook.common.logging.FLog
+import com.facebook.common.logging.FLogDefaultLoggingDelegate
+import com.facebook.drawee.backends.pipeline.Fresco
+import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.fenghuang.baselib.app.BaseApplication
 import com.fenghuang.baselib.utils.DebugUtils
 import com.fenghuang.caipiaobao.BuildConfig
@@ -52,6 +57,7 @@ class CaiPiaoBaoApplication : BaseApplication() {
         startInitDataService()
         // 测试工具初始化
         initTestTools()
+        initFresco()
     }
 
     override fun initThreadProcess() {
@@ -78,6 +84,19 @@ class CaiPiaoBaoApplication : BaseApplication() {
     private fun startInitDataService() {
         // 启动服务去后台加载一些数据
         InitDataService.enqueueWork(getContext(), InitDataService.JOB_INIT)
+    }
+
+    private fun initFresco() {
+        // initialize fresco with enabled webp
+        Fresco.initialize(this, ImagePipelineConfig.newBuilder(this)
+                .experiment()
+                .setWebpSupportEnabled(true)
+                .build())
+        // for debug
+        if (BuildConfig.DEBUG) {
+            FLogDefaultLoggingDelegate.getInstance().setApplicationTag("Drawee-text")
+            FLog.setMinimumLoggingLevel(Log.VERBOSE)
+        }
     }
 
 

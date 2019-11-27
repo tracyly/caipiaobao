@@ -39,6 +39,11 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
+    }
+
     override fun initEvent() {
         tvLoginType.setOnClickListener {
             if (tvLoginType.text == getString(R.string.login_with_password_)) {

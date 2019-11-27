@@ -77,7 +77,9 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0x11) {
-            cropImg(data?.data as Uri, this)
+            if (data?.data != null) {
+                cropImg(data.data as Uri, this)
+            }
         } else if (requestCode == 0x12) {
             if (resultCode == RESULT_OK) {
                 if (CameraUtils.isAndroidQ) {
@@ -101,7 +103,7 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
                 val rxPermissions = RxPermissions(this)
                 rxPermissions.request(Manifest.permission.CAMERA).subscribe { aBoolean ->
                     if (aBoolean!!) {
-                        ToastUtils.showInfo("同意权限")
+//                        ToastUtils.showInfo("同意权限")
                     } else {
                         ToastUtils.showInfo("拍照权限被拒绝,请到设置中打开此权限")
                     }

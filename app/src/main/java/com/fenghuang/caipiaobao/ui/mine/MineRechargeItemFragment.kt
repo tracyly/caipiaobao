@@ -1,12 +1,8 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import ExceptionDialog
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.fenghuang.baselib.base.fragment.BaseContentFragment
+import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.mine.data.MineApi
-import kotlinx.android.synthetic.main.fragment_mine_charge_item.*
 
 /**
  *
@@ -16,38 +12,27 @@ import kotlinx.android.synthetic.main.fragment_mine_charge_item.*
  *
  */
 
-class MineRechargeItemFragment : BaseContentFragment() {
+class MineRechargeItemFragment : BaseMvpFragment<MineRechargeItemPresenter>() {
 
-    override fun getContentResID() = R.layout.fragment_mine_charge_item
+
+    override fun attachView() = mPresenter.attachView(this)
+
+    override fun attachPresenter() = MineRechargeItemPresenter()
+
+    override fun isOverridePage() = false
+
+    override fun getLayoutResID() = R.layout.fragment_mine_charge_item
+
+
 
 
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
     }
 
-
     override fun initData() {
-        getPayTypeList()
+        mPresenter.getPayTypeList()
     }
 
-
-    private fun getPayTypeList() {
-        MineApi.getPayTypeList {
-            onSuccess {
-                val mineRechargeItemAdapter = MineRechargeItemAdapter(getPageActivity())
-                mineRechargeItemAdapter.addAll(it)
-                rvRecharge.adapter = mineRechargeItemAdapter
-                val value = object : LinearLayoutManager(context) {
-                    override fun canScrollVertically(): Boolean {
-                        return true
-                    }
-                }
-                rvRecharge.layoutManager = value
-            }
-            onFailed {
-                ExceptionDialog.showExpireDialog(getPageActivity(), it)
-            }
-        }
-    }
 
 }

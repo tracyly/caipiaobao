@@ -14,11 +14,11 @@ import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 
 object LoginApi : BaseApi {
 
-    private const val GET_CODE = "/reg/send-sms"
+    private const val GET_CODE = "/userinfo/reg/send-sms"
 
-    private const val LOGIN = "/login/index"
+    private const val LOGIN = "/userinfo/login/index"
 
-    private const val REGISTER = "/reg/index"
+    private const val REGISTER = "/userinfo/reg/index"
 
     /**
      * 获取验证码

@@ -10,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fenghuang.caipiaobao.R;
+import com.fenghuang.caipiaobao.manager.ImageManager;
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GridViewAdapter extends BaseAdapter {
@@ -27,7 +29,7 @@ public class GridViewAdapter extends BaseAdapter {
      */
     private int pageSize = 8;
 
-    public GridViewAdapter(Context context, List<HomeLiveChatGifBean> mDatas, int curIndex) {
+    public GridViewAdapter(Context context, ArrayList<HomeLiveChatGifBean> mDatas, int curIndex) {
         inflater = LayoutInflater.from(context);
         this.mDatas = mDatas;
         this.curIndex = curIndex;
@@ -72,9 +74,9 @@ public class GridViewAdapter extends BaseAdapter {
          * 在给View绑定显示的数据时，计算正确的position = position + curIndex * pageSize，
          */
         HomeLiveChatGifBean model = getItem(position);
-        viewHolder.title.setText(model.getTitle());
-        viewHolder.titleHint.setText(String.valueOf(model.getGold()));
-        viewHolder.logo.setImageResource(model.getGifUrl());
+        viewHolder.title.setText(model.getName());
+        viewHolder.titleHint.setText(model.getAmount());
+        ImageManager.INSTANCE.loadImage(model.getIcon(), viewHolder.logo);
         if (model.isSelect()) {//被选中
             viewHolder.item_layout.setBackground(mContext.getResources().getDrawable(R.drawable.shape_home_live_chat_gif_selected_bg));
         } else {

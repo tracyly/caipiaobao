@@ -1,5 +1,8 @@
 package com.fenghuang.caipiaobao.ui.mine.data
 
+import java.io.Serializable
+import java.math.BigDecimal
+
 /**
  *
  * @ Author  QinTian
@@ -28,10 +31,10 @@ data class MineAttentionResponse(var type: String,
                                  var anchor_id: String,
                                  var live_status: String,
                                  var avatar: String,
-                                 var intro: String)
+                                 var intro: String) : Serializable
 
 //用户余额
-data class MineUserBalance(var balance: Float)
+data class MineUserBalance(var balance: BigDecimal)
 
 //用户钻石
 data class MineUserDiamond(var diamond: String)
@@ -44,4 +47,16 @@ data class MinePayUrl(var url: String)
 
 //银行卡列表
 data class MineBankList(var name: String, var img: String, var code: String)
+
+//用户银行卡里列表
+data class MineUserBankList(var id: Int, var bank_id: Int, var realname: String, var card_num: String, var province: String, var city: String, var bank_img: String, var bank_name: String)
+
+//Rx存储用户选择的银行卡
+data class MineSaveBank(var data: MineUserBankList)
+
+//Rx更新余额用户信息
+data class MineUpDateUser(var upDateMoney: Boolean, var upDateAll: Boolean, var upDateDiamond: Boolean)
+
+//密码输入错误此时
+data class MinePassWordTime(var remain_times: Int)
 

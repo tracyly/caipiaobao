@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/prl_gift_animation_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_64">
+
+    <View
+        android:layout_width="@dimen/dp_350"
+        android:layout_height="@dimen/dp_50"
+        android:background="@mipmap/ic_chat_gift_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/riv_gift_my_avatar"
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="10dp"
+        android:background="@mipmap/ic_mine_base_user"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginBottom="5dp"
+        android:textColor="#ffffff"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@id/riv_gift_my_avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="送你玫瑰" />
+
+    <TextView
+        android:id="@+id/textStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:text="送出"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/riv_gift_my_avatar"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name" />
+
+    <TextView
+        android:id="@+id/tv_gift_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:textColor="#ffe400"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/textStart"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_name"
+        tools:text="送你玫瑰" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/br"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="right"
+        app:constraint_referenced_ids="tv_user_name,tv_gift_name" />
+
+    <ImageView
+        android:id="@+id/iv_gift_img"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginStart="20dp"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_mine_base_user"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/br"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_gift_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:textColor="#ff9900"
+        android:textSize="28sp"
+        android:textStyle="italic|bold"
+        android:typeface="serif"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/iv_gift_img"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="x1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,7 +13,7 @@
         android:layout_height="@dimen/dp_76"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_26"
-        android:background="@mipmap/logo"
+        android:background="@mipmap/ic_logo"
         android:contentDescription="@null" />
 
     <TextView

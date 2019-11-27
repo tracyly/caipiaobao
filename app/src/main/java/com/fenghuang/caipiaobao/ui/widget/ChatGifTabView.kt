@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.widget
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.TextView
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.widget.round.RoundTextView
 import com.fenghuang.caipiaobao.R
+
 
 /**
  * 聊天室礼物列表TabView自定义样式
@@ -27,15 +29,15 @@ class ChatGifTabView : FrameLayout {
     private var position = 0
     private var isAnchorTab = true
 
-    private val tvTabOrdinary: TextView  by lazy<TextView> { findViewById(R.id.tvTabOrdinary) }
-    private val tvTabConfession: TextView  by lazy<TextView> { findViewById(R.id.tvTabConfession) }
-    private val tvTabLottery: TextView  by lazy<TextView> { findViewById(R.id.tvTabLottery) }
-    private val roundOrdinaryLine: RoundTextView  by lazy<RoundTextView> { findViewById(R.id.roundOrdinaryLine) }
-    private val roundConfessionLine: RoundTextView  by lazy<RoundTextView> { findViewById(R.id.roundConfessionLine) }
-    private val roundLotteryLine: RoundTextView  by lazy<RoundTextView> { findViewById(R.id.roundLotteryLine) }
-    private val rlChatTabLottery: RelativeLayout  by lazy<RelativeLayout> { findViewById(R.id.rlChatTabLottery) }
-    private val rlChatGifOrdinary: RelativeLayout  by lazy<RelativeLayout> { findViewById(R.id.rlChatGifOrdinary) }
-    private val rlChatTabConfession: RelativeLayout  by lazy<RelativeLayout> { findViewById(R.id.rlChatTabConfession) }
+    private val tvTabOrdinary: TextView by lazy<TextView> { findViewById(R.id.tvTabOrdinary) }
+    private val tvTabConfession: TextView by lazy<TextView> { findViewById(R.id.tvTabConfession) }
+    private val tvTabLottery: TextView by lazy<TextView> { findViewById(R.id.tvTabLottery) }
+    private val roundOrdinaryLine: RoundTextView by lazy<RoundTextView> { findViewById(R.id.roundOrdinaryLine) }
+    private val roundConfessionLine: RoundTextView by lazy<RoundTextView> { findViewById(R.id.roundConfessionLine) }
+    private val roundLotteryLine: RoundTextView by lazy<RoundTextView> { findViewById(R.id.roundLotteryLine) }
+    private val rlChatTabLottery: RelativeLayout by lazy<RelativeLayout> { findViewById(R.id.rlChatTabLottery) }
+    private val rlChatGifOrdinary: RelativeLayout by lazy<RelativeLayout> { findViewById(R.id.rlChatGifOrdinary) }
+    private val rlChatTabConfession: RelativeLayout by lazy<RelativeLayout> { findViewById(R.id.rlChatTabConfession) }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.layout_dialog_tab_view, this)
@@ -45,9 +47,15 @@ class ChatGifTabView : FrameLayout {
      * 选中状态，前面的选中，后面的未选中
      */
     private fun setTabSelectStyle(selectView: TextView, unSelectView: TextView, unSelectView2: TextView) {
-        selectView.setTextColor(ViewUtils.getColor(R.color.text_red_tab))
+        selectView.setTextColor(ViewUtils.getColor(R.color.text_red))
+        selectView.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+        selectView.textSize = 17f
         unSelectView.setTextColor(ViewUtils.getColor(R.color.color_333333))
+        unSelectView.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        unSelectView.textSize = 15f
         unSelectView2.setTextColor(ViewUtils.getColor(R.color.color_333333))
+        unSelectView2.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        unSelectView2.textSize = 15f
     }
 
     /**
@@ -66,9 +74,9 @@ class ChatGifTabView : FrameLayout {
 
     fun setChatGifTab() {
         initEvent()
-        tvTabOrdinary.textSize = 14f
-        tvTabConfession.textSize = 14f
-        tvTabLottery.textSize = 14f
+        tvTabOrdinary.textSize = 15f
+        tvTabConfession.textSize = 15f
+        tvTabLottery.textSize = 15f
         setTabSelectStyle(tvTabOrdinary, tvTabConfession, tvTabLottery)
         setTabSelectLineVisib(roundOrdinaryLine, roundConfessionLine, roundLotteryLine)
     }

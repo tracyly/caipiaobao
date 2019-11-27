@@ -1,8 +1,13 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import android.annotation.SuppressLint
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.manager.ImageManager
+import com.fenghuang.caipiaobao.ui.mine.data.MineSaveBank
 import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_mine_cash_out.*
 
 /**
@@ -13,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_mine_cash_out.*
  *
  */
 
-class MineRechargeCashOutFragment : BaseMvpFragment<MineRechargeCashOutPresenter>() {
+class MineRechargeCashOutFragment(var balance: String) : BaseMvpFragment<MineRechargeCashOutPresenter>() {
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -23,32 +28,32 @@ class MineRechargeCashOutFragment : BaseMvpFragment<MineRechargeCashOutPresenter
 
     override fun isOverridePage() = false
 
+    override fun isRegisterRxBus() = true
+
 
     override fun initEvent() {
         rlAddBankItem.setOnClickListener {
             startFragment(context, MineAddBankCardFragment())
         }
-        rlBankItem.setOnClickListener {
-            startFragment(context, MineBankCardList())
+        tvGetMoneyAll.setOnClickListener {
+            etGetMoneyToBank.setText(balance)
+        }
+        btUserGetCash.setOnClickListener {
+            mPresenter.getCashOutMoney()
         }
     }
 
-
     override fun initData() {
         mPresenter.getBankList()
-//        val list = mPresenter.getBankList()
-//        if (list.isNotEmpty()) {
-//            rlBank.visibility = View.VISIBLE
-//            rlAddBank.visibility = View.GONE
-//            when {
-//                list[0].bankType == "1" -> imgBank.background = getDrawable(R.mipmap.ic_mine_zggs)
-//                list[0].bankType == "2" -> imgBank.background = getDrawable(R.mipmap.ic_mine_jsyh)
-//                list[0].bankType == "3" -> imgBank.background = getDrawable(R.mipmap.ic_mine_shpf)
-//                list[0].bankType == "4" -> imgBank.background = getDrawable(R.mipmap.ic_mine_zsyh)
-//            }
-//            tvBankName.text = list[0].bankName
-//            tvBankCode.text = "尾号" + list[0].bankCode.substring(list[0].bankCode.length - 4, list[0].bankCode.length) + "储蓄号"
-//        }
     }
+
+    @SuppressLint("SetTextI18n")
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun saveUserBankSelect(event: MineSaveBank) {
+        ImageManager.loadPayTypeListLogo(event.data.bank_img, imgBankItem)
+        tvBankNameItem.text = event.data.bank_name
+        tvBankCodeItem.text = "尾号" + event.data.card_num.substring(event.data.card_num.length - 4, event.data.card_num.length) + "储蓄卡"
+    }
+
 
 }

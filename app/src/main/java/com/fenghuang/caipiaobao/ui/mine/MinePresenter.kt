@@ -1,7 +1,7 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import ExceptionDialog
 import ExceptionDialog.showExpireDialog
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -14,6 +14,8 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineDataBean
 import com.fenghuang.caipiaobao.utils.UserInfoSp
 import kotlinx.android.synthetic.main.fragment_mine_child_view_login.*
+import java.math.BigDecimal
+import java.math.BigDecimal.ROUND_DOWN
 
 class MinePresenter : BaseMvpPresenter<MineFragment>() {
 
@@ -61,6 +63,7 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
     }
 
     //获取余额
+    @SuppressLint("SetTextI18n")
     fun getUserBalance() {
         rotateAnimation = AnimationUtils.loadAnimation(mView.requireContext(), R.anim.anim_circle_rotate)
         val interpolator = LinearInterpolator()
@@ -68,26 +71,30 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
         mView.imgBalance.startAnimation(rotateAnimation)
         MineApi.getUserBalance {
             onSuccess {
-                mView.imgBalance.clearAnimation()
-                mView.setUserBalance(it.balance.toString())
+                if (it.balance.compareTo(BigDecimal(10000000)) > -1) {
+                    mView.tvUserBalance.text = it.balance.divide(BigDecimal(1000), ROUND_DOWN).setScale(0, ROUND_DOWN).toString() + "k"
+                } else mView.tvUserBalance.text = it.balance.toString()
+
+                mView.setBalance(it.balance.toString())
+
                 getUserDiamond()
             }
             onFailed {
-                mView.imgBalance.clearAnimation()
-                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+                showExpireDialog(mView.requireContext(), it)
             }
         }
     }
 
     //获取钻石
-    private fun getUserDiamond() {
+    fun getUserDiamond() {
         MineApi.getUserDiamond {
             onSuccess {
-                mView.setUserDiamond(it.diamond)
+                mView.tvUserDiamond.text = it.diamond
                 mView.finishRefresh()
             }
             onFailed {
-                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+                showExpireDialog(mView.requireContext(), it)
+                mView.finishRefresh()
             }
         }
 

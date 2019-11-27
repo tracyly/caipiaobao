@@ -41,7 +41,7 @@ interface BaseApi {
 
 
     fun getAipQuizUrl(): RxNetGo {
-        return RxNetGo.getInstance().getRetrofitService(getQuizBaseUrl())
+        return RxNetGo.getInstance().getRetrofitService("http://47.75.130.69:18308")
     }
 
 

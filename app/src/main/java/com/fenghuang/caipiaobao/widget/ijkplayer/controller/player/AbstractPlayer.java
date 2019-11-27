@@ -46,8 +46,7 @@ public abstract class AbstractPlayer {
 
     /**
      * 设置播放地址
-     *
-     * @param path    播放地址
+     * @param path 播放地址
      * @param headers 播放地址请求头
      */
     public abstract void setDataSource(String path, Map<String, String> headers);
@@ -155,8 +154,7 @@ public abstract class AbstractPlayer {
     /**
      * 绑定VideoView
      */
-    public void bindVideoView(PlayerEventListener playerEventListener) {
+    public void setPlayerEventListener(PlayerEventListener playerEventListener) {
         this.mPlayerEventListener = playerEventListener;
     }
-
 }

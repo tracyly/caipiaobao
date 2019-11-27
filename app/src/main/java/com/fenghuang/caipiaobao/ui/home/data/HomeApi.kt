@@ -1,13 +1,10 @@
 package com.fenghuang.caipiaobao.ui.home.data
 
-import com.fenghuang.caipiaobao.data.api.ApiConvert
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.fenghuang.caipiaobao.utils.UserInfoSp
-import com.google.gson.reflect.TypeToken
 import com.pingerx.rxnetgo.rxcache.CacheMode
-import io.reactivex.Flowable
 
 /**
  *  author : Peter
@@ -17,24 +14,28 @@ import io.reactivex.Flowable
 object HomeApi : BaseApi {
 
 
-    private const val HOME_BANNER_LIST = "/index.php/api/v1/user/get_banner"
-    private const val HONE_NOTICE = "/index.php/api/v1/user/system_notice"
-    private const val HOME_GAME_LIST = "/index.php/api/v1/live/get_game_list"
-    private const val HOME_HOT_LIVE_LIST = "/index.php/api/v1/live/get_hot_list"
-    private const val HOME_LIVE_POP = "/index.php/api/v1/user/anchor_pop"
-    private const val HOME_EXPERT_LIST = "/index.php/api/v1/live/get_expert_list"
-    private const val HOME_EXPERT_RECOMMEND = "/index.php/api/v1/live/pro_red"
-    private const val HOME_LIVE_CHAT_REWARD_LIST = "/index.php/api/v1/live/get_reward_list"
-    private const val HOME_LIVE_ROOM = "index.php/api/v1/live/get_live_room"
-    private const val HOME_LIVE_SEND_RED_ENVELOPE = "index.php/api/v1/user/send_red"
-    private const val HOME_LIVE_PAY_PASSWORD = "index.php/api/v1/user/ver_pay_pass"
-    private const val HOME_LIVE_RED_RECEIVE = "/index.php/api/v1/user/receive_red"
-    private const val HOME_LIVE_RED_RECEIVE_ROOM = "/index.php/api/v1/live/get_room_red"
-    private const val HOME_LIVE_ANCHOR_INFO = "/index.php/api/v1/live/get_anchor_info"
-    private const val HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC = "/index.php/api/v1/live/get_anchor_dynamic"
-    private const val HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC_LIKE = "/index.php/api/v1/live/dynamic_like"
-
+    private const val HOME_BANNER_LIST = "api/v1/user/get_banner"
+    private const val HONE_NOTICE = "api/v1/user/system_notice"
+    private const val HOME_GAME_LIST = "api/v1/live/get_game_list"
+    private const val HOME_HOT_LIVE_LIST = "api/v1/live/get_hot_list"
+    private const val HOME_LIVE_POP = "api/v1/user/anchor_pop"
+    private const val HOME_EXPERT_LIST = "api/v1/live/get_expert_list"
+    private const val HOME_EXPERT_RECOMMEND = "api/v1/live/pro_red"
+    private const val HOME_LIVE_CHAT_REWARD_LIST = "api/v1/live/get_reward_list"
+    private const val HOME_LIVE_ROOM = "api/v1/live/get_live_room"
+    private const val HOME_LIVE_SEND_RED_ENVELOPE = "api/v1/user/send_red/"
+    private const val HOME_LIVE_PAY_PASSWORD = "api/v1/user/ver_pay_pass"
+    private const val HOME_LIVE_RED_RECEIVE = "api/v1/user/receive_red"
+    private const val HOME_LIVE_RED_RECEIVE_ROOM = "api/v1/live/get_room_red"
+    private const val HOME_LIVE_ANCHOR_INFO = "api/v1/live/get_anchor_info"
+    private const val HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC = "api/v1/live/get_anchor_dynamic"
+    private const val HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC_LIKE = "api/v1/live/dynamic_like"
+    private const val HOME_LIVE_ANCHOR_ANCHOR_20_NEWS = "api/v1/live/initChat/"
     private const val HOME_LIVE_RED_SET_PASS = "index/set-fund-password"
+    private const val HOME_LIVE_GET_GIFT_LIST = "api/v1/live/get_gift_list/"
+    private const val HOME_LIVE_SEND_GIFT = "api/v1/live/send_gift"
+    private const val HOME_LIVE_IS_SET_PASS_WORD = "userinfo/index/check-fund-password"
+
 
     /**
      * 获取首页轮播图列表
@@ -72,58 +73,74 @@ object HomeApi : BaseApi {
     /**
      * 获取热门直播
      */
-//    fun getHomeHotLiveListResult(function: ApiSubscriber<List<HomeLiveListResponse>>.() -> Unit) {
-//        val subscriber = object : ApiSubscriber<List<HomeLiveListResponse>>() {}
-//        subscriber.function()
-//        getApi().get<List<HomeLiveListResponse>>(HOME_HOT_LIVE_LIST)
-//                .subscribe(subscriber)
-//    }
-    fun getHomeHotLiveListResult(cacheMode: CacheMode): Flowable<List<HomeLiveListResponse>> {
-        return getApi()
-                .get<List<HomeLiveListResponse>>(HOME_HOT_LIVE_LIST)
+    fun getHomeHotLiveListResult(cacheMode: CacheMode, function: ApiSubscriber<List<HomeLiveListResponse>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<HomeLiveListResponse>>() {}
+        subscriber.function()
+        getApi().get<List<HomeLiveListResponse>>(HOME_HOT_LIVE_LIST)
                 .cacheMode(cacheMode)
-                .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
-                .flowable()
+                .subscribe(subscriber)
     }
+//    fun getHomeHotLiveListResult(cacheMode: CacheMode): Flowable<List<HomeLiveListResponse>> {
+//        return getApi()
+//                .get<List<HomeLiveListResponse>>(HOME_HOT_LIVE_LIST)
+//                .cacheMode(cacheMode)
+//                .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
+//                .flowable()
+//    }
 
     /**
      * 获取直播预告
      */
-    fun getHomeLivePopResult(cacheMode: CacheMode): Flowable<List<HomeLivePopResponse>> {
-        return getApi()
-                .get<List<HomeLivePopResponse>>(HOME_LIVE_POP)
-                .cacheMode(cacheMode)
-                .converter(ApiConvert(type = object : TypeToken<List<HomeLivePopResponse>>() {}.type))
-                .flowable()
-    }
-//    fun getHomeLivePopResult(function: ApiSubscriber<List<HomeLivePopResponse>>.() -> Unit) {
-//        val subscriber = object : ApiSubscriber<List<HomeLivePopResponse>>() {}
-//        subscriber.function()
-//        getApi().get<List<HomeLivePopResponse>>(HOME_LIVE_POP)
-//                .subscribe(subscriber)
+//    fun getHomeLivePopResult(cacheMode: CacheMode): Flowable<List<HomeLivePopResponse>> {
+//        return getApi()
+//                .get<List<HomeLivePopResponse>>(HOME_LIVE_POP)
+//                .cacheMode(cacheMode)
+//                .converter(ApiConvert(type = object : TypeToken<List<HomeLivePopResponse>>() {}.type))
+//                .flowable()
 //    }
+    fun getHomeLivePopResult(cacheMode: CacheMode, function: ApiSubscriber<List<HomeLivePopResponse>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<HomeLivePopResponse>>() {}
+        subscriber.function()
+        getApi().get<List<HomeLivePopResponse>>(HOME_LIVE_POP)
+                .cacheMode(cacheMode)
+                .subscribe(subscriber)
+    }
 
     /**
      * 获取专家直播列表
      */
-    fun getHomeExpertListResult(cacheMode: CacheMode): Flowable<List<HomeLiveListResponse>> {
-        return getApi()
-                .get<List<HomeLiveListResponse>>(HOME_EXPERT_LIST)
+    fun getHomeExpertListResult(cacheMode: CacheMode, function: ApiSubscriber<List<HomeLiveListResponse>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<HomeLiveListResponse>>() {}
+        subscriber.function()
+        getApi().get<List<HomeLiveListResponse>>(HOME_EXPERT_LIST)
                 .cacheMode(cacheMode)
-                .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
-                .flowable()
+                .subscribe(subscriber)
     }
-
+//    fun getHomeExpertListResult(cacheMode: CacheMode): Flowable<List<HomeLiveListResponse>> {
+//        return getApi()
+//                .get<List<HomeLiveListResponse>>(HOME_EXPERT_LIST)
+//                .cacheMode(cacheMode)
+//                .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
+//                .flowable()
+//    }
     /**
      * 获取专家推荐列表
      */
-    fun getHomeExpertRecommendResult(cacheMode: CacheMode): Flowable<List<HomeExpertRecommendResponse>> {
-        return getApi()
-                .get<List<HomeExpertRecommendResponse>>(HOME_EXPERT_RECOMMEND)
+    fun getHomeExpertRecommendResult(cacheMode: CacheMode, function: ApiSubscriber<List<HomeExpertRecommendResponse>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<HomeExpertRecommendResponse>>() {}
+        subscriber.function()
+        getApi().get<List<HomeExpertRecommendResponse>>(HOME_EXPERT_RECOMMEND)
                 .cacheMode(cacheMode)
-                .converter(ApiConvert(type = object : TypeToken<List<HomeExpertRecommendResponse>>() {}.type))
-                .flowable()
+                .cacheMode(cacheMode)
+                .subscribe(subscriber)
     }
+//    fun getHomeExpertRecommendResult(cacheMode: CacheMode): Flowable<List<HomeExpertRecommendResponse>> {
+//        return getApi()
+//                .get<List<HomeExpertRecommendResponse>>(HOME_EXPERT_RECOMMEND)
+//                .cacheMode(cacheMode)
+//                .converter(ApiConvert(type = object : TypeToken<List<HomeExpertRecommendResponse>>() {}.type))
+//                .flowable()
+//    }
 
     /**
      * 获取直播间礼物榜单
@@ -172,7 +189,7 @@ object HomeApi : BaseApi {
         val subscriber = EmptySubscriber()
         subscriber.function()
         getApi().post<String>(HOME_LIVE_PAY_PASSWORD)
-                .headers("token", UserInfoSp.getTokenWithBearer())
+                .headers("token", UserInfoSp.getToken())
                 .params("user_id", userId)
                 .subscribe(subscriber)
     }
@@ -199,7 +216,7 @@ object HomeApi : BaseApi {
         val subscriber = object : ApiSubscriber<HomeLiveRedReceiveBean>() {}
         subscriber.function()
         getApi().post<HomeLiveRedReceiveBean>(HOME_LIVE_RED_RECEIVE)
-                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .headers("token", UserInfoSp.getToken())
                 .params("user_id", userId)
                 .params("rid", rid)
                 .subscribe(subscriber)
@@ -212,7 +229,7 @@ object HomeApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<HomeLiveRedRoom>>() {}
         subscriber.function()
         getApi().get<List<HomeLiveRedRoom>>(HOME_LIVE_RED_RECEIVE_ROOM)
-                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .headers("token", UserInfoSp.getToken())
                 .params("user_id", userId)
                 .params("anchor_id", anchorId)
                 .subscribe(subscriber)
@@ -253,4 +270,52 @@ object HomeApi : BaseApi {
                 .subscribe(subscriber)
     }
 
+    /**
+     * 获取最近20条消息
+     */
+    fun getRecentlyNews(userId: Int, anchorId: Int, function: ApiSubscriber<ArrayList<HomeLiveChatBean>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<ArrayList<HomeLiveChatBean>>() {}
+        subscriber.function()
+        getApi().get<ArrayList<HomeLiveChatBean>>(HOME_LIVE_ANCHOR_ANCHOR_20_NEWS)
+                .params("user_id", userId)
+                .params("anchor_id", anchorId)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 获取礼物列表
+     */
+    fun getGiftList(function: EmptySubscriber.() -> Unit) {
+        val subscriber = EmptySubscriber()
+        subscriber.function()
+        getApi().get<String>(HOME_LIVE_GET_GIFT_LIST)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 送礼物
+     */
+    fun setGift(userId: Int, anchorId: Int, gift_id: Int, gift_num: Int, function: EmptySubscriber.() -> Unit) {
+        val subscriber = EmptySubscriber()
+        subscriber.function()
+        getApi().post<String>(HOME_LIVE_SEND_GIFT)
+                .headers("token", UserInfoSp.getToken())
+                .params("anchor_id", anchorId)
+                .params("user_id", userId)
+                .params("gift_id", gift_id)
+                .params("gift_num", gift_num)
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 验证是否设置支付密码
+     */
+
+    fun isSetPassWord(function: EmptySubscriber.() -> Unit) {
+        val subscriber = EmptySubscriber()
+        subscriber.function()
+        getApiOther().get<String>(HOME_LIVE_IS_SET_PASS_WORD)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
+                .subscribe(subscriber)
+    }
 }

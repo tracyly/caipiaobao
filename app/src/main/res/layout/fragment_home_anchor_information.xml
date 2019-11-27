@@ -118,7 +118,7 @@
                 android:layout_height="@dimen/dp_12"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dp_6"
-                android:src="@mipmap/ic_live_chat_vip1"
+                android:src="@mipmap/ic_live_chat_vip_1"
                 tools:ignore="ContentDescription" />
         </LinearLayout>
 
@@ -239,7 +239,8 @@
     <com.fenghuang.caipiaobao.ui.widget.AnchorTabView
         android:id="@id/anchorTabView"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="@dimen/dp_38"
+        android:layout_marginTop="@dimen/dp_10"
         app:layout_constraintTop_toBottomOf="@id/cvAnchor" />
 
     <com.google.android.material.widget.XViewPager

@@ -2,14 +2,15 @@ package com.fenghuang.caipiaobao.ui.main
 
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.fragment.BasePageFragment
+import com.fenghuang.baselib.base.fragment.PlaceholderFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.bet.BetFragment
-import com.fenghuang.caipiaobao.ui.home.HomeFragment
+import com.fenghuang.caipiaobao.ui.home.HomeFragmentNew
 import com.fenghuang.caipiaobao.ui.home.data.HomeClickMine
-import com.fenghuang.caipiaobao.ui.lottery.LotteryFragment
 import com.fenghuang.caipiaobao.ui.mine.MineFragment
 import com.fenghuang.caipiaobao.ui.quiz.QuizFragment
+import com.fenghuang.caipiaobao.widget.dialog.guide.HomeGuideDialog
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,13 +24,16 @@ class MainFragment : BasePageFragment() {
     override fun isRegisterRxBus() = true
 
     override fun initView() {
-        mFragments.add(HomeFragment())
-        mFragments.add(LotteryFragment())
+
+
+        mFragments.add(HomeFragmentNew())
+        mFragments.add(PlaceholderFragment())
         mFragments.add(BetFragment())
         mFragments.add(QuizFragment())
         mFragments.add(MineFragment())
         loadMultipleRootFragment(R.id.mainContainer, 0,
                 mFragments[0], mFragments[1], mFragments[2], mFragments[3], mFragments[4])
+
     }
 
     override fun initEvent() {
@@ -78,6 +82,10 @@ class MainFragment : BasePageFragment() {
             tabBetting.isFocusable = false
             showHideFragment(mFragments[4])
         }
+        imgLotteryBuyTips.setOnClickListener {
+            //            setVisibility(R.id.imgLotteryBuyTips, false)
+            HomeGuideDialog(getPageActivity(), getPageActivity()).show()
+        }
     }
 
     /**
@@ -93,4 +101,5 @@ class MainFragment : BasePageFragment() {
         tabBetting.isFocusable = false
         showHideFragment(mFragments[4])
     }
+
 }

@@ -27,4 +27,6 @@ object UserConstant {
     const val USER_SET_PAY_PASSWORD = "user_set_pay_password"
     //银行卡
     const val USER_BANK = "user_bank"
+    //银行卡提现选择记录
+    const val USER_BANK_SELECT = "user_bank_select"
 }

@@ -77,29 +77,11 @@
         app:cardCornerRadius="@dimen/dp_5"
         app:layout_constraintTop_toBottomOf="@+id/tvDescription">
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@id/tabLayout"
+        <com.fenghuang.caipiaobao.ui.widget.AnchorTabView
+            android:id="@+id/rechargeTabView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null"
-            app:tabBackground="@color/transparent"
-            app:tabIndicator="@drawable/shape_tab_line"
-            app:tabIndicatorFullWidth="false"
-            app:tabIndicatorGravity="bottom"
-            app:tabIndicatorHeight="@dimen/dp_4"
-            app:tabMode="fixed"
-            app:tabRippleColor="@color/transparent"
-            app:tabSelectedTextColor="@color/black"
-            app:tabTextAppearance="@style/HomeExpertPlayTabLayoutTextAppearance"
-            app:tabTextColor="@color/text_grey_dark" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_11"
-            android:layout_marginBottom="@dimen/dp_11"
-            android:background="@color/color_EEEEEE" />
+            android:layout_height="@dimen/dp_66"
+            app:layout_constraintTop_toBottomOf="@id/cvAnchor" />
     </androidx.cardview.widget.CardView>
 
 

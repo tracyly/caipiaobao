@@ -84,7 +84,7 @@ object ImageManager {
      * 加载预览大图
      */
     fun loadImage(url: String?, imageView: ImageView) {
-        Glide.with(imageView.context).load(url).into(imageView)
+        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_mine_base_user).into(imageView)
     }
 
 
@@ -104,4 +104,11 @@ object ImageManager {
         Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_mine_alipay).into(imageView)
     }
 
+    /**
+     * 红包头像
+     */
+
+    fun redUserPhoto(url: String?, imageView: ImageView, color: Int) {
+        loadCircle(url, imageView, placeHolder = R.mipmap.ic_mine_base_user, errorHolder = R.mipmap.ic_home_top_user, borderWidth = 10, borderColor = color)
+    }
 }

@@ -22,23 +22,29 @@
     <string name="home_anchor_tag">主播标签:</string>
     <string name="home_anchor_live_date">播放时长:</string>
     <string name="home_anchor_live_open_date">开播时间:</string>
+    <string name="home_live_hot">热门直播</string>
+    <string name="home_live_pre">直播预告</string>
+    <string name="home_expert_live">专家直播</string>
     <!-- 直播 -->
     <string name="string_live">LIVE</string>
     <string name="string_live_attention">+关注\n602086</string>
     <string name="live_tab_chat">聊天</string>
     <string name="live_tab_reward">打赏榜</string>
     <string name="live_tab_anchor">主播</string>
-    <string name="live_chat_edit_hint" tools:ignore="TypographyEllipsis">说点啥吧...</string>
+    <string name="live_send">发送</string>
+    <string name="live_chat_edit_hint" tools:ignore="TypographyEllipsis">说点什么吧~.</string>
     <string name="live_chat_send">发送</string>
     <string name="live_chat_msg_empty">暂无他人发表个人感言</string>
     <string name="live_chat_empty">请先输入内容</string>
     <string name="live_chat_online">%1$d在线</string>
-    <string name="live_chat_ordinary">普通</string>
-    <string name="live_chat_confession">表白</string>
-    <string name="live_chat_lottery_ticket">彩票</string>
+    <string name="live_chat_ordinary">炫酷</string>
+    <string name="live_chat_confession">浪漫</string>
+    <string name="live_chat_lottery_ticket">尊贵</string>
     <string name="live_chat_hint_room">进入直播间</string>
-    <string name="live_chat_red_envelope_total_amount">总金额</string>
-    <string name="live_chat_number_of_red_packets">红包个数</string>
+    <string name="live_chat_red_envelope_total_amount">金额</string>
+    <string name="live_chat_number_of_red_packets">个数</string>
+    <string name="live_chat_input_count">请填写数量</string>
+    <string name="live_chat_input_money">请填写金额</string>
     <string name="live_chat_red_hint">恭喜发财</string>
     <string name="live_chat_send_red_envelope">发送红包</string>
     <string name="live_chat_red_hin_password">请输入密码</string>
@@ -52,8 +58,8 @@
     <string name="live_chat_pay_password">支付密码</string>
     <string name="live_chat_setting_password_ok">确认密码</string>
     <string name="live_chat_ok">确认</string>
-    <string name="live_chat_red_damn">哎呀～</string>
-    <string name="live_chat_red_damn_next">手速慢了哦，下次要加油鸭</string>
+    <string name="live_chat_red_damn">哎呀</string>
+    <string name="live_chat_red_damn_next">手速慢了哦，下次要加油呀!</string>
     <string name="live_anchor_room">直播间</string>
     <string name="live_anchor_dynamic">动态</string>
     <string name="live_anchor_data">资料</string>
@@ -63,6 +69,7 @@
     <string name="live_anchor_live_did_not_receive_gift">暂未收到礼物</string>
     <string name="live_anchor_live_not_receive">暂无直播记录</string>
     <string name="live_anchor_live_dynamic_create_time">发表于%1$s</string>
+    <string name="live_anchor_live_not_home">主播暂时不在家~</string>
     <!-- 排行 -->
     <string name="ranking_tab_anchor">主播</string>
     <string name="ranking_tab_expert">专家</string>
@@ -207,7 +214,7 @@
     <string name="mine_edit_email">绑定邮箱</string>
     <string name="mine_bind">立即绑定</string>
     <string name="mine_password">填写新密码</string>
-    <string name="mine_write_password">输入新支付密码</string>
+    <string name="mine_write_password">请输入支付密码</string>
     <string name="mine_confirm_password">确认支付密码</string>
     <string name="mine_modify_password">修改密码</string>
     <string name="mine_confirm_user">请输入支付密码验证身份</string>
@@ -285,12 +292,13 @@
 
     <string name="mine_diamond_change">钻石兑换</string>
     <string name="mine_diamond_balance">余额:</string>
-    <string name="mine_diamond_scale">兑换比例1:1</string>
+    <string name="mine_diamond_scale">兑换比例1:10</string>
     <string name="mine_diamond_all">全部兑换</string>
     <string name="mine_diamond_edit">请输入兑换金额</string>
     <string name="mine_diamond_change_">兑换</string>
     <string name="mine_online_invest">在线充值</string>
     <string name="mine_online_invest_money">请输入充值金额</string>
+
     <!-- 开奖 -->
     <string name="lottery_open">开奖</string>
     <string name="lottery_open_video">开奖视频</string>

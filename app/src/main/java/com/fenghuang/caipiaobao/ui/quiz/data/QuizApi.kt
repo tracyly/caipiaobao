@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.quiz.data
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.api.EmptySubscriber
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 
 /**
  *  author : Peter
@@ -22,7 +23,7 @@ object QuizApi : BaseApi {
         subscriber.function()
         QuizApi.getAipQuizUrl()
                 .get<List<QuizResponse>>(QUIZ_ARTICLE)
-//                .headers("Authorization", "Bearer " + SpUtils.getString(UserConstant.TOKEN))
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("limit", limit)
                 .params("page", page)
                 .subscribe(subscriber)
@@ -36,7 +37,7 @@ object QuizApi : BaseApi {
         subscriber.function()
         QuizApi.getAipQuizUrl()
                 .post<String>(QUIZ_ARTICLE_LIKE)
-//                .headers("Authorization", "Bearer " + SpUtils.getString(UserConstant.TOKEN))
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("article_id", articleId)
                 .params("user_id", userId)
                 .subscribe(subscriber)

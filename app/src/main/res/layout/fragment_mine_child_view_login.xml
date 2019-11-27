@@ -75,16 +75,35 @@
         android:paddingTop="@dimen/dp_20"
         tools:ignore="UseCompoundDrawables">
 
-        <TextView
-            android:id="@+id/tvUserBalance"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="@dimen/dp_46"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="￥ 0.00"
-            android:textColor="@color/color_333333"
-            android:textStyle="bold"
-            tools:ignore="NestedWeights" />
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_46"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="￥"
+                android:textColor="@color/color_333333"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights" />
+
+            <TextView
+                android:id="@+id/tvUserBalance"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_46"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/color_333333"
+                android:textStyle="bold"
+                tools:ignore="NestedWeights" />
+
+        </LinearLayout>
 
 
         <RelativeLayout
@@ -157,6 +176,7 @@
                 android:textSize="@dimen/sp_12" />
 
             <ImageView
+                android:id="@+id/imgDiamond"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_4"

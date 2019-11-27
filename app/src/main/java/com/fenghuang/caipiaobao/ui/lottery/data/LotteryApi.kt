@@ -29,7 +29,7 @@ object LotteryApi : BaseApi {
         val subscriber = object : ApiSubscriber<List<LotteryTypeResponse>>() {}
         subscriber.function()
         LotteryApi.getAipOpenUrl()
-                .get<List<LotteryTypeResponse>>(LOTTERY_TYPE)
+                .post<List<LotteryTypeResponse>>(LOTTERY_TYPE)
                 .subscribe(subscriber)
     }
 
@@ -68,7 +68,7 @@ object LotteryApi : BaseApi {
     fun getExpertPlan(lottery_id: Int, issue: String, function: ApiSubscriber<List<LotteryExpertPlanResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<LotteryExpertPlanResponse>>() {}
         subscriber.function()
-        LotteryApi.getAipQuizUrl()
+        LotteryApi.getApiOther()
                 .get<List<LotteryExpertPlanResponse>>(LOTTERY_EXPERT_PLAN)
                 .params("lottery_id", lottery_id)
                 .params("issue", issue)

@@ -32,7 +32,7 @@ object NetErrorEngine {
     const val UNKNOWN_TOKEN_CODE = 2000
     const val SERVER_ERROR_CODE = 1003
     const val PARSE_ERROR_CODE = 1001
-    private const val NETWORD_ERROR_CODE = 1002
+    private const val NETWORD_ERROR_CODE = 2002
     private const val NETWORK_UNCONNECTED = 1004
     const val DATA_ERROR = 0
     const val REQUEST_ERROR = 1006

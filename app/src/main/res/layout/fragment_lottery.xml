@@ -111,7 +111,7 @@
             <com.fenghuang.caipiaobao.ui.widget.AnchorTabView
                 android:id="@id/anchorTabView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dp_38"
                 android:layout_marginStart="@dimen/dp_4"
                 android:layout_marginEnd="@dimen/dp_4" />
 
@@ -176,5 +176,6 @@
             android:layout_marginTop="@dimen/dp_10"
             tools:ignore="UnknownIdInLayout" />
     </RelativeLayout>
+
 
 </FrameLayout>

@@ -191,6 +191,13 @@ dependencies {
     implementation photoview
 
     api x5WebView
+
+    implementation SpinKit
+
+    implementation SVGAPlayer
+
+    api  'com.facebook.fresco:fresco:2.0.0'
+    api  'com.facebook.fresco:animated-base:2.0.0'
 }
 
 afterEvaluate {

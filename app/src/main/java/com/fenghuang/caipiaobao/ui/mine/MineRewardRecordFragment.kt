@@ -5,6 +5,7 @@ import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineRewardRecordResponse
+import com.fenghuang.caipiaobao.widget.dialog.guide.RewardGuideDialog
 import kotlinx.android.synthetic.main.fragment_mine_reward.*
 
 /**
@@ -55,5 +56,6 @@ class MineRewardRecordFragment : BaseMvpFragment<MineRewardRecordPresenter>() {
             }
         }
         rewardRecycle.layoutManager = value
+        RewardGuideDialog(getPageActivity()).show()
     }
 }

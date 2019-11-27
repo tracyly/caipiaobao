@@ -85,14 +85,14 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
     }
 
     private fun setAnchorLevel(level: Int) {
-        when (level) {
-            1 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip1)
-            2 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip2)
-            3 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip3)
-            4 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip4)
-            5 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip5)
-            6 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip6)
-        }
+//        when (level) {
+//            1 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip1)
+//            2 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip2)
+//            3 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip3)
+//            4 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip4)
+//            5 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip5)
+//            6 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip6)
+//        }
     }
 
     companion object {

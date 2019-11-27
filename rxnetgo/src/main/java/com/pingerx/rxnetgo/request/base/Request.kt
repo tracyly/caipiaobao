@@ -261,6 +261,12 @@ abstract class Request<T>(
         return this
     }
 
+
+    fun params(key: String, value: Double): Request<T> {
+        this.mParams.put(key, value)
+        return this
+    }
+
     fun params(key: String, value: Long): Request<T> {
         this.mParams.put(key, value)
         return this

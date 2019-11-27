@@ -28,11 +28,13 @@ open class ResolveConflictViewPager @JvmOverloads constructor(context: Context, 
             }
             MotionEvent.ACTION_MOVE -> if (isHorizontalScroll(x, y)) {
                 //除了在第一页的手指向右滑 ， 最后一页的左滑，其他时刻都是父控件需要拦截事件
-                intercept = if (isReactFirstPage() && isScrollRight(x)) {
-                    //Log.e(TAG, "第一页的手指向右滑]");
-                    false
-                } else !(isReachLastPage() && isScrollLeft(x))
-            } else {
+                if (isReactFirstPage() && isScrollRight(x)) {
+//                    Log.e("---------------#", "第一页的手指向右滑]")
+                    intercept = false
+                } else if ((isReachLastPage() && isScrollLeft(x))) {
+                    intercept = false
+//                    Log.e("---------------#", "最后一页的手指向左边滑]")
+                }
             }
             MotionEvent.ACTION_UP -> {
             }
@@ -81,4 +83,5 @@ open class ResolveConflictViewPager @JvmOverloads constructor(context: Context, 
     private fun isScrollRight(x: Int): Boolean {
         return x - mLastX > 0
     }
+
 }

@@ -41,6 +41,7 @@ abstract class BaseWebFragment : BaseNavFragment() {
         super.onCreate(savedInstanceState)
     }
 
+    @SuppressLint("ObsoleteSdkInt")
     private fun init() {
         if (Build.VERSION.SDK_INT > 19) {
             WebView.setWebContentsDebuggingEnabled(true)
@@ -132,7 +133,7 @@ abstract class BaseWebFragment : BaseNavFragment() {
                     //  5.0及以上调用
                     override fun onShowFileChooser(webView: WebView,
                                                    filePathCallback: ValueCallback<Array<Uri>>,
-                                                   fileChooserParams: WebChromeClient.FileChooserParams): Boolean {
+                                                   fileChooserParams: FileChooserParams): Boolean {
                         this@BaseWebFragment.onShowFileChooser(webView, filePathCallback)
                         return true
                     }

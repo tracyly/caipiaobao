@@ -35,7 +35,7 @@ class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>() {
 
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-        X5WebView.initWebViewSettings(investWebView)
+        X5WebView.initWebViewSettings(investWebView, getPageActivity())
     }
 
     override fun initData() {
@@ -63,19 +63,12 @@ class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>() {
         }
     }
 
-
-    override fun onBackClick() {
-        if (investWebView.canGoBack()) {
-            investWebView.goBack()
-        } else {
-            pop()
-        }
-    }
-
     override fun onBackPressedSupport(): Boolean {
         if (investWebView.canGoBack()) {
             investWebView.goBack()
             return true
+        } else {
+            pop()
         }
         return super.onBackPressedSupport()
     }

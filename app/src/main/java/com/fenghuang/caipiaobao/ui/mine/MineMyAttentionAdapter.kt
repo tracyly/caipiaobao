@@ -1,5 +1,6 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import android.app.Activity
 import android.content.Context
 import android.view.ViewGroup
 import android.widget.RelativeLayout
@@ -9,6 +10,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineAttentionResponse
 
+
 /**
  *
  * @ Author  QinTian
@@ -17,14 +19,14 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineAttentionResponse
  *
  */
 
-class MineMyAttentionAdapter(context: Context) : BaseRecyclerAdapter<MineAttentionResponse>(context) {
+class MineMyAttentionAdapter(context: Context, val activity: Activity) : BaseRecyclerAdapter<MineAttentionResponse>(context) {
 
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineAttentionResponse> {
         return MineMyAttentionHolder(parent)
     }
 
-    inner class MineMyAttentionHolder(parent: ViewGroup) : BaseViewHolder<MineAttentionResponse>(getContext(), parent, R.layout.holder_mine_attention) {
+    inner class MineMyAttentionHolder(val parent: ViewGroup) : BaseViewHolder<MineAttentionResponse>(getContext(), parent, R.layout.holder_mine_attention) {
         override fun onBindData(data: MineAttentionResponse) {
             ImageManager.loadRoundLogo(data.avatar, findView(R.id.imgAttPhoto))
             setText(R.id.tvAttName, data.nickname)
@@ -33,6 +35,8 @@ class MineMyAttentionAdapter(context: Context) : BaseRecyclerAdapter<MineAttenti
             findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {
                 remove(getDataPosition())
             }
+
+
         }
     }
 }

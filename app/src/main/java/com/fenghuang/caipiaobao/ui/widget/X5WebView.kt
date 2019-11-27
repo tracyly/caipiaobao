@@ -1,5 +1,9 @@
 package com.fenghuang.caipiaobao.ui.widget
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import com.tencent.smtt.sdk.WebSettings
 import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
@@ -15,10 +19,13 @@ import com.tencent.smtt.sdk.WebViewClient
 
 object X5WebView {
 
-    fun initWebViewSettings(webView: WebView) {
+    fun initWebViewSettings(webView: WebView, context: Context) {
         webView.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-                webView.loadUrl(url)
+                //判断Url
+                if (url != null && view != null) {
+                    judgeUrl(url, view, context)
+                }
                 return false
             }
         }
@@ -43,5 +50,27 @@ object X5WebView {
         webSetting.cacheMode = WebSettings.LOAD_NO_CACHE
         // this.getSettingsExtension().setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);//extension
         // settings 的设计
+    }
+
+    private fun judgeUrl(url: String, view: WebView, context: Context): Boolean {
+        if (url.startsWith("alipays:") || url.startsWith("alipay")) {
+            try {
+                context.startActivity(Intent("android.intent.action.VIEW", Uri.parse(url)))
+            } catch (e: Exception) {
+
+                AlertDialog.Builder(context).setMessage("未检测到支付宝客户端，请安装后重试。")
+                        .setPositiveButton("立即安装") { dialog, which ->
+                            val alipayUrl = Uri.parse("https://d.alipay.com")
+                            context.startActivity(Intent("android.intent.action.VIEW", alipayUrl))
+                        }.setNegativeButton("取消", null).show()
+            }
+            return true
+        }
+        // ------- 处理结束 -------
+        if (!(url.startsWith("http") || url.startsWith("https"))) {
+            return true
+        }
+        view.loadUrl(url)
+        return true
     }
 }

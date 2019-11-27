@@ -1,21 +1,14 @@
 package com.fenghuang.caipiaobao.widget.ijkplayer.controller.player;
 
-import android.content.Context;
 
 public class AndroidMediaPlayerFactory extends PlayerFactory {
 
-    private Context mContext;
-
-    public AndroidMediaPlayerFactory(Context context) {
-        mContext = context.getApplicationContext();
-    }
-
-    public static AndroidMediaPlayerFactory create(Context context) {
-        return new AndroidMediaPlayerFactory(context);
+    public static AndroidMediaPlayerFactory create() {
+        return new AndroidMediaPlayerFactory();
     }
 
     @Override
-    public AbstractPlayer createPlayer() {
-        return new AndroidMediaPlayer(mContext);
+    public AndroidMediaPlayer createPlayer() {
+        return new AndroidMediaPlayer();
     }
 }

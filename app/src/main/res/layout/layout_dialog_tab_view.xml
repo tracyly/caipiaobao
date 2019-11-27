@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    app:rv_backgroundColor="@color/white"
+    app:rv_cornerRadius_TL="@dimen/dp_10"
+    app:rv_cornerRadius_TR="@dimen/dp_10"
     android:orientation="horizontal">
 
     <RelativeLayout
@@ -23,11 +25,12 @@
 
         <com.fenghuang.baselib.widget.round.RoundTextView
             android:id="@id/roundOrdinaryLine"
-            android:layout_width="@dimen/dp_68"
-            android:layout_height="@dimen/dp_2"
-            android:layout_alignParentBottom="true"
+            android:layout_width="@dimen/dp_17"
+            android:layout_height="@dimen/dp_4"
+            android:layout_below="@+id/tvTabOrdinary"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_4"
             app:rv_backgroundColor="@color/text_red_tab"
             app:rv_backgroundPressColor="@color/text_red_tab"
             app:rv_cornerRadius="@dimen/dp_2"
@@ -51,11 +54,12 @@
 
         <com.fenghuang.baselib.widget.round.RoundTextView
             android:id="@id/roundConfessionLine"
-            android:layout_width="@dimen/dp_68"
-            android:layout_height="@dimen/dp_2"
-            android:layout_alignParentBottom="true"
+            android:layout_width="@dimen/dp_17"
+            android:layout_height="@dimen/dp_4"
+            android:layout_below="@+id/tvTabConfession"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_4"
             android:visibility="gone"
             app:rv_backgroundColor="@color/text_red_tab"
             app:rv_backgroundPressColor="@color/text_red_tab"
@@ -81,11 +85,12 @@
 
         <com.fenghuang.baselib.widget.round.RoundTextView
             android:id="@id/roundLotteryLine"
-            android:layout_width="@dimen/dp_68"
-            android:layout_height="@dimen/dp_2"
-            android:layout_alignParentBottom="true"
+            android:layout_width="@dimen/dp_17"
+            android:layout_height="@dimen/dp_4"
+            android:layout_below="@+id/tvTabLottery"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_4"
             android:visibility="gone"
             app:rv_backgroundColor="@color/text_red_tab"
             app:rv_backgroundPressColor="@color/text_red_tab"

@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/dp_6"
-    android:orientation="vertical">
+    android:paddingBottom="@dimen/dp_6">
+
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/layoutContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,61 +17,47 @@
             android:id="@id/tvLiveChatUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_12"
-            android:textColor="@color/color_FF513E"
-            android:textSize="@dimen/sp_14"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_toEndOf="@id/ivLiveVip"
+            android:gravity="center"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/sp_12"
             tools:text="我叫什么呢：" />
 
-        <!--        <com.fenghuang.baselib.widget.round.RoundLinearLayout-->
-        <!--            android:id="@id/liveChatVipLayout"-->
-        <!--            android:layout_width="@dimen/dp_30"-->
-        <!--            android:layout_height="@dimen/dp_12"-->
-        <!--            android:layout_marginStart="@dimen/dp_6"-->
-        <!--            android:layout_centerVertical="true"-->
-        <!--            android:layout_toEndOf="@id/tvLiveChatUserName"-->
-        <!--            app:rv_backgroundColor="@color/colorBlue"-->
-        <!--            app:rv_backgroundPressColor="@color/colorBlue"-->
-        <!--            app:rv_cornerRadius="@dimen/dp_36">-->
 
         <ImageView
             android:id="@id/ivLiveVip"
-            android:layout_width="@dimen/dp_30"
-            android:layout_height="@dimen/dp_12"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_16"
             android:layout_centerVertical="true"
-                android:layout_gravity="center"
-            android:layout_marginStart="@dimen/dp_6"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_toEndOf="@id/tvLiveChatUserName"
-            android:src="@mipmap/ic_live_chat_vip1"
-                tools:ignore="ContentDescription" />
-
-        <!--            <TextView-->
-        <!--                android:id="@id/tvLiveChatVip"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:layout_marginStart="@dimen/dp_2"-->
-        <!--                android:textColor="@color/white"-->
-        <!--                android:textSize="@dimen/dp_8"-->
-        <!--                tools:ignore="SpUsage"-->
-        <!--                tools:text="V4" />-->
-
-        <!--        </com.fenghuang.baselib.widget.round.RoundLinearLayout>-->
-
+            android:layout_marginStart="@dimen/dp_12"
+            android:src="@mipmap/ic_live_chat_vip_1"
+            tools:ignore="ContentDescription" />
 
     </RelativeLayout>
 
 
     <TextView
+        android:gravity="bottom"
         android:id="@id/tvLiveChatContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_6"
         android:layout_marginTop="@dimen/dp_6"
         android:layout_marginEnd="@dimen/dp_12"
-        android:layout_toEndOf="@id/layoutContent"
+        android:lineSpacingExtra="@dimen/dp_4"
         android:textColor="@color/color_666666"
-        android:textSize="@dimen/sp_14"
-        tools:text="这场球你们看的可有味道这场球你们看的可有味道这场球你们看的可有味道这场球你们看的可有味道这场球你们看的可有味道" />
+        android:textSize="@dimen/sp_12"
+        android:visibility="gone" />
 
+    <com.fenghuang.caipiaobao.widget.textview.DraweeTextView
+        android:id="@+id/tvChatContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_2"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_10"
+        android:textSize="@dimen/sp_12"
+        tools:ignore="RtlSymmetry" />
 
 </RelativeLayout>

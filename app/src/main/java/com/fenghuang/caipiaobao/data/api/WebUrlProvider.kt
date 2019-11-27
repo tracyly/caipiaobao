@@ -10,8 +10,8 @@ import java.lang.reflect.Type
  * Web页面的接口管理
  */
 object WebUrlProvider {
-
-    const val API_URL_WEB_SOCKET = "ws://47.244.212.147:2347"
+    //   wss//www.cpbadmin.com/wss   ws//www.cpbh5.com/wss
+    const val API_URL_WEB_SOCKET = "ws://www.cpbh5.com/wss"
 
     private fun getBaseUrl(): String {
         return if (DebugUtils.isDebugModel()) {

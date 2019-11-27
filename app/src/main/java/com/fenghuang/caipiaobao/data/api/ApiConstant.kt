@@ -9,14 +9,15 @@ object ApiConstant {
 
     const val WEB_URL_DEV = "https://www.dev.xiaomingsport.com"
 
-    const val API_URL = "https://api.xiaomingsport.com"
+    const val API_URL = "http://www.cpbh5.com"
 
-    const val API_URL_DEV = "https://www.cpbadmin.com"
+    //https://www.cpbadmin.com
+    const val API_URL_DEV = "http://www.cpbh5.com"
 
-    const val API_URL_DEV_OTHER = "http://154.206.43.213:18306"
+    const val API_URL_DEV_OTHER = "http://121.127.228.235:18000"
 
     // 竞猜
-    const val API_URL_QUIZ = "http://154.206.43.213:18308"
+    const val API_URL_QUIZ = "http://121.127.228.235:18000"
 
 
     // 开奖

@@ -97,32 +97,44 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />
 
-    <!--    <FrameLayout-->
-    <!--        android:id="@id/flChatGifLayout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        android:visibility="gone">-->
+    <!--<FrameLayout-->
+    <!--android:id="@id/flChatGifLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:visibility="gone">-->
 
-    <!--        <LinearLayout-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="wrap_content"-->
-    <!--            android:layout_gravity="bottom"-->
-    <!--            android:orientation="vertical">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom"-->
+    <!--android:orientation="vertical">-->
 
-    <!--            <com.fenghuang.caipiaobao.ui.widget.ChatGifTabView-->
-    <!--                android:id="@id/chatGifTabView"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="wrap_content"-->
-    <!--                android:background="@color/white" />-->
+    <!--<com.fenghuang.caipiaobao.ui.widget.ChatGifTabView-->
+    <!--android:id="@id/chatGifTabView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@color/white" />-->
 
-    <!--            <androidx.viewpager.widget.ViewPager-->
-    <!--                android:id="@id/viewPager"-->
-    <!--                android:layout_width="match_parent"-->
-    <!--                android:layout_height="@dimen/dp_210"-->
-    <!--                app:layout_constraintTop_toBottomOf="@id/chatGifTabView"-->
-    <!--                tools:ignore="UselessLeaf" />-->
-    <!--        </LinearLayout>-->
+    <!--<androidx.viewpager.widget.ViewPager-->
+    <!--android:id="@id/viewPager"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/dp_210"-->
+    <!--app:layout_constraintTop_toBottomOf="@id/chatGifTabView"-->
+    <!--tools:ignore="UselessLeaf" />-->
+    <!--</LinearLayout>-->
 
-    <!--    </FrameLayout>-->
+    <!--</FrameLayout>-->
+
+    <com.fenghuang.caipiaobao.widget.gift.RewardLayout
+        android:id="@+id/rewardLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_30"
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        app:gift_item_layout="@layout/gift_animation_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:max_gift="3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,7 +36,7 @@ class ApiException(error: Throwable? = null, private var code: Int = 0, private 
         get() = msg
 
     fun getDataCode(): JsonElement? {
-        return dataCode
+        return this.dataCode
     }
 
 }

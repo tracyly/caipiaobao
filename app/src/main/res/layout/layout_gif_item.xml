@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:paddingTop="@dimen/dp_4"
+    android:paddingBottom="@dimen/dp_4"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -12,7 +14,7 @@
         android:id="@+id/item_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@mipmap/ic_mine_base_user"
         tools:ignore="ContentDescription" />
 
 
@@ -28,6 +30,7 @@
         android:textSize="@dimen/sp_14" />
 
 
+
     <TextView
         android:id="@+id/item_title_hint"
         android:layout_width="wrap_content"
@@ -35,6 +38,8 @@
         android:layout_marginTop="5dp"
         android:includeFontPadding="false"
         android:text="@string/app_name"
+        android:drawableStart="@mipmap/ic_diamond_small"
+        android:drawablePadding="@dimen/dp_6"
         android:textColor="@android:color/black"
         android:textSize="@dimen/sp_12" />
 </LinearLayout>

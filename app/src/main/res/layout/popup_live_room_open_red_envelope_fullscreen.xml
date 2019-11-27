@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@id/rlOpenRed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/ivOpenRedEnvelope"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="@dimen/dp_270"
+                android:layout_centerHorizontal="true"
+                android:src="@mipmap/ic_live_chat_open_red_envelope"
+                tools:ignore="ContentDescription" />
+
+
+            <!--        <ImageView-->
+            <!--        android:id="@id/ivOpenRed"-->
+            <!--        android:layout_width="wrap_content"-->
+            <!--        android:layout_height="wrap_content"-->
+            <!--        android:layout_centerInParent="true"-->
+            <!--        android:src="@mipmap/ic_live_chat_open_red"-->
+            <!--        tools:ignore="ContentDescription" />-->
+
+            <TextView
+                android:id="@+id/tvRedTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_70"
+                android:text="@string/live_chat_open_red_hin"
+                android:textColor="#FFE1BB"
+                android:textSize="@dimen/sp_18" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@id/layoutOpenRedMoney"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                tools:ignore="UselessParent">
+
+                <ImageView
+                    android:id="@id/ivOpenRedResult"
+                    android:layout_width="@dimen/dp_200"
+                    android:layout_height="@dimen/dp_270"
+                    android:layout_centerHorizontal="true"
+                    android:src="@mipmap/ic_live_chat_open_result"
+                    tools:ignore="ContentDescription" />
+
+                <ImageView
+                    android:id="@id/ivOpenRedLogo"
+                    android:layout_width="@dimen/dp_66"
+                    android:layout_height="@dimen/dp_66"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_120"
+                    android:src="@mipmap/ic_mine_base_user"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@id/tvRedName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/ivOpenRedLogo"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:textColor="@color/color_ffe1bb"
+                    android:textSize="@dimen/sp_18"
+                    tools:text="鸵鸟MMP" />
+
+
+                <TextView
+                    android:id="@id/tvRedContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tvRedName"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/color_ffe1bb"
+                    android:textSize="@dimen/sp_14"
+                    tools:text="傻逼！曹尼玛！" />
+
+
+                <LinearLayout
+                    android:id="@+id/llContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dp_20">
+
+                    <View
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_gravity="center"
+                        android:background="@color/color_C38063" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:text="@string/live_chat_open_red_obtain"
+                        android:textColor="@color/color_C38063"
+                        android:textSize="@dimen/sp_12" />
+
+                    <View
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_gravity="center"
+                        android:background="@color/color_C38063" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llContent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="@dimen/dp_24"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_24">
+
+                    <TextView
+                        android:id="@id/tvRedMoney"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:textColor="@color/color_FF3340"
+                        android:textSize="@dimen/sp_38"
+                        android:textStyle="bold"
+                        tools:text="88.88" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_0"
+                        android:text="@string/live_chat_open_red_yuan"
+                        android:textColor="@color/color_FF3340"
+                        android:textSize="@dimen/sp_18" />
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@id/llRedOver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/llRedOverOne"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="@dimen/dp_270"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/ic_live_chat_open_result"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="@string/live_chat_red_damn"
+                    android:textColor="@color/color_C38063"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:text="@string/live_chat_red_damn_next"
+                    android:textColor="@color/color_C38063"
+                    android:textSize="@dimen/sp_14" />
+
+                <ImageView
+                    android:id="@+id/ivOpenNoRedLogo"
+                    android:layout_width="@dimen/dp_66"
+                    android:layout_height="@dimen/dp_66"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_28"
+                    android:src="@mipmap/ic_mine_base_user"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tvRedNoName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_14"
+                    android:textColor="@color/color_ffe1bb"
+                    android:textSize="@dimen/sp_18"
+                    tools:text="鸵鸟MMP" />
+
+
+                <TextView
+                    android:id="@+id/tvRedNoContent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textColor="@color/color_ffe1bb"
+                    android:textSize="@dimen/sp_14"
+                    tools:text="傻逼！曹尼玛！" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/relRedClose"
+        android:layout_width="@dimen/dp_56"
+        android:layout_height="@dimen/dp_56"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        android:padding="@dimen/dp_14"
+        android:src="@mipmap/ic_live_red_close"
+        tools:ignore="ContentDescription" />
+
+
+</LinearLayout>

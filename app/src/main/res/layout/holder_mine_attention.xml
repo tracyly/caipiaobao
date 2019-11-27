@@ -2,6 +2,7 @@
 <com.fenghuang.caipiaobao.widget.sideslipdeletelayout.SideslipDeleteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/attentionRoot"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_80"
     android:clickable="true"
@@ -15,6 +16,14 @@
         android:layout_height="match_parent"
         android:paddingStart="@dimen/dp_10"
         android:paddingEnd="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/guideTv"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_1"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/dp_70"
+            android:visibility="invisible" />
 
         <RelativeLayout
             android:id="@+id/rlPhoto"

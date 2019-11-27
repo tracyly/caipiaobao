@@ -2,6 +2,7 @@ package com.fenghuang.caipiaobao.utils
 
 import com.fenghuang.baselib.utils.SpUtils
 import com.fenghuang.caipiaobao.constant.UserConstant
+import com.fenghuang.caipiaobao.ui.mine.data.MineUserBankList
 
 /**
  *
@@ -86,17 +87,6 @@ object UserInfoSp {
     }
 
     /**
-     * 银行卡
-     */
-    fun putUserBank(bankCard: String) {
-        SpUtils.putString(UserConstant.USER_BANK, JsonUtils.toJson(bankCard))
-    }
-
-    fun getUserBank(): String? {
-        return SpUtils.getString(UserConstant.USER_BANK)
-    }
-
-    /**
      * 手机号
      */
     fun putUserPhone(phone: String) {
@@ -139,4 +129,42 @@ object UserInfoSp {
     fun getUserProfile(): String? {
         return SpUtils.getString(UserConstant.USER_PROFILE)
     }
+
+    /**
+     * 银行卡信息记录
+     */
+    fun putSelectBankCard(mineBank: MineUserBankList) {
+        SpUtils.putString(UserConstant.USER_BANK_SELECT, JsonUtils.toJson(mineBank))
+    }
+
+    fun getSelectBankCard(): MineUserBankList? {
+        return if (SpUtils.getString(UserConstant.USER_BANK_SELECT) != "") {
+            JsonUtils.fromJson(SpUtils.getString(UserConstant.USER_BANK_SELECT).toString(), MineUserBankList::class.java)
+        } else null
+
+    }
+
+    /**
+     * 是否提示送礼物信息
+     */
+    fun putSendGiftTips(boolean: Boolean) {
+        SpUtils.putBoolean("GiftTips", boolean)
+    }
+
+    fun getSendGiftTips(): Boolean {
+        return SpUtils.getBoolean("GiftTips", true)
+    }
+
+    /**
+     * 是否设置登录密码
+     */
+
+    fun putIsSetPayPassWord(boolean: Boolean) {
+        SpUtils.putBoolean("PayPassWord", boolean)
+    }
+
+    fun getIsSetPayPassWord(): Boolean {
+        return SpUtils.getBoolean("PayPassWord", false)
+    }
+
 }

@@ -2,6 +2,7 @@ import android.content.Context
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.ui.login.LoginFragment
 import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.fenghuang.caipiaobao.widget.dialog.TipsConfirmDialog
 import com.pingerx.rxnetgo.exception.ApiException
 
@@ -26,6 +27,7 @@ object ExceptionDialog {
             }
             dialog.setCanceledOnTouchOutside(false)
             dialog.show()
+            UserInfoSp.putIsLogin(false)
         } else {
             ToastUtils.showError(exception.getMsg())
         }
@@ -39,5 +41,6 @@ object ExceptionDialog {
         }
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
+        UserInfoSp.putIsLogin(false)
     }
 }

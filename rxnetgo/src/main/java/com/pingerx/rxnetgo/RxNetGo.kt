@@ -69,7 +69,7 @@ class RxNetGo {
     private var mClient: OkHttpClient? = null           // okhttp请求的客户端
 
     private var mRetryCount: Int = 0                // 全局超时重试次数
-    private var mCacheMode: CacheMode? = null       // 全局缓存模式
+    private var mCacheMode: CacheMode = CacheMode.NONE       // 全局缓存模式
     private var mCacheTime: Long = 0                // 全局缓存过期时间,默认永不过期
     private var mCacheVersion: Int = 0              // 全局缓存版本，如果版本升级，则会清空之前的所有缓存
 
@@ -111,9 +111,9 @@ class RxNetGo {
         mRetryCount = 3
         mCacheTime = CACHE_NEVER_EXPIRE
         // 默认不使用缓存
-        mCacheMode = CacheMode.FIRST_REMOTE_THEN_CACHE
+        mCacheMode = CacheMode.NONE
         // 缓存版本如果不修改，则缓存永远进行覆盖
-        mCacheVersion = 1
+        mCacheVersion = 2
 
         val builder = OkHttpClient.Builder()
 

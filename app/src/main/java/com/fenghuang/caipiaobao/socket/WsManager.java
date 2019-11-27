@@ -56,12 +56,7 @@ public class WsManager implements IWsManager {
             connected();
             if (wsStatusListener != null) {
                 if (Looper.myLooper() != Looper.getMainLooper()) {
-                    wsMainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            wsStatusListener.onOpen(response);
-                        }
-                    });
+                    wsMainHandler.post(() -> wsStatusListener.onOpen(response));
                 } else {
                     wsStatusListener.onOpen(response);
                 }
@@ -72,12 +67,7 @@ public class WsManager implements IWsManager {
         public void onMessage(WebSocket webSocket, final ByteString bytes) {
             if (wsStatusListener != null) {
                 if (Looper.myLooper() != Looper.getMainLooper()) {
-                    wsMainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            wsStatusListener.onMessage(bytes);
-                        }
-                    });
+                    wsMainHandler.post(() -> wsStatusListener.onMessage(bytes));
                 } else {
                     wsStatusListener.onMessage(bytes);
                 }
@@ -88,12 +78,7 @@ public class WsManager implements IWsManager {
         public void onMessage(WebSocket webSocket, final String text) {
             if (wsStatusListener != null) {
                 if (Looper.myLooper() != Looper.getMainLooper()) {
-                    wsMainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            wsStatusListener.onMessage(text);
-                        }
-                    });
+                    wsMainHandler.post(() -> wsStatusListener.onMessage(text));
                 } else {
                     wsStatusListener.onMessage(text);
                 }
@@ -120,12 +105,7 @@ public class WsManager implements IWsManager {
         public void onClosed(WebSocket webSocket, final int code, final String reason) {
             if (wsStatusListener != null) {
                 if (Looper.myLooper() != Looper.getMainLooper()) {
-                    wsMainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            wsStatusListener.onClosed(code, reason);
-                        }
-                    });
+                    wsMainHandler.post(() -> wsStatusListener.onClosed(code, reason));
                 } else {
                     wsStatusListener.onClosed(code, reason);
                 }

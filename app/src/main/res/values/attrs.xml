@@ -167,13 +167,7 @@
         <attr name="leftSwipe" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="CodeEditView">
-        <attr name="textColor" format="color" />
-        <attr name="textSize" format="integer" />
-        <attr name="borderSize" format="integer" />
-        <attr name="borderMargin" format="integer" />
-        <attr name="borderNum" format="integer" />
-    </declare-styleable>
+
 
 
     <!-- cardView -->
@@ -275,6 +269,33 @@
         <attr name="play_count" format="integer" />
         <!--播放完成后是否停留在最后一帧，默认false-->
         <attr name="end_last_frame" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PasswordInput">
+        <!--获得焦点时的颜色-->
+        <attr name="focusedColor" format="color" />
+        <!--未获得焦点时的颜色-->
+        <attr name="notFocusedColor" format="color" />
+        <!--背景色-->
+        <attr name="backgroundColor" format="color" />
+        <!--字符方块的数量-->
+        <attr name="boxCount" format="integer" />
+        <!--获得焦点时颜色是否改变-->
+        <attr name="focusColorChangeEnable" format="boolean" />
+        <!--圆点半径-->
+        <attr name="dotRaduis" format="dimension" />
+    </declare-styleable>
+
+
+    <!-- RewardAnim -->
+    <declare-styleable name="RewardLayout">
+        <attr name="max_gift" format="integer" />
+        <attr name="gift_item_layout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PageMenuLayout">
+        <attr name="pagemenu_row_count" format="integer" />
+        <attr name="pagemenu_span_count" format="integer" />
     </declare-styleable>
 
 
