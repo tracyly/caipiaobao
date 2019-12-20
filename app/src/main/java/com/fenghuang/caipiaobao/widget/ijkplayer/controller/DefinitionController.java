@@ -21,6 +21,7 @@ import com.fenghuang.caipiaobao.R;
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.interf.DefinitionMediaPlayerControl;
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.VideoView;
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.util.PlayerUtils;
+import com.fenghuang.caipiaobao.widget.ijkplayer.controller.widget.StandardVideoController;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

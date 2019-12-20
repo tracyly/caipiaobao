@@ -67,7 +67,7 @@ public class DefinitionVideoView extends VideoView implements DefinitionMediaPla
     }
 
     @Override
-    protected void initPlayer() {
+    public void initPlayer() {
         super.initPlayer();
         if (mDanmaku == null) {
             initDanMuView();

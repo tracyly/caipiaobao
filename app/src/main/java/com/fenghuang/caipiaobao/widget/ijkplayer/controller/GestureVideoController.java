@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.fenghuang.baselib.utils.LogUtils;
 import com.fenghuang.caipiaobao.widget.ijkplayer.controller.util.PlayerUtils;
 
 
@@ -82,6 +83,7 @@ public abstract class GestureVideoController<T extends MediaPlayerControl> exten
 
     @Override
     public boolean onSingleTapConfirmed(MotionEvent e) {
+        LogUtils.INSTANCE.e("-----------MotionEvent--------");
         if (mShowing) {
             hide();
         } else {

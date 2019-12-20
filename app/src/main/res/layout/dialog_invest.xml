@@ -39,9 +39,12 @@
                 android:background="@null"
                 android:hint="@string/mine_online_invest_money"
                 android:inputType="numberDecimal"
+                android:maxLength="6"
+
                 android:paddingStart="@dimen/dp_10"
                 android:paddingEnd="@dimen/dp_0"
                 android:textColor="@color/black"
+                android:textColorHint="@color/grey_e6"
                 android:textSize="@dimen/sp_13" />
         </com.fenghuang.baselib.widget.round.RoundLinearLayout>
 

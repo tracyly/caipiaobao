@@ -1,22 +1,21 @@
 package com.fenghuang.caipiaobao.widget.textview;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.Spanned;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.facebook.drawee.drawable.ForwardingDrawable;
+import com.fenghuang.caipiaobao.widget.chat.bean.EmojiconTextView;
 
 /**
  * @ Author  QinTian
  * @ Date  2019/11/21- 12:29
  * @ Describe
  */
-public class DraweeTextView extends TextView {
+public class DraweeTextView extends EmojiconTextView {
     private boolean mHasDraweeInText;
     // detect drawee-spans has been attached or not
     private boolean mIsSpanAttached;
@@ -33,13 +32,9 @@ public class DraweeTextView extends TextView {
         super(context, attrs, defStyleAttr);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public DraweeTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
 
     @Override
-    public void setText(CharSequence text, BufferType type) {
+    public void setText(CharSequence text, TextView.BufferType type) {
         boolean wasSpanAttached = mIsSpanAttached;
         if (mHasDraweeInText && wasSpanAttached) {
             onDetach(); // detach all old images

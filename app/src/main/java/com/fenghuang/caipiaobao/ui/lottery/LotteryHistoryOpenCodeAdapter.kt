@@ -17,7 +17,7 @@ import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeHistoryResponse
  *
  */
 
-class LotteryHistoryOpenCodeAdapter(context: Context) : BaseRecyclerAdapter<LotteryCodeHistoryResponse>(context) {
+class LotteryHistoryOpenCodeAdapter(context: Context, var lotteryId: Int) : BaseRecyclerAdapter<LotteryCodeHistoryResponse>(context) {
 
     val codeResults = arrayListOf<String>()
 
@@ -33,7 +33,10 @@ class LotteryHistoryOpenCodeAdapter(context: Context) : BaseRecyclerAdapter<Lott
             for (i in data.code.split(",")) {
                 codeResults.add(i)
             }
-            initLotteryOpenCode(findView(R.id.rvHistoryOpenCode), codeResults)
+            if (codeResults.size == 7) {
+                codeResults.add(6, "+")
+                initLotteryHongKongOpenCode(findView(R.id.rvHistoryOpenCode), codeResults)
+            } else initLotteryOpenCode(findView(R.id.rvHistoryOpenCode), codeResults)
         }
     }
 
@@ -44,4 +47,14 @@ class LotteryHistoryOpenCodeAdapter(context: Context) : BaseRecyclerAdapter<Lott
         recyclerView.adapter = lotteryOpenCodeAdapter
         recyclerView.layoutManager = value
     }
+
+    //香港彩适配器
+    private fun initLotteryHongKongOpenCode(recyclerView: RecyclerView, data: List<String>?) {
+        val value = LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
+        val lotteryOpenCodeHongKongAdapter = LotteryOpenCodeHongKongAdapter(getContext())
+        lotteryOpenCodeHongKongAdapter.addAll(data)
+        recyclerView.adapter = lotteryOpenCodeHongKongAdapter
+        recyclerView.layoutManager = value
+    }
+
 }

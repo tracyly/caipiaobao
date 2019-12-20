@@ -18,7 +18,7 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineRewardRecordResponse
  *
  */
 
-class MineRewardRecordAdapter(context: Context) : BaseRecyclerAdapter<MineRewardRecordResponse>(context) {
+class MineRewardRecordAdapter(context: Context, val rewardRecordPresenter: MineRewardRecordPresenter) : BaseRecyclerAdapter<MineRewardRecordResponse>(context) {
 
 
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<MineRewardRecordResponse> {
@@ -33,9 +33,12 @@ class MineRewardRecordAdapter(context: Context) : BaseRecyclerAdapter<MineReward
             setText(R.id.tvGiftName, data.giftname)
             setText(R.id.tvGiftNum, data.gift_num.toString())
             findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {
+                rewardRecordPresenter.deleteRewardRecord(data.id)
                 remove(getDataPosition())
             }
         }
+
+
     }
 
 

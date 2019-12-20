@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_76"
+        android:background="@mipmap/ic_login_success" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_100"
+        android:layout_marginTop="@dimen/dp_70"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_7"
+            android:layout_marginTop="@dimen/dp_2"
+            android:text="恭喜您注册成功"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_100"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_20"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_5"
+            android:layout_marginTop="@dimen/dp_1"
+            android:text="立即充值即可参与"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:id="@+id/tvFirstRecharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
+            android:text="首冲活动"
+            android:textColor="@color/color_FF513E"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
+            android:text="领取彩金"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/tvGoMain"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_marginStart="@dimen/dp_34"
+        android:layout_marginTop="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dp_34"
+        android:gravity="center"
+        android:text="立即开启"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12"
+        app:rv_backgroundColor="@color/color_FF513E"
+        app:rv_cornerRadius="@dimen/dp_24" />
+
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/tvEditInfo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_marginStart="@dimen/dp_34"
+        android:layout_marginTop="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dp_34"
+        android:gravity="center"
+        android:text="完善信息"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12"
+        app:rv_backgroundColor="@color/color_FF513E"
+        app:rv_cornerRadius="@dimen/dp_24" />
+
+</LinearLayout>

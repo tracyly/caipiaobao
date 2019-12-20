@@ -35,7 +35,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
                 <TextView
                     android:id="@+id/tvOpenCount"
@@ -89,8 +90,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/linTime"
-                    android:paddingStart="@dimen/dp_14"
-                    android:paddingTop="@dimen/dp_18"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingTop="@dimen/dp_16"
+                    android:paddingEnd="@dimen/dp_0" />
+
+                <TextView
+                    android:id="@+id/firstPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linTime"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:paddingStart="@dimen/dp_10"
+                    android:text="加载中.."
+                    android:textColor="@color/text_red"
                     android:paddingEnd="@dimen/dp_0" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -121,6 +134,14 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/anchorTabView"
                 android:layout_marginTop="@dimen/dp_6" />
+
+            <TextView
+                android:id="@+id/secondPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="加载中.."
+                android:textColor="@color/text_red" />
 
             <com.fenghuang.baselib.widget.placeholder.PlaceholderView
                 android:id="@+id/placeholders"
@@ -177,5 +198,50 @@
             tools:ignore="UnknownIdInLayout" />
     </RelativeLayout>
 
+    <!--错误视图容器-->
+    <LinearLayout
+        android:id="@+id/errorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:src="@mipmap/ic_wuwangluo" />
+
+        <TextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/app_recycler_error"
+            android:textColor="@color/grey_95" />
+
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/tvErrorRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_22"
+            android:paddingLeft="@dimen/dp_24"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_24"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="@string/app_click_retry"
+            android:textColor="@color/white"
+            app:rv_backgroundColor="?attr/colorPrimary"
+            app:rv_cornerRadius="@dimen/dp_24"
+            app:rv_isRippleEnable="true" />
+
+    </LinearLayout>
 </FrameLayout>

@@ -19,13 +19,16 @@ class LotteryExpertPlanPresenter(var mLotteryId: Int, var mIssue: String) : Base
         mIssue = issue
         LotteryApi.getExpertPlan(lottery_id, issue) {
             onSuccess {
-                if (it.isNotEmpty()) {
-                    if (mView.getStartPage() == 1) {
-                        mView.clear()
+                if (mView.isActive()) {
+
+                    if (it.isNotEmpty()) {
+                        if (mView.getStartPage() == 1) {
+                            mView.clear()
+                        }
+                        mView.addDatas(it)
+                    } else {
+                        mView.showPageEmpty()
                     }
-                    mView.addDatas(it)
-                } else {
-                    mView.showPageEmpty()
                 }
             }
             onFailed {

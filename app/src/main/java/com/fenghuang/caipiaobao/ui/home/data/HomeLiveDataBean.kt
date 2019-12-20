@@ -29,12 +29,35 @@ data class HomeLiveChatBean(var position: String,
                             var gift_name: String,
                             var gift_price: Float,
                             var gift_num: Int,
-                            var vip: String,
+                            var vip: Int,
                             var icon: String,
                             var r_id: Int, var avatar: String?, var code: Int) : Parcelable
 
-// 横屏时发送的聊天弹幕消息
-data class HomeLiveChatPostEvenBean(var content: String)
+
+// 聊天室
+@Parcelize
+data class HomeLiveChatBeanNew(var position: String,
+                               var room_id: String,
+                               var sendTime: Long,
+                               var sendTimeTxt: String,
+                               var gift_text: String,
+                               var size: String,
+                               var type: String,
+                               var text: String,
+                               var color: String,
+                               var isMe: Boolean,
+                               var user_id: String,
+                               var userType: String,
+                               var userName: String,
+                               var gift_id: String,
+                               var gift_type: String,
+                               var gift_name: String,
+                               var gift_price: Float,
+                               var gift_num: String,
+                               var vip: String,
+                               var icon: String,
+                               var r_id: String, var avatar: String?, var code: String) : Parcelable
+
 
 // 聊天室礼物榜单
 data class HomeLiveRoomRewardBean(var avatar: String)
@@ -52,6 +75,7 @@ data class HomeLiveRoomBean(var anchor_id: Int,
                             var online: Int,
                             var is_top_txt: String,
                             var live_status_txt: String,
+                            var isFollow: Boolean,
                             var liveInfo: List<HomeLiveRoomListBean>)
 
 data class HomeLiveRoomListBean(var liveUrl: HomeLiveRoomListLiveUrlBean,
@@ -100,6 +124,7 @@ data class HomeLiveRedRoom(var id: Int,
 
 data class HomeLiveAnchorInfoBean(var anchor_id: Int,
                                   var avatar: String,
+                                  var zan: String,
                                   var duration: Int,
                                   var fans: Int,
                                   var follow_num: Int,
@@ -153,4 +178,10 @@ data class HomeLiveSmallAnimatorBean(var gift_id: Int, var git_name: String, var
 data class HomeLiveColseSoftKeyBord(var isClose: Boolean)
 
 
+//广告图
+data class HomeLiveAdImg(var image_url: String)
 
+data class BetLotteryBean(var betting: String, var customer: String, var gameUrl: String)
+
+//开播推送
+data class AnchorPush(var anchor_id: String, var anchor_avatar: String, var anchor_nickname: String)

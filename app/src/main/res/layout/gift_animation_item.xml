@@ -19,7 +19,6 @@
         android:layout_width="43dp"
         android:layout_height="43dp"
         android:layout_marginStart="10dp"
-        android:background="@mipmap/ic_mine_base_user"
         android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -77,7 +76,6 @@
         android:layout_height="@dimen/dp_50"
         android:layout_marginStart="20dp"
         android:contentDescription="@string/app_name"
-        android:src="@mipmap/ic_mine_base_user"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/br"
         app:layout_constraintTop_toTopOf="parent" />

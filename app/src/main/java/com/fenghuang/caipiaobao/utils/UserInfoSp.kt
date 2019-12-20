@@ -94,7 +94,7 @@ object UserInfoSp {
     }
 
     fun getUserPhone(): String? {
-        return SpUtils.getString(UserConstant.USER_PHONE, defValue = "0")
+        return SpUtils.getString(UserConstant.USER_PHONE)
     }
 
     /**
@@ -167,4 +167,113 @@ object UserInfoSp {
         return SpUtils.getBoolean("PayPassWord", false)
     }
 
+    /**
+     * 是否首冲
+     */
+    fun putIsFirstRecharge(boolean: Boolean) {
+        SpUtils.putBoolean("IsFirstRecharge", boolean)
+    }
+
+    fun getIsFirstRecharge(): Boolean {
+        return SpUtils.getBoolean("IsFirstRecharge", true)
+    }
+
+    /**
+     * 弹幕开关
+     */
+    fun putDanMuSwitch(boolean: Boolean) {
+        SpUtils.putBoolean("DanMuSwitch", boolean)
+    }
+
+    fun getDanMuSwitch(): Boolean {
+        return SpUtils.getBoolean("DanMuSwitch", true)
+    }
+
+    /**
+     * 首页引导图
+     */
+    fun putMainGuide(boolean: Boolean) {
+        SpUtils.putBoolean("MainGuide", boolean)
+    }
+
+    fun getMainGuide(): Boolean {
+        return SpUtils.getBoolean("MainGuide", false)
+    }
+
+    /**
+     * 开奖引导图
+     */
+    fun putOpenCodeGuide(boolean: Boolean) {
+        SpUtils.putBoolean("OpenCodeGuide", boolean)
+    }
+
+    fun getOpenCodeGuide(): Boolean {
+        return SpUtils.getBoolean("OpenCodeGuide", false)
+    }
+
+    /**
+     * 我的界面引导图
+     */
+    fun putMineGuide(boolean: Boolean) {
+        SpUtils.putBoolean("MineGuide", boolean)
+    }
+
+    fun getMineGuide(): Boolean {
+        return SpUtils.getBoolean("MineGuide", false)
+    }
+
+    /**
+     * 关注引导图
+     */
+    fun putAttentionGuide(boolean: Boolean) {
+        SpUtils.putBoolean("AttentionGuide", boolean)
+    }
+
+    fun getAttentionGuide(): Boolean {
+        return SpUtils.getBoolean("AttentionGuide", false)
+    }
+
+    /**
+     * 打赏引导图
+     */
+    fun putRewardnGuide(boolean: Boolean) {
+        SpUtils.putBoolean("RewardnGuide", boolean)
+    }
+
+    fun getRewardnGuide(): Boolean {
+        return SpUtils.getBoolean("RewardnGuide", false)
+    }
+
+    /**
+     * 是否悬浮
+     */
+    fun isAboveLive(boolean: Boolean) {
+        SpUtils.putBoolean("AboveLive", boolean)
+    }
+
+    fun getIsAboveLive(): Boolean {
+        return SpUtils.getBoolean("AboveLive", false)
+    }
+
+    /**
+     * 记录Vip等级
+     */
+    fun setVipLevel(boolean: Int) {
+        SpUtils.putInt("VipLevel", boolean)
+    }
+
+    fun getVipLevel(): Int {
+        return SpUtils.getInt("VipLevel", 0)
+    }
+
+    /**
+     * 记录Vip等级 0-用户 1-主播
+     */
+    fun setUserType(boolean: String) {
+        SpUtils.putString("UserType", boolean)
+    }
+
+    fun getUserType(): String? {
+        return SpUtils.getString("UserType")
+    }
 }

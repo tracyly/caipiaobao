@@ -56,7 +56,7 @@ public class DanmukuVideoView extends VideoView {
     }
 
     @Override
-    protected void initPlayer() {
+    public void initPlayer() {
         super.initPlayer();
         if (mDanmakuView == null) {
             initDanMuView();
@@ -231,7 +231,7 @@ public class DanmukuVideoView extends VideoView {
         danmaku.textColor = Color.WHITE;
         danmaku.textShadowColor = Color.GRAY;
         // danmaku.underlineColor = Color.GREEN;
-        danmaku.borderColor = isSelf ? Color.GREEN : Color.TRANSPARENT;
+//        danmaku.borderColor = isSelf ? Color.GREEN : Color.TRANSPARENT;
         mDanmakuView.addDanmaku(danmaku);
     }
 
@@ -249,7 +249,6 @@ public class DanmukuVideoView extends VideoView {
         Drawable drawable = ContextCompat.getDrawable(getContext(), R.mipmap.ic_launcher_round);
         int size = PlayerUtils.dp2px(getContext(), 20);
         drawable.setBounds(0, 0, size, size);
-
 //        danmaku.text = "这是一条弹幕";
         danmaku.text = createSpannable(drawable);
 //        danmaku.padding = 5;

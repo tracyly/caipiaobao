@@ -3,61 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/dp_6">
-
-
-    <RelativeLayout
-        android:visibility="gone"
-        android:id="@+id/layoutContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_6">
-
-        <TextView
-            android:id="@id/tvLiveChatUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_6"
-            android:layout_toEndOf="@id/ivLiveVip"
-            android:gravity="center"
-            android:textColor="@color/color_999999"
-            android:textSize="@dimen/sp_12"
-            tools:text="我叫什么呢：" />
-
-
-        <ImageView
-            android:id="@id/ivLiveVip"
-            android:layout_width="@dimen/dp_36"
-            android:layout_height="@dimen/dp_16"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/dp_12"
-            android:src="@mipmap/ic_live_chat_vip_1"
-            tools:ignore="ContentDescription" />
-
-    </RelativeLayout>
-
-
-    <TextView
-        android:gravity="bottom"
-        android:id="@id/tvLiveChatContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_6"
-        android:layout_marginTop="@dimen/dp_6"
-        android:layout_marginEnd="@dimen/dp_12"
-        android:lineSpacingExtra="@dimen/dp_4"
-        android:textColor="@color/color_666666"
-        android:textSize="@dimen/sp_12"
-        android:visibility="gone" />
+    android:layout_marginTop="@dimen/dp_8">
 
     <com.fenghuang.caipiaobao.widget.textview.DraweeTextView
         android:id="@+id/tvChatContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_2"
+        android:layout_centerInParent="true"
         android:gravity="center_vertical"
+        android:lineSpacingExtra="@dimen/dp_6"
         android:paddingStart="@dimen/dp_10"
-        android:textSize="@dimen/sp_12"
+        android:textSize="@dimen/sp_13"
         tools:ignore="RtlSymmetry" />
 
 </RelativeLayout>

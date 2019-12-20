@@ -13,3 +13,5 @@ data class LotteryDataBean(var title: String, var image: Int)
 data class LotteryOpenCodeDataBean(var code: String)
 
 data class LotteryHistoryOpenCodeBean(var code: String, var issue: String, var input_time: String)
+
+data class UserChangePhoto(var photo: String, var name: String, var sign: String, var isUpLoad: Boolean, var loadAll: Boolean = false)

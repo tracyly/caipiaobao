@@ -40,6 +40,8 @@ import com.facebook.imagepipeline.image.CloseableStaticBitmap;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
+import java.lang.ref.WeakReference;
+
 /**
  * @ Author  QinTian
  * @ Date  2019/11/21- 12:30
@@ -84,25 +86,52 @@ public class DraweeSpan extends DynamicDrawableSpan implements DeferredReleaser.
         return mActualDrawable;
     }
 
+    private int ALIGN_FONTCENTER = 2;
+    private WeakReference<Drawable> mDrawableRef;
+
     @Override
-    public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fm) {
-        Drawable d = getDrawable();
-        Rect rect = d.getBounds();
+    public int getSize(Paint paint, CharSequence text, int start, int end, Paint.FontMetricsInt fontMetricsInt) {
+        Drawable drawable = getDrawable();
+        Rect rect = drawable.getBounds();
+        if (fontMetricsInt != null) {
+            Paint.FontMetricsInt fmPaint = paint.getFontMetricsInt();
+            int fontHeight = fmPaint.descent - fmPaint.ascent;
+            int drHeight = rect.bottom - rect.top;
+            int centerY = fmPaint.ascent + fontHeight / 2;
 
-        if (fm != null) {
-            fm.ascent = -rect.bottom - mMargin.top;
-            fm.descent = 0;
-
-            fm.top = fm.ascent;
-            fm.bottom = 0;
+            fontMetricsInt.ascent = centerY - drHeight / 2;
+            fontMetricsInt.top = fontMetricsInt.ascent;
+            fontMetricsInt.bottom = centerY + drHeight / 2;
+            fontMetricsInt.descent = fontMetricsInt.bottom;
         }
-
-        return rect.right + mMargin.left + mMargin.right;
-    }
-
-    @Override
-    public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
-        super.draw(canvas, text, start, end, x + mMargin.left, top, y, bottom, paint);
+        return rect.right;
+//        Drawable d = getDrawable();
+//        Rect rect = d.getBounds();
+//
+//        if (fm != null) {
+//            fm.ascent = -rect.bottom - mMargin.top;
+//            fm.descent = 0;
+//
+//            fm.top = fm.ascent;
+//            fm.bottom = 0;
+//        }
+//
+//        return rect.right + mMargin.left + mMargin.right;
+//        Rect rect = d.getBounds();
+//        if (fm != null) {
+//            Paint.FontMetricsInt fmPaint = paint.getFontMetricsInt();
+//            int fontHeight = fmPaint.bottom - fmPaint.top;
+//            int drHeight = rect.bottom - rect.top;
+//
+//            int top = drHeight / 2 - fontHeight / 4;
+//            int bottom = drHeight / 2 + fontHeight / 4;
+//
+//            fm.ascent = -bottom;
+//            fm.top = -bottom;
+//            fm.bottom = top;
+//            fm.descent = top;
+//        }
+//        return rect.right;
     }
 
     public void setImage(Drawable drawable) {
@@ -429,5 +458,56 @@ public class DraweeSpan extends DynamicDrawableSpan implements DeferredReleaser.
             span.layout();
             return span;
         }
+    }
+
+    @Override
+    public void draw(Canvas canvas, CharSequence text, int start, int end, float x, int top, int y, int bottom, Paint paint) {
+        Drawable drawable = getCachedDrawable();
+        canvas.save();
+        Paint.FontMetricsInt fmPaint = paint.getFontMetricsInt();
+        int fontHeight = fmPaint.descent - fmPaint.ascent;
+        int centerY = y + fmPaint.descent - fontHeight / 2;
+        int transY = centerY - (drawable.getBounds().bottom - drawable.getBounds().top) / 2;
+        canvas.translate(x, transY);
+        drawable.draw(canvas);
+        canvas.restore();
+//        super.draw(canvas, text, start, end, x + mMargin.left, top, y, bottom, paint);
+//        //draw 方法是重写的ImageSpan父类 DynamicDrawableSpan中的方法，在DynamicDrawableSpan类中，虽有getCachedDrawable()，
+//        // 但是私有的，不能被调用，所以调用ImageSpan中的getrawable()方法，该方法中 会根据传入的drawable ID ，获取该id对应的
+//        // drawable的流对象，并最终获取drawable对象
+//        Drawable drawable = getDrawable(); //调用imageSpan中的方法获取drawable对象
+//        canvas.save();
+//
+//        //获取画笔的文字绘制时的具体测量数据
+//        Paint.FontMetricsInt fm = paint.getFontMetricsInt();
+//
+//        //系统原有方法，默认是Bottom模式)
+//        int transY = bottom - drawable.getBounds().bottom;
+//        if (mVerticalAlignment == ALIGN_BASELINE) {
+//            transY -= fm.descent;
+//        } else if (mVerticalAlignment == ALIGN_FONTCENTER) {    //此处加入判断， 如果是自定义的居中对齐
+//            //与文字的中间线对齐（这种方式不论是否设置行间距都能保障文字的中间线和图片的中间线是对齐的）
+//            // y+ascent得到文字内容的顶部坐标，y+descent得到文字的底部坐标，（顶部坐标+底部坐标）/2=文字内容中间线坐标
+//            transY = ((y + fm.descent) + (y + fm.ascent)) / 2 - drawable.getBounds().bottom / 2;
+//        }
+//
+//        canvas.translate(x, transY);
+//        drawable.draw(canvas);
+//        canvas.restore();
+    }
+
+    private Drawable getCachedDrawable() {
+        WeakReference<Drawable> wr = mDrawableRef;
+        Drawable d = null;
+        if (wr != null) {
+            d = wr.get();
+        }
+
+        if (d == null) {
+            d = getDrawable();
+            mDrawableRef = new WeakReference<>(d);
+        }
+
+        return d;
     }
 }

@@ -1,13 +1,16 @@
 package com.fenghuang.caipiaobao.ui.splash
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import com.fenghuang.baselib.utils.AppUtils
+import android.os.Handler
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.main.MainActivity
+import kotlinx.android.synthetic.main.activity_splash.*
 import me.jessyan.autosize.internal.CancelAdapt
+
 
 /**
  *
@@ -15,19 +18,43 @@ import me.jessyan.autosize.internal.CancelAdapt
  */
 class SplashActivity : Activity(), CancelAdapt {
 
+    var time = 3
+    var handler = Handler()
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         StatusBarUtils.setStatusBarByFlags(this)
         setContentView(R.layout.activity_splash)
+//
+//        AppUtils.postDelayed(Runnable {
+//            tvDaoJiShi.text = time.toString() + "秒跳转"
+//            time--
+//            if (time == 0) {
+//                startActivity(Intent(this, MainActivity::class.java))
+//                finish()
+//            }
+//            AppUtils.postDelayed(this,1000)
+//        }, 3000)
 
-        AppUtils.postDelayed(Runnable {
-            startActivity(Intent(this, MainActivity::class.java))
+        handler.postDelayed(object : Runnable {
+            @SuppressLint("SetTextI18n")
+            override fun run() {
+                //文字显示3秒跳转
+                tvDaoJiShi.text = time.toString() + "秒跳转"
+                time--
+                if (time == 0) {
+                    startActivity(Intent(baseContext, MainActivity::class.java))
+                    finish()
+                    return
+                }
+                handler.postDelayed(this, 1000)
+            }
+        }, 1000)
+
+        tvDaoJiShi.setOnClickListener {
+            startActivity(Intent(baseContext, MainActivity::class.java))
             finish()
-        }, 100)
+        }
     }
 
-    override fun finish() {
-        super.finish()
-        overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_in)
-    }
 }

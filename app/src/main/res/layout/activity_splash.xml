@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:scaleType="fitXY"
+        android:background="@mipmap/splash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -21,9 +23,21 @@
         android:adjustViewBounds="true"
         android:background="@color/colorOrange"
         android:contentDescription="@null"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDaoJiShi"
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_40"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

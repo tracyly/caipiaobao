@@ -72,14 +72,14 @@ class FragmentTestRule<A : FragmentTestActivity, F : Fragment>
      */
     fun launchFragment(fragment: F?) {
         try {
-            runOnUiThread(Runnable {
+            runOnUiThread {
                 val fragment2 = fragment ?: createFragment()
                 this@FragmentTestRule.fragment = fragment2
                 activity.supportFragmentManager
                         .beginTransaction()
                         .replace(android.R.id.content, fragment2)
                         .commitNow()
-            })
+            }
         } catch (throwable: Throwable) {
             throw RuntimeException(throwable)
         }

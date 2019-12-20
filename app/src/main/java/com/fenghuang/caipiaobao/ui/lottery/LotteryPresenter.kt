@@ -1,8 +1,12 @@
 package com.fenghuang.caipiaobao.ui.lottery
 
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
+import com.fenghuang.baselib.utils.NetWorkUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryApi
+import com.fenghuang.caipiaobao.ui.mine.data.MineApi
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
+import kotlinx.android.synthetic.main.fragment_home_new.*
 
 /**
  *
@@ -16,13 +20,22 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
 
 
     fun getLotteryType() {
-        LotteryApi.getLotteryType {
-            onSuccess {
-                mView.initLotteryType(it)
-                getLotteryOpenCode(it[0].lottery_id)
-            }
-            onFailed {
-                ToastUtils.showError(it.getMsg())
+        if (NetWorkUtils.isNetworkNotConnected()) {
+            mView.setVisible(mView.errorContainer)
+        } else {
+            getMoney()
+            mView.setGone(mView.errorContainer)
+            LotteryApi.getLotteryType {
+                onSuccess {
+                    if (mView.isActive()) {
+
+                        mView.initLotteryType(it)
+                        getLotteryOpenCode(it[0].lottery_id)
+                    }
+                }
+                onFailed {
+                    ToastUtils.showError(it.getMsg())
+                }
             }
         }
     }
@@ -30,7 +43,9 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
     fun getLotteryOpenCode(lotteryId: Int) {
         LotteryApi.getLotteryNewCode(lotteryId) {
             onSuccess {
-                mView.initLotteryOpenCode(it)
+                if (mView.isActive()) {
+                    mView.initLotteryOpenCode(it)
+                }
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
@@ -38,5 +53,14 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
         }
     }
 
+    /**
+     * 获取余额去判断是否被顶下去
+     */
+    fun getMoney() {
+        MineApi.getUserBalance {
+            onSuccess { }
+            onFailed { ExceptionDialog.showExpireDialog(mView.requireContext(), it) }
+        }
+    }
 
 }

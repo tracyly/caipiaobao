@@ -26,7 +26,7 @@ class SuccessDialog(context: Context, content: String, img: Int) : Dialog(contex
         lp.height = ViewUtils.dp2px(80)  // 高度
 //      lp.alpha = 0.7f // 透明度
         window!!.attributes = lp
-        setCanceledOnTouchOutside(false)
+        setCanceledOnTouchOutside(true)
         initText(content, img)
     }
 

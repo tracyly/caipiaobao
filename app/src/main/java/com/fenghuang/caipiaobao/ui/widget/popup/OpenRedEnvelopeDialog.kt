@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.utils.ViewUtils.getColor
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
@@ -41,8 +42,13 @@ class OpenRedEnvelopeDialog(context: Context) : Dialog(context) {
 //        addBackground()
         setContentView(R.layout.popup_live_room_open_red_envelope)
         setCanceledOnTouchOutside(false)
+        val lp = window!!.attributes
+        lp.width = ViewUtils.dp2px(270)
+        lp.height = ViewUtils.dp2px(400)
+        window!!.attributes = lp
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setGravity(Gravity.CENTER or Gravity.CENTER)
+        window!!.setWindowAnimations(R.style.dialogAnim)
         mOpenRed = findViewById(R.id.rlOpenRed)
         mOpenRedMoney = findViewById(R.id.layoutOpenRedMoney)
         mOpenRedLogo = findViewById(R.id.ivOpenRedLogo)

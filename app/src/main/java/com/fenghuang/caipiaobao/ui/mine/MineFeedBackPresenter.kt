@@ -1,6 +1,5 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import ExceptionDialog
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +8,7 @@ import android.widget.TextView
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
 import com.fenghuang.caipiaobao.utils.UserInfoSp
 
 /**
@@ -57,11 +57,25 @@ class MineFeedBackPresenter : BaseMvpPresenter<MineFeedBackFragment>() {
     fun subMitAdv(content: String) {
         MineApi.feedBack(content, UserInfoSp.getUserPhone()?.toLong()!!, 0, "") {
             onSuccess {
-                ToastUtils.showSuccess(it.msg)
+                if (mView.isActive()) {
+
+                    ToastUtils.showSuccess(it.msg)
+                    mView.pop()
+                }
             }
             onFailed {
                 ExceptionDialog.showExpireDialog(mView.requireContext(), it)
             }
+        }
+    }
+
+    /**
+     * 获取余额去判断是否被顶下去
+     */
+    fun getMoney() {
+        MineApi.getUserBalance {
+            onSuccess { }
+            onFailed { ExceptionDialog.showExpireDialog(mView.requireContext(), it) }
         }
     }
 }

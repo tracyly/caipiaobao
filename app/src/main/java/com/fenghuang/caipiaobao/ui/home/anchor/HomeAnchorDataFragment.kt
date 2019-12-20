@@ -45,7 +45,7 @@ class HomeAnchorDataFragment : BaseContentFragment() {
         }
         setText(R.id.tvAnchorDate, data.duration.toString())
         setText(R.id.tvAnchorOpenDate, TimeUtils.longToDateString(data.liveStartTime) + "-" + TimeUtils.longToDateString(data.liveEndTime))
-        setText(R.id.anchorGiftNumber, data.giftNum.toString() + "件")
+        setText(R.id.anchorGiftNumber, "共 " + data.giftNum.toString() + " 件")
         if (data.live_record.isNotEmpty())
             mHomeAnchorLiveRecordAdapter.addAll(data.live_record)
         else {

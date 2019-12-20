@@ -73,23 +73,28 @@ public class SvgaUtils {
         });
     }
 
+    public static void i(String tag, String msg) {  //信息太长,分段打印
+        //因为String的length是字符数量不是字节数量所以为了防止中文字符过多，
+        //  把4*1024的MAX字节打印长度改为2001字符数
+        int max_str_length = 2001 - tag.length();
+        //大于4000时
+        while (msg.length() > max_str_length) {
+            Log.e(tag, msg.substring(0, max_str_length));
+            msg = msg.substring(max_str_length);
+        }
+        //剩余部分
+        Log.e(tag, msg);
+    }
+
     /**
      * 显示动画
      */
-    public void startAnimator(String svgaName) {
+    public void startAnimator(String svgaName, SVGAImageView svgaImage) {
+//        svgaImage.setVisibility(View.VISIBLE);
         stringList.add(stringList.size(), svgaName + ".svga");
         //如果礼物容器列表的数量是1，则解析动画，如果数量不是1，则此处不解析动画，在上一个礼物解析完成之后加载再动画
         if (stringList.size() == 1) {
             parseSVGA();
-        }
-    }
-
-    /**
-     * 停止动画
-     */
-    private void stopSVGA() {
-        if (svgaImage.isAnimating() && stringList.size() == 0) {
-            svgaImage.stopAnimation();
         }
     }
 
@@ -126,5 +131,13 @@ public class SvgaUtils {
         }
     }
 
-
+    /**
+     * 停止动画
+     */
+    private void stopSVGA() {
+        if (svgaImage.isAnimating() && stringList.size() == 0) {
+            svgaImage.stopAnimation();
+//            svgaImage.setVisibility(View.GONE);
+        }
+    }
 }

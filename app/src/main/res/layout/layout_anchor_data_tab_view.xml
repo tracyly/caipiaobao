@@ -7,7 +7,8 @@
     android:layout_marginEnd="@dimen/dp_10"
     app:rv_backgroundColor="@color/white"
     android:layout_gravity="center"
-    app:rv_cornerRadius="@dimen/dp_7"
+    app:rv_cornerRadius_TL="@dimen/dp_7"
+    app:rv_cornerRadius_TR="@dimen/dp_7"
     android:id="@+id/tabBack"
     android:gravity="center"
     android:orientation="horizontal">

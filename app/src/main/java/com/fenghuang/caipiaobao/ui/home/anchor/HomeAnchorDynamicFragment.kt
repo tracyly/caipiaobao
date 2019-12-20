@@ -8,6 +8,8 @@ import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorDynamicBean
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 
 /**
  *  author : Peter
@@ -25,7 +27,7 @@ class HomeAnchorDynamicFragment : BaseRecyclerFragment<HomeAnchorDynamicPresente
     override fun attachAdapter() = HomeAnchorDynamicAdapter(getPageActivity())
 
     override fun getItemDivider(): RecyclerView.ItemDecoration? {
-        return DividerItemDecoration(getColor(R.color.color_f7f7f7), ViewUtils.dp2px(10))
+        return DividerItemDecoration(getColor(R.color.color_f7f7f7), ViewUtils.dp2px(1))
     }
 
     companion object {
@@ -41,14 +43,18 @@ class HomeAnchorDynamicFragment : BaseRecyclerFragment<HomeAnchorDynamicPresente
     override fun initEvent() {
         super.initEvent()
         (mAdapter as HomeAnchorDynamicAdapter).setOnSendLikeClickListener { id, position, data ->
-            if (data.isZan) {
-                data.isZan = false
-                data.zans--
-            } else {
-                data.isZan = true
-                data.zans++
-            }
-            mPresenter.getAnchorDynamicLike(id, position)
+
+            if (UserInfoSp.getIsLogin()) {
+                if (data.isZan) {
+                    data.isZan = false
+                    data.zans--
+                } else {
+                    data.isZan = true
+                    data.zans++
+                }
+                mPresenter.getAnchorDynamicLike(id, position)
+            } else ExceptionDialog.showExpireDialog(getPageActivity())
+
         }
     }
 

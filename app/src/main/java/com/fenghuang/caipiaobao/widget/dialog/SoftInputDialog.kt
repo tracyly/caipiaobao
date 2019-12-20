@@ -13,9 +13,9 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.baselib.widget.round.RoundTextView
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatPostEvenBean
-import com.hwangjr.rxbus.RxBus
+import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsPresenter
 
 
 /**
@@ -25,7 +25,7 @@ import com.hwangjr.rxbus.RxBus
  *
  */
 
-class SoftInputDialog(context: Context) : Dialog(context, R.style.inputDialog) {
+class SoftInputDialog(context: Context, val mPresenter: HomeLiveDetailsPresenter) : Dialog(context, R.style.inputDialog) {
 
     private var edInput: EditText? = null
 
@@ -34,7 +34,6 @@ class SoftInputDialog(context: Context) : Dialog(context, R.style.inputDialog) {
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setGravity(Gravity.BOTTOM or Gravity.BOTTOM)
         val lp = window!!.attributes
-        lp.height = 0
         lp.width = LinearLayout.LayoutParams.MATCH_PARENT// 宽度
         lp.height = LinearLayout.LayoutParams.WRAP_CONTENT  // 高度
 //        lp.alpha = 1f // 透明度
@@ -48,9 +47,9 @@ class SoftInputDialog(context: Context) : Dialog(context, R.style.inputDialog) {
         edInput?.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s?.isNotEmpty()!!) {
-                    findViewById<TextView>(R.id.tvSendText).setBackgroundColor(context.resources.getColor(R.color.colorYellow))
+                    findViewById<RoundTextView>(R.id.tvSendText).delegate.backgroundColor = context.resources.getColor(R.color.colorYellow)
                 } else {
-                    findViewById<TextView>(R.id.tvSendText).setBackgroundColor(context.resources.getColor(R.color.color_AFAFAF))
+                    findViewById<RoundTextView>(R.id.tvSendText).delegate.backgroundColor = context.resources.getColor(R.color.grey_b8)
                 }
             }
 
@@ -62,7 +61,7 @@ class SoftInputDialog(context: Context) : Dialog(context, R.style.inputDialog) {
         })
         findViewById<TextView>(R.id.tvSendText).setOnClickListener {
             if (!TextUtils.isEmpty(edInput?.text.toString())) {
-                RxBus.get().post(HomeLiveChatPostEvenBean(edInput?.text.toString()))
+                mPresenter.sendMessage(edInput?.text.toString())
                 dismiss()
             } else {
                 ToastUtils.showNormal("请输入内容")

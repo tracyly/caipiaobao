@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/ivQuizImage"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_106"
+    android:layout_height="@dimen/dp_150"
     tools:ignore="ContentDescription">
 
 

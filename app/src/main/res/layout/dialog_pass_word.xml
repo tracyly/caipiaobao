@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/dp_10"
     android:orientation="vertical">
 
 
@@ -46,18 +47,37 @@
         </RelativeLayout>
 
 
-        <com.fenghuang.caipiaobao.widget.password.PasswordInput
+        <!--        <com.fenghuang.caipiaobao.widget.password.PasswordInput-->
+        <!--            android:id="@+id/edtPassWord"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="@dimen/dp_44"-->
+        <!--            android:layout_below="@+id/tvPassTop"-->
+        <!--            android:layout_centerHorizontal="true"-->
+        <!--            android:layout_marginLeft="@dimen/dp_30"-->
+        <!--            android:layout_marginTop="@dimen/dp_16"-->
+        <!--            android:layout_marginRight="@dimen/dp_30"-->
+        <!--            android:layout_marginBottom="@dimen/dp_16"-->
+        <!--            android:imeOptions="flagNoExtractUi"-->
+        <!--            android:inputType="number" />-->
+        <!--    // 实心输入框-->
+        <com.kenny.separatededittext.SeparatedEditText
             android:id="@+id/edtPassWord"
+            android:layout_height="44dp"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_44"
-            android:layout_below="@+id/tvPassTop"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="@dimen/dp_30"
-            android:layout_marginTop="@dimen/dp_16"
-            android:layout_marginRight="@dimen/dp_30"
-            android:layout_marginBottom="@dimen/dp_16"
-            android:imeOptions="flagNoExtractUi"
-            android:inputType="number" />
+            android:layout_marginStart="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:inputType="number"
+            app:blockColor="@color/color_f5f5f5"
+            app:blockSpacing="20dp"
+            app:corner="5dp"
+            app:cursorColor="@android:color/white"
+            app:cursorDuration="500"
+            app:cursorWidth="3dp"
+            app:maxLength="6"
+            app:password="true"
+            app:separateType="@integer/type_solid"
+            app:textColor="@color/black" />
 
         <TextView
             android:id="@+id/tvFalseTip"

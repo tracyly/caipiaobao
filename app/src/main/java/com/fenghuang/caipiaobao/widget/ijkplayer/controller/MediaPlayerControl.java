@@ -48,4 +48,5 @@ public interface MediaPlayerControl {
     void stopTinyScreen();
 
     boolean isTinyScreen();
+
 }

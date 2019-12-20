@@ -112,7 +112,7 @@ class QuizTopImageHolder : MultiTypeViewHolder<QuizTopImageBean, QuizTopImageHol
 
     inner class ViewHolder(parent: ViewGroup) : BaseViewHolder<QuizTopImageBean>(context, parent, R.layout.holder_quiz_top_image) {
         override fun onBindData(data: QuizTopImageBean) {
-            setImageResource(findView(R.id.ivQuizTop), data.logo)
+//            setImageResource(findView(R.id.ivQuizTop), data.logo)
         }
     }
 }

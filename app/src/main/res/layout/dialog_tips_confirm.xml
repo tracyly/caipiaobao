@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:toos="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
     <com.fenghuang.baselib.widget.round.RoundLinearLayout
@@ -21,8 +22,10 @@
             android:layout_marginTop="@dimen/dp_30"
             android:gravity="center_horizontal"
             android:textColor="@color/color_333333"
-            android:textSize="@dimen/sp_16"
+            android:textSize="@dimen/sp_15"
+            toos:text="若要进行兑换等消费操作,请联系客服"
             android:textStyle="bold" />
+
 
 
         <TextView
@@ -30,10 +33,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="若要进行兑换等消费操作,请联系客服"
+            android:layout_marginTop="@dimen/dp_10"
+            android:visibility="gone"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_14"
-            android:visibility="gone" />
+            toos:text="若要进行兑换等消费操作,请联系客服" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,44 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main_fl_container"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <RelativeLayout
-        android:id="@+id/main_fl_card_front"
+    <ProgressBar
+        android:id="@+id/baseBetWebProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorRedAccent">
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        android:minHeight="3dp"
+        android:progressDrawable="@drawable/progress_bar_web_horizontal"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/betSmartRefreshLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/baseBetWebProgressBar">
+
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.fenghuang.caipiaobao.ui.widget.mywebview.ZpWebView
+            android:id="@+id/baseBetWebView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="正"
-            android:textColor="@android:color/white"
-            android:textSize="40sp" />
+            android:background="@color/white" />
 
-    </RelativeLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/main_fl_card_back"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/text_orange">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="反"
-            android:textColor="@android:color/white"
-            android:textSize="40sp" />
-
-    </RelativeLayout>
-
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

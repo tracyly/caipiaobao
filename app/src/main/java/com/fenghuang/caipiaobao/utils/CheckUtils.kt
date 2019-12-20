@@ -24,7 +24,7 @@ object CheckUtils {
      * "\\d{8}"代表后面是可以是0～9的数字, 有8位。
      */
     fun isMobileNumber(mobiles: String): Boolean {
-        val telRegex = "^((13[0-9])|(15[^4])|(18[0-9])|(17[0-8])|(147,145))\\d{8}$"
+        val telRegex = "^[1](([3|5|8][\\d])|([4][4,5,6,7,8,9])|([6][2,5,6,7])|([7][^9])|([9][1,8,9]))[\\d]{8}$"
         return !TextUtils.isEmpty(mobiles) && mobiles.matches(telRegex.toRegex())
     }
 }

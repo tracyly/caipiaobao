@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/dp_10"
+    android:layout_marginStart="@dimen/dp_4"
     android:layout_marginTop="@dimen/dp_10"
-    android:layout_marginEnd="@dimen/dp_10"
+    android:layout_marginEnd="@dimen/dp_4"
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="@dimen/dp_14"
@@ -63,7 +63,8 @@
         tools:text="林子大了好多鸟，林子大了好多鸟， 林子大了好多鸟" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@id/recyclerView"
+        android:id="@+id/recyclerViewQuiz"
+        android:layout_marginTop="@dimen/dp_6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -71,7 +72,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_14">
+        android:layout_marginTop="@dimen/dp_6">
 
         <TextView
             android:id="@id/tvQuizGameName"
@@ -81,6 +82,7 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_12"
+            android:visibility="gone"
             tools:text="幸运飞艇" />
 
         <TextView
@@ -91,13 +93,15 @@
             android:layout_marginStart="@dimen/dp_6"
             android:layout_toEndOf="@id/tvQuizGameName"
             android:textColor="@color/color_999999"
+            android:visibility="gone"
             android:textSize="@dimen/sp_12"
             tools:text="25期" />
 
         <LinearLayout
-            android:id="@id/quizLikeLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/quizLikeLayoutItem"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_20"
+            android:gravity="center"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:orientation="horizontal"

@@ -78,11 +78,7 @@
 
         <include layout="@layout/include_comment_layout" />
 
-        <com.fenghuang.caipiaobao.widget.chat.MutilEmoticonKeyboard
-            android:id="@+id/mEmoticonKeyboard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
+
     </LinearLayout>
 
     <ImageView

@@ -5,11 +5,15 @@ import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.login.data.LoginRegisterSuccess
+import com.fenghuang.caipiaobao.ui.login.data.LoginExit
+import com.fenghuang.caipiaobao.ui.mine.MineContactCustomerFragment
 import com.fenghuang.caipiaobao.utils.CheckUtils
+import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login_register.*
+import kotlinx.android.synthetic.main.fragment_register_success.*
 
 /**
  * @ Author  QinTian
@@ -18,6 +22,11 @@ import kotlinx.android.synthetic.main.fragment_login.*
  */
 
 class LoginFragment : BaseMvpFragment<LoginPresenter>() {
+
+    var identify: String = ""
+
+    var pass = ""
+    var phoneNum = ""
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -29,7 +38,7 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
 
     override fun isRegisterRxBus() = true
 
-    override fun getPageTitle() = getString(R.string.login_with_identify_code)
+    override fun getPageTitle() = getString(R.string.login_with_password_)
 
     override fun getContentResID() = R.layout.fragment_login
 
@@ -44,6 +53,7 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
     }
 
+    var registerBtn = false
     override fun initEvent() {
         tvLoginType.setOnClickListener {
             if (tvLoginType.text == getString(R.string.login_with_password_)) {
@@ -61,8 +71,7 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
 
         tvGetIdentifyCode.setOnClickListener {
             if (CheckUtils.isMobileNumber(etPhoneNum.text.toString())) {
-                mPresenter.time(tvGetIdentifyCode)
-                mPresenter.userGetCode(etIdentifyCode, etPhoneNum.text.toString(), "login")
+                mPresenter.userGetCode(tvGetIdentifyCode, etPhoneNum.text.toString(), "login")
             } else {
                 ToastUtils.showError("请输入正确11位手机号码")
             }
@@ -72,27 +81,77 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
             etIdentifyCode.text
             if (tvLoginType.text == getString(R.string.login_with_password_)) {
                 if (etIdentifyCode.text.length < 4) {
-                    ToastUtils.showError("请输入正确验证码")
+                    ToastUtils.showError("请输入验证码")
                 } else {
                     mPresenter.userLoginWithIdentify(etPhoneNum.text.toString(), etIdentifyCode.text.toString(), 0)
                 }
             } else {
-                if (etPassWord.text.length < 6) {
-                    ToastUtils.showError("密码最少6位")
-                } else {
-                    mPresenter.userLoginWithPassWord(etPhoneNum.text.toString(), etPassWord.text.toString())
-                }
+                if (CheckUtils.isMobileNumber(etPhoneNum.text.toString())) {
+                    if (etPassWord.text.length < 6) {
+                        ToastUtils.showError("密码长度不得小于6位")
+                    } else {
+                        mPresenter.userLoginWithPassWord(etPhoneNum.text.toString(), etPassWord.text.toString(), false)
+                    }
+                } else ToastUtils.showError("请输入正确11位手机号码")
+
             }
         }
 
         tvRegister.setOnClickListener {
-            start(LoginRegisterFragment())
+            setVisible(linRegister)
+            setGone(linLogin)
+            setPageTitle(getString(R.string.login_user_register))
+        }
+
+        tvGetCode.setOnClickListener {
+            if (CheckUtils.isMobileNumber(tvRegisterPhone.text.toString())) {
+                mPresenter.userGetCode(tvGetCode, tvRegisterPhone.text.toString(), "reg")
+            } else {
+                ToastUtils.showError("请输入正确11位手机号码")
+            }
+        }
+
+
+        btRegister.setOnClickListener {
+            if (CheckUtils.isMobileNumber(tvRegisterPhone.text.toString())) {
+                if (registerBtn) {
+                    if (etRegisterCode.text.length >= 4) {
+                        if (edRegisterPassWord.text.length >= 6) {
+                            mPresenter.userRegister(tvRegisterPhone.text.toString(), etRegisterCode.text.toString(), edRegisterPassWord.text.toString(), "0")
+                        } else ToastUtils.showError("密码长度不得小于6位")
+                    } else ToastUtils.showError("请输入验证码")
+                } else ToastUtils.showError("请先获取验证码")
+            } else ToastUtils.showError("请输入正确11位手机号码")
+        }
+
+
+        tvGoFuck.setOnClickListener {
+            LaunchUtils.startFragment(getPageActivity(), MineContactCustomerFragment())
+        }
+
+        tvGoMain.setOnClickListener {
+            mPresenter.userLoginWithPassWord(phoneNum, pass, false)
+        }
+
+        tvEditInfo.setOnClickListener {
+            mPresenter.userLoginWithPassWord(phoneNum, pass, true)
+        }
+
+        tvFoGetPass.setOnClickListener {
+            LaunchUtils.startFragment(getPageActivity(), LoginForgetPassWord())
         }
     }
 
+
     @Subscribe(thread = EventThread.MAIN_THREAD)
-    fun onRegisterSuccess(eventBean: LoginRegisterSuccess) {
-        etPhoneNum.setText(eventBean.phone)
+    fun onExit(eventBean: LoginExit) {
+        if (eventBean.exit) {
+            pop()
+        }
+    }
+
+    fun setPageTitleLogin(title: String) {
+        setPageTitle(title)
     }
 
 }

@@ -14,14 +14,15 @@ import com.fenghuang.caipiaobao.function.doOnIOThread
 import com.fenghuang.caipiaobao.manager.PushManager
 import com.fenghuang.caipiaobao.manager.StatisticManager
 import com.fenghuang.caipiaobao.ui.service.InitDataService
-import com.fenghuang.caipiaobao.widget.ijkplayer.controller.ijk.IjkPlayerFactory
-import com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.VideoViewConfig
-import com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.VideoViewManager
+import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.player.IjkPlayerFactory
+import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.player.VideoViewConfig
+import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.player.VideoViewManager
 import com.github.moduth.blockcanary.BlockCanary
 import com.pingerx.imagego.core.ImageGo
 import com.pingerx.imagego.glide.GlideImageStrategy
 import com.pingerx.rxnetgo.RxNetGo
 import com.squareup.leakcanary.LeakCanary
+import com.tencent.smtt.sdk.QbSdk
 
 
 /**
@@ -58,6 +59,8 @@ class CaiPiaoBaoApplication : BaseApplication() {
         // 测试工具初始化
         initTestTools()
         initFresco()
+
+        initX5Web()
     }
 
     override fun initThreadProcess() {
@@ -120,9 +123,40 @@ class CaiPiaoBaoApplication : BaseApplication() {
     private fun initVideoViewManager() {
         //播放器配置，注意：此为全局配置，按需开启
         VideoViewManager.setConfig(VideoViewConfig.newBuilder()
-                .setLogEnabled(BuildConfig.DEBUG)
-                .setPlayerFactory(IjkPlayerFactory.create(this))
+                .setLogEnabled(BuildConfig.DEBUG)//调试的时候请打开日志，方便排错
+                //                .setPlayerFactory(IjkPlayerFactory.create())
+                .setPlayerFactory(IjkPlayerFactory.create())
+                //                .setRenderViewFactory(SurfaceRenderViewFactory.create())
+                //                .setEnableOrientation(true)
+                //                .setEnableAudioFocus(false)
+                //                .setScreenScaleType(VideoView.SCREEN_SCALE_MATCH_PARENT)
+                //                .setAdaptCutout(false)
+                //                .setPlayOnMobileNetwork(true)
+                //                .setProgressManager(new ProgressManagerImpl())
                 .build())
+
+//        if (BuildConfig.DEBUG) {
+//            StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog().build());
+//            StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder().detectAll().penaltyLog().build());
+//        }
     }
+
+
+    fun initX5Web() {
+
+        //  预加载X5内核
+        QbSdk.initX5Environment(applicationContext, object : QbSdk.PreInitCallback {
+            override fun onViewInitFinished(arg0: Boolean) {
+                //初始化完成回调
+            }
+
+            override fun onCoreInitFinished() {
+            }
+        })
+
+    }
+
+
+
 
 }

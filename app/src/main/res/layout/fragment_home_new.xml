@@ -6,6 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,6 +25,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/white"
                 android:orientation="vertical">
                 <!-- Banner -->
                 <com.pingerx.banner.BannerView
@@ -29,17 +33,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_150"
                     android:background="@color/white"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
                     app:bannerAutoLoop="true"
-                    app:bannerCoverMargin="10dp"
-                    app:bannerFarMargin="10dp"
-                    app:bannerPageAlpha="0.6"
-                    app:bannerPageMode="far"
-                    app:bannerPagePadding="20dp"
-                    app:bannerPageScale="0.9"
+                    app:bannerPageMode="normal"
                     app:bannerSlideAnim="true"
-                    app:indicatorPaddingBottom="12dp"
-                    app:indicatorPaddingLeft="12dp"
-                    app:indicatorPaddingRight="12dp"
+                    app:indicatorSelectRes="@drawable/banner_select_shap"
+                    app:indicatorUnSelectRes="@drawable/banner_unselect_shap"
+                    app:indicatorVisible="true"
                     tools:ignore="MissingDefaultResource" />
 
                 <!--.Marquee -->
@@ -131,6 +132,31 @@
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16"
                         android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/linHotMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="查看更多"
+                            android:textColor="@color/colorDeepOrangePrimary"
+                            android:textSize="@dimen/sp_12"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_32"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/dp_9"
+                            android:src="@mipmap/ic_foward_orange" />
+                    </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -146,10 +172,12 @@
                         android:layout_marginEnd="@dimen/dp_10"
                         android:background="@color/white" />
                 </RelativeLayout>
+
                 <!--.直播预告 -->
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:paddingStart="@dimen/dp_14"
                     android:paddingTop="@dimen/dp_10"
                     app:layout_constraintStart_toStartOf="parent"
@@ -174,6 +202,7 @@
                         android:textStyle="bold" />
                 </RelativeLayout>
 
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvLivePre"
                     android:layout_width="match_parent"
@@ -186,14 +215,82 @@
                     android:id="@+id/imgHomeAd"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_60"
-                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginStart="@dimen/dp_10"
                     android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_14"
-                    android:background="@mipmap/ic_home_ad"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@color/grey_tab"
                     tools:ignore="ContentDescription" />
-
-
                 <!--.专家直播 -->
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:paddingStart="@dimen/dp_14"
+                    android:paddingTop="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="RtlSymmetry">
+
+                    <com.fenghuang.baselib.widget.round.RoundTextView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_6"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/dp_10"
+                        app:rv_backgroundColor="@color/color_FFD4AF"
+                        app:rv_backgroundPressColor="@color/color_FFD4AF"
+                        app:rv_cornerRadius="@dimen/dp_6" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_expert_live"
+                        android:textColor="@color/color_333333"
+                        android:textSize="@dimen/sp_16"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:id="@+id/linExpertMore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="查看更多"
+                            android:textColor="@color/colorDeepOrangePrimary"
+                            android:textSize="@dimen/sp_12"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_32"
+                            android:layout_height="@dimen/dp_32"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/dp_9"
+                            android:src="@mipmap/ic_foward_orange" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvExpertLive"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:background="@color/white" />
+
+                </RelativeLayout>
+
+                <!--.专家推荐 -->
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_40"
@@ -215,27 +312,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_expert_live"
+                        android:text="专家推荐"
                         android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16"
                         android:textStyle="bold" />
+
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:descendantFocusability="blocksDescendants">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvExpertLive"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp_10"
-                        android:layout_marginEnd="@dimen/dp_10"
-                        android:background="@color/white" />
-                </RelativeLayout>
-
-                <!--.专家推荐 -->
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -252,10 +335,52 @@
             </LinearLayout>
         </ScrollView>
 
-        <com.fenghuang.baselib.widget.placeholder.PlaceholderView
-            android:id="@id/placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <!--错误视图容器-->
+        <LinearLayout
+            android:id="@+id/errorContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@mipmap/ic_wuwangluo" />
+
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/app_recycler_error"
+                android:textColor="@color/grey_95" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvErrorRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_22"
+                android:paddingLeft="@dimen/dp_24"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_24"
+                android:paddingBottom="@dimen/dp_10"
+                android:text="@string/app_click_retry"
+                android:textColor="@color/white"
+                app:rv_backgroundColor="?attr/colorPrimary"
+                app:rv_cornerRadius="@dimen/dp_24"
+                app:rv_isRippleEnable="true" />
+
+        </LinearLayout>
 
         <!--    <com.pingerx.banner.BannerView-->
         <!--        android:id="@id/mBannerView"-->
@@ -275,5 +400,6 @@
         <!--        app:layout_constraintLeft_toLeftOf="parent"-->
         <!--        app:layout_constraintRight_toRightOf="parent"-->
         <!--        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />-->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.scwang.smartrefresh.layout.SmartRefreshLayout>

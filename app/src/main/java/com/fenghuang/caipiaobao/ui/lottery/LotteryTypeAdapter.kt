@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.lottery
 import android.content.Context
 import android.graphics.Typeface
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
@@ -29,7 +30,9 @@ class LotteryTypeAdapter(context: Context) : BaseRecyclerAdapter<LotteryTypeResp
     inner class LotteryTypeHolder(parent: ViewGroup) : BaseViewHolder<LotteryTypeResponse>(getContext(), parent, R.layout.holder_lottery_type_item) {
         override fun onBindData(data: LotteryTypeResponse) {
             setText(R.id.tvLotteryType, data.cname)
-            ImageManager.loadHomeGameListLogo(data.logo_url, findView(R.id.imgLotteryType))
+            if (data.logo_url != "-1") {
+                ImageManager.loadHomeGameListLogo(data.logo_url, findView(R.id.imgLotteryType))
+            } else findView<ImageView>(R.id.imgLotteryType).setImageResource(R.mipmap.ic_placeholder)
             if (clickPosition == getDataPosition()) {
                 findView<TextView>(R.id.tvLotteryType).setTextColor(getColor(R.color.color_333333))
                 findView<TextView>(R.id.tvLotteryType).typeface = Typeface.defaultFromStyle(Typeface.BOLD)

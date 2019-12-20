@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:background="@android:color/black">
 
+    <ImageView
+        android:id="@+id/imgErrorBack"
+        android:layout_width="@dimen/dp_46"
+        android:layout_height="@dimen/dp_46"
+        android:padding="@dimen/dp_12"
+        android:src="@mipmap/ic_arrow_back" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,8 +23,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="10dp"
-            android:textColor="@android:color/white"
-            tools:text="You are currently using the mobile network, and continuing to play will consume traffic" />
+            android:text="@string/dkplayer_no_net"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/status_btn"
@@ -28,8 +34,8 @@
             android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:textColor="@android:color/white"
-            tools:text="继续播放" />
+            android:text="继续播放"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 </FrameLayout>

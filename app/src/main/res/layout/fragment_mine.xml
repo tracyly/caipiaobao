@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/smartRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/dp_10">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,11 +67,10 @@
 
                     <ImageView
                         android:id="@id/imgVip"
-                        android:layout_width="@dimen/dp_34"
-                        android:layout_height="@dimen/dp_16"
+                        android:layout_width="@dimen/dp_25"
+                        android:layout_height="@dimen/dp_12"
                         android:layout_marginStart="@dimen/dp_6"
-                        android:layout_marginTop="@dimen/dp_4"
-                        android:background="@mipmap/ic_mine_vip"
+                        android:layout_marginTop="@dimen/dp_8"
                         app:layout_constraintStart_toEndOf="@+id/userName"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:ignore="ContentDescription" />
@@ -84,7 +82,8 @@
                         android:layout_below="@+id/userName"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="@dimen/dp_4"
-                        android:text="@string/mine_user_description"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_12"
                         app:layout_constraintStart_toStartOf="parent"
@@ -103,17 +102,35 @@
                     tools:ignore="RelativeOverlap">
 
                     <TextView
-                        android:id="@+id/tvLogin"
+                        android:id="@+id/tvOne"
                         android:layout_width="wrap_content"
-                        android:layout_height="@dimen/dp_30"
+                        android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="@string/mine_please_login"
+                        android:text="您好, 请"
                         android:textColor="@color/white"
                         android:textSize="@dimen/sp_18"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/tvLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/mine_please_login"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_18"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/tvOne"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:layout_width="@dimen/dp_36"
+                        android:layout_height="@dimen/dp_2"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tvOne" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
@@ -124,7 +141,8 @@
                     android:layout_marginTop="@dimen/dp_86"
                     android:layout_marginEnd="@dimen/dp_20"
                     android:background="@mipmap/ic_mine_message"
-                    android:contentDescription="@string/app_name" />
+                    android:contentDescription="@string/app_name"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -135,6 +153,7 @@
                 android:layout_height="@dimen/dp_100"
                 android:layout_marginStart="@dimen/dp_20"
                 android:layout_marginEnd="@dimen/dp_20"
+                app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="@dimen/dp_6"
                 app:layout_constraintTop_toBottomOf="@+id/userInfo">
 
@@ -173,6 +192,7 @@
                     app:cardCornerRadius="@dimen/dp_6">
 
                     <LinearLayout
+                        android:id="@+id/linAnchorGet"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -223,6 +243,7 @@
                     app:cardCornerRadius="@dimen/dp_6">
 
                     <LinearLayout
+                        android:id="@+id/linSendGift"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
@@ -269,9 +290,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp_10"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/linBanners">
+                app:layout_constraintTop_toBottomOf="@id/linBanners" />
 
-            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

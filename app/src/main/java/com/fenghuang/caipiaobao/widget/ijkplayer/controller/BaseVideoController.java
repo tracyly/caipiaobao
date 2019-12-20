@@ -36,18 +36,13 @@ public abstract class BaseVideoController<T extends MediaPlayerControl> extends 
     /**
      * 隐藏播放视图Runnable
      */
-    protected final Runnable mFadeOut = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
+    protected final Runnable mFadeOut = () -> hide();
     protected boolean mShowing;//控制器是否处于显示状态
     protected boolean mIsLocked;
     protected int mDefaultTimeout = 4000;
     private StringBuilder mFormatBuilder;
     private Formatter mFormatter;
-    protected T mMediaPlayer;//播放器
+    public T mMediaPlayer;//播放器
     protected int mCurrentPlayState;
     protected int mCurrentPlayerState;
     protected OrientationHelper mOrientationHelper;
@@ -182,14 +177,14 @@ public abstract class BaseVideoController<T extends MediaPlayerControl> extends 
         if (mMediaPlayer.isPlaying()) {
             mMediaPlayer.pause();
         } else {
-            mMediaPlayer.start();
+            mMediaPlayer.replay(true);
         }
     }
 
     /**
      * 横竖屏切换
      */
-    protected void doStartStopFullScreen(LinearLayout sendLayout) {
+    public void doStartStopFullScreen(LinearLayout sendLayout) {
         if (mMediaPlayer.isFullScreen()) {
             stopFullScreenFromUser();
             sendLayout.setVisibility(View.INVISIBLE);
@@ -280,12 +275,7 @@ public abstract class BaseVideoController<T extends MediaPlayerControl> extends 
         super.onWindowFocusChanged(hasWindowFocus);
         if (mMediaPlayer.isPlaying() && (mEnableOrientation || mMediaPlayer.isFullScreen())) {
             if (hasWindowFocus) {
-                postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mOrientationHelper.enable();
-                    }
-                }, 800);
+                postDelayed(() -> mOrientationHelper.enable(), 800);
             } else {
                 mOrientationHelper.disable();
             }

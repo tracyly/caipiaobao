@@ -11,6 +11,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import android.widget.EditText
+import com.fenghuang.caipiaobao.R
 import kotlinx.android.synthetic.main.dialog_pass_word.*
 
 
@@ -26,7 +27,7 @@ import kotlinx.android.synthetic.main.dialog_pass_word.*
 class PassWordDialog(context: Context, widthDia: Int, heightDia: Int) : Dialog(context) {
 
     init {
-        setContentView(com.fenghuang.caipiaobao.R.layout.dialog_pass_word)
+        setContentView(R.layout.dialog_pass_word)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setGravity(Gravity.BOTTOM)
         setCanceledOnTouchOutside(false)
@@ -65,7 +66,7 @@ class PassWordDialog(context: Context, widthDia: Int, heightDia: Int) : Dialog(c
         editText.isFocusable = true
         editText.isFocusableInTouchMode = true
         editText.requestFocus()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     private fun hideKeyboard() {

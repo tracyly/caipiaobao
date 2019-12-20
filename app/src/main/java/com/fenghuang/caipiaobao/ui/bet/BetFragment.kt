@@ -1,13 +1,26 @@
 package com.fenghuang.caipiaobao.ui.bet
 
-import android.animation.Animator
-import android.animation.AnimatorInflater
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.widget.RelativeLayout
-import com.fenghuang.baselib.base.fragment.BaseNavFragment
+import android.annotation.TargetApi
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.MediaStore
+import android.widget.ImageView
+import androidx.core.content.FileProvider
+import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.helper.RxPermissionHelper
+import com.fenghuang.caipiaobao.ui.widget.mywebview.ZpImageUtils
+import com.fenghuang.caipiaobao.ui.widget.mywebview.ZpWebChromeClient
+import com.fenghuang.caipiaobao.widget.IosBottomListWindow
+import com.tencent.smtt.sdk.ValueCallback
+import com.tencent.smtt.sdk.WebChromeClient
+import com.tencent.smtt.sdk.WebViewClient
 import kotlinx.android.synthetic.main.fragment_bet.*
+import java.io.File
 
 /**
  *
@@ -17,71 +30,216 @@ import kotlinx.android.synthetic.main.fragment_bet.*
  *
  */
 
-class BetFragment : BaseNavFragment() {
+open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
-
-    private var mRightOutSet: AnimatorSet? = null
-    private var mLeftInSet: AnimatorSet? = null
-    private var mIsShowBack: Boolean = false
+    var baseUrl: String? = null
 
     override fun getPageTitle() = getString(R.string.tab_betting)
 
-    override fun isShowBackIcon() = false
+    override fun attachView() = mPresenter.attachView(this)
+
+    override fun isOverridePage() = false
+
+    override fun attachPresenter() = BetPresenter()
 
     override fun getContentResID() = R.layout.fragment_bet
 
+    override fun isShowBackIcon() = true
+
+    override fun isShowBackIconWhite() = false
+
+    override fun isShowTitleRightLogo() = true
+
     override fun initContentView() {
-        setAnimators() // 设置动画
-        setCameraDistance() // 设置镜头距离
+        findView<ImageView>(R.id.ivTitleRight).setBackgroundResource(R.mipmap.web_refresh)
+        betSmartRefreshLayout.setEnablePureScrollMode(true)
+        betSmartRefreshLayout.setEnableOverScrollDrag(true)
     }
 
+    override fun initData() {
+        initWeb()
+        baseBetWebView.webViewClient = WebViewClient()
+        mPresenter.getUrl()
 
-    private fun setAnimators() {
-        mRightOutSet = AnimatorInflater.loadAnimator(context, R.animator.anim_out) as AnimatorSet
-        mLeftInSet = AnimatorInflater.loadAnimator(context, R.animator.anim_in) as AnimatorSet
-
-        mRightOutSet!!.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator) {
-                super.onAnimationStart(animation)
-                main_fl_container.isClickable = false
-            }
-        })
-        mLeftInSet!!.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator) {
-                super.onAnimationEnd(animation)
-                main_fl_container.isClickable = true
-            }
-        })
     }
-
-    // 距离
-    private fun setCameraDistance() {
-        val distance = 16000
-        val scale = resources.displayMetrics.density * distance
-        findView<RelativeLayout>(R.id.main_fl_card_front).cameraDistance = scale
-        findView<RelativeLayout>(R.id.main_fl_card_back).cameraDistance = scale
-    }
-
 
     override fun initEvent() {
-        main_fl_container.setOnClickListener {
-            // 正面
-            mIsShowBack = if (!mIsShowBack) {
-                mRightOutSet?.setTarget(main_fl_card_front)
-                mLeftInSet?.setTarget(main_fl_card_back)
-                mRightOutSet?.start()
-                mLeftInSet?.start()
-                true
-                // 反面
+        findView<ImageView>(R.id.ivTitleLeft).setOnClickListener {
+            if (baseBetWebView.canGoBack()) {
+                baseBetWebView.goBack()
+            }
+        }
+        findView<ImageView>(R.id.ivTitleRight).setOnClickListener { baseBetWebView.reload() }
+    }
+
+
+    private var mUploadMsg: ValueCallback<Uri>? = null
+    private var mUploadMsgs: ValueCallback<Array<Uri>>? = null
+    private fun initWeb() {
+        baseBetWebView.setOpenFileChooserCallBack(object : ZpWebChromeClient.OpenFileChooserCallBack {
+            override fun openFileChooserCallBack(uploadMsg: ValueCallback<Uri>, acceptType: String) {
+                mUploadMsg = uploadMsg
+                checkPremission(0, null)
+            }
+
+            override fun showFileChooserCallBack(filePathCallback: ValueCallback<Array<Uri>>, fileChooserParams: WebChromeClient.FileChooserParams) {
+                if (mUploadMsgs != null) {
+                    mUploadMsgs!!.onReceiveValue(null)
+                }
+                mUploadMsgs = filePathCallback
+                checkPremission(1, fileChooserParams)
+            }
+        })
+    }
+
+
+    /**
+     * 选择图片弹框
+     */
+    val REQUEST_SELECT_FILE_CODE = 100
+    private val REQUEST_FILE_CHOOSER_CODE = 101
+    private val REQUEST_FILE_CAMERA_CODE = 102
+    // 相机拍照返回的图片文件
+    private var mFileFromCamera: File? = null
+    // 默认图片压缩大小（单位：K）
+    val IMAGE_COMPRESS_SIZE_DEFAULT = 400
+    // 压缩图片最小高度
+    val COMPRESS_MIN_HEIGHT = 900
+    // 压缩图片最小宽度
+    val COMPRESS_MIN_WIDTH = 675
+    var dialog: IosBottomListWindow? = null
+    private fun showSelectPictrueDialog(tag: Int, fileChooserParams: WebChromeClient.FileChooserParams?) {
+        dialog = IosBottomListWindow(getPageActivity())
+        dialog!!
+                .setItem("拍照") { takeCameraPhoto() }
+                .setItem("相册") {
+                    if (tag == 0) {
+                        val i = Intent(Intent.ACTION_GET_CONTENT)
+                        i.addCategory(Intent.CATEGORY_OPENABLE)
+                        i.type = "*/*"
+                        startActivityForResult(Intent.createChooser(i, "File Browser"), REQUEST_FILE_CHOOSER_CODE)
+                    } else {
+                        try {
+                            val intent = fileChooserParams?.createIntent()
+                            startActivityForResult(intent, REQUEST_SELECT_FILE_CODE)
+                        } catch (e: ActivityNotFoundException) {
+                            mUploadMsgs = null
+                        }
+
+                    }
+                }
+                .setTitle("选择图片")
+                .setCancelButton("取消")
+        dialog?.setOnDissMissClickListener {
+            if (mUploadMsgs != null) {
+                mUploadMsgs?.onReceiveValue(null)
+                mUploadMsgs = null
+            }
+        }
+        dialog?.setCancelButtonClickListener {
+            if (mUploadMsgs != null) {
+                mUploadMsgs?.onReceiveValue(null)
+                mUploadMsgs = null
+            }
+        }
+        dialog!!.show()
+    }
+
+    fun takeCameraPhoto() {
+        mFileFromCamera = File(Environment.getExternalStorageDirectory().path + "/" + System.currentTimeMillis() + ".jpg")
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        val imgUrl: Uri
+        if (getPageActivity().applicationInfo.targetSdkVersion > Build.VERSION_CODES.M) {
+            val authority = "com.fenghuang.caipiaobao.ui.widget.mywebview.UploadFileProvider"
+            imgUrl = FileProvider.getUriForFile(getPageActivity(), authority, mFileFromCamera!!)
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        } else {
+            imgUrl = Uri.fromFile(mFileFromCamera)
+        }
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUrl)
+        startActivityForResult(intent, REQUEST_FILE_CAMERA_CODE)
+    }
+
+    //检测权限
+    fun checkPremission(tag: Int, fileChooserParams: WebChromeClient.FileChooserParams?) {
+        if (RxPermissionHelper.checkPermission(android.Manifest.permission.CAMERA)) {
+            showSelectPictrueDialog(tag, fileChooserParams)
+        } else {
+            if (RxPermissionHelper.request(this, android.Manifest.permission.CAMERA).isDisposed) {
+
             } else {
-                mRightOutSet?.setTarget(main_fl_card_back)
-                mLeftInSet?.setTarget(main_fl_card_front)
-                mRightOutSet?.start()
-                mLeftInSet?.start()
-                false
+                if (mUploadMsgs != null) {
+                    mUploadMsgs?.onReceiveValue(null)
+                    mUploadMsgs = null
+                }
             }
         }
     }
 
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_SELECT_FILE_CODE -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    if (mUploadMsgs == null) {
+                        return
+                    }
+                    mUploadMsgs?.onReceiveValue(android.webkit.WebChromeClient.FileChooserParams.parseResult(resultCode, data))
+                    mUploadMsgs = null
+                }
+                if (dialog != null) {
+                    dialog!!.dismiss()
+                }
+            }
+            REQUEST_FILE_CHOOSER_CODE -> {
+                if (mUploadMsg == null) {
+                    return
+                }
+                val result = if (data == null || resultCode != Activity.RESULT_OK) null else data.data
+                mUploadMsg?.onReceiveValue(result)
+                mUploadMsg = null
+            }
+            REQUEST_FILE_CAMERA_CODE -> {
+                takePictureFromCamera()
+                if (dialog != null) {
+                    dialog!!.dismiss()
+                }
+            }
+        }
+    }
+
+
+    /**
+     * 处理相机返回的图片
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private fun takePictureFromCamera() {
+        if (mFileFromCamera != null && mFileFromCamera?.exists()!!) {
+            val filePath = mFileFromCamera?.absolutePath
+            // 压缩图片到指定大小
+            val imgFile = ZpImageUtils.compressImage(getPageActivity(), filePath, COMPRESS_MIN_WIDTH, COMPRESS_MIN_HEIGHT, IMAGE_COMPRESS_SIZE_DEFAULT)
+
+            val localUri = Uri.fromFile(imgFile)
+            val localIntent = Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri)
+            getPageActivity().sendBroadcast(localIntent)
+            val result = Uri.fromFile(imgFile)
+
+            if (mUploadMsg != null) {
+                mUploadMsg?.onReceiveValue(Uri.parse(filePath))
+                mUploadMsg = null
+            }
+            if (mUploadMsgs != null) {
+                mUploadMsgs?.onReceiveValue(arrayOf(result))
+                mUploadMsgs = null
+            }
+        }
+    }
+
+
+    override fun onBackClick() {
+        if (baseBetWebView.canGoBack()) {
+            baseBetWebView.goBack()
+        }
+    }
 }

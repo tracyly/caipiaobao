@@ -37,7 +37,7 @@ public class WsManager implements IWsManager {
     private WsStatusListener wsStatusListener;
     private Lock mLock;
     private Handler wsMainHandler = new Handler(Looper.getMainLooper());
-    private int reconnectCount = 0;   //重连次数
+    private int reconnectCount = 2;   //重连次数
     private Runnable reconnectRunnable = new Runnable() {
         @Override
         public void run() {

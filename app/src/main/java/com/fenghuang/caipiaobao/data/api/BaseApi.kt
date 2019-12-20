@@ -1,11 +1,8 @@
 package com.fenghuang.caipiaobao.data.api
 
-import com.fenghuang.baselib.utils.DebugUtils
-import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
-import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER_TEST
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_OPEN
-import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_QUIZ
 import com.pingerx.rxnetgo.RxNetGo
 
 /**
@@ -14,15 +11,19 @@ import com.pingerx.rxnetgo.RxNetGo
 interface BaseApi {
 
     /**
-     * 获取URL
+     * 获取URL  admin
      */
     fun getBaseUrl(): String {
-        return if (DebugUtils.isDebugModel()) {
-            API_URL_DEV
-        } else {
-            API_URL
-        }
+        return API_URL_DEV
     }
+
+    /**
+     * 获取URL  Me
+     */
+    fun getBaseUrlMe(): String {
+        return API_URL_DEV_OTHER_TEST
+    }
+
 
     /**
      * 获取默认的Service
@@ -36,7 +37,7 @@ interface BaseApi {
      * 登录其他的BaseUrl
      */
     fun getApiOther(): RxNetGo {
-        return RxNetGo.getInstance().getRetrofitService(API_URL_DEV_OTHER)
+        return RxNetGo.getInstance().getRetrofitService(getBaseUrlMe())
     }
 
 
@@ -52,35 +53,12 @@ interface BaseApi {
         return RxNetGo.getInstance().getRetrofitService(getOpenPriseBaseUrl())
     }
 
-
-    /**
-     * 竞彩接口
-     */
-    fun getAipJcUrl(): RxNetGo {
-        return RxNetGo.getInstance().getRetrofitService("http://154.206.43.213:18308")
-    }
-
-
-    /**
-     * 获取URL
-     */
-    fun getQuizBaseUrl(): String {
-        return if (DebugUtils.isDebugModel()) {
-            API_URL_QUIZ
-        } else {
-            API_URL
-        }
-    }
-
     /**
      * 获取开奖URL
      */
     fun getOpenPriseBaseUrl(): String {
-        return if (DebugUtils.isDebugModel()) {
-            API_URL_OPEN
-        } else {
-            API_URL
-        }
+        return API_URL_OPEN
+
     }
 
 }

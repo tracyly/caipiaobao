@@ -21,8 +21,10 @@ import android.content.Context;
 import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatTextView;
+
+import com.fenghuang.baselib.utils.ViewUtils;
 import com.fenghuang.caipiaobao.widget.chat.EmojiconHandler;
 
 
@@ -30,7 +32,7 @@ import com.fenghuang.caipiaobao.widget.chat.EmojiconHandler;
  * @author Hieu Rocker (rockerhieu@gmail.com).
  */
 @SuppressLint("AppCompatCustomView")
-public class EmojiconTextView extends TextView {
+public class EmojiconTextView extends AppCompatTextView {
     private int mEmojiconSize;
 
     public EmojiconTextView(Context context) {
@@ -57,7 +59,7 @@ public class EmojiconTextView extends TextView {
     public void setText(CharSequence text, BufferType type) {
         if (!TextUtils.isEmpty(text)) {
             SpannableStringBuilder builder = new SpannableStringBuilder(text);
-            EmojiconHandler.handleAllEmoticon(getContext(), builder, mEmojiconSize);
+            EmojiconHandler.handleCaiPiaoBaoEmoticon(getContext(), builder, ViewUtils.INSTANCE.dp2px(18));
             text = builder;
         }
         super.setText(text, type);

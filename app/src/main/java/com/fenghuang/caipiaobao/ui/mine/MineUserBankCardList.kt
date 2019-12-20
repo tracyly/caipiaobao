@@ -1,11 +1,11 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import android.os.Bundle
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.ui.mine.data.MineSaveBank
+import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateBank
+import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
@@ -47,23 +47,27 @@ class MineUserBankCardList : BaseMvpFragment<MineUserBankCardListPresenter>() {
     }
 
     override fun initData() {
-        mPresenter.initList(getPageActivity(), rvCardList)
+        mPresenter.getBankList()
     }
 
-    companion object {
-        fun newInstance(list: String): MineUserBankCardList {
-            val fragment = MineUserBankCardList()
-            val bundle = Bundle()
-            bundle.putString(IntentConstant.MINE_USER_BAMK_LIST, list)
-            fragment.arguments = bundle
-            return fragment
+
+    override fun initEvent() {
+        rlAddBank.setOnClickListener {
+
+            LaunchUtils.startFragment(context, MineAddBankCardFragment())
         }
     }
+
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun saveUserBankSelect(event: MineSaveBank) {
         UserInfoSp.putSelectBankCard(event.data)
         pop()
+
     }
 
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun upDateUserBankSelect(event: MineUpDateBank) {
+        mPresenter.getBankList()
+    }
 }

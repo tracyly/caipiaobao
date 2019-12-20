@@ -5,9 +5,11 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
+import com.pingerx.imagego.core.strategy.loadBlur
 import com.pingerx.imagego.core.strategy.loadCircle
 import com.pingerx.imagego.core.strategy.loadRound
 import com.pingerx.imagego.core.utils.RoundType
+
 
 /**
  * 图片加载管理器，业务层管理
@@ -17,23 +19,23 @@ object ImageManager {
     /**
      * 加载圆形图片不带边框
      */
-    fun loadRoundLogo(url: String?, imageView: ImageView) {
+    fun loadRoundLogo(any: Any?, imageView: ImageView) {
         // 使用圆形图片，设置不可以动画
-        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_home_top_user)
+        loadCircle(any, imageView, placeHolder = R.mipmap.ic_mine_base_user, errorHolder = R.mipmap.ic_mine_base_user)
     }
 
     /**
      * 加载圆形图片带有边框
      */
     fun loadRoundFrameLogo(url: String?, imageView: ImageView, color: Int) {
-        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_home_top_user, borderWidth = 6, borderColor = color)
+        loadCircle(url, imageView, placeHolder = R.mipmap.ic_mine_base_user, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = 6, borderColor = color)
     }
 
     /**
      * 加载圆形图片带有边框（用户头像）
      */
-    fun loadRoundFrameUserLogo(url: String?, imageView: ImageView, borderWidth: Int, color: Int) {
-        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = borderWidth, borderColor = color)
+    fun loadRoundFrameUserLogo(any: Any?, imageView: ImageView, borderWidth: Int, color: Int) {
+        loadCircle(any, imageView, placeHolder = R.mipmap.ic_mine_base_user, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = borderWidth, borderColor = color)
     }
 
 
@@ -41,7 +43,7 @@ object ImageManager {
      * 加载圆形图片带有边框（Bitmap）
      */
     fun loadRoundFromBitmap(url: Bitmap?, imageView: ImageView, color: Int) {
-        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = 12, borderColor = color)
+        loadCircle(url, imageView, placeHolder = R.mipmap.ic_mine_base_user, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = 12, borderColor = color)
     }
 
     /**
@@ -56,7 +58,7 @@ object ImageManager {
      */
 
     fun loadHomeGameListLogo(url: String?, imageView: ImageView) {
-        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_launcher_round).into(imageView)
+        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_placeholder).into(imageView)
     }
 
     /**
@@ -70,7 +72,7 @@ object ImageManager {
      * 加载Banner图标
      */
     fun loadBannerImageRes(url: String?, imageView: ImageView) {
-        loadRound(url, imageView, ViewUtils.dp2px(10), RoundType.ALL)
+        loadRound(url, imageView, ViewUtils.dp2px(10), RoundType.ALL, placeHolder = R.mipmap.ic_placeholder)
     }
 
     /**
@@ -84,7 +86,7 @@ object ImageManager {
      * 加载预览大图
      */
     fun loadImage(url: String?, imageView: ImageView) {
-        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_mine_base_user).into(imageView)
+        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_placeholder).into(imageView)
     }
 
 
@@ -92,7 +94,7 @@ object ImageManager {
      * 加载圆形图片带有边框 本地图
      */
     fun loadRoundFromBitmap(url: Int?, imageView: ImageView, color: Int) {
-        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder_avatar, errorHolder = R.mipmap.ic_mine_base_user, borderWidth = 12, borderColor = color)
+        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder, errorHolder = R.mipmap.ic_placeholder, borderWidth = 12, borderColor = color)
     }
 
 
@@ -101,7 +103,7 @@ object ImageManager {
      */
 
     fun loadPayTypeListLogo(url: String?, imageView: ImageView) {
-        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_mine_alipay).into(imageView)
+        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_placeholder).into(imageView)
     }
 
     /**
@@ -109,6 +111,14 @@ object ImageManager {
      */
 
     fun redUserPhoto(url: String?, imageView: ImageView, color: Int) {
-        loadCircle(url, imageView, placeHolder = R.mipmap.ic_mine_base_user, errorHolder = R.mipmap.ic_home_top_user, borderWidth = 10, borderColor = color)
+        loadCircle(url, imageView, placeHolder = R.mipmap.ic_placeholder, errorHolder = R.mipmap.ic_placeholder, borderWidth = 10, borderColor = color)
     }
+
+    /**
+     * 高斯处理
+     */
+    fun imgBlur(url: String?, imageView: ImageView) {
+        loadBlur(url, imageView, 0, 0)
+    }
+
 }

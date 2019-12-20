@@ -1,10 +1,10 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import ExceptionDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MinePayTypeList
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
 import kotlinx.android.synthetic.main.fragment_mine_charge_item.*
 
 /**
@@ -21,10 +21,14 @@ class MineRechargeItemPresenter : BaseMvpPresenter<MineRechargeItemFragment>() {
     fun getPayTypeList() {
         MineApi.getPayTypeList {
             onSuccess {
-                initAdapter(it)
+                if (mView.isActive()) {
+                    initAdapter(it)
+                }
             }
             onFailed {
-                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+                if (mView.isActive()) {
+                    ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+                }
             }
         }
     }

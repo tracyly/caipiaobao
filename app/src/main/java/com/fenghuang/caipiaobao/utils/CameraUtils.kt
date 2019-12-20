@@ -98,7 +98,7 @@ object CameraUtils {
     private fun createImageFile(context: Context): File? {
         val imageName = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        if (!storageDir.exists()) {
+        if (!storageDir?.exists()!!) {
             storageDir.mkdir()
         }
         val tempFile = File(storageDir, imageName)

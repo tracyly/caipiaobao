@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -93,6 +92,7 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
     public static final int STATE_PLAYBACK_COMPLETED = 5;
     public static final int STATE_BUFFERING = 6;
     public static final int STATE_BUFFERED = 7;
+    public static final int STATE_NO_ANCHOR = 8;
     protected int mCurrentPlayState = STATE_IDLE;//当前播放器的状态
 
     public static final int PLAYER_NORMAL = 10;        // 普通播放器
@@ -152,8 +152,8 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
 
         //读取全局配置
         VideoViewConfig config = VideoViewManager.getConfig();
-        mUsingSurfaceView = config.mUsingSurfaceView;
-        mEnableMediaCodec = config.mEnableMediaCodec;
+//        mUsingSurfaceView = config.mUsingSurfaceView;
+//        mEnableMediaCodec = config.mEnableMediaCodec;
         mEnableAudioFocus = config.mEnableAudioFocus;
         mEnableParallelPlay = config.mEnableParallelPlay;
         mProgressManager = config.mProgressManager;
@@ -179,7 +179,7 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
      */
     protected void initView() {
         mPlayerContainer = new FrameLayout(getContext());
-        mPlayerContainer.setBackgroundColor(Color.BLACK);
+        mPlayerContainer.setBackgroundColor(getContext().getResources().getColor(R.color.black));
         LayoutParams params = new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
@@ -211,9 +211,9 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
      */
     protected void startPlay() {
         if (!mEnableParallelPlay) {
-            VideoViewManager.instance().release();
+//            VideoViewManager.instance().release();
         }
-        VideoViewManager.instance().addVideoView(this);
+//        VideoViewManager.instance().addVideoView(this);
 
         //如果要显示移动网络提示则不继续播放
         if (showNetWarning()) return;
@@ -259,12 +259,13 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
     /**
      * 初始化播放器
      */
-    protected void initPlayer() {
+    public void initPlayer() {
         mMediaPlayer = mPlayerFactory.createPlayer();
         mMediaPlayer.setPlayerEventListener(this);
         setInitOptions();
         mMediaPlayer.initPlayer();
         setOptions();
+        addDisplay();
     }
 
     /**
@@ -311,6 +312,7 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
             setPlayState(STATE_PREPARING);
             setPlayerState(isFullScreen() ? PLAYER_FULL_SCREEN : isTinyScreen() ? PLAYER_TINY_SCREEN : PLAYER_NORMAL);
         }
+        addDisplay();
     }
 
     /**
@@ -353,7 +355,6 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
     }
 
 
-
     /**
      * 继续播放
      */
@@ -382,7 +383,7 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
      * 释放播放器
      */
     public void release() {
-        VideoViewManager.instance().removeVideoView(this);
+//        VideoViewManager.instance().removeVideoView(this);
         if (mVideoController != null) {
             mVideoController.hideNetWarning();
         }
@@ -536,7 +537,7 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
     @Override
     public void onCompletion() {
         setPlayState(STATE_PLAYBACK_COMPLETED);
-        setKeepScreenOn(false);
+        setKeepScreenOn(true);
         mCurrentPosition = 0;
         if (mProgressManager != null) {
             //播放完成，清除进度
@@ -760,6 +761,7 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
         setPlayerState(PLAYER_NORMAL);
     }
 
+
     /**
      * 获取DecorView
      */
@@ -845,6 +847,9 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout implements 
         return mIsTinyScreen;
     }
 
+    public void noAnchor() {
+        setPlayerState(STATE_NO_ANCHOR);
+    }
 
 
     @Override

@@ -7,7 +7,7 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/mp_emoji_panel_viewpager"
         android:layout_width="fill_parent"
-        android:layout_height="155dip"
+        android:layout_height="175dip"
         android:layout_gravity="center" />
 
 

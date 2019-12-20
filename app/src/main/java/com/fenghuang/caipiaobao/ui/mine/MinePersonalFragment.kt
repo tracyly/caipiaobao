@@ -20,7 +20,8 @@ import com.fenghuang.caipiaobao.utils.CameraUtils.getRealFilePath
 import com.fenghuang.caipiaobao.utils.CameraUtils.imageCropUri
 import com.fenghuang.caipiaobao.utils.CameraUtils.mCameraImagePath
 import com.fenghuang.caipiaobao.utils.CameraUtils.mCameraUri
-import com.fenghuang.caipiaobao.utils.UserInfoSp
+import com.fenghuang.caipiaobao.utils.FastClickUtils
+import com.fenghuang.caipiaobao.widget.IosBottomListWindow
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.fragment_mine_presonal.*
 
@@ -34,6 +35,7 @@ import kotlinx.android.synthetic.main.fragment_mine_presonal.*
  */
 
 class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
+
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -55,13 +57,12 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
         mPresenter.initEditPersonal(publish_ed_desc, publish_text_num)
+
     }
 
     override fun initData() {
-        ImageManager.loadRoundFrameUserLogo(UserInfoSp.getUserPhoto(), imgUserPhoto, 12, getColor(R.color.white))
-        edUserName.setText(UserInfoSp.getUserNickName())
-        edUserSex.setText(if (UserInfoSp.getUserSex() == 1) "男" else "女")
-        publish_ed_desc.setText(UserInfoSp.getUserProfile())
+        mPresenter.getMoney()
+        mPresenter.getUserInfo()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -70,7 +71,23 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
             mPresenter.getPhotoFromPhone(getPageActivity())
         }
         btUpLoadUserInfo.setOnClickListener {
-            mPresenter.upLoadPersonalInfo(edUserName.text.toString(), if (edUserSex.text.toString() == "男") 1 else 0, publish_ed_desc.text.toString())
+            if (FastClickUtils.isFastClick()) {
+
+                mPresenter.upLoadPersonalInfo(edUserName.text.toString(), if (edUserSex.text.toString() == "男") 1 else 0, publish_ed_desc.text.toString())
+            }
+        }
+
+        edUserSex.setOnClickListener {
+            IosBottomListWindow(getPageActivity())
+                    .setTitle("选择性别")
+                    .setItem("男") {
+                        edUserSex.text = "男"
+                    }
+                    .setItem("女") {
+                        edUserSex.text = "女"
+                    }
+                    .setCancelButton("取消")
+                    .show()
         }
     }
 
@@ -90,7 +107,10 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
             }
         } else if (requestCode == 0x13) {
             val bitmap = BitmapFactory.decodeFile(getRealFilePath(imageCropUri, getPageActivity()))
-            ImageManager.loadRoundFromBitmap(bitmap, findView(R.id.imgUserPhoto), getColor(R.color.grey_dd))
+            if (bitmap != null) {
+                ImageManager.loadRoundFromBitmap(bitmap, findView(R.id.imgUserPhoto), getColor(R.color.grey_dd))
+                mPresenter.upLoadPersonalAvatar(bitmap)
+            }
         }
     }
 
@@ -111,5 +131,6 @@ class MinePersonalFragment : BaseMvpFragment<MinePersonalPresenter>() {
             }
         }
     }
+
 
 }

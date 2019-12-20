@@ -11,6 +11,7 @@
         <item name="android:windowExitAnimation">@anim/anim_float_window_exit</item>
     </style>
 
+
     <style name="SplashAppTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <!--<item name="android:windowBackground">@drawable/layer_splash</item>-->
     </style>
@@ -88,4 +89,22 @@
         <item name="android:windowSoftInputMode">stateVisible</item><!--显示软件盘-->
     </style>
 
+    <!--dialog动画-->
+    <style name="dialogAnim">
+        <item name="android:windowEnterAnimation">@anim/anim_enter_dialog</item>
+        <item name="android:windowExitAnimation">@anim/anim_exit_dialog</item>
+    </style>
+
+    <!--pop动画-->
+    <style name="Notification_Toast">
+        <item name="android:windowEnterAnimation">@anim/notification_toast_enter</item>
+        <item name="android:windowExitAnimation">@anim/notification_toast_exit</item>
+    </style>
+
+
+    <declare-styleable name="OptionView">
+        <attr name="title" format="string" />
+        <attr name="substance" format="string" />
+        <attr name="showDivider" format="boolean" />
+    </declare-styleable>
 </resources>

@@ -225,4 +225,6 @@ public class IjkPlayer extends AbstractPlayer {
     public long getTcpSpeed() {
         return mMediaPlayer.getTcpSpeed();
     }
+
+
 }

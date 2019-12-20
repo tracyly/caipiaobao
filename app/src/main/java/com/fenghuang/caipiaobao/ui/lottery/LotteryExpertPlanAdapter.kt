@@ -31,6 +31,8 @@ class LotteryExpertPlanAdapter(context: Context) : BaseRecyclerAdapter<LotteryEx
 
             ImageManager.loadRoundLogo(data.avatar, findView(R.id.imExpertPhoto))
             setText(R.id.tvExpertName, data.nickname)
+            setText(R.id.tvMethod, data.method)
+
             setText(R.id.tvExpertIssue, data.issue + "期")
             setText(R.id.tvRate, (data.hit_rate.toDouble() * 100).toString())
             codeResults.clear()
@@ -44,7 +46,7 @@ class LotteryExpertPlanAdapter(context: Context) : BaseRecyclerAdapter<LotteryEx
 
     private fun initLotteryOpenCode(recyclerView: RecyclerView, data: List<String>?) {
         val value = LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false)
-        val lotteryOpenCodeAdapter = LotteryOpenCodeAdapter(getContext())
+        val lotteryOpenCodeAdapter = LotteryExpertOpenCodeAdapter(getContext())
         lotteryOpenCodeAdapter.addAll(data)
         recyclerView.adapter = lotteryOpenCodeAdapter
         recyclerView.layoutManager = value

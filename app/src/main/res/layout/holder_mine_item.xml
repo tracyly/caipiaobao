@@ -30,6 +30,7 @@
 
 
     <ImageView
+        android:id="@+id/imgArraw"
         android:layout_width="@dimen/dp_8"
         android:layout_height="@dimen/dp_10"
         android:layout_marginEnd="@dimen/dp_20"
@@ -39,6 +40,17 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
 
+
+    <TextView
+        android:id="@+id/tvIsAnchorLive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/dp_16"
+        android:textColor="@color/text_red"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgArraw"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="match_parent"

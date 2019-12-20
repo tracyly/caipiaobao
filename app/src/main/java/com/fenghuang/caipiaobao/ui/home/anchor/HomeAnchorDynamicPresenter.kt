@@ -17,9 +17,12 @@ class HomeAnchorDynamicPresenter(private val mAnchorId: Int) : BaseRecyclerPrese
 
         HomeApi.getHomeLiveAnchorDynamicInfo(SpUtils.getInt(UserConstant.USER_ID), mAnchorId, page) {
             onSuccess {
-                if (it.isNotEmpty()) {
-                    mView.showDatas(it)
-                } else mView.showPageEmpty()
+                if (mView.isActive()) {
+
+                    if (it.isNotEmpty()) {
+                        mView.showDatas(it)
+                    } else mView.showPageEmpty()
+                }
             }
 
             onFailed {
@@ -31,9 +34,10 @@ class HomeAnchorDynamicPresenter(private val mAnchorId: Int) : BaseRecyclerPrese
     fun getAnchorDynamicLike(anchorId: Int, position: Int) {
         HomeApi.getAnchorDynamicLike(SpUtils.getInt(UserConstant.USER_ID), anchorId) {
             onSuccess {
-                mView.notifyChanged(position)
+                if (mView.isActive()) {
+                    mView.notifyChanged(position)
+                }
             }
-
             onFailed {
                 ToastUtils.showError(it.getMsg())
             }

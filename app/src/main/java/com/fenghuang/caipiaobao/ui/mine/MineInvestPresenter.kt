@@ -1,8 +1,8 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import ExceptionDialog
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.caipiaobao.ui.mine.data.RechargeApi
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
 import kotlinx.android.synthetic.main.fragment_invest.*
 
 /**
@@ -16,33 +16,34 @@ import kotlinx.android.synthetic.main.fragment_invest.*
 class MineInvestPresenter : BaseMvpPresenter<MineInvestFragment>() {
 
 
-    fun getInvestUrl(amount: Float, channels: Int) {
-        if (channels == 3) {
+    fun getInvestUrl(amount: Float, channels: Int, route: String) {
             mView.showPageLoading()
-            RechargeApi.getToPayUrl(amount, channels) {
+        RechargeApi.getToPayUrl(amount, channels, route) {
                 onSuccess {
-                    mView.investWebView.loadUrl(it.url.replace("\\", "/"))
-                    mView.hidePageLoading()
+                    if (mView.isActive()) {
+
+                        mView.investWebView.loadUrl(it.url.replace("\\", "/"))
+                        mView.hidePageLoading()
+                    }
                 }
                 onFailed {
                     ExceptionDialog.showExpireDialog(mView.requireContext(), it)
                     mView.hidePageLoading()
                 }
             }
-        }
-        if (channels == 1) {
-            mView.showPageLoading()
-            RechargeApi.getPayUrl(amount, channels) {
-                onSuccess {
-                    mView.investWebView.loadUrl(it.url.replace("\\", "/"))
-                    mView.hidePageLoading()
-                }
-                onFailed {
-                    ExceptionDialog.showExpireDialog(mView.requireContext(), it)
-                    mView.hidePageLoading()
-                }
-            }
-        }
+//        if (channels == 1) {
+//            mView.showPageLoading()
+//            RechargeApi.getPayUrl(amount, channels) {
+//                onSuccess {
+//                    mView.investWebView.loadUrl(it.url.replace("\\", "/"))
+//                    mView.hidePageLoading()
+//                }
+//                onFailed {
+//                    ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+//                    mView.hidePageLoading()
+//                }
+//            }
+//        }
 
 
 

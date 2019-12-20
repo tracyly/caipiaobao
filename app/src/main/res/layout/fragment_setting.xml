@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/setPassWord"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56">
 
@@ -36,6 +37,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/linSetPayPassWord"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56">
 
@@ -57,7 +59,6 @@
             android:layout_marginStart="@dimen/dp_20"
             android:layout_marginEnd="@dimen/dp_10"
             android:layout_toStartOf="@+id/imgArrow"
-            android:text="@string/mine_not_set_pay_password"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_14" />
 

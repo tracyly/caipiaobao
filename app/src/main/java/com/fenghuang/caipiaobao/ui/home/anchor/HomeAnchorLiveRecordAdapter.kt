@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.ViewGroup
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
-import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorLiveRecordBean
 
@@ -23,8 +22,8 @@ class HomeAnchorLiveRecordAdapter(context: Context) : BaseRecyclerAdapter<HomeLi
         override fun onBindData(data: HomeLiveAnchorLiveRecordBean) {
             setText(R.id.tvAnchorRecordGameName, data.name + ":")
             setText(R.id.tvAnchorRecordStatus, data.tip)
-            setText(R.id.tvAnchorRecordTime, TimeUtils.getHourMinute(data.startTime))
-            setText(R.id.tvAnchorRecordDate, TimeUtils.getYearMonthDay(data.startTime))
+            setText(R.id.tvAnchorRecordTime, data.startTimeTxt)
+//            setText(R.id.tvAnchorRecordDate, TimeUtils.getYearMonthDay(data.startTime))
         }
     }
 

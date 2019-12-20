@@ -14,6 +14,6 @@ data class LotteryCodeNewResponse(var lottery_id: Int, var issue: String, var co
 
 data class LotteryCodeHistoryResponse(var issue: String, var code: String, var input_time: String)
 
-data class LotteryExpertPlanResponse(var id: Int, var lottery_id: Int, var issue: String, var code: String, var hit_rate: String, var created: String, var avatar: String, var nickname: String)
+data class LotteryExpertPlanResponse(var id: Int, var lottery_id: Int, var issue: String, var code: String, var hit_rate: String, var created: String, var avatar: String, var nickname: String, var method: String)
 
 data class LotteryGetExpert(var lottery_id: Int, var issue: String)

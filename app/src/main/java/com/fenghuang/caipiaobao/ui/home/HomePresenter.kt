@@ -3,8 +3,10 @@ package com.fenghuang.caipiaobao.ui.home
 import android.annotation.SuppressLint
 import android.util.Log
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
+import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.pingerx.rxnetgo.rxcache.CacheMode
+import kotlinx.android.synthetic.main.fragment_home_new.*
 
 /**
  *  author : Peter
@@ -17,12 +19,18 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
     private var sb: StringBuffer = StringBuffer()
     private var mCount = 0
 
-    fun loadCache() {
-        getBannerList(CacheMode.ONLY_CACHE)
-    }
+//    fun loadCache() {
+////        if (NetWorkUtils.isNetworkNotConnected()) {
+////            mView.setVisible(mView.errorContainer)
+////        }
+////        else {
+//        mView.setGone(mView.errorContainer)
+//        getBannerList(CacheMode.NONE)
+////        }
+//    }
 
     fun loadData() {
-        getBannerList(CacheMode.FIRST_REMOTE_THEN_CACHE)
+        getBannerList(CacheMode.NONE)
     }
 
     private fun getBannerList(cacheMode: CacheMode) {
@@ -39,7 +47,7 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
                 if (mView.isActive()) mView.updateBanner(it)
             }
             onFailed {
-                mView.showPageError()
+                //                                mView.showPageError()
             }
         }
     }
@@ -47,12 +55,13 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
     private fun getNoticeInfo(cacheMode: CacheMode) {
         HomeApi.getHomeNoticeResult(cacheMode) {
             onSuccess {
-                it.forEach { i ->
-                    val s = i.title + ":" + i.content + "    "
-                    sb.append(s)
+                if (mView.isActive() && it.isNotEmpty()) {
+                    it.forEachIndexed { index, value ->
+                        val s = (index + 1).toString() + "." + value.content + "        "
+                        sb.append(s)
+                    }
+                    mView.updateNotice(sb.toString())
                 }
-                mView.updateNotice(sb.toString())
-
             }
 
             onFailed {
@@ -67,7 +76,9 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
     private fun getGameListInfo(cacheMode: CacheMode) {
         HomeApi.getHomeGameListResult(cacheMode) {
             onSuccess {
-                mView.updateGameList(it)
+                if (mView.isActive() && it.isNotEmpty()) {
+                    mView.updateGameList(it)
+                }
 
             }
 
@@ -104,7 +115,7 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
 //            }
 //            mCount++
 //        }
-        HomeApi.getHomeHotLiveListResult(cacheMode) {
+        HomeApi.getHomeHotLiveListResult(6, 0, cacheMode) {
             onSuccess {
                 if (mView.isActive() && it.isNotEmpty()) {
                     mView.updateHotLive(it)
@@ -112,14 +123,18 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
 
             }
         }
-        HomeApi.getHomeLivePopResult(cacheMode) {
+
+        HomeApi.getAdUrl {
             onSuccess {
                 if (mView.isActive() && it.isNotEmpty()) {
-                    mView.updateLivePop(it)
+                    ImageManager.loadBannerImageRes(it[0].image_url.replace("\\", "/"), mView.imgHomeAd)
                 }
             }
         }
-        HomeApi.getHomeExpertListResult(cacheMode) {
+        //直播预告
+        liveFuter(true)
+
+        HomeApi.getHomeExpertListResult(6, 0, cacheMode) {
             onSuccess {
                 if (mView.isActive() && it.isNotEmpty()) {
                     mView.updateExpertLive(it)
@@ -135,4 +150,22 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
             }
         }
     }
+
+    /**
+     * 直播预告
+     */
+    fun liveFuter(isUpDate: Boolean) {
+        //直播预告
+        HomeApi.getHomeLivePopResult(CacheMode.FIRST_REMOTE_THEN_CACHE) {
+            onSuccess {
+                if (mView.isActive() && it.isNotEmpty()) {
+                    if (isUpDate) mView.updateLivePop(it)
+                }
+            }
+        }
+    }
+
+
+
+
 }

@@ -19,7 +19,10 @@ open class EmptySubscriber : ApiSubscriber<String>() {
         val bean = JsonUtils.fromJson(json, BaseApiBean::class.java)
         if (bean.code == ErrorCode.SUCCESS) {
             // 后端返回的code是成功的，但是data会空的
-            return bean.data?.toString()
+            if (bean.data.toString() == "\"\"") {
+                return bean.msg
+            }
+            return bean.data.toString()
         } else {
             // 根据服务端的code来分发消息
             throw ApiException(code = bean.code, msg = bean.msg, dataCode = bean.data)

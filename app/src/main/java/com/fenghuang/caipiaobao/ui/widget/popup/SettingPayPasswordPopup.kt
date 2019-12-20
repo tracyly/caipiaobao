@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.widget.popup.BasePopupWindow
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.utils.FastClickUtils
 
 /**
  *  author : Peter
@@ -22,7 +23,10 @@ class SettingPayPasswordPopup(context: Context) : BasePopupWindow(context, R.lay
         val etPayPassword = findView<EditText>(R.id.etPayPassword)
         val etOkPassword = findView<EditText>(R.id.etOkPassword)
         findView<TextView>(R.id.tvRedSend).setOnClickListener {
-            mListener?.invoke(etPayPassword.text.toString().trim(), etOkPassword.text.toString().trim())
+            if (FastClickUtils.isFastClick()) {
+
+                mListener?.invoke(etPayPassword.text.toString().trim(), etOkPassword.text.toString().trim())
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import ExceptionDialog.showExpireDialog
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
@@ -10,6 +10,7 @@ import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_INDEX
 import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_USER_BALANCE
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateUser
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog.showExpireDialog
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_mine_recharge.*
@@ -33,6 +34,7 @@ class MineRechargeFragment : BaseFragment() {
         tvCountBalance.text = arguments?.getString(MINE_USER_BALANCE)
     }
     override fun initData() {
+        upDateBalance()
         rechargeTabView.setTabText("充值", "提现")
         rechargeTabView.setOnSelectListener {
             viewPager.currentItem = it
@@ -49,13 +51,13 @@ class MineRechargeFragment : BaseFragment() {
             }
         })
         rechargeTabView.setTabSelect(arguments?.getInt(MINE_INDEX) ?: 0)
-        setFragmentViewPager()
+
     }
 
     private fun setFragmentViewPager() {
         val fragments = arrayListOf<BaseFragment>(
                 MineRechargeItemFragment(),
-                MineRechargeCashOutFragment(arguments?.getString(MINE_USER_BALANCE).toString())
+                MineRechargeCashOutFragment(tvCountBalance.text.toString())
         )
         val adapter = BaseFragmentPageAdapter(childFragmentManager, fragments)
         viewPager.adapter = adapter
@@ -86,10 +88,12 @@ class MineRechargeFragment : BaseFragment() {
         if (eventBean.upDateMoney) upDateBalance()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun upDateBalance() {
         MineApi.getUserBalance {
             onSuccess {
                 tvCountBalance.text = it.balance.toString()
+                setFragmentViewPager()
             }
             onFailed {
                 showExpireDialog(getPageActivity(), it)

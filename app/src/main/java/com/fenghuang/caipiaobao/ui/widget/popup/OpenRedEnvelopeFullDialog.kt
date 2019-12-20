@@ -11,10 +11,12 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.utils.ViewUtils.getColor
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRedReceiveBean
+import com.fenghuang.caipiaobao.utils.FastClickUtils
 
 /**
  *  author : QinTian
@@ -41,8 +43,13 @@ class OpenRedEnvelopeFullDialog(context: Context) : Dialog(context) {
 //        addBackground()
         setContentView(R.layout.popup_live_room_open_red_envelope_fullscreen)
         setCanceledOnTouchOutside(false)
+        val lp = window!!.attributes
+        lp.width = ViewUtils.dp2px(240)
+        lp.height = ViewUtils.dp2px(330)
+        window!!.attributes = lp
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setGravity(Gravity.CENTER or Gravity.CENTER)
+        window!!.setWindowAnimations(R.style.dialogAnim)
         mOpenRed = findViewById(R.id.rlOpenRed)
         mOpenRedMoney = findViewById(R.id.layoutOpenRedMoney)
         mOpenRedLogo = findViewById(R.id.ivOpenRedLogo)
@@ -59,7 +66,10 @@ class OpenRedEnvelopeFullDialog(context: Context) : Dialog(context) {
 //            dismiss()
 //        }
         ivOpenRedEnvelope.setOnClickListener {
-            mListener?.invoke()
+            if (FastClickUtils.isFastClick()) {
+
+                mListener?.invoke()
+            }
         }
 //        mRedDelete.setOnClickListener {
 //            dismiss()

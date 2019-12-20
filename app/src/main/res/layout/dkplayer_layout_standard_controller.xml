@@ -7,28 +7,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
+    <!-- ========================顶部 top_container======================== -->
     <LinearLayout
         android:id="@+id/top_container"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_46"
+        android:layout_height="@dimen/dp_52"
         android:background="@drawable/player_shape_standard_controller_top_bg"
-        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone"
         tools:visibility="visible">
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/imgTopBack"
             android:layout_width="@dimen/dp_46"
             android:layout_height="@dimen/dp_46"
             android:layout_gravity="center"
             android:padding="@dimen/dp_12"
             android:src="@drawable/ic_player_action_arrow_back"
-            android:visibility="visible"
-            tools:ignore="ContentDescription"
-            tools:visibility="visible" />
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
 
-        <com.fenghuang.caipiaobao.widget.ijkplayer.controller.MarqueeTextView
+        <com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.MarqueeTextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,27 +42,122 @@
             android:singleLine="true"
             android:textColor="@android:color/white"
             android:textSize="@dimen/sp_16"
+            android:visibility="gone"
             tools:text="这是一个标题" />
 
-        <ImageView
-            android:id="@+id/iv_battery"
-            android:layout_width="26dp"
-            android:layout_height="20dp"
-            android:src="@drawable/player_battery_level"
-            tools:ignore="ContentDescription" />
+        <RelativeLayout
+            android:id="@+id/rlAttention"
+            android:layout_width="@dimen/dp_130"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/sys_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="14dp"
-            android:textColor="@android:color/white"
-            android:visibility="gone"
-            tools:text="12:00"
-            tools:visibility="visible" />
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:layout_width="@dimen/dp_130"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                app:rv_backgroundColor="#000000"
+                app:rv_backgroundPressColor="#000000"
+                app:rv_cornerRadius="15.5dp"
+                app:rv_textPressColor="#000000" />
+
+            <ImageView
+                android:id="@+id/imgFullPhoto"
+                android:layout_width="35dp"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/ic_mine_base_user" />
+
+            <TextView
+                android:id="@+id/tvFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_toEndOf="@+id/imgFullPhoto"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_13"
+                tools:text="刘禹锡" />
+
+            <TextView
+                android:id="@+id/tvFullTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvFullName"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_toEndOf="@+id/imgFullPhoto"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_9"
+                tools:text="459933人" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtvFullAttention"
+                android:layout_width="@dimen/dp_46"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:layout_toEndOf="@+id/tvFullName"
+                android:gravity="center"
+                android:text="@string/ranking_attention"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_11"
+                app:rv_backgroundColor="@color/color_FF513E"
+                app:rv_backgroundPressColor="@color/color_FF513E"
+                app:rv_cornerRadius="15.5dp"
+                app:rv_textPressColor="@color/color_FF513E" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtvFullHaveAttention"
+                android:layout_width="@dimen/dp_46"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:layout_toEndOf="@+id/tvFullName"
+                android:gravity="center"
+                android:text="@string/ranking_has_attention"
+                android:textColor="@color/grey_e6"
+                android:textSize="@dimen/sp_11"
+                android:visibility="gone"
+                app:rv_backgroundColor="@color/color_f5f5f5"
+                app:rv_backgroundPressColor="@color/color_f5f5f5"
+                app:rv_cornerRadius="15.5dp"
+                app:rv_textPressColor="@color/color_f5f5f5" />
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end">
+
+            <ImageView
+                android:id="@+id/iv_battery"
+                android:layout_width="26dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/player_battery_level"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/sys_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="14dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:visibility="gone"
+                tools:text="12:00"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
+    <!-- ========================底部 container======================== -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -101,10 +196,9 @@
                 android:id="@+id/iv_danmu"
                 android:layout_width="@dimen/dp_46"
                 android:layout_height="@dimen/dp_46"
-                android:padding="@dimen/dp_12"
-                android:src="@drawable/ic_player_danmu"
-                tools:ignore="ContentDescription"
-                tools:visibility="visible" />
+                android:padding="@dimen/dp_11"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:id="@+id/curr_time"
@@ -123,15 +217,12 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical"
+                android:visibility="gone"
                 tools:visibility="invisible">
 
 
-                <include layout="@layout/include_comment_layout" />
-                <!--                <com.fenghuang.caipiaobao.widget.chat.MutilEmoticonKeyboard-->
-                <!--                android:id="@+id/mEmoticonKeyboard"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--                android:visibility="gone" />-->
+                <!--                <include layout="@layout/include_comment_layout" />-->
+
 
             </LinearLayout>
 
@@ -212,6 +303,8 @@
         android:scaleType="centerCrop"
         tools:ignore="ContentDescription" />
 
+
+    <!-- ========================完成 complete_container======================== -->
     <FrameLayout
         android:id="@+id/complete_container"
         android:layout_width="match_parent"
@@ -227,8 +320,7 @@
             android:padding="@dimen/dp_12"
             android:src="@drawable/ic_player_action_arrow_back"
             android:visibility="gone"
-            tools:ignore="ContentDescription"
-            tools:visibility="visible" />
+            tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -308,4 +400,49 @@
         android:visibility="gone"
         app:SpinKit_Color="@color/white" />
 
+
+    <!-- ========================无主播======================== -->
+    <FrameLayout
+        android:id="@+id/fmNoAnchor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_282828"
+        android:clickable="true"
+        android:visibility="gone">
+
+
+        <RelativeLayout
+            android:id="@+id/rlAnchorNotHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imgAnchorNotHomePhoto"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_70"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_mine_base_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAnchorNotHomePhoto"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_15"
+                android:text="@string/live_anchor_not_home"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/imgExit"
+        android:layout_width="@dimen/dp_46"
+        android:layout_height="@dimen/dp_46"
+        android:padding="@dimen/dp_12"
+        android:src="@drawable/ic_player_action_arrow_back"
+        android:visibility="gone" />
 </FrameLayout>

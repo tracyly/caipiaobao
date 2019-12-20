@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_gift_send" />
+
+    <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/tvGoToRecharge"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_44"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/dp_34"
+        android:layout_marginTop="@dimen/dp_22"
+        android:layout_marginEnd="@dimen/dp_34"
+        android:layout_marginBottom="@dimen/dp_70"
+        android:gravity="center"
+        android:text="去充值"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12"
+        app:rv_backgroundColor="@color/text_red"
+        app:rv_cornerRadius="@dimen/dp_24" />
+    <!--        app:rv_backgroundColor="#FF0000"-->
+    <ImageView
+        android:id="@+id/imgBackSend"
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:layout_marginTop="@dimen/dp_30"
+        android:padding="@dimen/dp_20"
+        android:src="@mipmap/ic_arrow_back" />
+</RelativeLayout>

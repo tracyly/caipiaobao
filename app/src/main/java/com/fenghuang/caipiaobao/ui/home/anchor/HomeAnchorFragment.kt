@@ -10,7 +10,10 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorInfoBean
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
+import com.fenghuang.caipiaobao.utils.UserInfoSp
 import kotlinx.android.synthetic.main.fragment_home_anchor_information.*
+
 
 /**
  *  author : Peter
@@ -18,6 +21,11 @@ import kotlinx.android.synthetic.main.fragment_home_anchor_information.*
  *  desc   : 主播详情页
  */
 class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
+
+
+    private var liveSate = -1
+    private var avatar = "-1"
+
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -45,6 +53,28 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
                 anchorTabView.setTabSelect(position)
             }
         })
+        tvAnchorAddAttentions.setOnClickListener {
+            if (UserInfoSp.getIsLogin()) {
+                mPresenter.getMoney()
+                mPresenter.setAttention(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                        ?: 0, 0)
+            } else ExceptionDialog.showExpireDialog(getPageActivity())
+
+        }
+        tvAnchorNoAttentions.setOnClickListener {
+            if (UserInfoSp.getIsLogin()) {
+                mPresenter.setAttention(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                        ?: 0, 1)
+            } else ExceptionDialog.showExpireDialog(getPageActivity())
+        }
+
+        anchorLiveStatusLayout.setOnClickListener {
+            //            if (liveSate != -1 && avatar != "-1")
+//                LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+//                        ?: 0, "", liveSate, avatar))
+            pop()
+        }
+
     }
 
     override fun initData() {
@@ -54,23 +84,39 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
     }
 
     fun updateInfo(it: HomeLiveAnchorInfoBean) {
-        ImageManager.loadRoundLogo(it.avatar, findView(R.id.ivAnchorLogo))
+        liveSate = it.liveStatus
+        avatar = it.avatar
+        ImageManager.loadRoundFrameUserLogo(it.avatar, findView(R.id.ivAnchorLogo), 10, getColor(R.color.white))
+        ImageManager.loadImage(it.avatar, findView(R.id.imgAnchorBg))
+
         setText(R.id.tvAnchorUsername, it.nickname)
-        setText(R.id.tvAnchorAge, it.age.toString())
-        setImageResource(findView(R.id.ivAnchorSex), if (it.sex == 0) R.mipmap.ic_home_anchor_woman else R.mipmap.ic_home_anchor_man)
-        setAnchorLevel(it.level)
+        if (it.age != 0) setText(R.id.tvAnchorAge, it.age.toString())
+        setImageResource(findView(R.id.ivAnchorSex), if (it.sex == 0) R.mipmap.ic_anchor_girl else R.mipmap.ic_anchor_boy)
+//        setAnchorLevel(it.level)
         setText(R.id.tvAnchorSignature, it.sign)
         setText(R.id.tvAnchorAttention, it.follow_num.toString())
         setText(R.id.tvAnchorFan, it.fans.toString())
-        setText(R.id.tvAnchorAddAttention, if (it.isFollow) "已关注" else "关注")
-        if (it.liveStatus == 0) {
-            setGone(R.id.anchorLiveStatusLayout)
+        setText(R.id.tvAnchorZan, it.level.toString())
+
+
+        if (it.isFollow) {
+            setGone(tvAnchorAddAttentions)
+            setVisibility(tvAnchorNoAttentions, true)
         } else {
-            ivAnchorLiveStatus.setGifResource(R.drawable.ic_home_live_gif)
-            ivAnchorLiveStatus.play(-1)
-            setVisible(R.id.anchorLiveStatusLayout)
+            setGone(tvAnchorNoAttentions)
+            setVisibility(tvAnchorAddAttentions, true)
+        }
+        if (it.liveStatus == 0) {
+            ivAnchorLiveStatus.background = getDrawable(R.mipmap.ic_anchor_no_live)
+        } else {
+            if (ivAnchorLiveStatus != null) {
+                ivAnchorLiveStatus.setGifResource(R.drawable.ic_home_live_gif)
+                ivAnchorLiveStatus.play(-1)
+            }
         }
         setFragmentViewPager(it)
+
+
     }
 
     private fun setFragmentViewPager(it: HomeLiveAnchorInfoBean) {
@@ -85,15 +131,17 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
     }
 
     private fun setAnchorLevel(level: Int) {
-//        when (level) {
-//            1 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip1)
-//            2 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip2)
-//            3 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip3)
-//            4 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip4)
-//            5 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip5)
-//            6 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip6)
-//        }
+        when (level) {
+            1 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.ic_live_chat_vip_1)
+            2 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.v2)
+            3 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.v3)
+            4 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.v4)
+            5 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.v5)
+            6 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.v6)
+            7 -> setImageResource(findView(R.id.ivAnchorVip), R.mipmap.v7)
+        }
     }
+
 
     companion object {
         fun newInstance(anchorId: Int): HomeAnchorFragment {

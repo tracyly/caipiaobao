@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -251,13 +250,11 @@ public class EmoticonKeyboard extends LinearLayout implements AdapterView.OnItem
      * @param editText
      */
     private void initInputFilter(final EditText editText) {
-        InputFilter filter = new InputFilter() {
-            public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-                if (TextUtils.isEmpty(source))
-                    return null;
-                return EmojiconHandler.handleAllEmoticon(getContext(), new SpannableString(source), mIconSize);
+        InputFilter filter = (source, start, end, dest, dstart, dend) -> {
+            if (TextUtils.isEmpty(source))
+                return null;
+            return EmojiconHandler.handleAllEmoticon(getContext(), new SpannableString(source), mIconSize);
 
-            }
         };
         editText.setFilters(new InputFilter[]{filter});
     }

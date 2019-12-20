@@ -42,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvExpertName" />
 
     <com.fenghuang.baselib.widget.round.RoundTextView
+        android:id="@+id/tvMethod"
         android:layout_width="@dimen/dp_36"
         android:layout_height="@dimen/dp_14"
         android:layout_marginStart="@dimen/dp_6"

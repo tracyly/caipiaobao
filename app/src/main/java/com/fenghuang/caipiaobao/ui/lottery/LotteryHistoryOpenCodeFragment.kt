@@ -20,12 +20,14 @@ import com.hwangjr.rxbus.thread.EventThread
 
 class LotteryHistoryOpenCodeFragment : BaseRecyclerFragment<LotteryHistoryOpenCodePresenter, LotteryCodeHistoryResponse>() {
 
+    private var lotteryId = arguments?.getInt(IntentConstant.LOTTERY_HISTORY_OPEN_CODE_ID) ?: 0
+
     override fun attachView() = mPresenter.attachView(this)
 
     override fun attachPresenter() = LotteryHistoryOpenCodePresenter(arguments?.getInt(IntentConstant.LOTTERY_HISTORY_OPEN_CODE_ID)
             ?: 0, TimeUtils.getToday())
 
-    override fun attachAdapter() = LotteryHistoryOpenCodeAdapter(getPageActivity())
+    override fun attachAdapter() = LotteryHistoryOpenCodeAdapter(getPageActivity(), lotteryId)
 
     override fun isRegisterRxBus() = true
 

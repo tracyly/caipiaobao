@@ -18,19 +18,11 @@ public class AndroidMediaPlayer extends AbstractPlayer {
     private boolean isLooping;
     private int mBufferedPercent;
 
-    private MediaPlayer.OnErrorListener onErrorListener = new MediaPlayer.OnErrorListener() {
-        @Override
-        public boolean onError(MediaPlayer mp, int what, int extra) {
-            mPlayerEventListener.onError();
-            return true;
-        }
+    private MediaPlayer.OnErrorListener onErrorListener = (mp, what, extra) -> {
+        mPlayerEventListener.onError();
+        return true;
     };
-    private MediaPlayer.OnCompletionListener onCompletionListener = new MediaPlayer.OnCompletionListener() {
-        @Override
-        public void onCompletion(MediaPlayer mp) {
-            mPlayerEventListener.onCompletion();
-        }
-    };
+    private MediaPlayer.OnCompletionListener onCompletionListener = mp -> mPlayerEventListener.onCompletion();
 
     @Override
     public void setDataSource(AssetFileDescriptor fd) {
@@ -77,12 +69,9 @@ public class AndroidMediaPlayer extends AbstractPlayer {
         }
     }
 
-    private MediaPlayer.OnInfoListener onInfoListener = new MediaPlayer.OnInfoListener() {
-        @Override
-        public boolean onInfo(MediaPlayer mp, int what, int extra) {
-            mPlayerEventListener.onInfo(what, extra);
-            return true;
-        }
+    private MediaPlayer.OnInfoListener onInfoListener = (mp, what, extra) -> {
+        mPlayerEventListener.onInfo(what, extra);
+        return true;
     };
 
     @Override
@@ -163,21 +152,16 @@ public class AndroidMediaPlayer extends AbstractPlayer {
         return 0;
     }
 
-    private MediaPlayer.OnPreparedListener onPreparedListener = new MediaPlayer.OnPreparedListener() {
-        @Override
-        public void onPrepared(MediaPlayer mp) {
-            mPlayerEventListener.onPrepared();
-            start();
-        }
+
+    private MediaPlayer.OnPreparedListener onPreparedListener = mp -> {
+        mPlayerEventListener.onPrepared();
+        start();
     };
-    private MediaPlayer.OnVideoSizeChangedListener onVideoSizeChangedListener = new MediaPlayer.OnVideoSizeChangedListener() {
-        @Override
-        public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-            int videoWidth = mp.getVideoWidth();
-            int videoHeight = mp.getVideoHeight();
-            if (videoWidth != 0 && videoHeight != 0) {
-                mPlayerEventListener.onVideoSizeChanged(videoWidth, videoHeight);
-            }
+    private MediaPlayer.OnVideoSizeChangedListener onVideoSizeChangedListener = (mp, width, height) -> {
+        int videoWidth = mp.getVideoWidth();
+        int videoHeight = mp.getVideoHeight();
+        if (videoWidth != 0 && videoHeight != 0) {
+            mPlayerEventListener.onVideoSizeChanged(videoWidth, videoHeight);
         }
     };
 

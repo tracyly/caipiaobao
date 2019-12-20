@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import android.view.ViewParent;
 
 import com.fenghuang.caipiaobao.app.CaiPiaoBaoApplication;
-import com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.VideoView;
+import com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.DanmukuVideoView;
 
 /**
  * @ Author  QinTian
@@ -14,7 +14,7 @@ import com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.VideoView;
  */
 public class PIPManager {
     private static PIPManager instance;
-    private VideoView mVideoView;
+    private DanmukuVideoView mVideoView;
     private FloatView floatView;
     private FloatController mFloatController;
     private boolean isShowing;
@@ -31,7 +31,7 @@ public class PIPManager {
 
 
     private PIPManager() {
-        mVideoView = new VideoView(CaiPiaoBaoApplication.Companion.getInstance());
+        mVideoView = new DanmukuVideoView(CaiPiaoBaoApplication.Companion.getInstance());
 //        mVideoView.setVideoListener(mMyVideoListener);
 //        mKeyReceiver = new KeyReceiver();
         mFloatController = new FloatController(CaiPiaoBaoApplication.Companion.getInstance());
@@ -51,7 +51,7 @@ public class PIPManager {
         return instance;
     }
 
-    public VideoView getVideoView() {
+    public DanmukuVideoView getVideoView() {
         return mVideoView;
     }
 

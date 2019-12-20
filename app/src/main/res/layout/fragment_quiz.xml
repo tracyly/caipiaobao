@@ -1,23 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/smartRefreshLayoutQuiz"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_below="@+id/rlHotChat">
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@id/smartRefreshLayout"
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@id/recyclerView"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_f7f7f7"
-            android:descendantFocusability="blocksDescendants"
-            android:focusableInTouchMode="true"
-            android:scrollbars="vertical" />
+            android:layout_height="wrap_content"
+            android:background="@color/grey_light">
+            <!-- Banner -->
+            <com.pingerx.banner.BannerView
+                android:id="@+id/mQuizBannerViews"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_160"
+                android:background="@color/white"
+                android:paddingStart="@dimen/dp_10"
+                android:paddingEnd="@dimen/dp_10"
+                app:bannerAutoLoop="true"
+                app:bannerPageMode="normal"
+                app:bannerSlideAnim="true"
+                app:indicatorSelectRes="@drawable/banner_select_shap"
+                app:indicatorUnSelectRes="@drawable/banner_unselect_shap"
+                app:indicatorVisible="true"
+                tools:ignore="MissingDefaultResource" />
 
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+            <RelativeLayout
+                android:id="@+id/rlHotChat"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:layout_below="@+id/mQuizBannerViews"
+                android:background="@color/white"
+                android:paddingStart="@dimen/dp_14"
+                android:paddingTop="@dimen/dp_20"
+                tools:ignore="RtlSymmetry">
 
+                <com.fenghuang.baselib.widget.round.RoundTextView
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_6"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/dp_18"
+                    app:rv_backgroundColor="@color/color_FFD4AF"
+                    app:rv_backgroundPressColor="@color/color_FFD4AF"
+                    app:rv_cornerRadius="@dimen/dp_6" />
 
-</RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="热门讨论"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewQuizList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/rlHotChat"
+                android:background="@color/grey_light"
+                android:descendantFocusability="blocksDescendants"
+                android:focusableInTouchMode="true"
+                android:scrollbars="vertical" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

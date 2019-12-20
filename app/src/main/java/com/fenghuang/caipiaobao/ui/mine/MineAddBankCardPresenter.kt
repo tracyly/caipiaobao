@@ -1,10 +1,12 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import android.content.Context
-import android.widget.ArrayAdapter
-import androidx.appcompat.widget.AppCompatSpinner
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.caipiaobao.R
+import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.caipiaobao.ui.mine.data.MineApi
+import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateBank
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
+import com.hwangjr.rxbus.RxBus
+import kotlinx.android.synthetic.main.fragment_mine_add_bank_card.*
 
 /**
  *
@@ -17,10 +19,48 @@ import com.fenghuang.caipiaobao.R
 class MineAddBankCardPresenter : BaseMvpPresenter<MineAddBankCardFragment>() {
 
 
-    fun initSpinnerCardList(spinner: AppCompatSpinner, context: Context) {
-        val titles = arrayListOf("中国工商银行", "中国建设银行", "上海浦发银行", "招商银行")
-        val adapter = ArrayAdapter<String>(context, R.layout.mine_spinner, titles)
-        spinner.adapter = adapter
+    fun getBankList() {
+        mView.showPageLoadingDialog()
+        MineApi.getBankList {
+            onSuccess {
+                if (mView.isActive()) {
+                    mView.dataList = it
+                    if (it.isNotEmpty()) {
+                        mView.bankListAll = it
+                        mView.tvUserBankCard.text = it[it.size / 2].name
+                        mView.bankCode = it[it.size / 2].code
+                        val banNameList = arrayListOf<String>()
+                        for (i in it.iterator()) {
+                            banNameList.add(i.name)
+                        }
+                        mView.initWheelView(banNameList)
+                    }
+                }
+                mView.hidePageLoadingDialog()
+            }
+            onFailed {
+                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+                mView.hidePageLoadingDialog()
+            }
+        }
+    }
+
+    fun bindBankCard(bank_code: String, province: String, city: String, branch: String, realname: String, card_num: String, fund_password: String) {
+        mView.showPageLoadingDialog()
+        MineApi.bingBankCard(bank_code, province, city, branch, realname, card_num, fund_password) {
+            onSuccess {
+                if (mView.isActive()) {
+                    ToastUtils.showSuccess("绑定成功")
+                    RxBus.get().post(MineUpDateBank(true))
+                    mView.hidePageLoadingDialog()
+                    mView.pop()
+                }
+            }
+            onFailed {
+                mView.hidePageLoadingDialog()
+                ExceptionDialog.showExpireDialog(mView.requireActivity(), it)
+            }
+        }
     }
 
 

@@ -1,10 +1,13 @@
 package com.fenghuang.caipiaobao.ui.widget.popup
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import android.widget.TextView
 import com.fenghuang.baselib.utils.ViewUtils
-import com.fenghuang.baselib.widget.popup.BasePopupWindow
 import com.fenghuang.caipiaobao.R
 
 /**
@@ -12,17 +15,21 @@ import com.fenghuang.caipiaobao.R
  *  date   : 2019/10/16 15:34
  *  desc   : 直播间余额不足提示充值的窗口
  */
-class ReChargePopup(context: Context) : BasePopupWindow(context, R.layout.popup_live_chat_recharge) {
+class ReChargePopup(context: Context) : Dialog(context) {
 
     init {
-        width = ViewUtils.dp2px(314)
-        height = ViewUtils.dp2px(260)
-        addBackground()
-        isFocusable = true
-        findView<TextView>(R.id.tvRechargeCancel).setOnClickListener {
+        setContentView(R.layout.popup_live_chat_recharge)
+        window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window!!.setGravity(Gravity.CENTER or Gravity.CENTER)
+        val lp = window!!.attributes
+        lp.width = ViewUtils.dp2px(314) // 宽度
+        lp.height = ViewUtils.dp2px(290)  // 高度
+        window!!.attributes = lp
+        window!!.setWindowAnimations(R.style.dialogAnim)
+        findViewById<TextView>(R.id.tvRechargeCancel).setOnClickListener {
             dismiss()
         }
-        findView<TextView>(R.id.tvGoRecharge).setOnClickListener {
+        findViewById<TextView>(R.id.tvGoRecharge).setOnClickListener {
             dismiss()
             mListener?.invoke()
         }

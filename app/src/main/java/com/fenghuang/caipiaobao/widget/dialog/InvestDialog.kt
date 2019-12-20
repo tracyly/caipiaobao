@@ -1,13 +1,20 @@
 package com.fenghuang.caipiaobao.widget.dialog
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.text.Editable
+import android.text.InputFilter
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.Gravity
 import com.fenghuang.baselib.utils.ViewUtils
+import com.fenghuang.caipiaobao.utils.MoneyValueFilter
 import kotlinx.android.synthetic.main.dialog_invest.*
+import java.math.BigDecimal
+
 
 /**
  *
@@ -29,6 +36,24 @@ class InvestDialog(context: Context, title: String, confirm: String, cancel: Str
         window!!.attributes = lp
         setCanceledOnTouchOutside(false)
         initDialog(title, confirm, cancel)
+
+
+        etInvestMoney.filters = arrayOf<InputFilter>(MoneyValueFilter())
+        etInvestMoney.addTextChangedListener(object : TextWatcher {
+            @SuppressLint("SetTextI18n")
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0.toString() != "" && BigDecimal(p0.toString()).compareTo(BigDecimal(999999)) == 1) {
+                    etInvestMoney.setText("999999")
+                    etInvestMoney.setSelection(etInvestMoney.length())
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
     }
 
     private fun initDialog(title: String, confirm: String, cancel: String) {

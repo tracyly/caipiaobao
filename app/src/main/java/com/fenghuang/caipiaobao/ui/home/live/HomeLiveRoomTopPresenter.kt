@@ -18,7 +18,9 @@ class HomeLiveRoomTopPresenter(private val anchorId: Int) : BaseRecyclerPresente
         mView.hidePageLoading()
         HomeApi.getHomeLiveChatRewardResult(anchorId) {
             onSuccess {
-                mView.showDatas(it)
+                if (mView.isActive()) {
+                    mView.showDatas(it)
+                }
             }
             onFailed {
                 showToast("获取打赏榜失败")

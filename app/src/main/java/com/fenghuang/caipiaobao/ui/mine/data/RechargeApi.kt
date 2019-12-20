@@ -25,10 +25,10 @@ object RechargeApi : BaseApi {
     /**
      * 获取 Tpay充值订单URL
      */
-    fun getToPayUrl(amount: Float, channels_id: Int, function: ApiSubscriber<MinePayUrl>.() -> Unit) {
+    fun getToPayUrl(amount: Float, channels_id: Int, url: String, function: ApiSubscriber<MinePayUrl>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MinePayUrl>() {}
         subscriber.function()
-        MineApi.getApi().post<MinePayUrl>(INVEST_MONEY_TPAY)
+        getApi().post<MinePayUrl>(url)
                 .headers("token", UserInfoSp.getToken())
                 .params("user_id", UserInfoSp.getUserId())
                 .params("amount", amount)
@@ -44,7 +44,7 @@ object RechargeApi : BaseApi {
     fun getPayUrl(amount: Float, channels_id: Int, function: ApiSubscriber<MinePayUrl>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MinePayUrl>() {}
         subscriber.function()
-        RechargeApi.getApi().post<MinePayUrl>(INVEST_MONEY_YCT)
+        getApi().post<MinePayUrl>(INVEST_MONEY_YCT)
                 .headers("token", UserInfoSp.getToken())
                 .params("user_id", UserInfoSp.getUserId())
                 .params("amount", amount)

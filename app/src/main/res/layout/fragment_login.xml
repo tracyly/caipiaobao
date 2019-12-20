@@ -4,196 +4,229 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
     android:orientation="vertical">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+
+        android:id="@+id/linLoginLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_54"
-        android:background="@mipmap/ic_login_logo"
-        android:contentDescription="@string/app_name" />
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-
-    <com.fenghuang.baselib.widget.round.RoundLinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44"
-        android:layout_marginStart="@dimen/dp_36"
-        android:layout_marginTop="@dimen/dp_62"
-        android:layout_marginEnd="@dimen/dp_36"
-        android:gravity="center_vertical"
-        app:rv_backgroundColor="@color/color_f6f6f6"
-        app:rv_cornerRadius="@dimen/dp_7">
 
         <ImageView
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_20"
-            android:layout_marginStart="@dimen/dp_14"
-            android:layout_marginEnd="@dimen/dp_22"
-            android:background="@mipmap/ic_login_phone"
-            android:contentDescription="@string/app_name" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:background="@color/color_CCCCCC" />
-
-        <EditText
-            android:id="@+id/etPhoneNum"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_14"
-            android:background="@null"
-            android:hint="@string/login_enter_phone"
-            android:inputType="phone"
-            android:maxLength="11"
-            android:textColor="@color/black"
-            android:textColorHint="@color/color_CCCCCC"
-            android:textSize="@dimen/sp_12" />
-    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
-
-
-    <com.fenghuang.baselib.widget.round.RoundLinearLayout
-        android:id="@+id/rlLoginByPassWord"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44"
-        android:layout_marginStart="@dimen/dp_36"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_36"
-        android:gravity="center_vertical"
-        android:visibility="gone"
-        app:rv_backgroundColor="@color/color_f6f6f6"
-        app:rv_cornerRadius="@dimen/dp_7">
-
-        <ImageView
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_20"
-            android:layout_marginStart="@dimen/dp_14"
-            android:layout_marginEnd="@dimen/dp_22"
-            android:background="@mipmap/ic_login_lock"
-            android:contentDescription="@string/app_name" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:background="@color/color_CCCCCC" />
-
-        <EditText
-            android:id="@+id/etPassWord"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_14"
-            android:layout_weight="3.5"
-            android:background="@null"
-            android:hint="@string/login_enter_password"
-            android:textColor="@color/black"
-            android:textColorHint="@color/color_CCCCCC"
-            android:textSize="@dimen/sp_12" />
-
-        <TextView
-            android:layout_width="@dimen/dp_0"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/login_forget_password"
-            android:textColor="@color/color_FF513E"
-            android:textSize="@dimen/sp_12" />
-    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
-
-    <com.fenghuang.baselib.widget.round.RoundLinearLayout
-        android:id="@+id/rlLoginByIdentify"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44"
-        android:layout_marginStart="@dimen/dp_36"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_36"
-        android:gravity="center_vertical"
-        app:rv_backgroundColor="@color/color_f6f6f6"
-        app:rv_cornerRadius="@dimen/dp_7">
-
-        <ImageView
-            android:layout_width="@dimen/dp_16"
-            android:layout_height="@dimen/dp_20"
-            android:layout_marginStart="@dimen/dp_14"
-            android:layout_marginEnd="@dimen/dp_22"
-            android:background="@mipmap/ic_login_safe"
+            android:layout_marginTop="@dimen/dp_54"
+            android:background="@mipmap/ic_login_logo"
             android:contentDescription="@string/app_name" />
 
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_8"
-            android:layout_marginBottom="@dimen/dp_8"
-            android:background="@color/color_CCCCCC" />
 
-        <EditText
-            android:id="@+id/etIdentifyCode"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_14"
-            android:layout_weight="2"
-            android:background="@null"
-            android:hint="@string/login_enter_identify_code"
-            android:textColor="@color/black"
-            android:textColorHint="@color/color_CCCCCC"
-            android:textSize="@dimen/sp_12" />
+        <LinearLayout
+            android:id="@+id/linLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvGetIdentifyCode"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/dp_6"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/login_send_identify_code"
-            android:textColor="@color/color_FF513E"
-            android:textSize="@dimen/sp_12" />
-    </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+            <com.fenghuang.baselib.widget.round.RoundLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_marginStart="@dimen/dp_36"
+                android:layout_marginTop="@dimen/dp_62"
+                android:layout_marginEnd="@dimen/dp_36"
+                android:gravity="center_vertical"
+                app:rv_backgroundColor="@color/color_f6f6f6"
+                app:rv_cornerRadius="@dimen/dp_7">
 
-    <com.fenghuang.baselib.widget.round.RoundTextView
-        android:id="@+id/btLogin"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44"
-        android:layout_marginStart="@dimen/dp_34"
-        android:layout_marginTop="@dimen/dp_22"
-        android:layout_marginEnd="@dimen/dp_34"
-        android:gravity="center"
-        android:text="@string/login"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_12"
-        app:rv_backgroundColor="@color/color_FF513E"
-        app:rv_cornerRadius="@dimen/dp_24" />
+                <ImageView
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginEnd="@dimen/dp_22"
+                    android:background="@mipmap/ic_login_phone"
+                    android:contentDescription="@string/app_name" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_34"
-        android:layout_marginEnd="@dimen/dp_34">
+                <View
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:background="@color/color_CCCCCC" />
 
-        <TextView
-            android:id="@+id/tvLoginType"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_50"
-            android:layout_alignParentStart="true"
-            android:paddingTop="@dimen/dp_18"
-            android:text="@string/login_with_password_"
-            android:textColor="@color/color_FF513E"
-            android:textSize="@dimen/sp_12" />
+                <EditText
+                    android:id="@+id/etPhoneNum"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:background="@null"
+                    android:hint="@string/login_enter_phone"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/color_CCCCCC"
+                    android:textSize="@dimen/sp_12"
+                    tools:ignore="TextFields" />
+            </com.fenghuang.baselib.widget.round.RoundLinearLayout>
 
-        <TextView
-            android:id="@+id/tvRegister"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp_50"
-            android:layout_alignParentEnd="true"
-            android:paddingTop="@dimen/dp_18"
-            android:text="@string/login_user_register"
-            android:textColor="@color/color_FF513E"
-            android:textSize="@dimen/sp_12"
-            tools:ignore="RelativeOverlap" />
-    </RelativeLayout>
 
+            <com.fenghuang.baselib.widget.round.RoundLinearLayout
+                android:id="@+id/rlLoginByPassWord"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_marginStart="@dimen/dp_36"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_36"
+                android:gravity="center_vertical"
+                app:rv_backgroundColor="@color/color_f6f6f6"
+                app:rv_cornerRadius="@dimen/dp_7">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginEnd="@dimen/dp_22"
+                    android:background="@mipmap/ic_login_lock"
+                    android:contentDescription="@string/app_name" />
+
+                <View
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:background="@color/color_CCCCCC" />
+
+                <EditText
+                    android:id="@+id/etPassWord"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_weight="3.5"
+                    android:background="@null"
+                    android:digits="@string/rule_text"
+                    android:hint="@string/login_enter_password"
+                    android:inputType="textPassword"
+                    android:maxLength="18"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/color_CCCCCC"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/tvFoGetPass"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/login_forget_password"
+                    android:textColor="@color/color_FF513E"
+                    android:textSize="@dimen/sp_12" />
+            </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+            <com.fenghuang.baselib.widget.round.RoundLinearLayout
+                android:id="@+id/rlLoginByIdentify"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_marginStart="@dimen/dp_36"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_36"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                app:rv_backgroundColor="@color/color_f6f6f6"
+                app:rv_cornerRadius="@dimen/dp_7">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_marginEnd="@dimen/dp_22"
+                    android:background="@mipmap/ic_login_safe"
+                    android:contentDescription="@string/app_name" />
+
+                <View
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:background="@color/color_CCCCCC" />
+
+                <EditText
+                    android:id="@+id/etIdentifyCode"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_14"
+                    android:layout_weight="2"
+                    android:background="@null"
+                    android:hint="@string/login_enter_identify_code"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/color_CCCCCC"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/tvGetIdentifyCode"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/dp_6"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/login_send_identify_code"
+                    android:textColor="@color/color_FF513E"
+                    android:textSize="@dimen/sp_12" />
+            </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/btLogin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_44"
+                android:layout_marginStart="@dimen/dp_34"
+                android:layout_marginTop="@dimen/dp_22"
+                android:layout_marginEnd="@dimen/dp_34"
+                android:gravity="center"
+                android:text="@string/login"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_12"
+                app:rv_backgroundColor="@color/color_FF513E"
+                app:rv_cornerRadius="@dimen/dp_24" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_34"
+                android:layout_marginEnd="@dimen/dp_34">
+
+                <TextView
+                    android:id="@+id/tvLoginType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_alignParentStart="true"
+                    android:paddingTop="@dimen/dp_18"
+                    android:text="@string/login_with_identify_code"
+                    android:textColor="@color/color_FF513E"
+                    android:textSize="@dimen/sp_12" />
+
+                <TextView
+                    android:id="@+id/tvRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_alignParentEnd="true"
+                    android:paddingTop="@dimen/dp_18"
+                    android:text="@string/login_user_register"
+                    android:textColor="@color/color_FF513E"
+                    android:textSize="@dimen/sp_12"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/linRegister"
+            layout="@layout/fragment_login_register"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/linLoginSuccess"
+        layout="@layout/fragment_register_success"
+        android:visibility="gone" />
 </LinearLayout>

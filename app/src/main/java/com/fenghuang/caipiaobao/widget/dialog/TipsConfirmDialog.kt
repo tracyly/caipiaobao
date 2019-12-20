@@ -58,8 +58,9 @@ class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel
             }
         }
         if (tvCancel !== null) {
-            tvCancel.setOnClickListener {
+            tvCancel?.setOnClickListener {
                 dismiss()
+                mListenerCancel?.invoke()
             }
         }
     }
@@ -68,6 +69,12 @@ class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel
     fun setConfirmClickListener(listener: () -> Unit) {
         mListener = listener
     }
+
+    private var mListenerCancel: (() -> Unit)? = null
+    fun setCanCelClickListerner(listener: () -> Unit) {
+        mListenerCancel = listener
+    }
+
 
     fun setEnable(enable: Boolean) {
         tvConfirm.isEnabled = enable

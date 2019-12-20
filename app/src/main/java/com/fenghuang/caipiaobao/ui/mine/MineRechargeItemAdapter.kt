@@ -44,11 +44,11 @@ class MineRechargeItemAdapter(context: Context) : BaseRecyclerAdapter<MinePayTyp
             if (!TextUtils.isEmpty(dialog.getText())) {
                 val money = dialog.getText().toDouble()
                 if (it.high_money.toDouble() >= money && it.low_money.toDouble() <= money) {
-                    startFragment(MineInvestFragment.newInstance(money, it.id))
+                    startFragment(MineInvestFragment.newInstance(money, it.id, it.apiroute))
                     dialog.dismiss()
-                } else ToastUtils.showWarning("充值金额为:" + it.low_money + "~" + it.high_money)
+                } else ToastUtils.showInfo("充值金额为:" + it.low_money + "~" + it.high_money)
 
-            } else ToastUtils.showWarning("充值金额为:" + it.low_money + "~" + it.high_money)
+            } else ToastUtils.showInfo("充值金额为:" + it.low_money + "~" + it.high_money)
         }
     }
 

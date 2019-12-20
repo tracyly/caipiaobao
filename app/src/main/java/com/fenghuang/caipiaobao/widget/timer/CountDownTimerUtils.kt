@@ -53,7 +53,7 @@ class CountDownTimerUtils(textView: TextView, millisInFuture: Long, countDownInt
     }
 
     override fun onFinish() {
-        mTextView?.text = "获取验证码"
+        mTextView?.text = "重新发送"
         mTextView?.isClickable = true//重新获得点击
     }
 

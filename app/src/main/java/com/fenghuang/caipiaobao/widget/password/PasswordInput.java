@@ -118,13 +118,13 @@ public class PasswordInput extends EditText {
         int notFocusedColor = ta.getColor(R.styleable.PasswordInput_notFocusedColor, borderNotFocusedColor);
         boxCount = ta.getInt(R.styleable.PasswordInput_boxCount, boxCount);
         focusColorChangeEnable = ta.getBoolean(R.styleable.PasswordInput_focusColorChangeEnable, true);
-        dotRadius = ta.getDimension(R.styleable.PasswordInput_dotRaduis, dp2px(context, 8));
+        dotRadius = ta.getDimension(R.styleable.PasswordInput_dotRaduis, dp2px(context, 6));
         ta.recycle();
 
         borderFocusedColor = focusedColor;
         borderNotFocusedColor = notFocusedColor;
-        dotFocusedColor = getColor(getContext(), R.color.color_FF513E);
-        dotNotFocusedColor = getColor(getContext(), R.color.color_FF513E);
+        dotFocusedColor = getColor(getContext(), R.color.black);
+        dotNotFocusedColor = getColor(getContext(), R.color.black);
 
         borderWidth = dp2px(context, 1);
         boxRadius = dp2px(context, 3);
@@ -146,7 +146,7 @@ public class PasswordInput extends EditText {
         mBorderPaint.setStyle(Paint.Style.FILL);
 
         mDotPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mDotPaint.setColor(getColor(getContext(), R.color.color_FF513E));
+        mDotPaint.setColor(getColor(getContext(), R.color.black));
         mDotPaint.setStyle(Paint.Style.FILL);
 
         mBackgroundPaint = new Paint();

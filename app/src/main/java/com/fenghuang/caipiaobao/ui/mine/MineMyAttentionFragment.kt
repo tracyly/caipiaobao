@@ -5,7 +5,6 @@ import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineAttentionResponse
-import com.fenghuang.caipiaobao.widget.dialog.guide.AttentionGuideDialog
 import kotlinx.android.synthetic.main.fragment_mine_attention.*
 
 /**
@@ -41,11 +40,13 @@ class MineMyAttentionFragment : BaseMvpFragment<MineMyAttentionPresenter>() {
     }
 
     override fun initData() {
+        mPresenter.getMoney()
         mPresenter.getAttentionList()
+
     }
 
     fun upDateAttentionList(list: List<MineAttentionResponse>) {
-        val mineMyAttentionAdapter = MineMyAttentionAdapter(getPageActivity(), getPageActivity())
+        val mineMyAttentionAdapter = MineMyAttentionAdapter(getPageActivity(), mPresenter)
         mineMyAttentionAdapter.addAll(list)
         attentionRecycle.adapter = mineMyAttentionAdapter
         val value = object : LinearLayoutManager(context) {
@@ -55,6 +56,6 @@ class MineMyAttentionFragment : BaseMvpFragment<MineMyAttentionPresenter>() {
         }
         attentionRecycle.layoutManager = value
 
-        AttentionGuideDialog(getPageActivity()).show()
+//
     }
 }

@@ -1,12 +1,11 @@
 package com.fenghuang.caipiaobao.ui.mine
 
-import android.content.Context
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_USER_BAMK_LIST
-import com.fenghuang.caipiaobao.ui.mine.data.MineUserBankList
-import com.fenghuang.caipiaobao.utils.JsonUtils
+import com.fenghuang.caipiaobao.ui.mine.data.MineApi
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog.showExpireDialog
+import kotlinx.android.synthetic.main.fragment_mine_bank_card_list.*
 
 /**
  *
@@ -18,17 +17,31 @@ import com.fenghuang.caipiaobao.utils.JsonUtils
 
 class MineUserBankCardListPresenter : BaseMvpPresenter<MineUserBankCardList>() {
 
-
-    fun initList(context: Context, recyclerView: RecyclerView) {
-        val mineItemAdapter = MineUserBankCardListAdapter(context)
-        mineItemAdapter.addAll(JsonUtils.fromJson(mView.arguments?.getString(MINE_USER_BAMK_LIST).toString(), Array<MineUserBankList>::class.java))
-        recyclerView.adapter = mineItemAdapter
-        val value = object : LinearLayoutManager(context) {
-            override fun canScrollVertically(): Boolean {
-                return false
+    @SuppressLint("SetTextI18n")
+    fun getBankList() {
+        mView.showPageLoadingDialog()
+        MineApi.getUserBankList {
+            onSuccess {
+                if (mView.isActive()) {
+                    val mineItemAdapter = MineUserBankCardListAdapter(mView.requireContext())
+                    mineItemAdapter.addAll(it)
+                    mView.rvCardList.adapter = mineItemAdapter
+                    val value = object : LinearLayoutManager(mView.requireContext()) {
+                        override fun canScrollVertically(): Boolean {
+                            return false
+                        }
+                    }
+                    mView.rvCardList.layoutManager = value
+                }
+                mView.hidePageLoadingDialog()
+            }
+            onFailed {
+                if (mView.isActive()) {
+                    showExpireDialog(mView.requireContext(), it)
+                    mView.hidePageLoadingDialog()
+                }
             }
         }
-        recyclerView.layoutManager = value
     }
 }
 

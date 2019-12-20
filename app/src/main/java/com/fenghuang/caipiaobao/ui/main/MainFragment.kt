@@ -1,16 +1,30 @@
 package com.fenghuang.caipiaobao.ui.main
 
+import android.os.CountDownTimer
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.fragment.BasePageFragment
-import com.fenghuang.baselib.base.fragment.PlaceholderFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.bet.BetFragment
 import com.fenghuang.caipiaobao.ui.home.HomeFragmentNew
+import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeClickMine
+import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
+import com.fenghuang.caipiaobao.ui.lottery.LotteryFragment
+import com.fenghuang.caipiaobao.ui.lottery.data.UserChangePhoto
 import com.fenghuang.caipiaobao.ui.mine.MineFragment
 import com.fenghuang.caipiaobao.ui.quiz.QuizFragment
-import com.fenghuang.caipiaobao.widget.dialog.guide.HomeGuideDialog
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
+import com.fenghuang.caipiaobao.utils.UserInfoSp
+import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,12 +41,14 @@ class MainFragment : BasePageFragment() {
 
 
         mFragments.add(HomeFragmentNew())
-        mFragments.add(PlaceholderFragment())
+        mFragments.add(LotteryFragment())
         mFragments.add(BetFragment())
+//        mFragments.add(WebNavFragment.newInstance("https://www.h5682.com","1111", webBack = true, swipeBack = true))
         mFragments.add(QuizFragment())
         mFragments.add(MineFragment())
         loadMultipleRootFragment(R.id.mainContainer, 0,
                 mFragments[0], mFragments[1], mFragments[2], mFragments[3], mFragments[4])
+
 
     }
 
@@ -81,10 +97,11 @@ class MainFragment : BasePageFragment() {
             tabRanking.isChecked = false
             tabBetting.isFocusable = false
             showHideFragment(mFragments[4])
+            if (UserInfoSp.getIsLogin())
+                RxBus.get().post(UserChangePhoto(UserInfoSp.getUserPhoto()!!, "", "", false, loadAll = true))
         }
         imgLotteryBuyTips.setOnClickListener {
-            //            setVisibility(R.id.imgLotteryBuyTips, false)
-            HomeGuideDialog(getPageActivity(), getPageActivity()).show()
+            setVisibility(R.id.imgLotteryBuyTips, false)
         }
     }
 
@@ -93,13 +110,81 @@ class MainFragment : BasePageFragment() {
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onClickMine(clickMine: HomeClickMine) {
-        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
-        tabMine.isChecked = true
-        tabHome.isChecked = false
-        tabLive.isChecked = false
-        tabRanking.isChecked = false
-        tabBetting.isFocusable = false
-        showHideFragment(mFragments[4])
+        if (UserInfoSp.getIsLogin()) {
+            StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
+            tabMine.isChecked = true
+            tabHome.isChecked = false
+            tabLive.isChecked = false
+            tabRanking.isChecked = false
+            tabBetting.isFocusable = false
+            showHideFragment(mFragments[4])
+        } else ExceptionDialog.showExpireDialog(getPageActivity())
+
     }
 
+
+    private fun showNotification(textString: String) {
+        //自定义Toast控件
+        val toastView = LayoutInflater.from(getPageActivity()).inflate(R.layout.pop_anchor_push, null)
+        val relativeLayout = toastView.findViewById(R.id.rootContent) as LinearLayout
+        val layoutParams = FrameLayout.LayoutParams(ViewUtils.getScreenWidth() - ViewUtils.dp2px(40), ViewUtils.dp2px(40))
+        relativeLayout.layoutParams = layoutParams
+        val textView = toastView.findViewById(R.id.pushContent) as TextView
+        textView.text = textString
+        val toast = Toast(getPageActivity())
+        toast.duration = Toast.LENGTH_SHORT
+        toast.view = toastView
+        toast.setGravity(Gravity.TOP, 0, 0)
+        toast.view.systemUiVisibility = SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN//设置Toast可以布局到系统状态栏的下面
+        toast.show()
+    }
+
+
+    private val pushTime: Long = 300000
+    var timer: CountDownTimer? = null
+    private fun anchorNotify() {
+        //初始化主播开播提醒
+        timer = object : CountDownTimer(pushTime, 1000) {
+            //根据间隔时间来不断回调此方法，这里是每隔1000ms调用一次
+            override fun onTick(millisUntilFinished: Long) {
+                //todo millisUntilFinished为剩余时间，也就是30000 - n*1000
+
+            }
+
+            //结束倒计时调用
+            override fun onFinish() {
+                anchorPush()
+            }
+        }
+        timer?.start()
+    }
+
+    private fun anchorPush() {
+        HomeApi.anchorPush {
+            onSuccess {
+                showNotification("您关注的" + "'" + it.anchor_nickname + "'主播已开播")
+                timer?.start()
+            }
+            onFailed {
+                //                showNotification(it.getMsg()!!)
+                timer?.start()
+            }
+        }
+    }
+
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onEditUserInfo(eventBean: LoginSuccess) {
+        if (eventBean.loginOrExit) {
+            anchorNotify()
+        } else {
+            timer?.cancel()
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
+
+    }
 }

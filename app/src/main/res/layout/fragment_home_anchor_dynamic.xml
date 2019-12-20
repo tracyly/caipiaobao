@@ -2,23 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/color_f7f7f7">
+    android:background="@color/white"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_10">
 
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@id/smartRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:padding="@dimen/dp_2">
+        android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_f7f7f7" />
+            android:layout_height="match_parent" />
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

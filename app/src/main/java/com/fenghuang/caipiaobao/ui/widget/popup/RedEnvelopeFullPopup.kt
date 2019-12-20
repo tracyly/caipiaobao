@@ -1,13 +1,17 @@
 package com.fenghuang.caipiaobao.ui.widget.popup
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
-import com.fenghuang.baselib.utils.ViewUtils
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.utils.FastClickUtils
 import kotlinx.android.synthetic.main.popup_live_room_red_envelope_full.*
 
 /**
@@ -22,10 +26,6 @@ class RedEnvelopeFullPopup(context: Context) : Dialog(context, R.style.inputDial
     val etRedEnvelopeSend: TextView
 
     init {
-        val lp = window!!.attributes
-        lp.width = ViewUtils.dp2px(290)
-        lp.height = ViewUtils.dp2px(310)
-        window!!.attributes = lp
         setContentView(R.layout.popup_live_room_red_envelope_full)
 //        addBackground()
         etRedETotal = etRedEnvelopeTotal
@@ -33,19 +33,65 @@ class RedEnvelopeFullPopup(context: Context) : Dialog(context, R.style.inputDial
         etRedContent = etRedEnvelopeContent
         etRedEnvelopeSend = tvRedSend
         etRedEnvelopeSend.setOnClickListener {
-            val total = if (etRedETotal.text.toString().isNotEmpty()) etRedETotal.text.toString() else etRedETotal.hint.toString()
-            val number = if (etRedRedNumber.text.toString().isNotEmpty()) etRedRedNumber.text.toString() else etRedRedNumber.hint.toString()
-            val content = if (etRedContent.text.toString().isNotEmpty()) etRedContent.text.toString() else etRedContent.hint.toString()
+            if (FastClickUtils.isFastClick()) {
+
+                val total = if (etRedETotal.text.toString().isNotEmpty()) etRedETotal.text.toString() else ""
+                val number = if (etRedRedNumber.text.toString().isNotEmpty()) etRedRedNumber.text.toString() else ""
+                val content = if (etRedContent.text.toString().isNotEmpty()) etRedContent.text.toString() else ""
             mListener?.invoke(total, number, content)
+            }
         }
 
         rootRed.setOnClickListener {
-            val view = currentFocus
-            if (view is TextView) {
-                val mInputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                mInputMethodManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+            if (FastClickUtils.isFastClick()) {
+
+                val view = currentFocus
+                if (view is TextView) {
+                    val mInputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    mInputMethodManager.hideSoftInputFromWindow(view.windowToken, InputMethodManager.RESULT_UNCHANGED_SHOWN)
+                }
             }
         }
+
+
+        etRedEnvelopeTotal.addTextChangedListener(object : TextWatcher {
+            @SuppressLint("SetTextI18n")
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0.toString() != "" && p0.toString().toInt() > 2000) {
+                    ToastUtils.showNormal("最大金额为2000元")
+                    etRedEnvelopeTotal.setText("")
+                }
+                if (p0.toString() != "" && p0.toString().toInt() < 1) {
+                    ToastUtils.showNormal("最小金额为1元")
+                    etRedEnvelopeTotal.setText("")
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+        etRedEnvelopeRedNumber.addTextChangedListener(object : TextWatcher {
+            @SuppressLint("SetTextI18n")
+            override fun afterTextChanged(p0: Editable?) {
+                if (p0.toString() != "" && p0.toString().toInt() > 200) {
+                    ToastUtils.showNormal("红包最多个数为200")
+                    etRedEnvelopeRedNumber.setText("")
+                }
+                if (p0.toString() != "" && p0.toString().toInt() < 1) {
+                    ToastUtils.showNormal("红包最少个数为1")
+                    etRedEnvelopeRedNumber.setText("")
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
     }
 
 

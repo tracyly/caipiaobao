@@ -1,7 +1,6 @@
 package com.fenghuang.caipiaobao.widget.ijkplayer.controller.player.widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -49,7 +48,7 @@ public class FloatController extends GestureVideoController<MediaPlayerControl> 
         super.initView();
         this.setOnClickListener(this);
         mControllerView.findViewById(R.id.btn_close).setOnClickListener(this);
-        mControllerView.findViewById(R.id.btn_skip).setOnClickListener(this);
+//        mControllerView.findViewById(R.id.btn_skip).setOnClickListener(this);
         proLoading = mControllerView.findViewById(R.id.loading);
         playButton = mControllerView.findViewById(R.id.start_play);
         playButton.setOnClickListener(this);
@@ -71,13 +70,14 @@ public class FloatController extends GestureVideoController<MediaPlayerControl> 
             PIPManager.getInstance().reset();
         } else if (id == R.id.start_play) {
             doPauseResume();
-        } else if (id == R.id.btn_skip) {
-            if (PIPManager.getInstance().getActClass() != null) {
-                Intent intent = new Intent(getContext(), PIPManager.getInstance().getActClass());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                getContext().startActivity(intent);
-            }
         }
+//        else if (id == R.id.btn_skip) {
+//            if (PIPManager.getInstance().getActClass() != null) {
+//                Intent intent = new Intent(getContext(), PIPManager.getInstance().getActClass());
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                getContext().startActivity(intent);
+//            }
+//        }
     }
 
     @Override

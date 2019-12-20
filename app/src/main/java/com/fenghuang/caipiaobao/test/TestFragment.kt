@@ -1,10 +1,11 @@
 package com.fenghuang.caipiaobao.test
 
-import android.view.View
+
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import com.fenghuang.baselib.base.fragment.BaseNavFragment
-import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
-import kotlinx.android.synthetic.main.fragment_test.*
 
 class TestFragment : BaseNavFragment() {
 
@@ -15,18 +16,18 @@ class TestFragment : BaseNavFragment() {
     override fun getContentResID(): Int = R.layout.fragment_test
 
     override fun initContentView() {
+        val et_inputMessage = findView(R.id.et_inputMessage) as EditText
+        val iv_more = findView(R.id.iv_more) as ImageView
+        val ll_rootEmojiPanel = findView(R.id.ll_rootEmojiPanel) as LinearLayout
+    }
+
+    override fun initData() {
 
     }
 
     override fun initEvent() {
-        setOnClick(btnClick)
+
     }
 
-    override fun onClick(view: View) {
-        if (view == btnClick) {
-            // TODO 跳转
-            ToastUtils.showToast("点击")
-        }
-    }
 
 }

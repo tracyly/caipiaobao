@@ -84,9 +84,9 @@ public class MutilEmoticonKeyboard extends LinearLayout implements EmoticonKeybo
      * 初始化表情集
      */
     private void initEmoticonSet() {
-        mList.add(new EmojiSetEntity("默认", EmoticonSet.QQ));
-        mList.add(new EmojiSetEntity("滑稽", EmoticonSet.TIEBA));
-        mList.add(new EmojiSetEntity("emoji", EmoticonSet.EMOJI));
+        mList.add(new EmojiSetEntity("默认", EmoticonSet.CAIPIAOBAO));
+//        mList.add(new EmojiSetEntity("滑稽", EmoticonSet.TIEBA));
+//        mList.add(new EmojiSetEntity("emoji", EmoticonSet.EMOJI));
         mEmoticonKeyboard.fillMutilEmoticon(mList);
         initIndexView(getContext());
     }

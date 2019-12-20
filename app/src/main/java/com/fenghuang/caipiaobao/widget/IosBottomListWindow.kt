@@ -40,6 +40,17 @@ class IosBottomListWindow(private val activity: Activity) {
 
     private var isShow = false
 
+    private var mListener: (() -> Unit)? = null
+    private var mCancelButtonListener: (() -> Unit)? = null
+    fun setCancelButtonClickListener(listener: () -> Unit) {
+        mCancelButtonListener = listener
+    }
+
+    fun setOnDissMissClickListener(listener: () -> Unit) {
+        mListener = listener
+    }
+
+
     init {
         viewGroup = initViewGroup()
         contentGroup = initContentGroup()
@@ -63,7 +74,7 @@ class IosBottomListWindow(private val activity: Activity) {
         }
     }
 
-    private fun dismiss() {
+    fun dismiss() {
         if (isShow) {
             startAnimator(false, object : Animator.AnimatorListener {
                 override fun onAnimationStart(animation: Animator?) {
@@ -197,6 +208,7 @@ class IosBottomListWindow(private val activity: Activity) {
             typeface = Typeface.DEFAULT_BOLD
             setOnClickListener {
                 dismiss()
+                mCancelButtonListener?.invoke()
             }
         }
         contentGroup.addView(cancelView)
@@ -212,6 +224,7 @@ class IosBottomListWindow(private val activity: Activity) {
                 ViewGroup.LayoutParams.MATCH_PARENT)
         setOnClickListener {
             dismiss()
+            mListener?.invoke()
         }
     }
 

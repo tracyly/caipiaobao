@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 
+import com.fenghuang.caipiaobao.utils.FastClickUtils;
 import com.fenghuang.caipiaobao.widget.lighter.interfaces.LighterInternalAction;
 import com.fenghuang.caipiaobao.widget.lighter.interfaces.OnLighterListener;
 import com.fenghuang.caipiaobao.widget.lighter.interfaces.OnLighterViewClickListener;
@@ -243,7 +244,10 @@ public class LighterInternalImpl implements LighterInternalAction {
         }
 
         if (!intercept) {
-            mLighterView.setOnClickListener(mLighterViewClickListener);
+            if (FastClickUtils.INSTANCE.isFastClick()) {
+
+                mLighterView.setOnClickListener(mLighterViewClickListener);
+            }
         }
 
         //To ensure the root view has attached to window

@@ -1,6 +1,5 @@
 package com.fenghuang.caipiaobao.widget.dialog
 
-import ExceptionDialog.showExpireDialog
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -15,6 +14,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MinePassWordTime
 import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateUser
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog.showExpireDialog
 import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.dialog_diamond.*
@@ -63,6 +63,7 @@ class DiamondDialog(context: Context, var balance: String) : Dialog(context) {
                     if (BigDecimal(s.toString()).compareTo(BigDecimal(balance)) < 1) {
                         tvConfirmChange.delegate.backgroundColor = ViewUtils.getColor(R.color.color_FF3F30)
                         tvConfirmChange.setTextColor(ViewUtils.getColor(R.color.white))
+                        tvConfirmChange.text = "兑换"
                         if (tvConfirmChange !== null) {
                             tvConfirmChange.setOnClickListener {
                                 //                                mListener?.invoke()
@@ -71,7 +72,8 @@ class DiamondDialog(context: Context, var balance: String) : Dialog(context) {
                         }
                     } else {
                         tvConfirmChange.delegate.backgroundColor = ViewUtils.getColor(R.color.color_DDDDDD)
-                        tvConfirmChange.setTextColor(ViewUtils.getColor(R.color.color_DDDDDD))
+                        tvConfirmChange.setTextColor(ViewUtils.getColor(R.color.white))
+                        tvConfirmChange.text = "余额不足"
                         tvConfirmChange.setOnClickListener(null)
                         tvConfirmChange.isClickable = false
                     }
@@ -130,6 +132,7 @@ class DiamondDialog(context: Context, var balance: String) : Dialog(context) {
 
         })
         passWordDialog!!.show()
+        this.dismiss()
     }
 
     private fun exChangeDiamond(passWord: String) {

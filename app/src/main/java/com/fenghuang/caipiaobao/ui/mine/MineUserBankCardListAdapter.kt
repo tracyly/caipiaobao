@@ -37,7 +37,6 @@ class MineUserBankCardListAdapter(context: Context) : BaseRecyclerAdapter<MineUs
                 if (clickPosition == getDataPosition()) {
                     findView<CheckBox>(R.id.cbCard).isChecked = true
                     RxBus.get().post(MineSaveBank(data))
-
                 }
             }
         }

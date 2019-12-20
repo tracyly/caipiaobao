@@ -79,7 +79,10 @@
 
                 <TextView
                     android:id="@id/tvRedName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dp_180"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/ivOpenRedLogo"
                     android:layout_centerHorizontal="true"
@@ -91,12 +94,15 @@
 
                 <TextView
                     android:id="@id/tvRedContent"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dp_200"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tvRedName"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dp_10"
                     android:textColor="@color/color_ffe1bb"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
                     android:textSize="@dimen/sp_14"
                     tools:text="傻逼！曹尼玛！" />
 
@@ -207,7 +213,10 @@
 
                 <TextView
                     android:id="@+id/tvRedNoName"
-                    android:layout_width="wrap_content"
+                    android:layout_width="@dimen/dp_180"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_14"
@@ -219,7 +228,10 @@
                 <TextView
                     android:id="@+id/tvRedNoContent"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/dp_200"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLines="2"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="@dimen/dp_10"
                     android:textColor="@color/color_ffe1bb"
@@ -236,7 +248,7 @@
         android:layout_width="@dimen/dp_56"
         android:layout_height="@dimen/dp_56"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_4"
         android:padding="@dimen/dp_14"
         android:src="@mipmap/ic_live_red_close"
         tools:ignore="ContentDescription" />

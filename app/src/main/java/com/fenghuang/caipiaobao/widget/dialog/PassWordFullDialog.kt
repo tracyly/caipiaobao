@@ -7,11 +7,16 @@ import android.graphics.drawable.ColorDrawable
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import android.widget.EditText
-import kotlinx.android.synthetic.main.dialog_pass_word.*
+import com.fenghuang.baselib.utils.SoftInputUtils
+import com.fenghuang.baselib.utils.ViewUtils
+import com.fenghuang.caipiaobao.R
+import kotlinx.android.synthetic.main.dialog_bottom_input.*
+import kotlinx.android.synthetic.main.dialog_pass_word_full.*
 
 
 /**
@@ -26,11 +31,17 @@ import kotlinx.android.synthetic.main.dialog_pass_word.*
 class PassWordFullDialog(context: Context) : Dialog(context) {
 
     init {
-        setContentView(com.fenghuang.caipiaobao.R.layout.dialog_pass_word_full)
+        setContentView(R.layout.dialog_pass_word_full)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val lp = window!!.attributes
+        lp.width = ViewGroup.LayoutParams.MATCH_PARENT // 宽度
+        lp.height = ViewUtils.dp2px(200) // 宽度
+//      lp.alpha = 0.7f // 透明度
+        window!!.attributes = lp
         window!!.setGravity(Gravity.BOTTOM)
         setCanceledOnTouchOutside(false)
-        showSoftInputFromWindow(edtPassWord)
+//        showSoftInputFromWindow(edtPassWord)
+        SoftInputUtils.showSoftInput(dialogChatEditTexts)
         initDialog()
     }
 
@@ -58,10 +69,12 @@ class PassWordFullDialog(context: Context) : Dialog(context) {
 
     //显示软键盘
     private fun showSoftInputFromWindow(editText: EditText) {
+
+
         editText.isFocusable = true
         editText.isFocusableInTouchMode = true
         editText.requestFocus()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     private fun hideKeyboard() {

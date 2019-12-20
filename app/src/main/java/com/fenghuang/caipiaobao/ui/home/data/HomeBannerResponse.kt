@@ -51,7 +51,8 @@ data class HomeLivePopResponse(var aid: Int,
                                var name: String,
                                var nickname: String,
                                var starttime: Long,
-                               var endtime: Long)
+                               var endtime: Long,
+                               var livestatus: Int)
 
 data class HomeExpertRecommendResponse(var id: Int,
                                        var pro_avatar: String,
@@ -61,5 +62,11 @@ data class HomeExpertRecommendResponse(var id: Int,
 
 // 点击头像跳转标记消息体
 data class HomeClickMine(var isClick: Boolean)
+
+//小视屏点击跳转
+data class HomeClickVideo(var list: List<HomeGameListResponse>)
+
+//关注取关
+data class HomeAttention(var isFollow: Boolean)
 
 

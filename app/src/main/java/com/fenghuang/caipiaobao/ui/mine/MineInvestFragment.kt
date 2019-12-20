@@ -4,9 +4,10 @@ import android.os.Bundle
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_CHANNELS_ID
 import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_INVEST_AMOUNT
-import com.fenghuang.caipiaobao.ui.widget.X5WebView
+import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_RECHARGE_ID
+import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_RECHARGE_URL
+import com.fenghuang.caipiaobao.data.api.BaseApi
 import kotlinx.android.synthetic.main.fragment_invest.*
 
 
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_invest.*
  *
  */
 
-class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>() {
+class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>(), BaseApi {
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -35,12 +36,13 @@ class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>() {
 
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-        X5WebView.initWebViewSettings(investWebView, getPageActivity())
     }
 
     override fun initData() {
-        mPresenter.getInvestUrl((arguments?.getDouble(MINE_INVEST_AMOUNT)!!.toFloat()), arguments?.getInt(MINE_CHANNELS_ID)
-                ?: 0)
+        val money = arguments?.getDouble(MINE_INVEST_AMOUNT)!!.toFloat()
+        val id = arguments?.getInt(MINE_RECHARGE_ID)!!
+        val url = arguments?.getString(MINE_RECHARGE_URL)!!
+        mPresenter.getInvestUrl(money, id, url)
     }
 
     override fun onDestroy() {
@@ -53,11 +55,12 @@ class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>() {
 
 
     companion object {
-        fun newInstance(amount: Double, channels_id: Int): MineInvestFragment {
+        fun newInstance(amount: Double, id: Int, url: String): MineInvestFragment {
             val fragment = MineInvestFragment()
             val bundle = Bundle()
-            bundle.putInt(MINE_CHANNELS_ID, channels_id)
+            bundle.putString(MINE_RECHARGE_URL, url)
             bundle.putDouble(MINE_INVEST_AMOUNT, amount)
+            bundle.putInt(MINE_RECHARGE_ID, id)
             fragment.arguments = bundle
             return fragment
         }

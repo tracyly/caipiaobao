@@ -2,6 +2,8 @@ package com.fenghuang.caipiaobao.ui.lottery.data
 
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.fenghuang.caipiaobao.utils.UserInfoSp
+
 
 /**
  *
@@ -28,7 +30,7 @@ object LotteryApi : BaseApi {
     fun getLotteryType(function: ApiSubscriber<List<LotteryTypeResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<LotteryTypeResponse>>() {}
         subscriber.function()
-        LotteryApi.getAipOpenUrl()
+        getAipOpenUrl()
                 .post<List<LotteryTypeResponse>>(LOTTERY_TYPE)
                 .subscribe(subscriber)
     }
@@ -40,7 +42,7 @@ object LotteryApi : BaseApi {
     fun getLotteryNewCode(lotteryId: Int, function: ApiSubscriber<LotteryCodeNewResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<LotteryCodeNewResponse>() {}
         subscriber.function()
-        LotteryApi.getAipOpenUrl()
+        getAipOpenUrl()
                 .post<LotteryCodeNewResponse>(LOTTERY_NEW_CODE)
                 .params("lottery_id", lotteryId)
                 .subscribe(subscriber)
@@ -53,7 +55,7 @@ object LotteryApi : BaseApi {
     fun getLotteryHistoryCode(lotteryId: Int, date: String, function: ApiSubscriber<List<LotteryCodeHistoryResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<LotteryCodeHistoryResponse>>() {}
         subscriber.function()
-        LotteryApi.getAipOpenUrl()
+        getAipOpenUrl()
                 .post<List<LotteryCodeHistoryResponse>>(LOTTERY_HISTORY_CODE)
                 .params("lottery_id", lotteryId)
                 .params("belong_date", date)
@@ -68,8 +70,10 @@ object LotteryApi : BaseApi {
     fun getExpertPlan(lottery_id: Int, issue: String, function: ApiSubscriber<List<LotteryExpertPlanResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<LotteryExpertPlanResponse>>() {}
         subscriber.function()
-        LotteryApi.getApiOther()
-                .get<List<LotteryExpertPlanResponse>>(LOTTERY_EXPERT_PLAN)
+        getApiOther()
+                .get<List<LotteryExpertPlanResponse>>("/forum/" + LOTTERY_EXPERT_PLAN)
+//                .get<List<LotteryExpertPlanResponse>>(LOTTERY_EXPERT_PLAN)
+                .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("lottery_id", lottery_id)
                 .params("issue", issue)
                 .subscribe(subscriber)

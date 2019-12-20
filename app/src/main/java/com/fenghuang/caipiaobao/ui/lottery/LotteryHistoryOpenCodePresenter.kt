@@ -16,17 +16,18 @@ class LotteryHistoryOpenCodePresenter(var mLotteryId: Int, var date: String) : B
 
     fun getHistoryData(lotteryId: Int, date: String) {
         mLotteryId = lotteryId
+
         LotteryApi.getLotteryHistoryCode(mLotteryId, date) {
             onSuccess {
-                if (it.isNotEmpty()) {
+                if (mView.isActive() && it.isNotEmpty()) {
                     if (mView.getStartPage() == 1) {
                         mView.clear()
                     }
+
                     mView.showDatas(it)
                 } else {
                     mView.showPageEmpty()
                 }
-
             }
             onFailed {
                 mView.showPageError(it.getMsg())
@@ -35,7 +36,8 @@ class LotteryHistoryOpenCodePresenter(var mLotteryId: Int, var date: String) : B
     }
 
     override fun loadData(page: Int) {
-        getHistoryData(mLotteryId, date)
+        if (mView.isActive())
+            getHistoryData(mLotteryId, date)
     }
 
 }

@@ -39,6 +39,7 @@
             <enum name="type_original" value="4" />
             <enum name="type_center_crop" value="5" />
         </attr>
+        <attr name="playerBackgroundColor" format="color" />
     </declare-styleable>
     <!--XTabLayout-->
     <!-- indicator -->
@@ -168,8 +169,6 @@
     </declare-styleable>
 
 
-
-
     <!-- cardView -->
     <declare-styleable name="LCardView">
 
@@ -291,11 +290,6 @@
     <declare-styleable name="RewardLayout">
         <attr name="max_gift" format="integer" />
         <attr name="gift_item_layout" format="reference" />
-    </declare-styleable>
-
-    <declare-styleable name="PageMenuLayout">
-        <attr name="pagemenu_row_count" format="integer" />
-        <attr name="pagemenu_span_count" format="integer" />
     </declare-styleable>
 
 

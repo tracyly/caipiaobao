@@ -151,6 +151,7 @@ public abstract class AbstractPlayer {
      */
     public abstract long getTcpSpeed();
 
+
     /**
      * 绑定VideoView
      */

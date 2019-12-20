@@ -19,7 +19,7 @@ class HomeBannerHolder(private var isNormalBanner: Boolean) : BaseBannerHolder<H
 
     override fun onBindData(itemView: View, data: HomeBannerResponse) {
         if (TextUtils.isEmpty(data.image_url)) {
-            itemView.findViewById<ImageView>(R.id.imageView).setImageResource(0)
+            itemView.findViewById<ImageView>(R.id.imageView).setImageResource(R.mipmap.ic_placeholder)
         } else {
             ImageManager.loadBannerImageRes(data.image_url, itemView.findViewById(R.id.imageView))
         }

@@ -6,3 +6,4 @@ data class MineRechargeBean(var nameBank: String, var imageBank: Int)
 
 data class MineBankCardBean(var bankType: String, var bankCode: String, var bankName: String)
 
+data class MineIsAnchorLive(var isLive: String)
