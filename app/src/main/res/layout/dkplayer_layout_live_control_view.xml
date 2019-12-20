@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/top_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:background="@drawable/player_shape_standard_controller_top_bg">
+
+        <ImageView
+            android:id="@+id/imgStopFullScreen"
+            android:layout_width="@dimen/dp_46"
+            android:layout_height="@dimen/dp_46"
+            android:layout_gravity="center"
+            android:padding="@dimen/dp_12"
+            android:src="@drawable/ic_player_action_arrow_back"
+            tools:ignore="ContentDescription"
+            tools:visibility="visible" />
+
+        <RelativeLayout
+            android:id="@+id/rlAttention"
+            android:layout_width="@dimen/dp_130"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center_vertical">
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:layout_width="@dimen/dp_130"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                app:rv_backgroundColor="#000000"
+                app:rv_backgroundPressColor="#000000"
+                app:rv_cornerRadius="15.5dp"
+                app:rv_textPressColor="#000000" />
+
+            <ImageView
+                android:id="@+id/imgFullPhoto"
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/ic_mine_base_user" />
+
+            <TextView
+                android:id="@+id/tvFullName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_toEndOf="@+id/imgFullPhoto"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_13"
+                tools:text="刘禹锡" />
+
+            <TextView
+                android:id="@+id/tvFullTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvFullName"
+                android:layout_marginStart="@dimen/dp_5"
+                android:layout_toEndOf="@+id/imgFullPhoto"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_9"
+                tools:text="459933人" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtvFullAttention"
+                android:layout_width="@dimen/dp_46"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:layout_toEndOf="@+id/tvFullName"
+                android:gravity="center"
+                android:text="@string/ranking_attention"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_11"
+                app:rv_backgroundColor="@color/color_FF513E"
+                app:rv_backgroundPressColor="@color/color_FF513E"
+                app:rv_cornerRadius="15.5dp"
+                app:rv_textPressColor="@color/color_FF513E" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/rtvFullHaveAttention"
+                android:layout_width="@dimen/dp_46"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:layout_toEndOf="@+id/tvFullName"
+                android:gravity="center"
+                android:text="@string/ranking_has_attention"
+                android:textColor="@color/grey_e6"
+                android:textSize="@dimen/sp_11"
+                android:visibility="gone"
+                app:rv_backgroundColor="@color/color_f5f5f5"
+                app:rv_backgroundPressColor="@color/color_f5f5f5"
+                app:rv_cornerRadius="15.5dp"
+                app:rv_textPressColor="@color/color_f5f5f5" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dkplayer_controller_height"
+        android:layout_gravity="bottom"
+        android:background="@drawable/player_shape_stardard_controller_bottom_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="@dimen/dkplayer_controller_height"
+            android:layout_height="@dimen/dkplayer_controller_height"
+            android:padding="@dimen/dkplayer_controller_icon_padding"
+            android:src="@drawable/player_selector_play_button" />
+
+        <ImageView
+            android:id="@+id/iv_refresh"
+            android:layout_width="@dimen/dkplayer_controller_height"
+            android:layout_height="@dimen/dkplayer_controller_height"
+            android:padding="@dimen/dkplayer_controller_icon_padding"
+            android:src="@drawable/ic_player_action_autorenew" />
+
+        <ImageView
+            android:id="@+id/iv_danmu"
+            android:layout_width="@dimen/dkplayer_controller_height"
+            android:layout_height="@dimen/dkplayer_controller_height"
+            android:padding="@dimen/dp_11"
+            android:src="@drawable/ic_player_danmu" />
+        <!--输入框-->
+        <LinearLayout
+            android:id="@+id/sendLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            tools:visibility="invisible">
+
+            <include layout="@layout/include_comment_layout" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/fullscreen"
+            android:layout_width="@dimen/dkplayer_controller_height"
+            android:layout_height="@dimen/dkplayer_controller_height"
+            android:padding="@dimen/dkplayer_controller_icon_padding"
+            android:src="@drawable/player_selector_full_screen_button" />
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/imgFullEnvelope"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_58"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_76"
+        android:background="@mipmap/ic_live_chat_red_envelope_tips"
+        android:visibility="gone" />
+
+
+    <!-- ========================无主播======================== -->
+    <FrameLayout
+        android:id="@+id/fmNoAnchor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_282828"
+        android:visibility="gone">
+
+
+        <RelativeLayout
+            android:id="@+id/rlAnchorNotHome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/imgAnchorNotHomePhoto"
+                android:layout_width="@dimen/dp_70"
+                android:layout_height="@dimen/dp_70"
+                android:layout_centerInParent="true"
+                android:background="@mipmap/ic_mine_base_user" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imgAnchorNotHomePhoto"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_15"
+                android:text="@string/live_anchor_not_home"
+                android:textColor="@color/white"
+                android:textSize="@dimen/sp_16" />
+        </RelativeLayout>
+    </FrameLayout>
+</FrameLayout>

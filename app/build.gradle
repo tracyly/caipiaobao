@@ -196,8 +196,13 @@ dependencies {
 
     implementation SVGAPlayer
 
+    implementation 'com.github.zyyoona7:pickerview:1.0.9'
+
     api  'com.facebook.fresco:fresco:2.0.0'
     api  'com.facebook.fresco:animated-base:2.0.0'
+
+    implementation 'com.github.WGwangguan:SeparatedEditText:1.2'
+
 }
 
 afterEvaluate {
