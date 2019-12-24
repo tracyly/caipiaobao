@@ -22,6 +22,7 @@ import com.fenghuang.caipiaobao.ui.lottery.data.UserChangePhoto
 import com.fenghuang.caipiaobao.ui.mine.MineAnchorGetFragment
 import com.fenghuang.caipiaobao.ui.mine.data.MineIsAnchorLive
 import com.fenghuang.caipiaobao.utils.FastClickUtils
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.fenghuang.caipiaobao.widget.cardview.LCardView
@@ -61,13 +62,8 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
     override fun initContentView() {
         super.initContentView()
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-
-        //先加载默认视图
-        initBaseView()
-
         ImageManager.loadRoundLogo(UserInfoSp.getUserPhoto(), findView(R.id.ivTitleLeft))
         setImageResource(findView(R.id.ivTitleRight), R.mipmap.ic_home_top_notice)
-
         smartRefreshLayout.setOnRefreshListener {
             mPresenter.loadData()
         }
@@ -81,7 +77,8 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
     }
 
     override fun initData() {
-        mPresenter.loadData()
+        //先加载默认视图
+        initBaseView()
     }
 
     private fun initBaseView() {
@@ -92,14 +89,16 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
         baseLivePop()
         baseExpertLive()
         baseExpertRecommend()
-
+        mPresenter.loadData()
     }
 
 
     override fun initEvent() {
         super.initEvent()
         findView<ImageView>(R.id.ivTitleLeft).setOnClickListener {
-            RxBus.get().post(HomeClickMine(isClick = true))
+            if (UserInfoSp.getIsLogin()) {
+                RxBus.get().post(HomeClickMine(isClick = true))
+            } else ExceptionDialog.showExpireDialog(getPageActivity())
         }
 
         linHotMore.setOnClickListener {
@@ -110,7 +109,6 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
 
         linExpertMore.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-
                 LaunchUtils.startFragment(getPageActivity(), HomeMoreLiveFragment.newInstance(2))
             }
         }
@@ -129,7 +127,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
         val list: List<HomeLivePopResponse>
         list = ArrayList()
         for (index in 1..3) {
-            list.add(HomeLivePopResponse(0, "null", true, "加载中..", "加载中.", -1, -1, 0))
+            list.add(HomeLivePopResponse(0, "null", false, "加载中..", "加载中.", -1, -1, 0))
         }
         rvLivePre.layoutManager = LinearLayoutManager(getPageActivity(), LinearLayoutManager.HORIZONTAL, false)
         val homeLiveNoticeAdapter = HomeLiveNoticeAdapter(getPageActivity())
@@ -367,6 +365,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
         if (rvExpertRecommendLive.itemDecorationCount == 0) {
             rvExpertRecommendLive.addItemDecoration(GridItemSpaceDecoration(2, itemSpace = ViewUtils.dp2px(4), startAndEndSpace = ViewUtils.dp2px(4)))
         }
+
     }
 
     /**
@@ -525,8 +524,8 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onReciveID(eventBean: MineIsAnchorLive) {
-        mPresenter.liveFuter(false)
-        if (eventBean.isLive == "GoUp") mPresenter.liveFuter(true)
+        mPresenter.liveFaber(false)
+        if (eventBean.isLive == "GoUp") mPresenter.liveFaber(true)
     }
 
     /**

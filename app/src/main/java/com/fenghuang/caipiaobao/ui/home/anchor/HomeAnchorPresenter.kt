@@ -45,17 +45,17 @@ class HomeAnchorPresenter : BaseMvpPresenter<HomeAnchorFragment>() {
             onSuccess {
                 if (mView.isActive()) {
                     mView.hidePageLoadingDialog()
-
                     if (isAttention == 0) {
                         mView.setGone(mView.tvAnchorAddAttentions)
                         mView.setVisibility(mView.tvAnchorNoAttentions, true)
+                        RxBus.get().post(MineIsAnchorLive("falseFalse"))
+                        mView.tvAnchorFan.text = (mView.tvAnchorFan.text.toString().toLong() + 1).toString()
                     } else {
+                        RxBus.get().post(MineIsAnchorLive("trueTrue"))
                         mView.setVisibility(mView.tvAnchorAddAttentions, true)
                         mView.setGone(mView.tvAnchorNoAttentions)
+                        mView.tvAnchorFan.text = (mView.tvAnchorFan.text.toString().toLong() - 1).toString()
                     }
-
-                    RxBus.get().post(MineIsAnchorLive(""))
-
                 }
             }
             onFailed {

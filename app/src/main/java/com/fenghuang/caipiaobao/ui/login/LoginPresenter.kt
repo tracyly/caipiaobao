@@ -8,6 +8,7 @@ import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.ui.login.data.LoginApi
 import com.fenghuang.caipiaobao.ui.login.data.LoginExitStart
 import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
+import com.fenghuang.caipiaobao.ui.login.data.LoginToMain
 import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.fenghuang.caipiaobao.widget.timer.CountDownTimerUtils
 import com.hwangjr.rxbus.RxBus
@@ -86,6 +87,7 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
                     setUserInfo(it.token, it.user_id, phone, it.password_not_set, it.avatar, it.user_type)
                     userIsFirstRecharge(it.user_id, it.token)
                     if (!boolean) {
+                        RxBus.get().post(LoginToMain(true))
                         mView.pop()
                     } else {
                         RxBus.get().post(LoginExitStart(true))

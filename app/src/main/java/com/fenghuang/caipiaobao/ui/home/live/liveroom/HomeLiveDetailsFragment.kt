@@ -16,6 +16,7 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.widget.*
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
@@ -36,6 +37,7 @@ import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.HomeLiveRoomTopAdapter
 import com.fenghuang.caipiaobao.ui.home.live.chat.HomeLiveChatHolder
 import com.fenghuang.caipiaobao.ui.mine.MineRechargeFragment
+import com.fenghuang.caipiaobao.ui.mine.data.MineIsAnchorLive
 import com.fenghuang.caipiaobao.ui.widget.ChatGifTabView
 import com.fenghuang.caipiaobao.ui.widget.popup.OpenRedEnvelopeDialog
 import com.fenghuang.caipiaobao.ui.widget.popup.ReChargePopup
@@ -78,6 +80,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
 
     private var liveUrl: String? = null
 
+    var isPressBack = false
 
     var isBottom = true
     // 软件盘弹起后所占高度阀值
@@ -171,6 +174,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         imgExit.setOnClickListener {
             if (arguments?.getInt(HOME_LIVE_CHAT_STATUE) != 0) {
                 if (UserInfoSp.getIsAboveLive()) {
+                    isPressBack = true
                     startFloatWindow()
                 } else isOpenAboveLive() //悬浮播放
             } else pop()
@@ -225,10 +229,12 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         setText(tvTopUserName, it.nickname)
         setText(tvTopPeople, it.online.toString() + "人")
         tvAnchorAddHaveAttention.setOnClickListener {
+            mPresenter.getMoney()
             mPresenter.setAttention(UserInfoSp.getUserId(), arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
                     ?: 0, "已取消关注", "取关失败")
         }
         tvAnchorAddAttention.setOnClickListener {
+            mPresenter.getMoney()
             mPresenter.setAttention(UserInfoSp.getUserId(), arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
                     ?: 0, "关注成功", "关注失败")
         }
@@ -268,8 +274,12 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         //聊天框
         chatTextView.setOnClickListener {
             if (UserInfoSp.getIsLogin()) {
+                mPresenter.getMoney()
                 setGone(scrollToInputs)  //弹起的时候隐藏红包
-                if (redIsShow) setGone(ivEnvelopeTip)
+                if (ivEnvelopeTip.isVisible) {
+                    redIsShow = true
+                    setGone(ivEnvelopeTip)
+                } else redIsShow = false
                 bottomInputDialog = BottomInputDialog(getPageActivity(), getPageActivity(), mPresenter)
                 bottomInputDialog?.show()
                 bottomInputDialog?.setOnDismissListener {
@@ -515,15 +525,20 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onUpdateDanmu(data: HomeLiveChatBean) {
+        LogUtils.e("弹幕消息------" + data)
         if (mVideoView.isFullScreen && UserInfoSp.getDanMuSwitch()) {
             if (isNotEmpty(data.text)) mVideoView.addDanmaku(data.text, data.isMe)
+            if (isNotEmpty(data.type) && data.type == "gift") {
+                val text = data.userName + " 送给主播" + data.gift_num + " 个 " + data.gift_name
+                mVideoView.addDanmaku(text, data.isMe)
+            }
         }
     }
+
 
     /**
      * 显示有下角小红包
      */
-
     fun onIsShowRedEnvelope(eventBean: HomeLiveRedMessageBean) {
         if (eventBean.gift_type == 4) {
             try {
@@ -535,26 +550,11 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
                         showRed(eventBean)
                     }
                 }
-                mController.liveControlView.showRedEnvelope(mPresenter, eventBean)
+                mController.showRedEnvelopeFirsr(mPresenter, eventBean)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-    }
-
-    /**
-     * 显示红包
-     */
-    private fun showRed(eventBean: HomeLiveRedMessageBean) {
-        mOpenRedPopup = OpenRedEnvelopeDialog(getPageActivity())
-        mOpenRedPopup?.setRedTitle("恭喜发财，大吉大利")
-        mOpenRedPopup?.setOnOpenClickListener {
-            mPresenter.sendRedReceive(eventBean.rid, false, mOpenRedPopup, null)
-        }
-        mOpenRedPopup?.setOnDismissListener {
-            mPresenter.getRoomRed(UserInfoSp.getUserId())
-        }
-        mOpenRedPopup?.show()
     }
 
     /**
@@ -565,17 +565,50 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
             try {
                 redIsShow = true
                 // 通知有可抢的红包
-                setVisible(ivEnvelopeTip)
-                showRed(eventBean)
-                ivEnvelopeTip.setOnClickListener {
-                    if (FastClickUtils.isFastClick()) {
-                        showRed(eventBean)
+                if (!ivEnvelopeTip.isVisible) {
+                    setVisible(ivEnvelopeTip)
+                    ivEnvelopeTip.setOnClickListener {
+                        if (FastClickUtils.isFastClick()) {
+                            showRed(eventBean)
+                        }
                     }
                 }
-                mController.liveControlView.showRedEnvelope(mPresenter, eventBean)
+                if (!mVideoView.isFullScreen) showRed(eventBean)
+                mController.showRedEnvelope(mPresenter, eventBean)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    /**
+     * 显示红包
+     */
+    private fun showRed(eventBean: HomeLiveRedMessageBean) {
+        if (mOpenRedPopup == null) {
+            mOpenRedPopup = OpenRedEnvelopeDialog(getPageActivity())
+            mOpenRedPopup?.setRedTitle("恭喜发财，大吉大利")
+            mOpenRedPopup?.setOnOpenClickListener {
+                if (FastClickUtils.isFastClick()) {
+                    mPresenter.sendRedReceive(eventBean.rid, false, mOpenRedPopup, null)
+                }
+            }
+            mOpenRedPopup?.setOnDismissListener {
+                mPresenter.getRoomRed(UserInfoSp.getUserId())
+            }
+            mOpenRedPopup?.show()
+        } else if (!mOpenRedPopup?.isShowing!!) {
+            mOpenRedPopup = OpenRedEnvelopeDialog(getPageActivity())
+            mOpenRedPopup?.setRedTitle("恭喜发财，大吉大利")
+            mOpenRedPopup?.setOnOpenClickListener {
+                if (FastClickUtils.isFastClick()) {
+                    mPresenter.sendRedReceive(eventBean.rid, false, mOpenRedPopup, null)
+                }
+            }
+            mOpenRedPopup?.setOnDismissListener {
+                mPresenter.getRoomRed(UserInfoSp.getUserId())
+            }
+            mOpenRedPopup?.show()
         }
     }
 
@@ -584,6 +617,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     fun showOpenRedContent(it: HomeLiveRedReceiveBean) {
         setGone(ivEnvelopeTip)
+        mController.liveControlView.isShowRed = false
         mOpenRedPopup?.setRedContent(it.send_text)
         mOpenRedPopup?.setRedMoney(it.amount)
         mOpenRedPopup?.setRedUserName(it.send_user_name)
@@ -748,6 +782,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         }.onDenied { pop() }.start()
     }
 
+
     override fun onBackPressedSupport(): Boolean {
         if (isFullScreen()) {
             if (mController.liveControlView.softInputDialog != null) {
@@ -764,8 +799,13 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
 
     override fun onPause() {
         super.onPause()
-        mPIPManager?.pause()
+//        mPIPManager?.pause()
         mPresenter.stopConnect()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (!isPressBack) mVideoView.pause()
     }
 
     override fun onResume() {
@@ -777,6 +817,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
             }
         }
     }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -791,13 +832,31 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         if ((arguments?.getInt(HOME_LIVE_CHAT_STATUE) ?: 0) == 1) {
             val dialog = TipsConfirmDialog(getPageActivity(), "是否打开小窗播放", "是", "否", "")
             dialog.setConfirmClickListener {
+                isPressBack = true
                 startFloatWindow()
             }
             dialog.setCanCelClickListerner {
+                isPressBack = false
                 pop()
             }
 
             dialog.show()
+        }
+    }
+
+
+    /**
+     * 更新直播预告
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onReciveID(eventBean: MineIsAnchorLive) {
+        if (eventBean.isLive == "trueTrue") {
+            setVisible(tvAnchorAddAttention)
+            setGone(tvAnchorAddHaveAttention)
+        }
+        if (eventBean.isLive == "falseFalse") {
+            setGone(tvAnchorAddAttention)
+            setVisible(tvAnchorAddHaveAttention)
         }
     }
 

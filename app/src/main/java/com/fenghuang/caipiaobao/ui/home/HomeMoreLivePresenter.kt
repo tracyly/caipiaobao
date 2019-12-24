@@ -17,12 +17,17 @@ class HomeMoreLivePresenter : BaseMvpPresenter<HomeMoreLiveFragment>() {
 
     fun getHotLive(page: Int) {
         if (mView.mPage == 0) mView.showPageLoadingDialog()
-        HomeApi.getHomeHotLiveListResult(10, page, CacheMode.NONE) {
+        HomeApi.getHomeAllLiveListResult(10, page, CacheMode.NONE) {
             onSuccess {
                 if (mView.isActive()) {
-                    if (mView.isActive() && it.isNotEmpty()) {
-                        if (it.isNotEmpty()) mView.mPage++
+                    if (mView.mPage != 0) {
+                        if (it.isNotEmpty()) {
+                            mView.mPage++
+                            mView.adapter?.addAll(it)
+                        }
+                    } else {
                         mView.updateHotLive(it)
+                        mView.mPage++
                     }
                     mView.hidePageLoadingDialog()
                     mView.moreSmartRefreshLayout.finishLoadMore()
@@ -35,17 +40,25 @@ class HomeMoreLivePresenter : BaseMvpPresenter<HomeMoreLiveFragment>() {
         }
     }
 
+
     fun getExpert(page: Int) {
         if (mView.mPage == 0) mView.showPageLoadingDialog()
         HomeApi.getHomeExpertListResult(10, page, CacheMode.NONE) {
             onSuccess {
-                if (mView.isActive() && it.isNotEmpty()) {
-                    mView.updateHotLive(it)
-                    if (it.isNotEmpty()) mView.mPage++
+                if (mView.isActive()) {
+                    if (mView.mPage != 0) {
+                        if (it.isNotEmpty()) {
+                            mView.mPage++
+                            mView.adapter?.addAll(it)
+                        }
+                    } else {
+                        mView.updateHotLive(it)
+                        mView.mPage++
+                    }
+                    mView.hidePageLoadingDialog()
+                    mView.moreSmartRefreshLayout.finishLoadMore()
+                    mView.moreSmartRefreshLayout.finishRefresh()
                 }
-
-                mView.hidePageLoadingDialog()
-                mView.moreSmartRefreshLayout.finishLoadMore()
             }
             onFailed {
                 mView.hidePageLoadingDialog()

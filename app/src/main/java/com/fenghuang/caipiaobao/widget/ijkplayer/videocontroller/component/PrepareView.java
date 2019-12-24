@@ -26,7 +26,7 @@ public class PrepareView extends FrameLayout implements IControlComponent {
     private ControlWrapper mControlWrapper;
 
     private ImageView mThumb;
-    private ImageView mStartPlay, imgPreBack;
+    private ImageView mStartPlay;
     private ProgressBar mLoading;
     private FrameLayout mNetWarning;
 
@@ -36,7 +36,6 @@ public class PrepareView extends FrameLayout implements IControlComponent {
         mStartPlay = findViewById(R.id.start_play);
         mLoading = findViewById(R.id.loading);
         mNetWarning = findViewById(R.id.net_warning_layout);
-        imgPreBack = findViewById(R.id.imgPreBack);
         findViewById(R.id.status_btn).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +89,6 @@ public class PrepareView extends FrameLayout implements IControlComponent {
                 mStartPlay.setVisibility(View.GONE);
                 mNetWarning.setVisibility(GONE);
                 mLoading.setVisibility(View.VISIBLE);
-                imgPreBack.setVisibility(VISIBLE);
                 break;
             case VideoView.STATE_PLAYING:
             case VideoView.STATE_PAUSED:
@@ -99,7 +97,6 @@ public class PrepareView extends FrameLayout implements IControlComponent {
             case VideoView.STATE_BUFFERED:
             case VideoView.STATE_PLAYBACK_COMPLETED:
                 setVisibility(GONE);
-                imgPreBack.setVisibility(GONE);
                 break;
             case VideoView.STATE_IDLE:
                 setVisibility(VISIBLE);
@@ -113,6 +110,9 @@ public class PrepareView extends FrameLayout implements IControlComponent {
                 setVisibility(VISIBLE);
                 mNetWarning.setVisibility(VISIBLE);
                 mNetWarning.bringToFront();
+                break;
+            case VideoView.PLAYER_FULL_SCREEN:
+            case VideoView.PLAYER_NORMAL:
                 break;
         }
     }

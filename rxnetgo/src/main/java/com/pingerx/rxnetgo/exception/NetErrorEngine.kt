@@ -41,10 +41,10 @@ object NetErrorEngine {
     private const val UNKNOW_HOST_ERROR_MSG = "域名解析异常"
     private const val PARSE_ERROR_MSG = "数据解析异常"
     private const val REQUEST_ERROR_MSG = "数据请求异常"
-    private const val NETWORD_ERROR_MSG = "网络连接异常"
-    private const val SERVER_ERROR_MSG = "服务器异常"
+    private const val NETWORD_ERROR_MSG = "网络异常"
+    private const val SERVER_ERROR_MSG = "服务器连接超时"
     private const val DATA_ERROR_MSG = "服务器异常"
-    const val UNKNOW_MSG = "未知错误"
+    const val UNKNOW_MSG = "服务器连接异常"
     private const val NETWORK_UNCONNECTED_MSG = "网络连接异常，请检查网络"
 
 

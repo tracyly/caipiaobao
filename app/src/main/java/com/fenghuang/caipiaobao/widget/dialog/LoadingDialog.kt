@@ -23,6 +23,7 @@ class LoadingDialog(context: Context) : Dialog(context) {
         setContentView(R.layout.dialog_loading)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         window!!.setGravity(Gravity.CENTER or Gravity.CENTER)
+        window!!.setDimAmount(0f)
         val lp = window!!.attributes
         lp.width = ViewUtils.dp2px(316) // 宽度
         lp.height = ViewUtils.dp2px(238)  // 高度

@@ -43,7 +43,7 @@ class MineMyAttentionAdapter(context: Context, val presenter: MineMyAttentionPre
             }
             findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {
                 remove(getDataPosition())
-                presenter.unDespose(UserInfoSp.getUserId(), data.anchor_id)
+                presenter.unDepose(UserInfoSp.getUserId(), data.anchor_id)
             }
             findView<LinearLayout>(R.id.linGoToLive).setOnClickListener {
                 LaunchUtils.startFragment(getContext(), HomeLiveDetailsFragment.newInstance(data.anchor_id, data.nickname, data.live_status, data.avatar))

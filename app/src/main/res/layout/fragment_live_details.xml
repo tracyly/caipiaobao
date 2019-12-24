@@ -241,7 +241,7 @@
                     android:id="@+id/ivRedEnvelopes"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_26"
-                    android:layout_marginEnd="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_14"
                     android:src="@mipmap/ic_live_chat_red_envelope"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sp_14"

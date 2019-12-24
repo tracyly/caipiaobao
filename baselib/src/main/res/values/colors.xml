@@ -45,7 +45,7 @@
     <color name="grey_88">#888888</color>
     <color name="grey_95">#959698</color>
     <color name="grey_e8">#E8E9EA</color>
-
+    <color name="grey_e6">#B9B9B9</color>
     <!--文字色调-->
     <color name="text_black">#202020</color>            <!--文字黑-->
     <color name="text_orange">#fdb409</color>           <!-- 文字橙 -->
@@ -55,7 +55,8 @@
     <color name="text_grey">#888888</color>             <!--文字灰-->
     <color name="line_grey">#dddddd</color>             <!--线性灰-->
     <color name="bg_grey">#f7f7f7</color>               <!--背景灰-->
-    <color name="grey_light">#fafbfc</color>            <!--导航亮灰-->
+    <color name="grey_light">#F8F8F8</color>
+    <color name="FFD555">#F5C750</color>     <!--导航亮灰-->
 
     <!--背景色调-->
     <color name="colorBlue">#00a0e9</color>               <!--蓝色-->

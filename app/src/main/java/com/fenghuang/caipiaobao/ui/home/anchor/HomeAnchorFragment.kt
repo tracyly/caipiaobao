@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_home_anchor_information.*
 /**
  *  author : Peter
  *  date   : 2019/10/19 16:19
- *  desc   : 主播详情页
+ *  desc   : 主播详情页a
  */
 class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
 

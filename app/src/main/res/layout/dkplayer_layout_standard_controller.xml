@@ -443,6 +443,6 @@
         android:layout_width="@dimen/dp_46"
         android:layout_height="@dimen/dp_46"
         android:padding="@dimen/dp_12"
-        android:src="@drawable/ic_player_action_arrow_back"
-        android:visibility="gone" />
+        android:src="@drawable/ic_player_action_arrow_back" />
+
 </FrameLayout>

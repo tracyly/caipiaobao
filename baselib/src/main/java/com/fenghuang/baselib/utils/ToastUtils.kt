@@ -68,7 +68,8 @@ object ToastUtils {
         if (TextUtils.isEmpty(success)) {
             return
         }
-        Toasty.success(AppUtils.getContext(), success!!, Toast.LENGTH_SHORT, true).show()
+//        Toasty.success(AppUtils.getContext(), success!!, Toast.LENGTH_SHORT, true).show()
+        Toasty.normal(AppUtils.getContext(), success!!, Toast.LENGTH_SHORT).show()
     }
 
     /**
@@ -78,7 +79,19 @@ object ToastUtils {
         if (TextUtils.isEmpty(error)) {
             return
         }
-        Toasty.error(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT, true).show()
+//        Toasty.error(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT, true).show()
+        Toasty.normal(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * 错误提示
+     */
+    fun showErrorLong(error: String?) {
+        if (TextUtils.isEmpty(error)) {
+            return
+        }
+//        Toasty.error(AppUtils.getContext(), error!!, Toast.LENGTH_LONG, true).show()
+        Toasty.normal(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT).show()
     }
 
 
@@ -86,7 +99,8 @@ object ToastUtils {
         if (TextUtils.isEmpty(info)) {
             return
         }
-        Toasty.info(AppUtils.getContext(), info!!, Toast.LENGTH_SHORT, true).show()
+//        Toasty.info(AppUtils.getContext(), info!!, Toast.LENGTH_SHORT, true).show()
+        Toasty.normal(AppUtils.getContext(), info!!, Toast.LENGTH_SHORT).show()
     }
 
 
@@ -94,7 +108,8 @@ object ToastUtils {
         if (TextUtils.isEmpty(warning)) {
             return
         }
-        Toasty.warning(AppUtils.getContext(), warning!!, Toast.LENGTH_SHORT, true).show()
+//        Toasty.warning(AppUtils.getContext(), warning!!, Toast.LENGTH_SHORT, true).show()
+        Toasty.normal(AppUtils.getContext(), warning!!, Toast.LENGTH_SHORT).show()
     }
 
     fun showNormal(normal: String?) {

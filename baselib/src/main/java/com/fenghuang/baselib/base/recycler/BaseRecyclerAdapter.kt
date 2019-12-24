@@ -88,6 +88,7 @@ abstract class BaseRecyclerAdapter<T> : RecyclerView.Adapter<BaseViewHolder<T>> 
         mOnItemClickListener?.let { listener ->
             holder.itemView.setOnClickListener {
                 holder.getData()?.let { data -> listener.invoke(data, holder.getDataPosition()) }
+
             }
         }
         mOnItemLongClickListener?.let { listener ->

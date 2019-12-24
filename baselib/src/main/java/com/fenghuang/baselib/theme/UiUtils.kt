@@ -24,6 +24,7 @@ object UiUtils {
         when (theme) {
             AppTheme.White -> context.setTheme(R.style.WhiteTheme)
             AppTheme.Red -> context.setTheme(R.style.RedTheme)
+            AppTheme.Black -> context.setTheme(R.style.BlackTheme)
         }
     }
 

@@ -19,7 +19,7 @@
             android:id="@+id/tvContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_20"
             android:gravity="center_horizontal"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_15"
@@ -34,16 +34,16 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginTop="@dimen/dp_10"
-            android:visibility="gone"
             android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_14"
+            android:visibility="gone"
             toos:text="若要进行兑换等消费操作,请联系客服" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_40"
-            android:layout_marginTop="@dimen/dp_32"
-            android:layout_marginBottom="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_20"
             android:orientation="horizontal">
 
             <com.fenghuang.baselib.widget.round.RoundTextView
@@ -73,6 +73,7 @@
                 app:rv_backgroundColor="#ff3f30"
                 app:rv_cornerRadius="@dimen/dp_40" />
         </LinearLayout>
+
     </com.fenghuang.baselib.widget.round.RoundLinearLayout>
 
 </RelativeLayout>

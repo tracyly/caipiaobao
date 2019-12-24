@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 
 import com.fenghuang.caipiaobao.R;
+import com.fenghuang.caipiaobao.utils.FastClickUtils;
 import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.util.PlayerUtils;
 
 /**
@@ -124,11 +125,13 @@ public class FloatView extends FrameLayout {
         boolean intercepted = false;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                intercepted = false;
-                mDownRawX = (int) ev.getRawX();
-                mDownRawY = (int) ev.getRawY();
-                mDownX = (int) ev.getX();
-                mDownY = (int) (ev.getY() + PlayerUtils.getStatusBarHeight(getContext()));
+                if (FastClickUtils.INSTANCE.isFastClick()) {
+                    intercepted = false;
+                    mDownRawX = (int) ev.getRawX();
+                    mDownRawY = (int) ev.getRawY();
+                    mDownX = (int) ev.getX();
+                    mDownY = (int) (ev.getY() + PlayerUtils.getStatusBarHeight(getContext()));
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 float absDeltaX = Math.abs(ev.getRawX() - mDownRawX);

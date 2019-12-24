@@ -35,10 +35,10 @@ class PassWordFullDialog(context: Context) : Dialog(context) {
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val lp = window!!.attributes
         lp.width = ViewGroup.LayoutParams.MATCH_PARENT // 宽度
-        lp.height = ViewUtils.dp2px(200) // 宽度
+        lp.height = ViewUtils.dp2px(156)
 //      lp.alpha = 0.7f // 透明度
-        window!!.attributes = lp
         window!!.setGravity(Gravity.BOTTOM)
+        window!!.attributes = lp
         setCanceledOnTouchOutside(false)
 //        showSoftInputFromWindow(edtPassWord)
         SoftInputUtils.showSoftInput(dialogChatEditTexts)
@@ -53,7 +53,7 @@ class PassWordFullDialog(context: Context) : Dialog(context) {
     }
 
     fun setTextWatchListener(textWatcher: TextWatcher) {
-        edtPassWord.addTextChangedListener(textWatcher)
+        edtPassWordFull.addTextChangedListener(textWatcher)
     }
 
     fun showTipsText(string: String) {

@@ -49,17 +49,18 @@ class MineModifyPasswordByPhone : BaseNavFragment() {
     override fun initEvent() {
         tvGetIdentifyCodePass.setOnClickListener {
             if (CheckUtils.isMobileNumber(etPhonePass.text.toString())) {
-                time(tvGetIdentifyCodePass)
-                LoginApi.userGetCode(etPhonePass.text.toString(), "chg_pwd") {
-                    onSuccess {
-                        identifyCode = it.code
-                        isGetSingCode = true
+                if (UserInfoSp.getUserPhone() == etPhonePass.text.toString()) {
+                    LoginApi.userGetCode(etPhonePass.text.toString(), "chg_pwd") {
+                        onSuccess {
+                            time(tvGetIdentifyCodePass)
+                            identifyCode = it.code
+                            isGetSingCode = true
+                        }
+                        onFailed { ToastUtils.showError(it.getMsg()) }
                     }
-                    onFailed { ToastUtils.showError("验证码获取失败:" + it.getMsg()) }
-                }
-            } else {
-                ToastUtils.showError("请输入正确11位手机号码")
-            }
+                } else ToastUtils.showError("该手机号与当前用户不匹配")
+            } else ToastUtils.showError("请输入正确11位手机号码")
+
         }
 
         btNext.setOnClickListener {
@@ -68,6 +69,7 @@ class MineModifyPasswordByPhone : BaseNavFragment() {
                     if (isGetSingCode) {
                         if (!TextUtils.isEmpty(etPhoneSignNum.text)) {
                             if (identifyCode == etPhoneSignNum.text.toString() || tvGetIdentifyCodePass.text.toString() == "获取验证码") {
+                                pop()
                                 LaunchUtils.startFragment(getPageActivity(), MineModifyPasswordByPhoneNext.newInstance(etPhoneSignNum.text.toString(), etPhonePass.text.toString()))
                             } else ToastUtils.showError("验证码错误")
                         } else ToastUtils.showError("请输验证码")

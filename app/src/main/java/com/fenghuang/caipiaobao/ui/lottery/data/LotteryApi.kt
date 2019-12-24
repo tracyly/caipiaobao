@@ -75,7 +75,7 @@ object LotteryApi : BaseApi {
 //                .get<List<LotteryExpertPlanResponse>>(LOTTERY_EXPERT_PLAN)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("lottery_id", lottery_id)
-                .params("issue", issue)
+                .params("issue", issue.toLong() + 1)
                 .subscribe(subscriber)
     }
 

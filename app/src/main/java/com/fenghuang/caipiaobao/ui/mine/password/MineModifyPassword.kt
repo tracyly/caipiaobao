@@ -5,10 +5,15 @@ import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.ui.login.LoginFragment
+import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
+import com.fenghuang.caipiaobao.ui.mine.data.MinePassWordTime
 import com.fenghuang.caipiaobao.utils.FastClickUtils
+import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.dialog.SuccessDialog
+import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fregamnt_modify_password.*
 
 /**
@@ -79,11 +84,17 @@ class MineModifyPassword : BaseNavFragment() {
                         onSuccess {
                             hidePageLoading()
                             val dialog = SuccessDialog(getPageActivity(), "修改成功", R.mipmap.ic_dialog_success)
-                            dialog.setOnDismissListener { pop() }
+                            dialog.setOnDismissListener {
+                                RxBus.get().post(LoginSuccess(false, "", -1, "", -1, ""))
+                                pop()
+                                LaunchUtils.startFragment(context, LoginFragment())
+                            }
                             dialog.show()
                         }
                         onFailed {
-                            ToastUtils.showError("修改失败:${it.getMsg()}")
+                            if (it.getCode() == 1002) {
+                                ToastUtils.showError(it.getMsg().toString() + "," + "您还有" + JsonUtils.fromJson(it.getDataCode().toString(), MinePassWordTime::class.java).remain_times.toString() + "次机会")
+                            } else ToastUtils.showError(it.getMsg())
                             hidePageLoading()
                         }
                     }
@@ -92,7 +103,7 @@ class MineModifyPassword : BaseNavFragment() {
         }
         modifyByPhone.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-
+                pop()
                 LaunchUtils.startFragment(getPageActivity(), MineModifyPasswordByPhone())
             }
         }

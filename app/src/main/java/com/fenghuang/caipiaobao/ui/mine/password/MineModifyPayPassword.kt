@@ -105,7 +105,7 @@ class MineModifyPayPassword : BaseNavFragment() {
             onFailed {
                 hidePageLoadingDialog()
                 if (it.getCode() == 1002) {
-                    tvError.text = "”旧支付密码错误，您还有" + JsonUtils.fromJson(it.getDataCode().toString(), MinePassWordTime::class.java).remain_times.toString() + "次机会“。" + "且密码连续5次错误后进入冻结状态，冻结之后2小时内无法修改密码"
+                    tvError.text = "”旧支付密码错误，您还有" + JsonUtils.fromJson(it.getDataCode().toString(), MinePassWordTime::class.java).remain_times.toString() + "次机会“。"
                 } else tvError.text = it.getMsg()
                 edit_solid.clearText()
             }

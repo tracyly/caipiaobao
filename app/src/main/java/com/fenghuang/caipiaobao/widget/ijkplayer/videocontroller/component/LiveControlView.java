@@ -24,21 +24,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
-import com.fenghuang.baselib.utils.LogUtils;
-import com.fenghuang.baselib.utils.SpUtils;
 import com.fenghuang.baselib.utils.ToastUtils;
 import com.fenghuang.baselib.widget.round.RoundTextView;
 import com.fenghuang.caipiaobao.R;
-import com.fenghuang.caipiaobao.constant.UserConstant;
 import com.fenghuang.caipiaobao.manager.ImageManager;
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean;
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifTitleBean;
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRedMessageBean;
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveRedReceiveBean;
 import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsPresenter;
 import com.fenghuang.caipiaobao.ui.mine.MineRechargeFragment;
 import com.fenghuang.caipiaobao.ui.widget.ChatFullGifTabView;
-import com.fenghuang.caipiaobao.ui.widget.popup.OpenRedEnvelopeFullDialog;
 import com.fenghuang.caipiaobao.ui.widget.popup.RedEnvelopeFullPopup;
 import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog;
 import com.fenghuang.caipiaobao.utils.LaunchUtils;
@@ -69,7 +63,7 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
     public GiftFullDialog materialBottomDialog;
     public SpinKitView giftLoading;
     protected ImageView imgExit, ivRecharge;
-    private ControlWrapper mControlWrapper;
+    public ControlWrapper mControlWrapper;
     private ImageView mFullScreen;
     private LinearLayout mBottomContainer;
     private LinearLayout mTopContainer;
@@ -91,8 +85,8 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
      * @param context
      */
     private HomeLiveDetailsPresenter mPresenter;
-    private ImageView imgFullEnvelope, ivRedEnvelope;
-    private Boolean isShowRed = false;
+    public Boolean isShowRed = false;
+    private ImageView ivRedEnvelope;
     private RedEnvelopeFullPopup popRedEnvelope; //横屏发红包
     private ImageView ivGift, iv_danmu;
     private int HOME_LIVE_CHAT_ANCHOR_ID;
@@ -109,10 +103,7 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
         }
 
     };
-    /**
-     * 横屏时候显示红包
-     */
-    private OpenRedEnvelopeFullDialog mOpenRedPopup;
+
     /**
      * 横屏底部礼物
      */
@@ -135,7 +126,7 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
         //----------------------------------------------------------------
         mSendLayout = findViewById(R.id.scrollToInput);
         iv_danmu = findViewById(R.id.iv_danmu);
-        imgFullEnvelope = findViewById(R.id.imgFullEnvelope);
+
         ivRedEnvelope = findViewById(R.id.ivRedEnvelope);
         ivGift = findViewById(R.id.ivGift);
         ivRecharge = findViewById(R.id.ivRecharge);
@@ -170,9 +161,7 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
         ivRedEnvelope.setOnClickListener(v -> {
             if (mPresenter != null) {
                 if (UserInfoSp.INSTANCE.getIsLogin()) {
-//                    initPassWordDialog(mPresenter);
-                    mPresenter.initFullPassWordDialog();
-                    LogUtils.INSTANCE.e("===wojfasfsa");
+                    initPassWordDialog(mPresenter);
                 } else ExceptionDialog.INSTANCE.showExpireDialog(getContext());
             }
         });
@@ -279,7 +268,6 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
                 //-------------------------添加--------------------
                 tvChatTextView.setVisibility(GONE);
                 chatEditText.setVisibility(VISIBLE);
-                imgFullEnvelope.setVisibility(GONE);
                 rlAttention.setVisibility(GONE);
                 imgStopFullScreen.setVisibility(GONE);
                 mSendLayout.setVisibility(GONE);
@@ -292,7 +280,6 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
                 tvChatTextView.setVisibility(VISIBLE);
                 imgStopFullScreen.setVisibility(VISIBLE);
                 chatEditText.setVisibility(GONE);
-                if (isShowRed) imgFullEnvelope.setVisibility(VISIBLE);
                 rlAttention.setVisibility(VISIBLE);
                 mSendLayout.setVisibility(VISIBLE);
                 iv_danmu.setVisibility(VISIBLE);
@@ -355,47 +342,6 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
         this.HOME_LIVE_CHAT_ANCHOR_ID = anchorId;
     }
 
-    /**
-     * 显示红包
-     */
-
-    public void showRedEnvelope(HomeLiveDetailsPresenter mPresenter, HomeLiveRedMessageBean eventBean) {
-        isShowRed = true;
-        if (mControlWrapper.isFullScreen()) {
-            if (!mOpenRedPopup.isShowing()) {
-                mOpenRedPopup = new OpenRedEnvelopeFullDialog(getContext());
-                mOpenRedPopup.setRedTitle("恭喜发财，大吉大利");
-                mOpenRedPopup.show();
-            }
-            mOpenRedPopup.setOnOpenClickListener(v1 -> mPresenter.sendRedReceive(eventBean.getRid(), true, null, mOpenRedPopup));
-            imgFullEnvelope.setVisibility(VISIBLE);
-            imgFullEnvelope.setOnClickListener(v -> mOpenRedPopup.show());
-        }
-    }
-
-    /**
-     * 抢到红包后的回调
-     */
-    public void showOpenRedContent(HomeLiveRedReceiveBean it, HomeLiveDetailsPresenter mPresenter) {
-        imgFullEnvelope.setVisibility(GONE);
-        isShowRed = false;
-        mOpenRedPopup.setRedContent(it.getSend_text());
-        mOpenRedPopup.setRedMoney(it.getAmount());
-        mOpenRedPopup.setRedUserName(it.getSend_user_name());
-        mOpenRedPopup.setRedLogo(it.getSend_user_avatar());
-        mOpenRedPopup.isShowRedLogo(true);
-        mOpenRedPopup.setOnDismissListener(dialogInterface -> mPresenter.getRoomRed(UserInfoSp.INSTANCE.getUserId()));
-    }
-
-    /**
-     * 提示该红包已抢完
-     */
-    public void showOpenRedOverKnew(HomeLiveRedReceiveBean bean, HomeLiveDetailsPresenter mPresenter) {
-        isShowRed = false;
-        imgFullEnvelope.setVisibility(GONE);
-        mPresenter.getRoomRed(SpUtils.INSTANCE.getInt(UserConstant.USER_ID, 0));
-        mOpenRedPopup.showRedOver(bean);
-    }
 
     private void initPassWordDialog(HomeLiveDetailsPresenter mPresenter) {
         if (UserInfoSp.INSTANCE.getIsSetPayPassWord()) {
@@ -403,7 +349,8 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
             popRedEnvelope.getEtRedEnvelopeSend().setOnClickListener(v1 -> {
                 if (!TextUtils.isEmpty(popRedEnvelope.getEtRedETotal().getText())) {
                     if (!TextUtils.isEmpty(popRedEnvelope.getEtRedRedNumber().getText())) {
-                        mPresenter.initFullPassWordDialog();
+                        popRedEnvelope.dismiss();
+                        mPresenter.initFullPassWordDialog(popRedEnvelope, popRedEnvelope.getEtRedETotal().getText().toString(), popRedEnvelope.getEtRedRedNumber().getText().toString(), popRedEnvelope.getEtRedContent().getText().toString());
                     } else ToastUtils.INSTANCE.showNormal("请输入红包个数");
                 } else ToastUtils.INSTANCE.showNormal("请输入金额");
             });

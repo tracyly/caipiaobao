@@ -6,5 +6,6 @@ package com.fenghuang.baselib.theme
 
 enum class AppTheme {
     Red,
-    White
+    White,
+    Black
 }

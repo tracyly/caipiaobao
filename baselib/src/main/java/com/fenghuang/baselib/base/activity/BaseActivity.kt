@@ -155,12 +155,10 @@ abstract class BaseActivity : SupportActivity(), IView {
     override fun onClick(id: Int) {}
 
     override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        if (ev.action == MotionEvent.ACTION_DOWN) {
             // 是否需要隐藏软键盘
             if (SoftInputUtils.isHideSoftInput(ev)) {
-                SoftInputUtils.invokeOnTouchOutsideListener(this)
+                SoftInputUtils.invokeOnTouchOutsideListener(this, ev)
             }
-        }
         return super.dispatchTouchEvent(ev)
     }
 

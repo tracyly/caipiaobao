@@ -50,6 +50,7 @@ object ExceptionDialog {
             }
             loginExperDialog?.setCanceledOnTouchOutside(false)
             loginExperDialog?.show()
+            RxBus.get().post(LoginSuccess(false, "", -1, "", -1, ""))
         }
         UserInfoSp.putIsLogin(false)
     }
@@ -77,6 +78,7 @@ object ExceptionDialog {
         }
         loginExperDialog?.setCanceledOnTouchOutside(false)
         loginExperDialog?.show()
+        RxBus.get().post(LoginSuccess(false, "", -1, "", -1, ""))
         UserInfoSp.putIsLogin(false)
     }
 
@@ -94,7 +96,7 @@ object ExceptionDialog {
     //多端登录dialog
     private var loginMoreDialog: TipsConfirmDialog? = null
 
-    private fun loginMore(context: Context) {
+    fun loginMore(context: Context) {
         RxBus.get().post(LoginSuccess(false, "", -1, "", -1, ""))
         loginMoreDialog = TipsConfirmDialog(context, "您的账号在其它设备登录", "去登录", "我知道了", "如非本人操作请联系客服")
         loginMoreDialog?.setConfirmClickListener {
@@ -102,6 +104,7 @@ object ExceptionDialog {
         }
         loginMoreDialog?.setCanceledOnTouchOutside(false)
         loginMoreDialog?.show()
+        RxBus.get().post(LoginSuccess(false, "", -1, "", -1, ""))
         UserInfoSp.putIsLogin(false)
     }
 

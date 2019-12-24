@@ -28,6 +28,8 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
     var pass = ""
     var phoneNum = ""
 
+    var loginByPhone = false
+
     override fun attachView() = mPresenter.attachView(this)
 
     override fun attachPresenter() = LoginPresenter()
@@ -72,6 +74,7 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
         tvGetIdentifyCode.setOnClickListener {
             if (CheckUtils.isMobileNumber(etPhoneNum.text.toString())) {
                 mPresenter.userGetCode(tvGetIdentifyCode, etPhoneNum.text.toString(), "login")
+                loginByPhone = true
             } else {
                 ToastUtils.showError("请输入正确11位手机号码")
             }
@@ -80,11 +83,17 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
         btLogin.setOnClickListener {
             etIdentifyCode.text
             if (tvLoginType.text == getString(R.string.login_with_password_)) {
-                if (etIdentifyCode.text.length < 4) {
-                    ToastUtils.showError("请输入验证码")
-                } else {
-                    mPresenter.userLoginWithIdentify(etPhoneNum.text.toString(), etIdentifyCode.text.toString(), 0)
-                }
+                if (CheckUtils.isMobileNumber(etPhoneNum.text.toString())) {
+                    if (loginByPhone) {
+                        if (etIdentifyCode.text.toString().length < 4) {
+                            ToastUtils.showError("请输入4位验证码")
+                        } else {
+                            if (identify == etIdentifyCode.text.toString()) {
+                                mPresenter.userLoginWithIdentify(etPhoneNum.text.toString(), etIdentifyCode.text.toString(), 0)
+                            } else ToastUtils.showError("验证码错误或已过期")
+                        }
+                    } else ToastUtils.showError("请输获取证码")
+                } else ToastUtils.showError("请输入正确11位手机号码")
             } else {
                 if (CheckUtils.isMobileNumber(etPhoneNum.text.toString())) {
                     if (etPassWord.text.length < 6) {
@@ -119,7 +128,7 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
                         if (edRegisterPassWord.text.length >= 6) {
                             mPresenter.userRegister(tvRegisterPhone.text.toString(), etRegisterCode.text.toString(), edRegisterPassWord.text.toString(), "0")
                         } else ToastUtils.showError("密码长度不得小于6位")
-                    } else ToastUtils.showError("请输入验证码")
+                    } else ToastUtils.showError("请输入4位验证码")
                 } else ToastUtils.showError("请先获取验证码")
             } else ToastUtils.showError("请输入正确11位手机号码")
         }

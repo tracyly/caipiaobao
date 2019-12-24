@@ -1,247 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lotterySmartRefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <LinearLayout
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/color_f7f7f7"
-        android:orientation="vertical"
-        tools:ignore="UselessParent">
+        android:layout_height="wrap_content" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@id/rvLotteryType"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_102"
-            android:background="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            android:background="@color/color_f7f7f7"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvCenter"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_98"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginEnd="@dimen/dp_10"
-            app:cardCornerRadius="@dimen/dp_5"
-            app:cardElevation="@dimen/dp_0"
-            app:layout_constraintTop_toBottomOf="@+id/rvLotteryType">
 
-            <RelativeLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@id/rvLotteryType"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
+                android:layout_height="@dimen/dp_102"
+                android:background="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tvOpenCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_14"
-                    android:layout_marginTop="@dimen/dp_14"
-                    android:textColor="@color/color_333333"
-                    android:textStyle="bold" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvCenter"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_98"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                app:cardCornerRadius="@dimen/dp_5"
+                app:cardElevation="@dimen/dp_0"
+                app:layout_constraintTop_toBottomOf="@+id/rvLotteryType">
 
-                <LinearLayout
-                    android:id="@+id/linTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:orientation="horizontal"
-                    android:paddingStart="@dimen/dp_0"
-                    android:paddingEnd="@dimen/dp_10"
-                    tools:ignore="RelativeOverlap">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dp_14"
-                        android:layout_marginEnd="@dimen/dp_6"
-                        android:text="@string/lottery_open_time"
-                        android:textColor="@color/color_333333" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white">
 
                     <TextView
-                        android:id="@+id/tvTime"
+                        android:id="@+id/tvOpenCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_14"
                         android:layout_marginTop="@dimen/dp_14"
-                        android:layout_marginEnd="@dimen/dp_4"
                         android:textColor="@color/color_333333"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/imgSp"
-                        android:layout_width="@dimen/dp_20"
-                        android:layout_height="@dimen/dp_24"
-                        android:layout_marginTop="@dimen/dp_12"
-                        android:contentDescription="@string/app_name"
-                        android:src="@mipmap/ic_lottery_sp" />
+                    <LinearLayout
+                        android:id="@+id/linTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/dp_0"
+                        android:paddingEnd="@dimen/dp_10"
+                        tools:ignore="RelativeOverlap">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_14"
+                            android:layout_marginEnd="@dimen/dp_6"
+                            android:text="@string/lottery_open_time"
+                            android:textColor="@color/color_333333" />
+
+                        <TextView
+                            android:id="@+id/tvTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_14"
+                            android:layout_marginEnd="@dimen/dp_4"
+                            android:textColor="@color/color_333333"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/imgSp"
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_24"
+                            android:layout_marginTop="@dimen/dp_12"
+                            android:contentDescription="@string/app_name"
+                            android:src="@mipmap/ic_lottery_sp" />
+
+                    </LinearLayout>
 
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvOpenCode"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvOpenCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/linTime"
+                        android:paddingStart="@dimen/dp_10"
+                        android:paddingTop="@dimen/dp_16"
+                        android:paddingEnd="@dimen/dp_0" />
+
+                    <TextView
+                        android:id="@+id/firstPlace"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/linTime"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/dp_20"
+                        android:paddingStart="@dimen/dp_10"
+                        android:paddingEnd="@dimen/dp_0"
+                        android:text="加载中.."
+                        android:textColor="@color/text_red" />
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <com.fenghuang.baselib.widget.round.RoundRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+
+                app:layout_constraintTop_toBottomOf="@+id/cvCenter"
+                app:rv_backgroundColor="@color/white"
+                app:rv_cornerRadius_TL="@dimen/dp_5"
+                app:rv_cornerRadius_TR="@dimen/dp_5">
+
+                <com.fenghuang.caipiaobao.ui.widget.AnchorTabView
+                    android:id="@id/anchorTabView"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_38"
+                    android:layout_marginStart="@dimen/dp_4"
+                    android:layout_marginEnd="@dimen/dp_4" />
+
+                <com.google.android.material.widget.XViewPager
+                    android:id="@+id/viewPagers"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@+id/linTime"
-                    android:paddingStart="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_16"
-                    android:paddingEnd="@dimen/dp_0" />
+                    android:layout_below="@+id/anchorTabView"
+                    android:layout_marginTop="@dimen/dp_6" />
 
                 <TextView
-                    android:id="@+id/firstPlace"
+                    android:id="@+id/secondPlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/linTime"
                     android:layout_centerInParent="true"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:paddingStart="@dimen/dp_10"
                     android:text="加载中.."
-                    android:textColor="@color/text_red"
-                    android:paddingEnd="@dimen/dp_0" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+                    android:textColor="@color/text_red" />
+
+                <com.fenghuang.baselib.widget.placeholder.PlaceholderView
+                    android:id="@+id/placeholders"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/anchorTabView"
+                    android:layout_marginTop="-33dp" />
 
 
-        <com.fenghuang.baselib.widget.round.RoundRelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginEnd="@dimen/dp_10"
+            </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
+        </LinearLayout>
 
-            app:layout_constraintTop_toBottomOf="@+id/cvCenter"
-            app:rv_backgroundColor="@color/white"
-            app:rv_cornerRadius_TL="@dimen/dp_5"
-            app:rv_cornerRadius_TR="@dimen/dp_5">
-
-            <com.fenghuang.caipiaobao.ui.widget.AnchorTabView
-                android:id="@id/anchorTabView"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_38"
-                android:layout_marginStart="@dimen/dp_4"
-                android:layout_marginEnd="@dimen/dp_4" />
-
-            <com.google.android.material.widget.XViewPager
-                android:id="@+id/viewPagers"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/anchorTabView"
-                android:layout_marginTop="@dimen/dp_6" />
-
-            <TextView
-                android:id="@+id/secondPlace"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="加载中.."
-                android:textColor="@color/text_red" />
-
-            <com.fenghuang.baselib.widget.placeholder.PlaceholderView
-                android:id="@+id/placeholders"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/anchorTabView"
-                android:layout_marginTop="-33dp" />
-
-
-        </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
-    </LinearLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/relWebSp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:clickable="true"
-        android:focusable="true"
-        android:paddingTop="@dimen/dp_10"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/tvTitles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="@string/lottery_open_video"
-            android:textColor="@color/white"
-            tools:ignore="RelativeOverlap" />
 
         <RelativeLayout
-            android:id="@+id/relClose"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_20"
-            android:layout_alignParentEnd="true">
+            android:id="@+id/relWebSp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingTop="@dimen/dp_10"
+            android:visibility="gone">
 
-            <ImageView
-                android:layout_width="@dimen/dp_16"
-                android:layout_height="@dimen/dp_16"
-                android:layout_centerInParent="true"
-                android:background="@mipmap/ic_dialog_close"
-                android:contentDescription="@string/app_name" />
+            <TextView
+                android:id="@+id/tvTitles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/lottery_open_video"
+                android:textColor="@color/white"
+                tools:ignore="RelativeOverlap" />
+
+            <RelativeLayout
+                android:id="@+id/relClose"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_20"
+                android:layout_alignParentEnd="true">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_16"
+                    android:layout_height="@dimen/dp_16"
+                    android:layout_centerInParent="true"
+                    android:background="@mipmap/ic_dialog_close"
+                    android:contentDescription="@string/app_name" />
+            </RelativeLayout>
+
+
+            <com.tencent.smtt.sdk.WebView
+                android:id="@+id/x5webLottery"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_270"
+                android:layout_below="@+id/tvTitles"
+                android:layout_marginTop="@dimen/dp_10"
+                tools:ignore="UnknownIdInLayout" />
         </RelativeLayout>
 
-
-        <com.tencent.smtt.sdk.WebView
-            android:id="@+id/x5webLottery"
+        <!--错误视图容器-->
+        <LinearLayout
+            android:id="@+id/errorContainer"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_270"
-            android:layout_below="@+id/tvTitles"
-            android:layout_marginTop="@dimen/dp_10"
-            tools:ignore="UnknownIdInLayout" />
-    </RelativeLayout>
-
-    <!--错误视图容器-->
-    <LinearLayout
-        android:id="@+id/errorContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:background="@color/white"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@null"
-            android:src="@mipmap/ic_wuwangluo" />
-
-        <TextView
-            android:id="@+id/tvError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_20"
-            android:text="@string/app_recycler_error"
-            android:textColor="@color/grey_95" />
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <com.fenghuang.baselib.widget.round.RoundTextView
-            android:id="@+id/tvErrorRetry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_22"
-            android:paddingLeft="@dimen/dp_24"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingRight="@dimen/dp_24"
-            android:paddingBottom="@dimen/dp_10"
-            android:text="@string/app_click_retry"
-            android:textColor="@color/white"
-            app:rv_backgroundColor="?attr/colorPrimary"
-            app:rv_cornerRadius="@dimen/dp_24"
-            app:rv_isRippleEnable="true" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@null"
+                android:src="@mipmap/ic_wuwangluo" />
 
-    </LinearLayout>
-</FrameLayout>
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/dp_20"
+                android:text="@string/app_recycler_error"
+                android:textColor="@color/grey_95" />
+
+            <com.fenghuang.baselib.widget.round.RoundTextView
+                android:id="@+id/tvErrorRetry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_22"
+                android:paddingLeft="@dimen/dp_24"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingRight="@dimen/dp_24"
+                android:paddingBottom="@dimen/dp_10"
+                android:text="@string/app_click_retry"
+                android:textColor="@color/white"
+                app:rv_backgroundColor="?attr/colorPrimary"
+                app:rv_cornerRadius="@dimen/dp_24"
+                app:rv_isRippleEnable="true" />
+
+        </LinearLayout>
+    </RelativeLayout>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>

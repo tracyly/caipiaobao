@@ -11,7 +11,9 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import android.widget.EditText
+import com.fenghuang.baselib.utils.SoftInputUtils
 import com.fenghuang.caipiaobao.R
+import kotlinx.android.synthetic.main.dialog_bottom_input.*
 import kotlinx.android.synthetic.main.dialog_pass_word.*
 
 
@@ -35,7 +37,8 @@ class PassWordDialog(context: Context, widthDia: Int, heightDia: Int) : Dialog(c
         lp.width = widthDia
         lp.height = heightDia
         window!!.attributes = lp
-        showSoftInputFromWindow(edtPassWord)
+//        showSoftInputFromWindow(edtPassWord)
+        SoftInputUtils.showSoftInput(dialogChatEditTexts)
         initDialog()
     }
 
@@ -60,6 +63,9 @@ class PassWordDialog(context: Context, widthDia: Int, heightDia: Int) : Dialog(c
         super.dismiss()
     }
 
+    fun clearText() {
+        edtPassWord.clearText()
+    }
 
     //显示软键盘
     private fun showSoftInputFromWindow(editText: EditText) {

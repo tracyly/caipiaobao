@@ -16,6 +16,7 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineIsAnchorLive
 import com.fenghuang.caipiaobao.utils.FastClickUtils
 import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
 import com.fenghuang.caipiaobao.utils.UserInfoSp
+import com.fenghuang.caipiaobao.widget.dialog.LoadingDialog
 import com.fenghuang.caipiaobao.widget.gif.GifImageView
 import com.hwangjr.rxbus.RxBus
 
@@ -25,6 +26,7 @@ import com.hwangjr.rxbus.RxBus
  *  desc   : 直播预告
  */
 class HomeLiveNoticeAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePopResponse>(context) {
+    val loadingDialog = LoadingDialog(getContext())
     override fun onCreateHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<HomeLivePopResponse> {
         return HomeLiveNoticeHolder(parent)
     }
@@ -49,11 +51,11 @@ class HomeLiveNoticeAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePopR
             } else findView<TextView>(R.id.tvLiveNoticeDate).text = "未开播"
             //是否关注
             if (data.isFollow) {
-                setGone(findView<RoundTextView>(R.id.tvLiveNoticeAttention))
                 setVisible(findView<RoundTextView>(R.id.tvLiveNoticeHasAttention))
+                setGone(findView<RoundTextView>(R.id.tvLiveNoticeAttention))
             } else {
-                setVisible(findView<RoundTextView>(R.id.tvLiveNoticeAttention))
                 setGone(findView<RoundTextView>(R.id.tvLiveNoticeHasAttention))
+                setVisible(findView<RoundTextView>(R.id.tvLiveNoticeAttention))
             }
             //跳转直播主页
             findView<ImageView>(R.id.ivLiveNoticeLogo).setOnClickListener {
@@ -61,41 +63,48 @@ class HomeLiveNoticeAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePopR
                     startFragment(HomeLiveDetailsFragment.newInstance(getData()?.aid!!, "", getData()?.livestatus!!, getData()?.avatar!!))
                 }
             }
-
             //关注
             findView<RoundTextView>(R.id.tvLiveNoticeAttention).setOnClickListener {
-                if (FastClickUtils.isFastClick()) {
-                    if (UserInfoSp.getIsLogin()) {
-                        data.isFollow = true
-                        setGone(findView<RoundTextView>(R.id.tvLiveNoticeAttention))
-                        setVisibility(findView<RoundTextView>(R.id.tvLiveNoticeHasAttention), true)
-                        HomeApi.setAttention(UserInfoSp.getUserId(), data.aid) {
-                            onSuccess {
-                                RxBus.get().post(MineIsAnchorLive(""))
-                            }
-                            onFailed {
-                                ExceptionDialog.showExpireDialog(getContext()!!, it)
-                            }
+                loadingDialog.show()
+                if (UserInfoSp.getIsLogin()) {
+                    data.isFollow = true
+                    setGone(findView<RoundTextView>(R.id.tvLiveNoticeAttention))
+                    setVisibility(findView<RoundTextView>(R.id.tvLiveNoticeHasAttention), true)
+                    HomeApi.setAttention(UserInfoSp.getUserId(), data.aid) {
+                        onSuccess {
+                            RxBus.get().post(MineIsAnchorLive(""))
+                            loadingDialog.dismiss()
                         }
-                    } else ExceptionDialog.showExpireDialog(getContext()!!)
+                        onFailed {
+                            ExceptionDialog.showExpireDialog(getContext()!!, it)
+                            loadingDialog.dismiss()
+                        }
+                    }
+                } else {
+                    ExceptionDialog.showExpireDialog(getContext()!!)
+                    loadingDialog.dismiss()
                 }
             }
             //取消关注
             findView<RoundTextView>(R.id.tvLiveNoticeHasAttention).setOnClickListener {
-                if (FastClickUtils.isFastClick()) {
-                    if (UserInfoSp.getIsLogin()) {
-                        setGone(findView<RoundTextView>(R.id.tvLiveNoticeHasAttention))
-                        setVisibility(findView<RoundTextView>(R.id.tvLiveNoticeAttention), true)
-                        data.isFollow = false
-                        HomeApi.setAttention(UserInfoSp.getUserId(), data.aid) {
-                            onSuccess {
-                                RxBus.get().post(MineIsAnchorLive(""))
-                            }
-                            onFailed {
-                                ExceptionDialog.showExpireDialog(getContext()!!, it)
-                            }
+                loadingDialog.show()
+                if (UserInfoSp.getIsLogin()) {
+                    setGone(findView<RoundTextView>(R.id.tvLiveNoticeHasAttention))
+                    setVisibility(findView<RoundTextView>(R.id.tvLiveNoticeAttention), true)
+                    data.isFollow = false
+                    HomeApi.setAttention(UserInfoSp.getUserId(), data.aid) {
+                        onSuccess {
+                            RxBus.get().post(MineIsAnchorLive(""))
+                            loadingDialog.dismiss()
                         }
-                    } else ExceptionDialog.showExpireDialog(getContext()!!)
+                        onFailed {
+                            ExceptionDialog.showExpireDialog(getContext()!!, it)
+                            loadingDialog.dismiss()
+                        }
+                    }
+                } else {
+                    ExceptionDialog.showExpireDialog(getContext()!!)
+                    loadingDialog.dismiss()
                 }
             }
         }

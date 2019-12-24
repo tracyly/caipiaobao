@@ -10,7 +10,7 @@
         android:layout_width="@dimen/dp_46"
         android:layout_height="@dimen/dp_46"
         android:padding="@dimen/dp_12"
-        android:src="@mipmap/ic_arrow_back" />
+        android:src="@drawable/ic_player_action_arrow_back" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

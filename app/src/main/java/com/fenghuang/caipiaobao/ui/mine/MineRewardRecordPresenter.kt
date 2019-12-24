@@ -36,9 +36,11 @@ class MineRewardRecordPresenter : BaseMvpPresenter<MineRewardRecordFragment>() {
                 }
             }
             onFailed {
-                ExceptionDialog.showExpireDialog(mView.requireContext(), it)
-                mView.showPageEmpty(it.getMsg())
-                mView.pop()
+                if (mView.isActive()) {
+                    ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+                    mView.showPageEmpty(it.getMsg())
+                    mView.pop()
+                }
             }
             mView.rewardSmartRefresh.finishRefresh()
         }
@@ -48,9 +50,7 @@ class MineRewardRecordPresenter : BaseMvpPresenter<MineRewardRecordFragment>() {
         MineApi.getRewardRecord(page, 10) {
             onSuccess {
                 if (mView.isActive()) {
-                    if (it.isEmpty()) {
-                        mView.setVisible(mView.rlNoReward)
-                    } else {
+                    if (it.isNotEmpty()) {
                         mView.mineRewardRecordAdapter?.addAll(it)
                         mView.mPage++
                     }
@@ -68,7 +68,14 @@ class MineRewardRecordPresenter : BaseMvpPresenter<MineRewardRecordFragment>() {
 
     fun deleteRewardRecord(reward_id: Int) {
         MineApi.deleteRewardRecord(reward_id) {
-            onSuccess { }
+            onSuccess {
+                if (mView.mineRewardRecordAdapter?.getCount()!! != 0) {
+                    if (mView.mineRewardRecordAdapter?.getCount()!! < 10) {
+                        mView.mPage++
+                        getRewordRecordMore(mView.mPage)
+                    }
+                } else mView.setVisible(mView.rlNoReward)
+            }
             onFailed { ToastUtils.showError("删除失败:" + it.getMsg()) }
         }
     }

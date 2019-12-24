@@ -47,9 +47,8 @@ abstract class BaseWebFragment : BaseNavFragment() {
             WebView.setWebContentsDebuggingEnabled(true)
         }
         mIntent = getIntent(arguments)
-        mWebUrl = mIntent.getStringExtra(WebConstant.KEY_WEB_URL)
+//        mWebUrl = getBaseUrl()
         mWebTitle = mIntent.getStringExtra(WebConstant.KEY_WEB_TITLE)
-
         if (isCleanCache()) {
             SonicEngine.getInstance().cleanCache()
         }
@@ -63,7 +62,7 @@ abstract class BaseWebFragment : BaseNavFragment() {
     }
 
     override fun initData() {
-        loadUrl(mWebUrl)
+//        loadUrl(mWebUrl)
     }
 
     private fun initSonic() {
@@ -155,7 +154,7 @@ abstract class BaseWebFragment : BaseNavFragment() {
 
             webView.setOnKeyListener { _, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN) {
-                    if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack() && !isOriginalUrl() && isCanBack()) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack() && !isOriginalUrl()) {
                         webView.goBack()
                         return@setOnKeyListener true
                     }
@@ -251,6 +250,11 @@ abstract class BaseWebFragment : BaseNavFragment() {
     protected open fun onPageFinished(view: WebView?, url: String?) {
         showPageContent()
     }
+
+    protected open fun setBaseUrl(url: String) {
+        this.mWebUrl = url
+    }
+
 
     /**
      * get web title

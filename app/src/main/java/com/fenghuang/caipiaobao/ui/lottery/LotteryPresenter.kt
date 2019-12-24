@@ -6,7 +6,8 @@ import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
-import kotlinx.android.synthetic.main.fragment_home_new.*
+import kotlinx.android.synthetic.main.fragment_home_new.errorContainer
+import kotlinx.android.synthetic.main.fragment_lottery.*
 
 /**
  *
@@ -28,12 +29,13 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
             LotteryApi.getLotteryType {
                 onSuccess {
                     if (mView.isActive()) {
-
+                        mView.lotterySmartRefresh.finishRefresh()
                         mView.initLotteryType(it)
                         getLotteryOpenCode(it[0].lottery_id)
                     }
                 }
                 onFailed {
+                    mView.lotterySmartRefresh.finishRefresh()
                     ToastUtils.showError(it.getMsg())
                 }
             }
@@ -45,10 +47,12 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
             onSuccess {
                 if (mView.isActive()) {
                     mView.initLotteryOpenCode(it)
+                    mView.lotterySmartRefresh.finishRefresh()
                 }
             }
             onFailed {
                 ToastUtils.showError(it.getMsg())
+                mView.lotterySmartRefresh.finishRefresh()
             }
         }
     }
@@ -59,7 +63,7 @@ class LotteryPresenter : BaseMvpPresenter<LotteryFragment>() {
     fun getMoney() {
         MineApi.getUserBalance {
             onSuccess { }
-            onFailed { ExceptionDialog.showExpireDialog(mView.requireContext(), it) }
+            onFailed { if (it.getCode() == 2003) ExceptionDialog.loginMore(mView.requireContext()) }
         }
     }
 

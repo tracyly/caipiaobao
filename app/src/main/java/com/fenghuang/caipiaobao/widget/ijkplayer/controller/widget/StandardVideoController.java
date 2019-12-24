@@ -349,7 +349,7 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
         ivRedEnvelope.setOnClickListener(v -> {
             if (mPresenter != null) {
 //                initPassWordDialog(mPresenter);
-                mPresenter.initFullPassWordDialog();
+//                mPresenter.initFullPassWordDialog();
             }
         });
         ivGift.setOnClickListener(v -> initBottomGift());
@@ -904,7 +904,7 @@ public class StandardVideoController<T extends MediaPlayerControl> extends Gestu
             popRedEnvelope.getEtRedEnvelopeSend().setOnClickListener(v1 -> {
                 if (!TextUtils.isEmpty(popRedEnvelope.getEtRedETotal().getText())) {
                     if (!TextUtils.isEmpty(popRedEnvelope.getEtRedRedNumber().getText())) {
-                        mPresenter.initFullPassWordDialog();
+//                        mPresenter.initFullPassWordDialog();
                     } else ToastUtils.INSTANCE.showNormal("请输入红包个数");
                 } else ToastUtils.INSTANCE.showNormal("请输入金额");
             });

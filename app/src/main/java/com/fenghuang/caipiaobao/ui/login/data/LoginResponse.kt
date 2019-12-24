@@ -27,3 +27,5 @@ data class RegisterCode(var code: String)
 data class LoginExit(var exit: Boolean)
 
 data class LoginExitStart(var exit: Boolean)
+
+data class LoginToMain(var exit: Boolean)

@@ -9,7 +9,6 @@ import com.fenghuang.caipiaobao.ui.login.data.LoginApi
 import com.fenghuang.caipiaobao.ui.mine.MineContactCustomerFragment
 import com.fenghuang.caipiaobao.utils.CheckUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
-import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.fenghuang.caipiaobao.widget.dialog.SuccessDialog
 import com.fenghuang.caipiaobao.widget.timer.CountDownTimerUtils
 import kotlinx.android.synthetic.main.fragment_forget_password.*
@@ -24,7 +23,9 @@ import kotlinx.android.synthetic.main.fragment_forget_password.*
 class LoginForgetPassWord : BaseNavFragment() {
 
 
-    var identify = ""
+    private var identify = ""
+
+    var isGetCode = false
 
     override fun isOverridePage() = false
 
@@ -60,21 +61,21 @@ class LoginForgetPassWord : BaseNavFragment() {
 
         btResetPassWord.setOnClickListener {
             if (CheckUtils.isMobileNumber(etForgetPhoneNum.text.toString())) {
-                if (etForgetIdentifyCode.text.toString() == identify) {
-                    setGone(linReset1)
-                    setVisible(linReset2)
-                    tvForgetPhoneNum.text = etForgetPhoneNum.text.toString()
-                } else ToastUtils.showError("验证码错误")
-//                mPresenter.time(tvGetIdentifyCode)
-//                mPresenter.userGetCode(etIdentifyCode, etPhoneNum.text.toString(), "login")
+                if (isGetCode) {
+                    if (etForgetIdentifyCode.text.toString() != "") {
+                        if (etForgetIdentifyCode.text.toString() == identify) {
+                            setGone(linReset1)
+                            setVisible(linReset2)
+                            tvForgetPhoneNum.text = etForgetPhoneNum.text.toString()
+                        } else ToastUtils.showError("验证码错误或已过期")
+                    } else ToastUtils.showError("请输入4位验证码")
+                } else ToastUtils.showError("请先获取验证码")
             } else ToastUtils.showError("请输入正确11位手机号码")
         }
 
         tvForgetGetIdentifyCode.setOnClickListener {
             if (CheckUtils.isMobileNumber(etForgetPhoneNum.text.toString())) {
-                if (etForgetPhoneNum.text.toString() == UserInfoSp.getUserPhone()) {
-                    userGetCode(etForgetPhoneNum.text.toString(), "retrieve_pwd")
-                } else ToastUtils.showError("请确认手机号码是否正确")
+                userGetCode(etForgetPhoneNum.text.toString(), "retrieve_pwd")
             } else ToastUtils.showError("请输入正确11位手机号码")
 
         }
@@ -114,6 +115,7 @@ class LoginForgetPassWord : BaseNavFragment() {
                 hidePageLoadingDialog()
                 time(tvForgetGetIdentifyCode)
                 identify = it.code
+                isGetCode = true
             }
             onFailed {
                 hidePageLoadingDialog()

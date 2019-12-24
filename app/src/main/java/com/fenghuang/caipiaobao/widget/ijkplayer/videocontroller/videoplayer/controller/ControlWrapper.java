@@ -140,10 +140,10 @@ public class ControlWrapper implements MediaPlayerControl, IVideoController {
      */
     public void togglePlay() {
         if (isPlaying()) {
-//            pause();
-            replay(true);
+            pause();
         } else {
-            start();
+//            start();
+            replay(true);
         }
     }
 

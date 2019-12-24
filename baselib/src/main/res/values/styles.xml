@@ -139,5 +139,28 @@
         <item name="toolbarForeground">@color/colorPrimary</item>
     </style>
 
+    <!--黑色主题-->
+    <style name="BlackTheme" parent="ColorTheme">
+        <item name="colorPrimaryDark">@color/colorBlackAccent</item>
+        <item name="toolbarBackground">@color/colorBlackAccent</item>
+        <item name="toolbarForeground">@color/white</item>
+    </style>
+
+    <style name="crowd_item_progressBar">
+
+               
+        <item name="android:indeterminateOnly">false</item>
+
+               
+        <item name="android:progressDrawable">@drawable/crowd_progressbar_background</item>
+
+               
+        <item name="android:minHeight">10dp</item>
+
+               
+        <item name="android:maxHeight">10dp</item>
+
+    </style>
+
 
 </resources>

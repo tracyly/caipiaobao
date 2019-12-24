@@ -11,15 +11,11 @@ import com.fenghuang.caipiaobao.ui.login.LoginFragment
 import com.fenghuang.caipiaobao.ui.login.data.LoginExitStart
 import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
 import com.fenghuang.caipiaobao.ui.lottery.data.UserChangePhoto
-import com.fenghuang.caipiaobao.ui.mine.data.MineApi
 import com.fenghuang.caipiaobao.ui.mine.data.MineIsAnchorLive
 import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateUser
 import com.fenghuang.caipiaobao.utils.FastClickUtils
-import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog.noSetPassWord
-import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog.showExpireDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
 import com.fenghuang.caipiaobao.utils.UserInfoSp
-import com.fenghuang.caipiaobao.widget.dialog.DiamondDialog
 import com.fenghuang.caipiaobao.widget.lighter.Lighter
 import com.fenghuang.caipiaobao.widget.lighter.parameter.Direction
 import com.fenghuang.caipiaobao.widget.lighter.parameter.LighterParameter
@@ -39,7 +35,7 @@ import kotlinx.android.synthetic.main.fragment_mine_child_view_login.*
 
 class MineFragment : BaseMvpFragment<MinePresenter>() {
 
-    private var balanceReal = "0.00"
+    var balanceReal = "0.00"
 
     private lateinit var lighter: Lighter
 
@@ -59,7 +55,7 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
 
     override fun initData() {
         initUser()
-        mPresenter.initList(getPageActivity(), listItem)
+//        mPresenter.initList(getPageActivity(), listItem)
         smartRefreshLayout.setOnRefreshListener {
             mPresenter.getUserInfo()
         }
@@ -77,12 +73,12 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             ImageManager.loadRoundFrameUserLogo(UserInfoSp.getUserPhoto(), userPhoto, 10, getColor(R.color.white))
             userName.text = UserInfoSp.getUserNickName()
             RxBus.get().post(UserChangePhoto(UserInfoSp.getUserPhoto()!!, "", "", false))
-            mPresenter.mineItemAdapter?.notifyDataSetChanged()
+
         } else {
             setGone(R.id.isLogin)
             setVisible(R.id.noLogin)
             ImageManager.loadRoundFromBitmap(R.mipmap.ic_home_top_user, userPhoto, getColor(R.color.white))
-            mPresenter.mineItemAdapter?.notifyIsLive("")
+
         }
     }
 
@@ -95,7 +91,6 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         //头像
         userPhoto.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-
                 if (UserInfoSp.getIsLogin()) {
                     startFragment(context, MinePersonalFragment())
                 } else startFragment(context, LoginFragment())
@@ -104,59 +99,94 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         //钻石兑换
         linChangeDiamond.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-
                 if (UserInfoSp.getIsLogin()) {
-                    if (UserInfoSp.getIsSetPayPassWord()) {
-                        MineApi.getUserBalance {
-                            onSuccess {
-                                val dialog = DiamondDialog(getPageActivity(), balanceReal)
-                                dialog.show()
-                            }
-                            onFailed { showExpireDialog(getPageActivity(), it) }
-                        }
-
-                    } else noSetPassWord(getPageActivity())
-                } else showExpireDialog(getPageActivity())
+                    mPresenter.isSetPayPass()
+                } else startFragment(context, LoginFragment())
             }
         }
         //充值
         linRecharge.setOnClickListener {
-            if (FastClickUtils.isFastClick()) {
-                if (UserInfoSp.getIsLogin()) {
-                    startFragment(context, MineRechargeFragment.newInstance(balanceReal, 0))
-                } else showExpireDialog(getPageActivity())
-            }
+            if (UserInfoSp.getIsLogin()) {
+                startFragment(context, MineRechargeFragment.newInstance(balanceReal, 0))
+            } else startFragment(context, LoginFragment())
         }
         //提现
         linDrawMoney.setOnClickListener {
-            if (FastClickUtils.isFastClick()) {
-                if (UserInfoSp.getIsLogin()) {
-                    startFragment(context, MineRechargeFragment.newInstance(balanceReal, 1))
-                } else showExpireDialog(getPageActivity())
-            }
+            if (UserInfoSp.getIsLogin()) {
+                startFragment(context, MineRechargeFragment.newInstance(balanceReal, 1))
+            } else startFragment(context, LoginFragment())
         }
         //更新余额
         linBalance.setOnClickListener {
-            if (FastClickUtils.isFastClick()) {
-                mPresenter.getUserBalance()
-            }
+            if (UserInfoSp.getIsLogin()) {
+                if (FastClickUtils.isFastClick()) {
+                    mPresenter.getUserBalance()
+                }
+            } else startFragment(context, LoginFragment())
+
         }
 //        //消息图片
 //        imgMessage.setOnClickListener {
 //
 //        }
 //
+        //主播招募
         linAnchorGet.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-
                 startFragment(getPageActivity(), MineAnchorGetFragment())
             }
         }
+        //豪礼相送
         linSendGift.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-
                 startFragment(getPageActivity(), MineGiftSendFragment())
             }
+        }
+
+        //对应设置跳转
+        linSetting1.setOnClickListener {
+            if (FastClickUtils.isFastClick()) {
+                if (UserInfoSp.getIsLogin()) {
+                    startFragment(getPageActivity(), MinePersonalFragment())
+                } else startFragment(context, LoginFragment())
+            }
+        }
+        linSetting2.setOnClickListener {
+            if (FastClickUtils.isFastClick()) {
+                if (UserInfoSp.getIsLogin()) {
+                    startFragment(getPageActivity(), MineMyAttentionFragment())
+                } else startFragment(context, LoginFragment())
+            }
+        }
+        linSetting3.setOnClickListener {
+            if (FastClickUtils.isFastClick()) {
+                if (UserInfoSp.getIsLogin()) {
+                    startFragment(getPageActivity(), MineRewardRecordFragment())
+                } else startFragment(context, LoginFragment())
+            }
+
+        }
+        linSetting4.setOnClickListener {
+            if (FastClickUtils.isFastClick()) {
+                if (UserInfoSp.getIsLogin()) {
+                    startFragment(getPageActivity(), MineFeedBackFragment())
+                } else startFragment(context, LoginFragment())
+            }
+        }
+        linSetting5.setOnClickListener {
+            if (FastClickUtils.isFastClick()) {
+                if (UserInfoSp.getIsLogin()) {
+                    startFragment(getPageActivity(), MineContactCustomerFragment())
+                } else startFragment(context, LoginFragment())
+            }
+        }
+        linSetting6.setOnClickListener {
+            if (FastClickUtils.isFastClick()) {
+                if (UserInfoSp.getIsLogin()) {
+                    startFragment(getPageActivity(), MineSettingFragment())
+                } else startFragment(context, LoginFragment())
+            }
+
         }
     }
 
@@ -182,12 +212,15 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             setGone(R.id.noLogin)
             setVisible(R.id.isLogin)
             mPresenter.getUserInfo()
+            setVisible(linSetting6)
         } else {
             //清除所有Sp保存的值，除去已经显示过的guide
             spClear()
             initUser()
             tvUserBalance.text = "0.00"
             tvUserDiamond.text = "0"
+            setGone(linSetting6)
+            setGone(tvHasAnchorLive)
         }
     }
 
@@ -211,6 +244,7 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         if (eventBean.upDateAll) mPresenter.getUserInfo()
         if (eventBean.upDateMoney) mPresenter.getUserBalance()
         if (eventBean.upDateDiamond) mPresenter.getUserDiamond()
+        if (eventBean.upDateDiamond) mPresenter.getUserVip()
     }
 
     private fun initGuide() {

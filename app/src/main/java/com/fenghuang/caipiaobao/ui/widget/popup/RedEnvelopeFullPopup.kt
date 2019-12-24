@@ -34,11 +34,10 @@ class RedEnvelopeFullPopup(context: Context) : Dialog(context, R.style.inputDial
         etRedEnvelopeSend = tvRedSend
         etRedEnvelopeSend.setOnClickListener {
             if (FastClickUtils.isFastClick()) {
-
                 val total = if (etRedETotal.text.toString().isNotEmpty()) etRedETotal.text.toString() else ""
                 val number = if (etRedRedNumber.text.toString().isNotEmpty()) etRedRedNumber.text.toString() else ""
                 val content = if (etRedContent.text.toString().isNotEmpty()) etRedContent.text.toString() else ""
-            mListener?.invoke(total, number, content)
+                mListener?.invoke(total, number, content)
             }
         }
 
@@ -92,6 +91,30 @@ class RedEnvelopeFullPopup(context: Context) : Dialog(context, R.style.inputDial
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
+        etRedContent.addTextChangedListener(object : TextWatcher {
+            //记录输入的字数
+            var wordNum: CharSequence? = null
+            var selectionStart: Int = 0
+            var selectionEnd: Int = 0
+            override fun afterTextChanged(p0: Editable?) {
+                selectionStart = etRedEnvelopeContent.selectionStart
+                selectionEnd = etRedEnvelopeContent.selectionEnd
+                if (wordNum!!.length > 10) {
+                    p0?.delete(selectionStart - 1, selectionEnd)
+                    etRedContent.text = p0
+                    etRedContent.setSelection(etRedContent.text.length)
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                wordNum = p0
+            }
+
+        })
+
     }
 
 

@@ -46,12 +46,14 @@ class MineSettingFragment : BaseNavFragment() {
             showPageLoadingDialog()
             HomeApi.isSetPassWord {
                 onSuccess {
+                    tvPayPassWordSet.text = "支付密码修改"
                     UserInfoSp.putIsSetPayPassWord(true)
                     hidePageLoadingDialog()
                 }
                 onFailed {
+                    tvPayPassWordSet.text = "支付密码设置"
                     UserInfoSp.putIsSetPayPassWord(false)
-                    tvPayPassWordNotSet.text = "暂未设置支付密码"
+                    tvPayPassWordNotSet.text = it.getMsg()
                     hidePageLoadingDialog()
                 }
             }
@@ -78,9 +80,14 @@ class MineSettingFragment : BaseNavFragment() {
             LaunchUtils.startFragment(getPageActivity(), MineModifyPassword())
         }
         linSetPayPassWord.setOnClickListener {
+            if (tvPayPassWordNotSet.text.toString().contains("冻结")) return@setOnClickListener
             if (tvPayPassWordNotSet.text == "暂未设置支付密码") {
+
                 LaunchUtils.startFragment(getPageActivity(), MineSetPayPassword())
-            } else LaunchUtils.startFragment(getPageActivity(), MineModifyPayPassword())
+            } else {
+
+                LaunchUtils.startFragment(getPageActivity(), MineModifyPayPassword())
+            }
         }
     }
 
@@ -90,6 +97,7 @@ class MineSettingFragment : BaseNavFragment() {
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onStartPresonal(eventBean: MineIsSetPayPass) {
         if (eventBean.isSet) tvPayPassWordNotSet.text = ""
+        pop()
     }
 
 

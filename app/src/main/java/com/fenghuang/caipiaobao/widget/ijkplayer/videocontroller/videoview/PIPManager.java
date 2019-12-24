@@ -18,7 +18,7 @@ public class PIPManager {
     private static PIPManager instance;
     private DanmukuVideoView mVideoView;
     private FloatView mFloatView;
-    private FloatController mFloatController;
+    public FloatController mFloatController;
     private boolean mIsShowing;
     private int mPlayingPosition = -1;
     private Class mActClass;

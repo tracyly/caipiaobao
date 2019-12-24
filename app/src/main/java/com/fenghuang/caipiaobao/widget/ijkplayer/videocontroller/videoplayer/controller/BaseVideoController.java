@@ -66,12 +66,7 @@ public abstract class BaseVideoController extends FrameLayout
     /**
      * 隐藏播放视图Runnable
      */
-    public final Runnable mFadeOut = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
+    public final Runnable mFadeOut = () -> hide();
     /**
      * 刷新进度Runnable
      */

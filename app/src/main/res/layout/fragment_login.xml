@@ -119,6 +119,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/login_forget_password"
+                    android:layout_marginEnd="@dimen/dp_6"
                     android:textColor="@color/color_FF513E"
                     android:textSize="@dimen/sp_12" />
             </com.fenghuang.baselib.widget.round.RoundLinearLayout>

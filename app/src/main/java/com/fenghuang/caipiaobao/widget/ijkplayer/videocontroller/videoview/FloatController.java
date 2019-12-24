@@ -6,10 +6,7 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.component.CompleteView;
-import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.component.ErrorView;
 import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.controller.GestureVideoController;
-import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoview.component.PipControlView;
 
 /**
  * 悬浮播放控制器
@@ -33,8 +30,8 @@ public class FloatController extends GestureVideoController {
     @Override
     protected void initView() {
         super.initView();
-        addControlComponent(new CompleteView(getContext()));
-        addControlComponent(new ErrorView(getContext()));
-        addControlComponent(new PipControlView(getContext()));
+//        addControlComponent(new CompleteView(getContext()));
+//        addControlComponent(new ErrorView(getContext()));
+//        addControlComponent(new PipControlView(getContext()));
     }
 }

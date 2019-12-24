@@ -33,32 +33,6 @@ data class HomeLiveChatBean(var position: String,
                             var icon: String,
                             var r_id: Int, var avatar: String?, var code: Int) : Parcelable
 
-
-// 聊天室
-@Parcelize
-data class HomeLiveChatBeanNew(var position: String,
-                               var room_id: String,
-                               var sendTime: Long,
-                               var sendTimeTxt: String,
-                               var gift_text: String,
-                               var size: String,
-                               var type: String,
-                               var text: String,
-                               var color: String,
-                               var isMe: Boolean,
-                               var user_id: String,
-                               var userType: String,
-                               var userName: String,
-                               var gift_id: String,
-                               var gift_type: String,
-                               var gift_name: String,
-                               var gift_price: Float,
-                               var gift_num: String,
-                               var vip: String,
-                               var icon: String,
-                               var r_id: String, var avatar: String?, var code: String) : Parcelable
-
-
 // 聊天室礼物榜单
 data class HomeLiveRoomRewardBean(var avatar: String)
 

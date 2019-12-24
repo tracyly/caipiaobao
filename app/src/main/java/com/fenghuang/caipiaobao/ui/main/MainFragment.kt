@@ -18,6 +18,7 @@ import com.fenghuang.caipiaobao.ui.home.HomeFragmentNew
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeClickMine
 import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
+import com.fenghuang.caipiaobao.ui.login.data.LoginToMain
 import com.fenghuang.caipiaobao.ui.lottery.LotteryFragment
 import com.fenghuang.caipiaobao.ui.lottery.data.UserChangePhoto
 import com.fenghuang.caipiaobao.ui.mine.MineFragment
@@ -119,7 +120,21 @@ class MainFragment : BasePageFragment() {
             tabBetting.isFocusable = false
             showHideFragment(mFragments[4])
         } else ExceptionDialog.showExpireDialog(getPageActivity())
+    }
 
+
+    /**
+     * 接收Home头像点击事件
+     */
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onClickMain(clickMine: LoginToMain) {
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
+        tabMine.isChecked = false
+        tabHome.isChecked = true
+        tabLive.isChecked = false
+        tabRanking.isChecked = false
+        tabBetting.isFocusable = false
+        showHideFragment(mFragments[0])
     }
 
 

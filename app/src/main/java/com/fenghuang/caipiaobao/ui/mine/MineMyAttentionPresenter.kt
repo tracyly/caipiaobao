@@ -48,11 +48,13 @@ class MineMyAttentionPresenter : BaseMvpPresenter<MineMyAttentionFragment>() {
     /**
      * 取关
      */
-    fun unDespose(userId: Int, anchorId: Int) {
+    fun unDepose(userId: Int, anchorId: Int) {
         HomeApi.setAttention(userId, anchorId) {
-            onSuccess { RxBus.get().post(MineIsAnchorLive("GoUp")) }
+            onSuccess {
+                RxBus.get().post(MineIsAnchorLive("GoUp"))
+                if (mView.mineMyAttentionAdapter?.getCount() == 0) mView.setVisible(R.id.rlNoAttention)
+            }
             onFailed { ToastUtils.showError(it.getMsg()) }
-
         }
     }
 

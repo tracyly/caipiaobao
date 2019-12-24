@@ -7,9 +7,13 @@ import com.fenghuang.baselib.base.fragment.BaseNavFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.ui.login.LoginFragment
 import com.fenghuang.caipiaobao.ui.login.data.LoginApi
+import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
+import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.dialog.SuccessDialog
 import com.fenghuang.caipiaobao.widget.timer.CountDownTimerUtils
+import com.hwangjr.rxbus.RxBus
 import kotlinx.android.synthetic.main.fregamnt_modify_password_phone_next.*
 
 /**
@@ -31,7 +35,7 @@ class MineModifyPasswordByPhoneNext : BaseNavFragment() {
 
     override fun isShowBackIcon() = true
 
-    override fun isShowBackIconWhite() = true
+    override fun isShowBackIconWhite() = false
 
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
@@ -64,7 +68,7 @@ class MineModifyPasswordByPhoneNext : BaseNavFragment() {
                 ToastUtils.showWarning("密码长度最少为6位")
                 return@setOnClickListener
             }
-            if (etNewPass11Sure.text != etPhoneNewPass11.text) {
+            if (etNewPass11Sure.text.toString() != etPhoneNewPass11.text.toString()) {
                 ToastUtils.showWarning("两次新密码输入不一致")
                 return@setOnClickListener
             }
@@ -73,7 +77,11 @@ class MineModifyPasswordByPhoneNext : BaseNavFragment() {
                 onSuccess {
 
                     val dialog = SuccessDialog(getPageActivity(), "修改成功", R.mipmap.ic_dialog_success)
-                    dialog.setOnDismissListener { pop() }
+                    dialog.setOnDismissListener {
+                        RxBus.get().post(LoginSuccess(false, "", -1, "", -1, ""))
+                        pop()
+                        LaunchUtils.startFragment(context, LoginFragment())
+                    }
                     dialog.show()
                     hidePageLoadingDialog()
                 }

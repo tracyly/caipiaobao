@@ -41,15 +41,10 @@ class HomeMoreLiveFragment : BaseMvpFragment<HomeMoreLivePresenter>() {
     }
 
     override fun initData() {
-        if (arguments?.get(IntentConstant.HOME_LIVE_WHICH) == 1) {
-            mPresenter.getHotLive(mPage)
-        } else mPresenter.getExpert(mPage)
-
+        mPresenter.getHotLive(mPage)
         moreSmartRefreshLayout.setOnLoadMoreListener {
             mPage++
-            if (arguments?.get(IntentConstant.HOME_LIVE_WHICH) == 1) {
-                mPresenter.getHotLive(mPage)
-            } else mPresenter.getExpert(mPage)
+            mPresenter.getHotLive(mPage)
         }
 
     }
@@ -61,22 +56,16 @@ class HomeMoreLiveFragment : BaseMvpFragment<HomeMoreLivePresenter>() {
         }
     }
 
+    var adapter: HomeMoreLiveAdapter? = null
     fun updateHotLive(data: List<HomeLiveListResponse>) {
-        val adapter = HomeMoreLiveAdapter(getPageActivity())
+        adapter = HomeMoreLiveAdapter(getPageActivity())
         rvLiveMore.adapter = adapter
-        adapter.addAll(data)
+        adapter?.addAll(data)
         val gridLayoutManager = object : GridLayoutManager(context, 2) {
             override fun canScrollVertically(): Boolean {
                 return true
             }
         }
-//        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-//            override fun getSpanSize(position: Int): Int {
-//                // 如果当前是footer的位置，那么该item占据2个单元格，正常情况下占据1个单元格
-//                return if ( adapter.isFooter(position)) gridLayoutManager.spanCount else 1
-//            }
-//
-//        }
         rvLiveMore.layoutManager = gridLayoutManager
         if (rvLiveMore.itemDecorationCount == 0) {
             rvLiveMore.addItemDecoration(GridItemSpaceDecoration(2, itemSpace = ViewUtils.dp2px(10), startAndEndSpace = ViewUtils.dp2px(6)))

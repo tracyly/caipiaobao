@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_mine_attention.*
 
 class MineMyAttentionFragment : BaseMvpFragment<MineMyAttentionPresenter>() {
 
+
     override fun attachView() = mPresenter.attachView(this)
 
     override fun attachPresenter() = MineMyAttentionPresenter()
@@ -42,12 +43,14 @@ class MineMyAttentionFragment : BaseMvpFragment<MineMyAttentionPresenter>() {
     override fun initData() {
         mPresenter.getMoney()
         mPresenter.getAttentionList()
-
+        smartRefreshAttention.setEnablePureScrollMode(true)
+        smartRefreshAttention.setEnableOverScrollDrag(true)
     }
 
+    var mineMyAttentionAdapter: MineMyAttentionAdapter? = null
     fun upDateAttentionList(list: List<MineAttentionResponse>) {
-        val mineMyAttentionAdapter = MineMyAttentionAdapter(getPageActivity(), mPresenter)
-        mineMyAttentionAdapter.addAll(list)
+        mineMyAttentionAdapter = MineMyAttentionAdapter(getPageActivity(), mPresenter)
+        mineMyAttentionAdapter?.addAll(list)
         attentionRecycle.adapter = mineMyAttentionAdapter
         val value = object : LinearLayoutManager(context) {
             override fun canScrollVertically(): Boolean {

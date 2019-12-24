@@ -1,10 +1,13 @@
 package com.fenghuang.caipiaobao.ui.home.data
 
+import com.fenghuang.caipiaobao.data.api.ApiConvert
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.fenghuang.caipiaobao.utils.UserInfoSp
+import com.google.gson.reflect.TypeToken
 import com.pingerx.rxnetgo.rxcache.CacheMode
+import io.reactivex.Flowable
 
 /**
  *  author : Peter
@@ -18,6 +21,7 @@ object HomeApi : BaseApi {
     private const val HONE_NOTICE = "api/v1/user/system_notice"
     private const val HOME_GAME_LIST = "api/v1/live/get_game_list"
     private const val HOME_HOT_LIVE_LIST = "api/v1/live/get_hot_list"
+    private const val HOME_ALL_LIVE_LIST = "api/v1/live/get_all_list"
     private const val HOME_LIVE_POP = "api/v1/user/anchor_pop"
     private const val HOME_EXPERT_LIST = "api/v1/live/get_expert_list"
     private const val HOME_EXPERT_RECOMMEND = "api/v1/live/pro_red"
@@ -85,24 +89,42 @@ object HomeApi : BaseApi {
                 .params("page", page)
                 .subscribe(subscriber)
     }
-//    fun getHomeHotLiveListResult(cacheMode: CacheMode): Flowable<List<HomeLiveListResponse>> {
-//        return getApi()
-//                .get<List<HomeLiveListResponse>>(HOME_HOT_LIVE_LIST)
-//                .cacheMode(cacheMode)
-//                .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
-//                .flowable()
-//    }
+
+    fun getHomeHotLiveListResult(limit: Int, page: Int, cacheMode: CacheMode): Flowable<List<HomeLiveListResponse>> {
+        return getApi()
+                .get<List<HomeLiveListResponse>>(HOME_HOT_LIVE_LIST)
+                .cacheMode(cacheMode)
+                .params("limit", limit)
+                .params("page", page)
+                .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
+                .flowable()
+    }
+
+
+    /**
+     * 获取所有直播
+     */
+    fun getHomeAllLiveListResult(limit: Int, page: Int, cacheMode: CacheMode, function: ApiSubscriber<List<HomeLiveListResponse>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<HomeLiveListResponse>>() {}
+        subscriber.function()
+        getApi().get<List<HomeLiveListResponse>>(HOME_ALL_LIVE_LIST)
+                .cacheMode(cacheMode)
+                .params("limit", limit)
+                .params("page", page)
+                .subscribe(subscriber)
+    }
+
 
     /**
      * 获取直播预告
      */
-//    fun getHomeLivePopResult(cacheMode: CacheMode): Flowable<List<HomeLivePopResponse>> {
-//        return getApi()
-//                .get<List<HomeLivePopResponse>>(HOME_LIVE_POP)
-//                .cacheMode(cacheMode)
-//                .converter(ApiConvert(type = object : TypeToken<List<HomeLivePopResponse>>() {}.type))
-//                .flowable()
-//    }
+    fun getHomeLivePopResult(cacheMode: CacheMode): Flowable<List<HomeLivePopResponse>> {
+        return getApi()
+                .get<List<HomeLivePopResponse>>(HOME_LIVE_POP)
+                .cacheMode(cacheMode)
+                .converter(ApiConvert(type = object : TypeToken<List<HomeLivePopResponse>>() {}.type))
+                .flowable()
+    }
     fun getHomeLivePopResult(cacheMode: CacheMode, function: ApiSubscriber<List<HomeLivePopResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<HomeLivePopResponse>>() {}
         subscriber.function()
@@ -124,13 +146,16 @@ object HomeApi : BaseApi {
                 .params("page", page)
                 .subscribe(subscriber)
     }
-//    fun getHomeExpertListResult(cacheMode: CacheMode): Flowable<List<HomeLiveListResponse>> {
-//        return getApi()
-//                .get<List<HomeLiveListResponse>>(HOME_EXPERT_LIST)
-//                .cacheMode(cacheMode)
-//                .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
-//                .flowable()
-//    }
+
+    fun getHomeExpertListResult(limit: Int, page: Int, cacheMode: CacheMode): Flowable<List<HomeLiveListResponse>> {
+        return getApi()
+                .get<List<HomeLiveListResponse>>(HOME_EXPERT_LIST)
+                .cacheMode(cacheMode)
+                .params("limit", limit)
+                .params("page", page)
+                .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
+                .flowable()
+    }
     /**
      * 获取专家推荐列表
      */
@@ -142,13 +167,14 @@ object HomeApi : BaseApi {
                 .cacheMode(cacheMode)
                 .subscribe(subscriber)
     }
-//    fun getHomeExpertRecommendResult(cacheMode: CacheMode): Flowable<List<HomeExpertRecommendResponse>> {
-//        return getApi()
-//                .get<List<HomeExpertRecommendResponse>>(HOME_EXPERT_RECOMMEND)
-//                .cacheMode(cacheMode)
-//                .converter(ApiConvert(type = object : TypeToken<List<HomeExpertRecommendResponse>>() {}.type))
-//                .flowable()
-//    }
+
+    fun getHomeExpertRecommendResult(cacheMode: CacheMode): Flowable<List<HomeExpertRecommendResponse>> {
+        return getApi()
+                .get<List<HomeExpertRecommendResponse>>(HOME_EXPERT_RECOMMEND)
+                .cacheMode(cacheMode)
+                .converter(ApiConvert(type = object : TypeToken<List<HomeExpertRecommendResponse>>() {}.type))
+                .flowable()
+    }
 
     /**
      * 获取直播间礼物榜单

@@ -51,7 +51,6 @@ class DiamondDialog(context: Context, var balance: String) : Dialog(context) {
 
         tvDiamondCount.text = balance
 
-
         if (imgClose !== null) {
             imgClose.setOnClickListener {
                 dismiss()
@@ -94,9 +93,10 @@ class DiamondDialog(context: Context, var balance: String) : Dialog(context) {
         })
 
         tvAllExchange.setOnClickListener {
-            etChangeMoney.setText(balance + "")
+            if (balance.contains(".")) {
+                etChangeMoney.setText(balance.substring(0, balance.indexOf(".")))
+            } else etChangeMoney.setText(balance)
         }
-
     }
 
     var passWordDialog: PassWordDialog? = null
@@ -110,11 +110,11 @@ class DiamondDialog(context: Context, var balance: String) : Dialog(context) {
                         onSuccess {
                             //兑换钻石
                             exChangeDiamond(s.toString())
-
                         }
                         onFailed {
                             if (it.getCode() == 1002) {
                                 passWordDialog!!.showTipsText(it.getMsg().toString() + "," + "您还有" + JsonUtils.fromJson(it.getDataCode().toString(), MinePassWordTime::class.java).remain_times.toString() + "次机会")
+                                passWordDialog!!.clearText()
                             } else {
                                 passWordDialog!!.showTipsText(it.getMsg().toString())
                             }
@@ -129,7 +129,6 @@ class DiamondDialog(context: Context, var balance: String) : Dialog(context) {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
-
         })
         passWordDialog!!.show()
         this.dismiss()
@@ -147,6 +146,7 @@ class DiamondDialog(context: Context, var balance: String) : Dialog(context) {
             }
             onFailed {
                 showExpireDialog(context, it)
+                loadDialog?.dismiss()
             }
 
         }

@@ -47,4 +47,6 @@ dependencies {
 
     implementation sonic
     implementation smartrefresh
+
+    implementation 'com.tencent.tbs.tbssdk:sdk:43697'
 }

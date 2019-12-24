@@ -159,17 +159,6 @@
     </LinearLayout>
 
 
-    <ImageView
-        android:id="@+id/imgFullEnvelope"
-        android:layout_width="@dimen/dp_44"
-        android:layout_height="@dimen/dp_58"
-        android:layout_gravity="end|bottom"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_76"
-        android:background="@mipmap/ic_live_chat_red_envelope_tips"
-        android:visibility="gone" />
-
-
     <!-- ========================无主播======================== -->
     <FrameLayout
         android:id="@+id/fmNoAnchor"

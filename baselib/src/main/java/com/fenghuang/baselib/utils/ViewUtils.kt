@@ -220,7 +220,7 @@ object ViewUtils {
      */
     fun copyText(text: String) {
         val clipboard = getContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboard.primaryClip = ClipData.newPlainText("text", text)
+        clipboard.setPrimaryClip(ClipData.newPlainText("text", text))
     }
 
     /**

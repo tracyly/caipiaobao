@@ -3,6 +3,8 @@ package com.fenghuang.baselib.utils
 import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -14,7 +16,7 @@ import android.view.inputmethod.InputMethodManager
 object SoftInputUtils {
 
     private val mFilterViews = arrayListOf<View>()
-    private var mTouchOutsideFunction: (() -> Unit)? = null
+    private var mTouchOutsideFunction: ((ev: MotionEvent) -> Unit)? = null
 
     /**
      * 是否隐藏输入框
@@ -99,15 +101,17 @@ object SoftInputUtils {
     /**
      * 激活触摸软键盘外部的监听
      */
-    fun invokeOnTouchOutsideListener(context: Context) {
-        hideSoftInput(context)
-        mTouchOutsideFunction?.invoke()
+    fun invokeOnTouchOutsideListener(context: Context, ev: MotionEvent) {
+        if (ev.action == MotionEvent.ACTION_DOWN) {
+            hideSoftInput(context)
+        }
+        mTouchOutsideFunction?.invoke(ev)
     }
 
     /**
      * 设置触摸软键盘外部的监听
      */
-    fun setOnTouchOutsideListener(function: () -> Unit) {
+    fun setOnTouchOutsideListener(function: (ev: MotionEvent) -> Unit) {
         mTouchOutsideFunction = function
     }
 
@@ -120,4 +124,49 @@ object SoftInputUtils {
         activity.window.decorView.getWindowVisibleDisplayFrame(rect)
         return height * 2 / 3 > rect.bottom
     }
+
+
+    /**
+     * 获取键盘的高度
+     */
+    private const val KEY_SOFT_KEYBOARD_HEIGHT = "SoftKeyboardHeight"
+
+    fun getSoftKeyboardHeight(activity: Activity): Int {
+        val rect = Rect()
+        activity.window.decorView.getWindowVisibleDisplayFrame(rect)
+        //屏幕当前可见高度，不包括状态栏
+        val displayHeight = rect.bottom - rect.top
+        //屏幕可用高度
+        val availableHeight = getAvailableScreenHeight(activity)
+        //用于计算键盘高度
+        val softInputHeight = availableHeight - displayHeight - getStatusBarHeight(activity)
+        Log.e("TAG-di", displayHeight.toString() + "")
+        Log.e("TAG-av", availableHeight.toString() + "")
+        Log.e("TAG-so", softInputHeight.toString())
+        if (softInputHeight != 0) {
+            // 因为考虑到用户可能会主动调整键盘高度，所以只能是每次获取到键盘高度时都将其存储起来
+            SpUtils.putInt(KEY_SOFT_KEYBOARD_HEIGHT, softInputHeight)
+        }
+        return softInputHeight
+    }
+
+    /**
+     * 返回屏幕可用高度
+     * 当显示了虚拟按键时，会自动减去虚拟按键高度
+     */
+    private fun getAvailableScreenHeight(activity: Activity): Int {
+        val displayMetrics = DisplayMetrics()
+        activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+        return displayMetrics.heightPixels
+    }
+
+
+    /**
+     * 状态栏高度
+     */
+    fun getStatusBarHeight(activity: Activity): Int {
+        val resourceId = activity.resources.getIdentifier("status_bar_height", "dimen", "android")
+        return activity.resources.getDimensionPixelSize(resourceId)
+    }
+
 }

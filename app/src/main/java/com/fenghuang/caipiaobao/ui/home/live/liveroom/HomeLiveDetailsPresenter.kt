@@ -23,7 +23,9 @@ import com.fenghuang.caipiaobao.ui.mine.data.MineIsAnchorLive
 import com.fenghuang.caipiaobao.ui.mine.data.MinePassWordTime
 import com.fenghuang.caipiaobao.ui.widget.popup.OpenRedEnvelopeDialog
 import com.fenghuang.caipiaobao.ui.widget.popup.OpenRedEnvelopeFullDialog
+import com.fenghuang.caipiaobao.ui.widget.popup.RedEnvelopeFullPopup
 import com.fenghuang.caipiaobao.utils.Arith
+import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog.loginMore
 import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog.showExpireDialog
 import com.fenghuang.caipiaobao.utils.JsonUtils
 import com.fenghuang.caipiaobao.utils.UserInfoSp
@@ -79,7 +81,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
     fun getMoney() {
         MineApi.getUserBalance {
             onSuccess { }
-            onFailed { showExpireDialog(mView.requireContext(), it) }
+            onFailed { if (it.getCode() == 2003) loginMore(mView.requireContext()) }
         }
     }
 
@@ -157,7 +159,6 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                         }
                     }
                     // 告知有红包
-                    LogUtils.e("-----***********-->" + (data.gift_type == 4))
                     if (data.gift_type == 4) {
                         mView.onIsShowRedEnvelopeOnSocket(HomeLiveRedMessageBean(4, data.r_id, data.gift_text, data.userName))
                         RxBus.get().post(HomeLiveRedMessageBean(4, data.r_id, data.gift_text, data.userName))
@@ -240,7 +241,6 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                         mView.startLive(mVideos, it.live_status, it.avatar)
                     }
                     mView.initPagerContent()
-
                 }
             }
             onFailed {
@@ -311,10 +311,11 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
         HomeApi.getHomeLiveSendRedEnvelope(anchorId, userId, amount, num, text, password) {
             onSuccess {
                 if (mView.isActive()) {
-                    passWordDialog?.dismiss()
-                    mView.popRedEnvelope?.dismiss()
+                    if (passWordDialog != null) passWordDialog?.dismiss()
+                    if (mView.popRedEnvelope != null) mView.popRedEnvelope?.dismiss()
+                    if (passWordFullDialog != null) passWordFullDialog?.dismiss()
                     // 通知直播间有红包
-                    mWsManager?.sendMessage(getGifParams("4", it.rid.toString(), "红包", amount.toFloat(), num, text, 0.toString(), "", "", UserInfoSp.getUserPhoto().toString()))
+                    mWsManager?.sendMessage(getGifParams("4", it.rid.toString(), "红包", amount.toString(), num.toString(), text, 0.toString(), "", "", UserInfoSp.getUserPhoto().toString()))
                     mView.hidePageLoadingDialog()
                 }
             }
@@ -322,7 +323,11 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                 if (it.getCode() == 2) {
                     // 余额不足
                     mView.hidePageLoadingDialog()
+                    if (passWordDialog != null) passWordDialog?.dismiss()
+                    if (mView.popRedEnvelope != null) mView.popRedEnvelope?.dismiss()
+                    if (passWordFullDialog != null) passWordFullDialog?.dismiss()
                     mView.showReChargePopup()
+
                 }
                 ToastUtils.showError(it.getMsg())
                 mView.hidePageLoadingDialog()
@@ -338,7 +343,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
             onSuccess {
                 if (mView.isActive()) {
                     if (isControl) {
-                        mView.mController.liveControlView.showOpenRedContent(it, this@HomeLiveDetailsPresenter)
+                        mView.mController.showOpenRedContent(it, this@HomeLiveDetailsPresenter)
                         mView.setGone(mView.ivEnvelopeTip)
                     } else mView.showOpenRedContent(it)
                 }
@@ -347,7 +352,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                 if (it.getCode() == 2) {
                     // 红包被抢完了
                     if (isControl) {
-                        mView.mController.liveControlView.showOpenRedOverKnew(JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java), this@HomeLiveDetailsPresenter)
+                        mView.mController.showOpenRedOverKnew(JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java), this@HomeLiveDetailsPresenter)
                     } else mView.showOpenRedOverKnew(JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java))
                 } else {
                     openRedEnvelopeDialog?.dismiss()
@@ -366,7 +371,6 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
         HomeApi.isSetPassWord {
             onSuccess {
                 if (mView.isActive()) {
-
                     mView.hidePageLoading()
                     mView.sendRed()
                     mView.hidePageLoadingDialog()
@@ -430,7 +434,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
      */
     var passWordFullDialog: PassWordFullDialog? = null
 
-    fun initFullPassWordDialog() {
+    fun initFullPassWordDialog(popRedEnvelope: RedEnvelopeFullPopup?, money: String, total: String, content: String) {
         passWordFullDialog = PassWordFullDialog(mView.requireActivity())
         passWordFullDialog!!.setTextWatchListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -440,16 +444,18 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                     MineApi.verifyPayPassWord(s.toString()) {
                         onSuccess {
                             if (mView.isActive()) {
-
                                 mView.mPassword = s.toString()
                                 //发红包
-                                mView.sendRedEnvelope()
+                                sendRedEnvelope(mView.arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                                        ?: 0, SpUtils.getInt(UserConstant.USER_ID, 0), money.toInt(), total.toInt(), content, s.toString())
+//                                popRedEnvelope!!.dismiss()
+//                                passWordFullDialog!!.dismiss()
                             }
                         }
                         onFailed {
                             if (it.getCode() == 1002) {
                                 passWordFullDialog!!.showTipsText(it.getMsg().toString() + "," + "您还有" + JsonUtils.fromJson(it.getDataCode().toString(), MinePassWordTime::class.java).remain_times.toString() + "次机会")
-                                passWordFullDialog!!.findViewById<SeparatedEditText>(R.id.edtPassWord).clearText()
+                                passWordFullDialog!!.findViewById<SeparatedEditText>(R.id.edtPassWordFull).clearText()
                             } else {
                                 passWordFullDialog!!.showTipsText(it.getMsg().toString())
                                 showExpireDialog(mView.requireActivity(), it)
@@ -559,7 +565,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                 if (mView.isActive()) {
                     mView.mBottomGiftDialog?.dismiss()
                     RxBus.get().post(HomeLiveSmallAnimatorBean(gift_id, gift_name, icon, UserInfoSp.getUserId(), UserInfoSp.getUserPhoto().toString(), UserInfoSp.getUserNickName().toString()))
-                    mWsManager?.sendMessage(getGifParams("1", "0", gift_name, 0f, 1, "", gift_id.toString(), icon, "1", UserInfoSp.getUserPhoto().toString()))
+                    mWsManager?.sendMessage(getGifParams("1", "0", gift_name, "0", "1", "", gift_id.toString(), icon, "1", UserInfoSp.getUserPhoto().toString()))
                     val textView = mView.mBottomGiftDialog?.findViewById<TextView>(R.id.tvDiamondTotal)
                     if (!TextUtils.isEmpty(textView?.text)) textView?.text = Arith.sub(textView?.text.toString(), gift_Total)
                 }
@@ -569,6 +575,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                     // 余额不足
                     val dialog = TipsConfirmDialog(context, "钻石不足请兑换", "去兑换", "下次再说", "")
                     dialog.setConfirmClickListener {
+                        mView.pop()
                         RxBus.get().post(HomeClickMine(isClick = true))
                     }
                     dialog.setCanceledOnTouchOutside(false)
@@ -586,7 +593,6 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
         mView.showPageLoadingDialog()
         HomeApi.setAttention(userId, anchorId) {
             onSuccess {
-
                 if (mView.isActive()) {
                     ToastUtils.showSuccess(messageSuccess)
                     mView.hidePageLoadingDialog()
@@ -658,7 +664,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
         return jsonObject.toString()
     }
 
-    private fun getGifParams(gifType: String, rId: String, giftName: String, giftPrice: Float, giftNum: Int, text: String, gift_id: String, icon: String, vip: String, avatar: String): String {
+    private fun getGifParams(gifType: String, rId: String, giftName: String, giftPrice: String, giftNum: String, text: String, gift_id: String, icon: String, vip: String, avatar: String): String {
 
         LogUtils.e(gifType + "--****************--" + (gifType == "4"))
         val jsonObject = JSONObject()
@@ -681,9 +687,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
         jsonObject.put("gift_price", giftPrice.toString())
         jsonObject.put("gift_num", giftNum.toString())
         jsonObject.put("avatar", avatar)
-        LogUtils.e(gifType + "--****************--" + jsonObject.toString())
         return jsonObject.toString()
     }
-
 
 }

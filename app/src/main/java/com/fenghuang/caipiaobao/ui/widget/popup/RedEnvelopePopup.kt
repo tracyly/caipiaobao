@@ -11,6 +11,7 @@ import com.fenghuang.baselib.widget.popup.BasePopupWindow
 import com.fenghuang.caipiaobao.R
 import java.util.regex.Pattern
 
+
 /**
  *  author : Peter
  *  date   : 2019/10/14 15:34
@@ -29,7 +30,6 @@ class RedEnvelopePopup(context: Context) : BasePopupWindow(context, R.layout.pop
         etRedEnvelopeTotal = findView(R.id.etRedEnvelopeTotal)
         etRedEnvelopeRedNumber = findView(R.id.etRedEnvelopeRedNumber)
         etRedEnvelopeContent = findView(R.id.etRedEnvelopeContent)
-
         etRedEnvelopeSend = findView(R.id.tvRedSend)
         etRedEnvelopeSend.setOnClickListener {
             val total = if (etRedEnvelopeTotal.text.toString().isNotEmpty()) etRedEnvelopeTotal.text.toString() else ""
@@ -75,6 +75,29 @@ class RedEnvelopePopup(context: Context) : BasePopupWindow(context, R.layout.pop
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+        })
+        etRedEnvelopeContent.addTextChangedListener(object : TextWatcher {
+            //记录输入的字数
+            var wordNum: CharSequence? = null
+            var selectionStart: Int = 0
+            var selectionEnd: Int = 0
+            override fun afterTextChanged(p0: Editable?) {
+                selectionStart = etRedEnvelopeContent.selectionStart
+                selectionEnd = etRedEnvelopeContent.selectionEnd
+                if (wordNum!!.length > 10) {
+                    p0?.delete(selectionStart - 1, selectionEnd)
+                    etRedEnvelopeContent.text = p0
+                    etRedEnvelopeContent.setSelection(etRedEnvelopeContent.text.length)
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                wordNum = p0
+            }
+
         })
 
         val inputFilter: InputFilter = object : InputFilter {

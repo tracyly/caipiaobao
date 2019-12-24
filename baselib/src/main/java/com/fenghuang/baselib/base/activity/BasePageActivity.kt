@@ -17,4 +17,6 @@ abstract class BasePageActivity(override val layoutResID: Int = R.layout.base_ac
     }
 
     abstract fun getPageFragment(): BaseFragment
+
+
 }

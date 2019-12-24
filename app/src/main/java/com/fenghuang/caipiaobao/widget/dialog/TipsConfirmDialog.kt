@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import com.fenghuang.baselib.utils.ViewUtils
 import kotlinx.android.synthetic.main.dialog_tips_confirm.*
 
@@ -28,7 +29,7 @@ class TipsConfirmDialog(context: Context, title: String, confirm: String, cancel
         window!!.setGravity(Gravity.CENTER or Gravity.CENTER)
         val lp = window!!.attributes
         lp.width = ViewUtils.dp2px(316) // 宽度
-        lp.height = ViewUtils.dp2px(146)  // 高度
+        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT  // 高度
 //      lp.alpha = 0.7f // 透明度
         window!!.attributes = lp
         initText(title, confirm, cancel, contentDes)

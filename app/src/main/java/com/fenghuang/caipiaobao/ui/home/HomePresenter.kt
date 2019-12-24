@@ -5,8 +5,12 @@ import android.util.Log
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
+import com.fenghuang.caipiaobao.ui.home.data.HomeExpertRecommendResponse
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveListResponse
 import com.pingerx.rxnetgo.rxcache.CacheMode
+import io.reactivex.Flowable
 import kotlinx.android.synthetic.main.fragment_home_new.*
+
 
 /**
  *  author : Peter
@@ -30,6 +34,8 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
 //    }
 
     fun loadData() {
+        //直播预告
+        liveFaber(true)
         getBannerList(CacheMode.NONE)
     }
 
@@ -39,12 +45,11 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
 
     private fun loadBannerListInfo(cacheMode: CacheMode) {
         mCount = 0
-        getNoticeInfo(cacheMode)
-        getGameListInfo(cacheMode)
-        getLiveIsListInfo(cacheMode)
         HomeApi.getHomeBannerResult(cacheMode) {
             onSuccess {
                 if (mView.isActive()) mView.updateBanner(it)
+
+                getNoticeInfo(cacheMode)
             }
             onFailed {
                 //                                mView.showPageError()
@@ -62,6 +67,8 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
                     }
                     mView.updateNotice(sb.toString())
                 }
+                getGameListInfo(cacheMode)
+
             }
 
             onFailed {
@@ -79,7 +86,7 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
                 if (mView.isActive() && it.isNotEmpty()) {
                     mView.updateGameList(it)
                 }
-
+                getLiveIsListInfo(cacheMode)
             }
 
             onFailed {
@@ -94,78 +101,72 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
 
     @SuppressLint("CheckResult")
     private fun getLiveIsListInfo(cacheMode: CacheMode) {
-//        Flowable.concat(HomeApi.getHomeHotLiveListResult(cacheMode),
-//                HomeApi.getHomeLivePopResult(cacheMode),
-//                HomeApi.getHomeExpertListResult(cacheMode),
-//                HomeApi.getHomeExpertRecommendResult(cacheMode)).subscribe {
-//            mView.hidePageLoading()
-//            when (mCount) {
-//                0 -> {
-//                    mView.updateHotLive(it as List<HomeLiveListResponse>)
-//                }
-//                1 -> {
-//                    mView.updateLivePop(it as List<HomeLivePopResponse>)
-//                }
-//                2 -> {
-//                    mView.updateExpertLive(it as List<HomeLiveListResponse>)
-//                }
-//                3 -> {
-//                    mView.updateExpertRecommend(it as List<HomeExpertRecommendResponse>)
+        Flowable.concat(HomeApi.getHomeHotLiveListResult(6, 0, cacheMode),
+                HomeApi.getHomeExpertListResult(6, 0, cacheMode),
+                HomeApi.getHomeExpertRecommendResult(cacheMode)).subscribe {
+            mView.hidePageLoading()
+            when (mCount) {
+                0 -> {
+                    mView.updateHotLive(it as List<HomeLiveListResponse>)
+                }
+                1 -> {
+                    mView.updateExpertLive(it as List<HomeLiveListResponse>)
+                }
+                2 -> {
+                    mView.updateExpertRecommend(it as List<HomeExpertRecommendResponse>)
+                }
+
+            }
+            mCount++
+        }
+//
+//        HomeApi.getHomeHotLiveListResult(6, 0, cacheMode) {
+//            onSuccess {
+//                if (mView.isActive() && it.isNotEmpty()) {
+//                    mView.updateHotLive(it)
 //                }
 //            }
-//            mCount++
 //        }
-        HomeApi.getHomeHotLiveListResult(6, 0, cacheMode) {
-            onSuccess {
-                if (mView.isActive() && it.isNotEmpty()) {
-                    mView.updateHotLive(it)
-                }
+//
 
-            }
-        }
 
-        HomeApi.getAdUrl {
-            onSuccess {
-                if (mView.isActive() && it.isNotEmpty()) {
-                    ImageManager.loadBannerImageRes(it[0].image_url.replace("\\", "/"), mView.imgHomeAd)
-                }
-            }
-        }
-        //直播预告
-        liveFuter(true)
-
-        HomeApi.getHomeExpertListResult(6, 0, cacheMode) {
-            onSuccess {
-                if (mView.isActive() && it.isNotEmpty()) {
-                    mView.updateExpertLive(it)
-                }
-
-            }
-        }
-        HomeApi.getHomeExpertRecommendResult(cacheMode) {
-            onSuccess {
-                if (mView.isActive() && it.isNotEmpty()) {
-                    mView.updateExpertRecommend(it)
-                }
-            }
-        }
+//        HomeApi.getHomeExpertListResult(6, 0, cacheMode) {
+//            onSuccess {
+//                if (mView.isActive() && it.isNotEmpty()) {
+//                    mView.updateExpertLive(it)
+//                }
+//
+//            }
+//        }
+//        HomeApi.getHomeExpertRecommendResult(cacheMode) {
+//            onSuccess {
+//                if (mView.isActive() && it.isNotEmpty()) {
+//                    mView.updateExpertRecommend(it)
+//                }
+//            }
+//        }
     }
 
     /**
      * 直播预告
      */
-    fun liveFuter(isUpDate: Boolean) {
+    fun liveFaber(isUpDate: Boolean) {
         //直播预告
         HomeApi.getHomeLivePopResult(CacheMode.FIRST_REMOTE_THEN_CACHE) {
             onSuccess {
                 if (mView.isActive() && it.isNotEmpty()) {
                     if (isUpDate) mView.updateLivePop(it)
                 }
+                HomeApi.getAdUrl {
+                    onSuccess {
+                        if (mView.isActive() && it.isNotEmpty()) {
+                            ImageManager.loadBannerImageRes(it[0].image_url.replace("\\", "/"), mView.imgHomeAd)
+                        }
+                    }
+                }
             }
         }
     }
-
-
 
 
 }
