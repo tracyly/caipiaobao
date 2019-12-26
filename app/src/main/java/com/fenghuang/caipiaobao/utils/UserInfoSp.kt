@@ -267,7 +267,7 @@ object UserInfoSp {
     }
 
     /**
-     * 记录Vip等级 0-用户 1-主播
+     * 记录Vip等级 0-用户 1-主播 2-管理
      */
     fun setUserType(boolean: String) {
         SpUtils.putString("UserType", boolean)

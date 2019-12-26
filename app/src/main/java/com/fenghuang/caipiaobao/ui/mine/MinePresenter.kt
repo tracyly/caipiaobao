@@ -199,14 +199,16 @@ class MinePresenter : BaseMvpPresenter<MineFragment>() {
                 if (mView.isActive()) {
 //                    mineItemAdapter?.notifyIsLive(it)
                     mView.setVisible(mView.tvHasAnchorLive)
+                    userIsFirstRecharge(UserInfoSp.getUserId(), UserInfoSp.getToken()!!)
                 }
 //                if (UserInfoSp.getIsFirstRecharge())
-                userIsFirstRecharge(UserInfoSp.getUserId(), UserInfoSp.getToken()!!)
+
             }
             onFailed {
                 if (mView.isActive()) {
 //                    mineItemAdapter?.notifyIsLive("")
                     mView.setGone(mView.tvHasAnchorLive)
+                    userIsFirstRecharge(UserInfoSp.getUserId(), UserInfoSp.getToken()!!)
                 }
             }
 //            RxBus.get().post(MineIsAnchorLive(it))

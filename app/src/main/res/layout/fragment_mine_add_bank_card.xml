@@ -214,6 +214,7 @@
                 android:layout_width="@dimen/dp_66"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:textColor="@color/grey_4a"
                 android:text="@string/mine_card_pay_password" />
 
             <EditText

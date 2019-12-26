@@ -111,8 +111,8 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
             onSuccess {
                 if (mView.isActive()) {
                     if (JSONObject(it).optString("isfirst") == "0") {
-                        UserInfoSp.putIsFirstRecharge(false)
-                    } else UserInfoSp.putIsFirstRecharge(true)
+                        UserInfoSp.putIsFirstRecharge(true)
+                    } else UserInfoSp.putIsFirstRecharge(false)
                     mView.hidePageLoadingDialog()
                     mView.pop()
                 }

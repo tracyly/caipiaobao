@@ -293,6 +293,18 @@
             app:rv_backgroundColor="#FFFFFF"
             app:rv_cornerRadius="@dimen/dp_6" />
 
+        <com.fenghuang.baselib.widget.round.RoundTextView
+            android:id="@+id/tvSocket"
+            android:layout_width="@dimen/dp_120"
+            android:layout_height="@dimen/dp_30"
+            android:gravity="center"
+            android:text="聊天室连接中..."
+            android:textColor="@color/grey_d8"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/bottomSendLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <com.fenghuang.caipiaobao.widget.gift.RewardLayout
             android:id="@+id/rewardLayout"
             android:layout_width="wrap_content"

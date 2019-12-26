@@ -65,7 +65,7 @@ object ImageManager {
      * 加载热门直播图片
      */
     fun loadHomeHotLive(url: String?, imageView: ImageView) {
-        loadRound(url, imageView, ViewUtils.dp2px(6), RoundType.TOP)
+        loadRound(url, imageView, ViewUtils.dp2px(6), RoundType.TOP, placeHolder = R.mipmap.ic_placeholder, errorHolder = R.mipmap.ic_placeholder)
     }
 
     /**
@@ -86,7 +86,7 @@ object ImageManager {
      * 加载预览大图
      */
     fun loadImage(url: String?, imageView: ImageView) {
-        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_placeholder).into(imageView)
+        Glide.with(imageView.context).load(url).placeholder(R.mipmap.ic_placeholder).error(R.mipmap.ic_placeholder).into(imageView)
     }
 
 

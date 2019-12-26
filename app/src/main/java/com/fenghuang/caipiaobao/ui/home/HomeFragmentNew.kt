@@ -377,7 +377,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
                 return ExpertLiveHolder(parent)
             }
 
-            inner class ExpertLiveHolder(parent: ViewGroup) : com.fenghuang.baselib.base.recycler.BaseViewHolder<HomeExpertRecommendResponse>(getContext(), parent, R.layout.holder_home_expert_recommend) {
+            inner class ExpertLiveHolder(parent: ViewGroup) : BaseViewHolder<HomeExpertRecommendResponse>(getContext(), parent, R.layout.holder_home_expert_recommend) {
                 override fun onBindData(data: HomeExpertRecommendResponse) {
                     setText(R.id.tvExpertRecommendName, data.pro_name)
                     setText(R.id.tvExpertRecommendGameName, data.pro_type)
@@ -455,7 +455,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
         val mBannerView = findView<BannerView<HomeBannerResponse>>(R.id.mBannerViews)
         mBannerView.setPages(list, object : BannerHolderCreator<HomeBannerResponse, HomeBannerHolder> {
             override fun onCreateBannerHolder(): HomeBannerHolder {
-                return HomeBannerHolder(mBannerView.getPageMode() == BannerView.PageMode.FAR)
+                return HomeBannerHolder(mBannerView.getPageMode() == BannerView.PageMode.FAR, getPageActivity())
             }
         })
     }
@@ -470,7 +470,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
         val mBannerView = findView<BannerView<HomeBannerResponse>>(R.id.mBannerViews)
         mBannerView.setPages(data, object : BannerHolderCreator<HomeBannerResponse, HomeBannerHolder> {
             override fun onCreateBannerHolder(): HomeBannerHolder {
-                return HomeBannerHolder(mBannerView.getPageMode() == BannerView.PageMode.FAR)
+                return HomeBannerHolder(mBannerView.getPageMode() == BannerView.PageMode.FAR, getPageActivity())
             }
         })
     }

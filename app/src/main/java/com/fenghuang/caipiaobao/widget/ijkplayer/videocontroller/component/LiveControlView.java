@@ -31,6 +31,8 @@ import com.fenghuang.caipiaobao.manager.ImageManager;
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifBean;
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatGifTitleBean;
 import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsPresenter;
+import com.fenghuang.caipiaobao.ui.login.LoginFragment;
+import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess;
 import com.fenghuang.caipiaobao.ui.mine.MineRechargeFragment;
 import com.fenghuang.caipiaobao.ui.widget.ChatFullGifTabView;
 import com.fenghuang.caipiaobao.ui.widget.popup.RedEnvelopeFullPopup;
@@ -38,6 +40,7 @@ import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog;
 import com.fenghuang.caipiaobao.utils.LaunchUtils;
 import com.fenghuang.caipiaobao.utils.UserInfoSp;
 import com.fenghuang.caipiaobao.widget.dialog.SoftInputDialog;
+import com.fenghuang.caipiaobao.widget.dialog.TipsConfirmDialog;
 import com.fenghuang.caipiaobao.widget.dialog.guide.GiftFullDialog;
 import com.fenghuang.caipiaobao.widget.gift.AnimUtils;
 import com.fenghuang.caipiaobao.widget.grildscroll.GridViewFullScreenAdapter;
@@ -48,6 +51,7 @@ import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.pla
 import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.util.PlayerUtils;
 import com.fenghuang.caipiaobao.widget.sideslipdeletelayout.ResolveConflictViewPager;
 import com.github.ybq.android.spinkit.SpinKitView;
+import com.hwangjr.rxbus.RxBus;
 
 import java.util.ArrayList;
 
@@ -111,92 +115,10 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
     private ResolveConflictViewPager bottomViewPager;
     private HomeLiveChatGifBean selectHomeGiftListBean = null;
 
-    {
-        setVisibility(GONE);
-        LayoutInflater.from(getContext()).inflate(R.layout.dkplayer_layout_live_control_view, this, true);
-        mFullScreen = findViewById(R.id.fullscreen);
-        mFullScreen.setOnClickListener(this);
-        mBottomContainer = findViewById(R.id.bottom_container);
-        mTopContainer = findViewById(R.id.top_container);
-        mPlayButton = findViewById(R.id.iv_play);
-        mPlayButton.setOnClickListener(this);
-        ImageView refresh = findViewById(R.id.iv_refresh);
-        refresh.setOnClickListener(this);
-
-        //----------------------------------------------------------------
-        mSendLayout = findViewById(R.id.scrollToInput);
-        iv_danmu = findViewById(R.id.iv_danmu);
-
-        ivRedEnvelope = findViewById(R.id.ivRedEnvelope);
-        ivGift = findViewById(R.id.ivGift);
-        ivRecharge = findViewById(R.id.ivRecharge);
-        //关注
-        rlAttention = findViewById(R.id.rlAttention);
-        imgFullPhoto = findViewById(R.id.imgFullPhoto);
-        tvFullName = findViewById(R.id.tvFullName);
-        tvFullTotal = findViewById(R.id.tvFullTotal);
-        rtvFullAttention = findViewById(R.id.rtvFullAttention);
-        rtvFullHaveAttention = findViewById(R.id.rtvFullHaveAttention);
-        rlAnchorNotHome = findViewById(R.id.rlAnchorNotHome);
-
-        chatEditText = findViewById(R.id.chatEditText);
-
-        imgStopFullScreen = findViewById(R.id.imgStopFullScreen);
-        imgStopFullScreen.setOnClickListener(view -> {
-            toggleFullScreen();
-        });
-        //键盘dialog
-        tvChatTextView = findViewById(R.id.tvChatTextView);
-        tvChatTextView.setOnClickListener(v -> {
-            if (UserInfoSp.INSTANCE.getIsLogin()) {
-                softInputDialog = new SoftInputDialog(getContext(), mPresenter);
-                etChatEditText = softInputDialog.findViewById(R.id.etInput);
-                etChatEditText.setFocusableInTouchMode(true);
-                etChatEditText.requestFocus();
-                softInputDialog.show();
-                handler.sendEmptyMessageDelayed(BOND, 200);
-                mControlWrapper.hide();
-            } else ExceptionDialog.INSTANCE.showExpireDialog(getContext());
-        });
-        ivRedEnvelope.setOnClickListener(v -> {
-            if (mPresenter != null) {
-                if (UserInfoSp.INSTANCE.getIsLogin()) {
-                    initPassWordDialog(mPresenter);
-                } else ExceptionDialog.INSTANCE.showExpireDialog(getContext());
-            }
-        });
-        ivGift.setOnClickListener(v -> {
-                    if (UserInfoSp.INSTANCE.getIsLogin()) {
-                        initBottomGift();
-                    } else ExceptionDialog.INSTANCE.showExpireDialog(getContext());
-                }
-        );
-
-        //是否首冲
-        if (UserInfoSp.INSTANCE.getIsFirstRecharge()) {
-            ivRecharge.setImageResource(R.mipmap.ic_live_chat_recharge_first);
-            AnimUtils.INSTANCE.getFirstRechargeAnimation(ivRecharge);
-        } else ivRecharge.setImageResource(R.mipmap.ic_live_chat_recharge);
-
-        ivRecharge.setOnClickListener(view -> {
-            if (UserInfoSp.INSTANCE.getIsLogin()) {
-                toggleFullScreen();
-                LaunchUtils.INSTANCE.startFragment(getContext(), new MineRechargeFragment());
-            } else ExceptionDialog.INSTANCE.showExpireDialog(getContext());
-        });
-
-        iv_danmu.setOnClickListener(v -> {
-            if (UserInfoSp.INSTANCE.getDanMuSwitch()) {
-                iv_danmu.setImageResource(R.drawable.ic_player_wudanmu);
-                UserInfoSp.INSTANCE.putDanMuSwitch(false);
-            } else {
-                iv_danmu.setImageResource(R.drawable.ic_player_danmu);
-                UserInfoSp.INSTANCE.putDanMuSwitch(true);
-            }
-        });
-        rtvFullHaveAttention.setOnClickListener(v -> mPresenter.setAttention(UserInfoSp.INSTANCE.getUserId(), HOME_LIVE_CHAT_ANCHOR_ID, "已取消关注", "取关失败"));
-        rtvFullAttention.setOnClickListener(v -> mPresenter.setAttention(UserInfoSp.INSTANCE.getUserId(), HOME_LIVE_CHAT_ANCHOR_ID, "关注成功", "关注失败"));
-    }
+    /**
+     * 横屏未登录提示框
+     */
+    private TipsConfirmDialog loginExperDialog;
 
     public LiveControlView(@NonNull Context context) {
         super(context);
@@ -324,12 +246,89 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
         }
     }
 
-    /**
-     * 横竖屏切换
-     */
-    private void toggleFullScreen() {
-        Activity activity = PlayerUtils.scanForActivity(getContext());
-        mControlWrapper.toggleFullScreen(activity);
+    {
+        setVisibility(GONE);
+        LayoutInflater.from(getContext()).inflate(R.layout.dkplayer_layout_live_control_view, this, true);
+        mFullScreen = findViewById(R.id.fullscreen);
+        mFullScreen.setOnClickListener(this);
+        mBottomContainer = findViewById(R.id.bottom_container);
+        mTopContainer = findViewById(R.id.top_container);
+        mPlayButton = findViewById(R.id.iv_play);
+        mPlayButton.setOnClickListener(this);
+        ImageView refresh = findViewById(R.id.iv_refresh);
+        refresh.setOnClickListener(this);
+
+        //----------------------------------------------------------------
+        mSendLayout = findViewById(R.id.scrollToInput);
+        iv_danmu = findViewById(R.id.iv_danmu);
+
+        ivRedEnvelope = findViewById(R.id.ivRedEnvelope);
+        ivGift = findViewById(R.id.ivGift);
+        ivRecharge = findViewById(R.id.ivRecharge);
+        //关注
+        rlAttention = findViewById(R.id.rlAttention);
+        imgFullPhoto = findViewById(R.id.imgFullPhoto);
+        tvFullName = findViewById(R.id.tvFullName);
+        tvFullTotal = findViewById(R.id.tvFullTotal);
+        rtvFullAttention = findViewById(R.id.rtvFullAttention);
+        rtvFullHaveAttention = findViewById(R.id.rtvFullHaveAttention);
+        rlAnchorNotHome = findViewById(R.id.rlAnchorNotHome);
+
+        chatEditText = findViewById(R.id.chatEditText);
+
+        imgStopFullScreen = findViewById(R.id.imgStopFullScreen);
+        imgStopFullScreen.setOnClickListener(view -> toggleFullScreen());
+        //键盘dialog
+        tvChatTextView = findViewById(R.id.tvChatTextView);
+        tvChatTextView.setOnClickListener(v -> {
+            if (UserInfoSp.INSTANCE.getIsLogin()) {
+                softInputDialog = new SoftInputDialog(getContext(), mPresenter);
+                etChatEditText = softInputDialog.findViewById(R.id.etInput);
+                etChatEditText.setFocusableInTouchMode(true);
+                etChatEditText.requestFocus();
+                softInputDialog.show();
+                handler.sendEmptyMessageDelayed(BOND, 200);
+                mControlWrapper.hide();
+            } else showException();
+        });
+        ivRedEnvelope.setOnClickListener(v -> {
+            if (mPresenter != null) {
+                if (UserInfoSp.INSTANCE.getIsLogin()) {
+                    initPassWordDialog(mPresenter);
+                } else showException();
+            }
+        });
+        ivGift.setOnClickListener(v -> {
+                    if (UserInfoSp.INSTANCE.getIsLogin()) {
+                        initBottomGift();
+                    } else showException();
+                }
+        );
+
+        //是否首冲
+        if (UserInfoSp.INSTANCE.getIsFirstRecharge()) {
+            ivRecharge.setImageResource(R.mipmap.ic_live_chat_recharge_first);
+            AnimUtils.INSTANCE.getFirstRechargeAnimation(ivRecharge);
+        } else ivRecharge.setImageResource(R.mipmap.ic_live_chat_recharge);
+
+        ivRecharge.setOnClickListener(view -> {
+            if (UserInfoSp.INSTANCE.getIsLogin()) {
+                toggleFullScreen();
+                LaunchUtils.INSTANCE.startFragment(getContext(), new MineRechargeFragment());
+            } else ExceptionDialog.INSTANCE.showExpireDialog(getContext());
+        });
+
+        iv_danmu.setOnClickListener(v -> {
+            if (UserInfoSp.INSTANCE.getDanMuSwitch()) {
+                iv_danmu.setImageResource(R.drawable.ic_player_wudanmu);
+                UserInfoSp.INSTANCE.putDanMuSwitch(false);
+            } else {
+                iv_danmu.setImageResource(R.drawable.ic_player_danmu);
+                UserInfoSp.INSTANCE.putDanMuSwitch(true);
+            }
+        });
+        rtvFullHaveAttention.setOnClickListener(v -> mPresenter.setAttention(UserInfoSp.INSTANCE.getUserId(), HOME_LIVE_CHAT_ANCHOR_ID, "已取消关注", "取关失败"));
+        rtvFullAttention.setOnClickListener(v -> mPresenter.setAttention(UserInfoSp.INSTANCE.getUserId(), HOME_LIVE_CHAT_ANCHOR_ID, "关注成功", "关注失败"));
     }
 
     /**
@@ -455,6 +454,27 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
             rtvFullHaveAttention.setVisibility(GONE);
         }
 
+    }
+
+    /**
+     * 横竖屏切换
+     */
+    public void toggleFullScreen() {
+        Activity activity = PlayerUtils.scanForActivity(getContext());
+        mControlWrapper.toggleFullScreen(activity);
+    }
+
+    public void showException() {
+        UserInfoSp.INSTANCE.putIsLogin(false);
+        loginExperDialog = new TipsConfirmDialog(getContext(), "未登录或登录已过期", "去登录", "下次再说", "");
+        loginExperDialog.findViewById(R.id.tvConfirm).setOnClickListener(v -> {
+            toggleFullScreen();
+            loginExperDialog.dismiss();
+            LaunchUtils.INSTANCE.startFragment(getContext(), new LoginFragment());
+
+        });
+        RxBus.get().post(new LoginSuccess(false, "", -1, "", -1, ""));
+        loginExperDialog.show();
     }
 
 

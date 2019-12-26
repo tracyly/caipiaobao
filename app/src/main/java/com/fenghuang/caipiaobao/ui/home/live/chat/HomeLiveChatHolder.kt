@@ -9,9 +9,13 @@ import android.text.style.ImageSpan
 import android.view.ViewGroup
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
 import com.fenghuang.baselib.base.recycler.multitype.MultiTypeViewHolder
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
-import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBean
+import com.fenghuang.caipiaobao.ui.home.data.HomeLiveChatBeanNew
+import com.fenghuang.caipiaobao.utils.FastClickUtils
+import com.fenghuang.caipiaobao.utils.UserInfoSp
+import com.fenghuang.caipiaobao.widget.dialog.ForbiddenWordsDialog
 import com.fenghuang.caipiaobao.widget.textview.DraweeSpan
 import com.fenghuang.caipiaobao.widget.textview.DraweeTextView
 
@@ -20,15 +24,17 @@ import com.fenghuang.caipiaobao.widget.textview.DraweeTextView
  *  author : QinTian
  *  date   : 2019/8/29 17:38
  */
-class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHolder.ViewHolder>() {
+class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBeanNew, HomeLiveChatHolder.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup) = ViewHolder(parent)
     @SuppressLint("SetTextI18n")
-    inner class ViewHolder(parent: ViewGroup) : BaseViewHolder<HomeLiveChatBean?>(context, parent, R.layout.holder_live_chat) {
-        override fun onBindData(data: HomeLiveChatBean?) {
+    inner class ViewHolder(parent: ViewGroup) : BaseViewHolder<HomeLiveChatBeanNew?>(context, parent, R.layout.holder_live_chat) {
+        override fun onBindData(data: HomeLiveChatBeanNew?) {
             val tvChatContent = findView<DraweeTextView>(R.id.tvChatContent)
             val builder = SpannableStringBuilder()
+            LogUtils.e("---***----" + (data))
             when (data?.type) {
+
                 "first" -> {
                     val start = builder.length
                     builder.append("[img]")
@@ -40,14 +46,17 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
                     tvChatContent.text = builder
                 }
                 "subscribe" -> {
+
                     var start = builder.length
 //                        builder.append("[img]")
 //                        builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.ic_live_chat_vip_1))
 //                                .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
 //                                start, builder.length, ImageSpan.ALIGN_BASELINE)
-                    if (data.userType == "0" && data.vip.toString() != "0") {
-                        getVip(data.vip.toString(), builder, start)
-                    } else getUserType(data.userType, builder, start)
+                    if (data.userType == "2" || data.userType == "1") {
+                        getUserType(data.userType, builder, start)
+                    } else {
+                        getVip(data.vip, builder, start)
+                    }
                     builder.append("  " + data.userName)
                     builder.setSpan(ForegroundColorSpan(getColor(R.color.color_999999)), start, builder.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
                     start = builder.length
@@ -56,14 +65,17 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
                     tvChatContent.text = builder
                 }
                 "publish" -> {
+                    LogUtils.e("-------" + data)
                     var start = builder.length
 //                    builder.append("[img]")
 //                    builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.ic_live_chat_vip_1))
 //                            .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).setMargin(0, 0, 0).build(),
 //                            start, builder.length, ImageSpan.ALIGN_BASELINE)
-                    if (data.userType == "0" && data.vip.toString() != "0") {
-                        getVip(data.vip.toString(), builder, start)
-                    } else getUserType(data.userType, builder, start)
+                    if (data.userType == "2" || data.userType == "1") {
+                        getUserType(data.userType, builder, start)
+                    } else {
+                        getVip(data.vip, builder, start)
+                    }
                     builder.append("  " + data.userName + "： ")
                     builder.setSpan(ForegroundColorSpan(getColor(R.color.color_999999)), start, builder.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
                     start = builder.length
@@ -72,7 +84,7 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
                     tvChatContent.text = builder
                 }
                 "gift" -> {
-                    when (data.gift_type.toString()) {
+                    when (data.gift_type) {
                         "4" -> {
 //                            builder.append("[img]")
 //                            builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.ic_live_chat_vip_1))
@@ -89,9 +101,11 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
 //                            builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.ic_live_chat_vip_1))
 //                                    .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).setMargin(0, -8, 0).build(),
 //                                    start, builder.length, ImageSpan.ALIGN_BASELINE)
-                            if (data.userType == "0" && data.vip.toString() != "0") {
-                                getVip(data.vip.toString(), builder, start)
-                            } else getUserType(data.userType, builder, start)
+                            if (data.userType == "2" || data.userType == "1") {
+                                getUserType(data.userType, builder, start)
+                            } else {
+                                getVip(data.vip, builder, start)
+                            }
                             builder.append("  " + data.userName + " ")
                             builder.setSpan(ForegroundColorSpan(getColor(R.color.color_999999)), start, builder.length, ImageSpan.ALIGN_BASELINE)
                             start = builder.length
@@ -111,6 +125,16 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
                     }
                 }
             }
+
+
+            tvChatContent.setOnClickListener {
+                if (FastClickUtils.isFastClick()) {
+                    if (UserInfoSp.getUserType() == "2") {
+                        val dialog = ForbiddenWordsDialog(getContext()!!, data!!)
+                        dialog.show()
+                    }
+                }
+            }
         }
 
         private fun idToUri(resourceId: Int): String {
@@ -119,29 +143,48 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBean, HomeLiveChatHol
 
         //Vip等级
         private fun getVip(vip: String, builder: SpannableStringBuilder, start: Int) {
-            builder.append("[img]")
             when (vip) {
-                "1" -> builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.ic_live_chat_vip_1))
-                        .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
-                        start, builder.length, ImageSpan.ALIGN_BASELINE)
-                "2" -> builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v2))
-                        .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
-                        start, builder.length, ImageSpan.ALIGN_BASELINE)
-                "3" -> builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v3))
-                        .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
-                        start, builder.length, ImageSpan.ALIGN_BASELINE)
-                " 4 " -> builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v4))
-                        .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
-                        start, builder.length, ImageSpan.ALIGN_BASELINE)
-                " 5 " -> builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v5))
-                        .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
-                        start, builder.length, ImageSpan.ALIGN_BASELINE)
-                " 6 " -> builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v6))
-                        .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
-                        start, builder.length, ImageSpan.ALIGN_BASELINE)
-                "7" -> builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v7))
-                        .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
-                        start, builder.length, ImageSpan.ALIGN_BASELINE)
+                "1" -> {
+                    builder.append("[img]")
+                    builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.ic_live_chat_vip_1))
+                            .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
+                            start, builder.length, ImageSpan.ALIGN_BASELINE)
+                }
+                "2" -> {
+                    builder.append("[img]")
+                    builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v2))
+                            .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
+                            start, builder.length, ImageSpan.ALIGN_BASELINE)
+                }
+                "3" -> {
+                    builder.append("[img]")
+                    builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v3))
+                            .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
+                            start, builder.length, ImageSpan.ALIGN_BASELINE)
+                }
+                "4" -> {
+                    builder.append("[img]")
+                    builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v4))
+                            .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
+                            start, builder.length, ImageSpan.ALIGN_BASELINE)
+                }
+                "5" -> {
+                    builder.append("[img]")
+                    builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v5))
+                            .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
+                            start, builder.length, ImageSpan.ALIGN_BASELINE)
+                }
+                "6" -> {
+                    builder.append("[img]")
+                    builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v6))
+                            .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
+                            start, builder.length, ImageSpan.ALIGN_BASELINE)
+                }
+                "7" -> {
+                    builder.setSpan(DraweeSpan.Builder(idToUri(R.mipmap.v7))
+                            .setLayout(ViewUtils.dp2px(40), ViewUtils.dp2px(14)).build(),
+                            start, builder.length, ImageSpan.ALIGN_BASELINE)
+                }
             }
         }
 

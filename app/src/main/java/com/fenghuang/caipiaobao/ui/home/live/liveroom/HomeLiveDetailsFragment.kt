@@ -146,6 +146,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     override fun initData() {
         super.initData()
         statusView.bringToFront()
+
         //初始化20条消息
         mPresenter.initRecentlyNews(SpUtils.getInt(UserConstant.USER_ID, 0), arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
                 ?: 0)
@@ -273,21 +274,22 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         }
         //聊天框
         chatTextView.setOnClickListener {
-            if (UserInfoSp.getIsLogin()) {
-                mPresenter.getMoney()
-                setGone(scrollToInputs)  //弹起的时候隐藏红包
-                if (ivEnvelopeTip.isVisible) {
-                    redIsShow = true
-                    setGone(ivEnvelopeTip)
-                } else redIsShow = false
-                bottomInputDialog = BottomInputDialog(getPageActivity(), getPageActivity(), mPresenter)
-                bottomInputDialog?.show()
-                bottomInputDialog?.setOnDismissListener {
-                    setVisible(R.id.scrollToInputs)
-                    if (redIsShow) setVisible(ivEnvelopeTip)//显示的时候隐藏红包
-                }
-            } else showExpireDialog(getPageActivity())
-
+            if (mPresenter.mWsManager != null && mPresenter.mWsManager?.isWsConnected!!) {
+                if (UserInfoSp.getIsLogin()) {
+                    mPresenter.getMoney()
+                    setGone(scrollToInputs)  //弹起的时候隐藏红包
+                    if (ivEnvelopeTip.isVisible) {
+                        redIsShow = true
+                        setGone(ivEnvelopeTip)
+                    } else redIsShow = false
+                    bottomInputDialog = BottomInputDialog(getPageActivity(), getPageActivity(), mPresenter)
+                    bottomInputDialog?.show()
+                    bottomInputDialog?.setOnDismissListener {
+                        setVisible(R.id.scrollToInputs)
+                        if (redIsShow) setVisible(ivEnvelopeTip)//显示的时候隐藏红包
+                    }
+                } else showExpireDialog(getPageActivity())
+            }
         }
         //底部有新消息
         tvMoreInfo.setOnClickListener {
@@ -299,16 +301,20 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         // 礼物
         ivGifts.setOnClickListener {
             if (UserInfoSp.getIsLogin()) {
-                initBottomGift()
-                mPresenter.loadGifData()
+                if (mPresenter.mWsManager != null && mPresenter.mWsManager?.isWsConnected!!) {
+                    initBottomGift()
+                    mPresenter.loadGifData()
+                }
             } else showExpireDialog(getPageActivity())
         }
         // 检测支付密码是否设置
         ivRedEnvelopes.setOnClickListener {
             if (UserInfoSp.getIsLogin()) {
-                if (UserInfoSp.getIsSetPayPassWord()) {
-                    sendRed()
-                } else mPresenter.isSetPassWord()
+                if (mPresenter.mWsManager != null && mPresenter.mWsManager?.isWsConnected!!) {
+                    if (UserInfoSp.getIsSetPayPassWord()) {
+                        sendRed()
+                    } else mPresenter.isSetPassWord()
+                }
             } else showExpireDialog(getPageActivity())
 
         }
@@ -488,9 +494,10 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     /**
      * 初始化聊天室
      */
-    fun initChatRoom(data: ArrayList<HomeLiveChatBean>) {
+    fun initChatRoom(data: ArrayList<HomeLiveChatBeanNew>) {
+
         //初始化聊天RecycleView
-        multiTypeAdapter.register(HomeLiveChatBean::class.java, HomeLiveChatHolder())
+        multiTypeAdapter.register(HomeLiveChatBeanNew::class.java, HomeLiveChatHolder())
         chatRecyclerView?.adapter = multiTypeAdapter
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
@@ -524,7 +531,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      * 接收弹幕消息事件
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
-    fun onUpdateDanmu(data: HomeLiveChatBean) {
+    fun onUpdateDanmu(data: HomeLiveChatBeanNew) {
         LogUtils.e("弹幕消息------" + data)
         if (mVideoView.isFullScreen && UserInfoSp.getDanMuSwitch()) {
             if (isNotEmpty(data.text)) mVideoView.addDanmaku(data.text, data.isMe)
@@ -573,7 +580,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
                         }
                     }
                 }
-                if (!mVideoView.isFullScreen) showRed(eventBean)
+                if (!mVideoView.isFullScreen && this.isVisible) showRed(eventBean)
                 mController.showRedEnvelope(mPresenter, eventBean)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -586,7 +593,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     private fun showRed(eventBean: HomeLiveRedMessageBean) {
         if (mOpenRedPopup == null) {
-            mOpenRedPopup = OpenRedEnvelopeDialog(getPageActivity())
+            mOpenRedPopup = OpenRedEnvelopeDialog(context!!)
             mOpenRedPopup?.setRedTitle("恭喜发财，大吉大利")
             mOpenRedPopup?.setOnOpenClickListener {
                 if (FastClickUtils.isFastClick()) {
@@ -598,7 +605,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
             }
             mOpenRedPopup?.show()
         } else if (!mOpenRedPopup?.isShowing!!) {
-            mOpenRedPopup = OpenRedEnvelopeDialog(getPageActivity())
+            mOpenRedPopup = OpenRedEnvelopeDialog(context!!)
             mOpenRedPopup?.setRedTitle("恭喜发财，大吉大利")
             mOpenRedPopup?.setOnOpenClickListener {
                 if (FastClickUtils.isFastClick()) {
@@ -640,7 +647,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onGetGiftSmall(data: HomeLiveSmallAnimatorBean) {
-        if (data.gift_id == 18 || data.gift_id == 24 || data.gift_id == 30 || data.gift_id == 31) {
+        if (data.gift_id == 18 || data.gift_id == 24 || data.gift_id == 30 || data.gift_id == 31 || data.gift_id == 22 || data.gift_id == 21) {
             mPresenter.initGiftAnimator(data)
         }
         if (data.gift_id == 15 || data.gift_id == 16 || data.gift_id == 17 || data.gift_id == 27 || data.gift_id == 28 || data.gift_id == 29 || data.gift_id == 23) {
@@ -811,11 +818,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     override fun onResume() {
         super.onResume()
         mPIPManager?.resume()
-        if (mPresenter.mWsManager != null) {
-            if (mPresenter.mWsManager!!.isWsConnected) {
-                mPresenter.startWebSocketConnect()
-            }
-        }
+        mPresenter.startWebSocketConnect()
     }
 
 

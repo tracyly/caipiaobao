@@ -96,14 +96,15 @@ class MineAddBankCardFragment : BaseMvpFragment<MineAddBankCardPresenter>() {
                 ToastUtils.showWarning("请填写银行卡号")
                 return@setOnClickListener
             }
+            if (etOpenNumber.text.length < 15 || etOpenNumber.text.length > 22) {
+                ToastUtils.showWarning("请填写正确的15-22位银行卡号")
+                return@setOnClickListener
+            }
             if (TextUtils.isEmpty(etOpenPassWord.text)) {
                 ToastUtils.showWarning("请填写支付密码")
                 return@setOnClickListener
             }
-            if (etOpenNumber.text.length < 15 || etOpenNumber.text.length > 19) {
-                ToastUtils.showWarning("请填写正确的16-19位银行卡号")
-                return@setOnClickListener
-            }
+
             mPresenter.bindBankCard(bankCode,
                     province.toString(),
                     city.toString(),

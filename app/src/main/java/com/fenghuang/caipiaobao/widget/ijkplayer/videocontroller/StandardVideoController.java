@@ -288,7 +288,8 @@ public class StandardVideoController extends GestureVideoController implements V
                 break;
             case VideoView.STATE_ERROR:
                 L.e("STATE_ERROR");
-                mLoadingProgress.setVisibility(GONE);
+                mLoadingProgress.setVisibility(VISIBLE);
+                mControlWrapper.replay(true);
                 if (!mControlWrapper.isFullScreen()) imgExit.setVisibility(VISIBLE);
                 break;
             case VideoView.STATE_BUFFERING:

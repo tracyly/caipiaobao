@@ -1766,7 +1766,7 @@ public final class EmojiconHandler {
 
     public static void handleCaiPiaoBaoEmoticon(Context context, Spannable spannable, int fontSize) {
 
-        Matcher matcher = CAIPIAOBAO.matcher(spannable.toString().trim());
+        Matcher matcher = CAIPIAOBAO.matcher(spannable.toString());
         while (matcher.find()) {
             String key = matcher.group();
             if (caiPiaoBaoEmojisModifiedMap.containsKey(key)) {

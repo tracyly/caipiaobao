@@ -34,6 +34,8 @@ class QuizFragment : BaseMvpFragment<QuizPresenter>() {
 
     override fun isOverridePage() = false
 
+    override fun isShowBackIcon() = false
+
     override fun getContentResID() = R.layout.fragment_quiz
 
 //    override fun getItemDivider(): RecyclerView.ItemDecoration? {

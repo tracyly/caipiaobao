@@ -34,7 +34,7 @@ public abstract class BaseVideoController extends FrameLayout
         OrientationHelper.OnOrientationChangeListener {
 
     //播放器包装类，集合了MediaPlayerControl的api和IVideoController的api
-    protected ControlWrapper mControlWrapper;
+    public ControlWrapper mControlWrapper;
 
     @Nullable
     protected Activity mActivity;

@@ -22,7 +22,6 @@ class HomeMoreLivePresenter : BaseMvpPresenter<HomeMoreLiveFragment>() {
                 if (mView.isActive()) {
                     if (mView.mPage != 0) {
                         if (it.isNotEmpty()) {
-                            mView.mPage++
                             mView.adapter?.addAll(it)
                         }
                     } else {

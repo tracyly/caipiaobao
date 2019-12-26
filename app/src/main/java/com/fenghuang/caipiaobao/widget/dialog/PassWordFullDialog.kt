@@ -15,6 +15,7 @@ import android.widget.EditText
 import com.fenghuang.baselib.utils.SoftInputUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
+import com.kenny.separatededittext.SeparatedEditText
 import kotlinx.android.synthetic.main.dialog_bottom_input.*
 import kotlinx.android.synthetic.main.dialog_pass_word_full.*
 
@@ -30,8 +31,11 @@ import kotlinx.android.synthetic.main.dialog_pass_word_full.*
 
 class PassWordFullDialog(context: Context) : Dialog(context) {
 
+    val edtPassWordFull: SeparatedEditText
+
     init {
         setContentView(R.layout.dialog_pass_word_full)
+        edtPassWordFull = findViewById(R.id.edtPassWordFull)
         window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val lp = window!!.attributes
         lp.width = ViewGroup.LayoutParams.MATCH_PARENT // 宽度

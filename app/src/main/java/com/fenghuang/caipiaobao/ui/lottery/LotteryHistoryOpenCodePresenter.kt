@@ -23,8 +23,8 @@ class LotteryHistoryOpenCodePresenter(var mLotteryId: Int, var date: String) : B
                     if (mView.getStartPage() == 1) {
                         mView.clear()
                     }
-
                     mView.showDatas(it)
+                    mView.showPageContent()
                 } else {
                     mView.showPageEmpty()
                 }

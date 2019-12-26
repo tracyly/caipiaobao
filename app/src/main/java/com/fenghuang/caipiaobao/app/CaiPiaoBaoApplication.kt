@@ -8,6 +8,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.fenghuang.baselib.app.BaseApplication
 import com.fenghuang.baselib.utils.DebugUtils
+import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.BuildConfig
 import com.fenghuang.caipiaobao.constant.AppConfigConstant
 import com.fenghuang.caipiaobao.function.doOnIOThread
@@ -153,6 +154,8 @@ class CaiPiaoBaoApplication : BaseApplication() {
             override fun onCoreInitFinished() {
             }
         })
+
+        ToastUtils.init(getApplication())
 
     }
 

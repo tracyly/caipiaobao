@@ -45,6 +45,7 @@ import org.json.JSONObject
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+
 /**
  *  author : Peter
  *  date   : 2019/8/13 14:55
@@ -66,6 +67,8 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
     // 红包的id
     private var mRid = 0
 
+    private var isReconnet = false
+
     private val mVideos = LinkedHashMap<String, String>()
 
     fun loadData() {
@@ -84,6 +87,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
             onFailed { if (it.getCode() == 2003) loginMore(mView.requireContext()) }
         }
     }
+
 
     fun startWebSocketConnect() {
         if (mView.isActive()) {
@@ -118,11 +122,11 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
     }
 
     private fun initStatusListener() {
-        mView.showPageLoading()
+        mView.setVisible(mView.tvSocket)
         mWsStatusListener = object : WsStatusListener() {
             override fun onOpen(response: Response) {
                 super.onOpen(response)
-                mView.hidePageLoading()
+                mView.setGone(mView.tvSocket)
                 LogUtils.d("WsManager-----onOpen response=$response")
                 mWsManager?.sendMessage(getSubscribeParams())
                 if (mTimer == null) mTimer = Timer()
@@ -137,8 +141,9 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
             override fun onMessage(text: String) {
                 super.onMessage(text)
                 LogUtils.d("WsManager-----onMessage$text")
-                val data = WebUrlProvider.getData<HomeLiveChatBean>(text, HomeLiveChatBean::class.java)
+                val data = WebUrlProvider.getData<HomeLiveChatBeanNew>(text, HomeLiveChatBeanNew::class.java)
                 LogUtils.d("WsManager-----111onMessage${data.toString()}")
+
                 // 发送通知弹幕
                 if (data != null) {
                     RxBus.get().post(data)
@@ -154,14 +159,14 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                             } else {
                                 mView.tvMoreInfo.visibility = View.VISIBLE
                             }
-                        } else if (data.code == 403) {
-                            showExpireDialog(context)
+                        } else if (data.type == "error") {
+                            ToastUtils.showBottom(data.msg)
                         }
                     }
                     // 告知有红包
-                    if (data.gift_type == 4) {
-                        mView.onIsShowRedEnvelopeOnSocket(HomeLiveRedMessageBean(4, data.r_id, data.gift_text, data.userName))
-                        RxBus.get().post(HomeLiveRedMessageBean(4, data.r_id, data.gift_text, data.userName))
+                    if (data.gift_type == "4") {
+                        mView.onIsShowRedEnvelopeOnSocket(HomeLiveRedMessageBean(4, data.r_id.toInt(), data.gift_text, data.userName))
+                        RxBus.get().post(HomeLiveRedMessageBean(4, data.r_id.toInt(), data.gift_text, data.userName))
                     }
                 }
             }
@@ -173,7 +178,9 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
 
             override fun onReconnect() {
                 super.onReconnect()
+                isReconnet = true
                 LogUtils.d("WsManager-----onReconnect")
+                mView.setVisible(mView.tvSocket)
             }
 
             override fun onClosing(code: Int, reason: String) {
@@ -184,7 +191,6 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
             override fun onClosed(code: Int, reason: String) {
                 super.onClosed(code, reason)
                 LogUtils.d("WsManager-----onClosed")
-                mView.hidePageLoading()
             }
 
             override fun onFailure(t: Throwable?, response: Response?) {
@@ -194,7 +200,6 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                     mTimer?.cancel()
                     mTimer = null
                 }
-                mView.hidePageLoading()
             }
         }
     }
@@ -202,10 +207,10 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
     /**
      * 显示礼物动画，弹幕
      */
-    private fun showGiftAnimation(data: HomeLiveChatBean) {
-        if (data.type == "gift" && data.gift_type != 4) {
+    private fun showGiftAnimation(data: HomeLiveChatBeanNew) {
+        if (data.type == "gift" && data.gift_type != "4") {
             if (!data.isMe) {
-                RxBus.get().post(HomeLiveSmallAnimatorBean(data.gift_id, data.gift_name, data.icon, data.user_id, data.avatar.toString(), data.userName))
+                RxBus.get().post(HomeLiveSmallAnimatorBean(data.gift_id.toInt(), data.gift_name, data.icon, data.user_id.toInt(), data.avatar.toString(), data.userName))
             }
         }
     }
@@ -273,14 +278,13 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
         HomeApi.getRecentlyNews(userId, anchorId) {
             onSuccess {
                 if (mView.isActive()) {
-                    mView.multiTypeAdapter.add(HomeLiveChatBean("", "", 0,
-                            "", "", "", "first", "", "", false, 0, UserInfoSp.getUserType()!!,
-                            UserInfoSp.getUserNickName().toString(), 0, 0, mView.tvTopUserName?.text.toString(), "0".toFloat(), 0, UserInfoSp.getVipLevel(), "", 0, "", 0))
+                    mView.multiTypeAdapter.add(HomeLiveChatBeanNew("", "", 0,
+                            "", "", "", "first", "", "", false, "", UserInfoSp.getUserType()!!,
+                            UserInfoSp.getUserNickName().toString(), "", "", mView.tvTopUserName?.text.toString(), "0", "", UserInfoSp.getVipLevel().toString(), "", "", "", "", ""))
                     mView.initChatRoom(it)
                     if (mView.chatRecyclerView != null) mView.chatRecyclerView.scrollToPosition(mView.multiTypeAdapter.itemCount - 1)
                 }
             }
-
             onFailed { mView.hidePageLoading() }
         }
     }
@@ -357,7 +361,12 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                 } else {
                     openRedEnvelopeDialog?.dismiss()
                     openRedEnvelopeFullDialog?.dismiss()
-                    showExpireDialog(mView.requireActivity(), it)
+                    if (isControl) {
+                        mView.mController.liveControlView.toggleFullScreen()
+                        showExpireDialog(mView.requireActivity(), it)
+                    } else {
+                        showExpireDialog(mView.requireActivity(), it)
+                    }
                 }
             }
         }
@@ -638,6 +647,8 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
         jsonObject.put("type", TYPE_SUBSCRIBE)
         jsonObject.put("userType", UserInfoSp.getUserType())
         jsonObject.put("userName", UserInfoSp.getUserNickName())
+        jsonObject.put("vip", UserInfoSp.getVipLevel().toString())
+        if (isReconnet) jsonObject.put("rest", true)
         return jsonObject.toString()
     }
 
@@ -684,10 +695,11 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
         jsonObject.put("vip", UserInfoSp.getVipLevel().toString())
         jsonObject.put("gift_type", gifType)
         jsonObject.put("gift_name", giftName)
-        jsonObject.put("gift_price", giftPrice.toString())
-        jsonObject.put("gift_num", giftNum.toString())
+        jsonObject.put("gift_price", giftPrice)
+        jsonObject.put("gift_num", giftNum)
         jsonObject.put("avatar", avatar)
         return jsonObject.toString()
     }
+
 
 }

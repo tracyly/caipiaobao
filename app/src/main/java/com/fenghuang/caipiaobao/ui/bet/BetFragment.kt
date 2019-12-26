@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.caipiaobao.R
@@ -29,7 +30,7 @@ import java.io.File
  * @ Describe 投注页
  *
  */
-
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
     var baseUrl: String? = null
@@ -108,6 +109,7 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     // 压缩图片最小宽度
     val COMPRESS_MIN_WIDTH = 675
     var dialog: IosBottomListWindow? = null
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun showSelectPictrueDialog(tag: Int, fileChooserParams: WebChromeClient.FileChooserParams?) {
         dialog = IosBottomListWindow(getPageActivity())
         dialog!!
@@ -161,6 +163,7 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
     }
 
     //检测权限
+
     fun checkPremission(tag: Int, fileChooserParams: WebChromeClient.FileChooserParams?) {
         if (RxPermissionHelper.checkPermission(android.Manifest.permission.CAMERA)) {
             showSelectPictrueDialog(tag, fileChooserParams)

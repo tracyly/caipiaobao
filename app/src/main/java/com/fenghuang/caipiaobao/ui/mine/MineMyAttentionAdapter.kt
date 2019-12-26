@@ -11,6 +11,7 @@ import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.anchor.HomeAnchorFragment
 import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsFragment
 import com.fenghuang.caipiaobao.ui.mine.data.MineAttentionResponse
+import com.fenghuang.caipiaobao.utils.FastClickUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.fenghuang.caipiaobao.widget.gif.GifImageView
@@ -42,17 +43,27 @@ class MineMyAttentionAdapter(context: Context, val presenter: MineMyAttentionPre
                 findView<GifImageView>(R.id.imgIsLive).play(-1)
             }
             findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {
-                remove(getDataPosition())
-                presenter.unDepose(UserInfoSp.getUserId(), data.anchor_id)
+                if (FastClickUtils.isFastClick()) {
+                    remove(getDataPosition())
+                    presenter.unDepose(UserInfoSp.getUserId(), data.anchor_id)
+                }
             }
             findView<LinearLayout>(R.id.linGoToLive).setOnClickListener {
-                LaunchUtils.startFragment(getContext(), HomeLiveDetailsFragment.newInstance(data.anchor_id, data.nickname, data.live_status, data.avatar))
+                if (FastClickUtils.isFastClick()) {
+                    LaunchUtils.startFragment(getContext(), HomeLiveDetailsFragment.newInstance(data.anchor_id, data.nickname, data.live_status, data.avatar))
+                }
+
+
             }
             findView<RelativeLayout>(R.id.rlPhoto).setOnClickListener {
-                LaunchUtils.startFragment(getContext(), HomeAnchorFragment.newInstance(data.anchor_id))
+                if (FastClickUtils.isFastClick()) {
+                    LaunchUtils.startFragment(getContext(), HomeAnchorFragment.newInstance(data.anchor_id))
+                }
             }
             findView<LinearLayout>(R.id.linCenter).setOnClickListener {
-                LaunchUtils.startFragment(getContext(), HomeAnchorFragment.newInstance(data.anchor_id))
+                if (FastClickUtils.isFastClick()) {
+                    LaunchUtils.startFragment(getContext(), HomeAnchorFragment.newInstance(data.anchor_id))
+                }
             }
         }
     }

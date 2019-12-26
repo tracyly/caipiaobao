@@ -26,6 +26,7 @@ class LotteryExpertPlanPresenter(var mLotteryId: Int, var mIssue: String) : Base
                             mView.clear()
                         }
                         mView.addDatas(it)
+                        mView.showPageContent()
                     } else {
                         mView.showPageEmpty()
                     }

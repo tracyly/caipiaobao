@@ -57,7 +57,7 @@ class MineSettingFragment : BaseNavFragment() {
                     hidePageLoadingDialog()
                 }
             }
-        }
+        } else tvPayPassWordSet.text = "支付密码修改"
 
     }
 

@@ -56,6 +56,9 @@ data class MineSaveBank(var data: MineUserBankList)
 
 //更新用户选择的银行卡
 data class MineUpDateBank(var isUpdate: Boolean)
+
+//更新余额
+data class MineUpDateMoney(var money: String)
 //Rx更新余额用户信息
 data class MineUpDateUser(var upDateMoney: Boolean, var upDateAll: Boolean, var upDateDiamond: Boolean)
 

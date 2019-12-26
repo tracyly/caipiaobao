@@ -19,15 +19,18 @@ class MineRechargeItemPresenter : BaseMvpPresenter<MineRechargeItemFragment>() {
 
 
     fun getPayTypeList() {
+        mView.showPageLoadingDialog()
         MineApi.getPayTypeList {
             onSuccess {
                 if (mView.isActive()) {
                     initAdapter(it)
+                    mView.hidePageLoadingDialog()
                 }
             }
             onFailed {
                 if (mView.isActive()) {
                     ExceptionDialog.showExpireDialog(mView.requireContext(), it)
+                    mView.hidePageLoadingDialog()
                 }
             }
         }

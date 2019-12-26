@@ -22,7 +22,6 @@ class ApiConvert<T>(private var type: Type? = null,
         if (TextUtils.isEmpty(json)) throw ApiException(code = NetErrorEngine.DATA_ERROR)
         val bean = JsonUtils.fromJson(json, BaseApiBean::class.java)
         if (bean.code == ErrorCode.SUCCESS) {
-
             // 后端返回的code是成功的，但是data会空的
             return return if (bean.data != null && !bean.data.isJsonNull) {
                 JsonUtils.fromJson(bean.data, getType())
@@ -40,5 +39,6 @@ class ApiConvert<T>(private var type: Type? = null,
             (genType as ParameterizedType).actualTypeArguments[0]
         } else clazz
     }
+
 
 }

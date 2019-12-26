@@ -10,6 +10,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineSaveBank
 import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateBank
+import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateMoney
 import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
 import com.fenghuang.caipiaobao.utils.LaunchUtils.startFragment
 import com.fenghuang.caipiaobao.utils.MoneyValueFilter
@@ -31,6 +32,8 @@ import java.math.BigDecimal
 class MineRechargeCashOutFragment(var balance: String) : BaseMvpFragment<MineRechargeCashOutPresenter>() {
 
 
+    var balanceNow = balance
+
     override fun attachView() = mPresenter.attachView(this)
 
     override fun attachPresenter() = MineRechargeCashOutPresenter()
@@ -49,7 +52,7 @@ class MineRechargeCashOutFragment(var balance: String) : BaseMvpFragment<MineRec
             } else ExceptionDialog.noSetPassWord(getPageActivity())
         }
         tvGetMoneyAll.setOnClickListener {
-            etGetMoneyToBank.setText(balance)
+            etGetMoneyToBank.setText(balanceNow)
         }
         btUserGetCash.setOnClickListener {
             mPresenter.getCashOutMoney()
@@ -93,4 +96,8 @@ class MineRechargeCashOutFragment(var balance: String) : BaseMvpFragment<MineRec
     }
 
 
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun upDateUserMoney(event: MineUpDateMoney) {
+        balanceNow = event.money
+    }
 }

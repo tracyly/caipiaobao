@@ -43,7 +43,7 @@ class HomeAnchorDataFragment : BaseContentFragment() {
             setGone(anchorGiftRecyclerView)
             setVisible(tvNotReceiveGift)
         }
-        setText(R.id.tvAnchorDate, data.duration.toString())
+        setText(R.id.tvAnchorDate, data.duration.toString() + "分钟")
         setText(R.id.tvAnchorOpenDate, TimeUtils.longToDateString(data.liveStartTime) + "-" + TimeUtils.longToDateString(data.liveEndTime))
         setText(R.id.anchorGiftNumber, "共 " + data.giftNum.toString() + " 件")
         if (data.live_record.isNotEmpty())

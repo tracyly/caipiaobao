@@ -42,6 +42,8 @@ class HomeMoreLiveFragment : BaseMvpFragment<HomeMoreLivePresenter>() {
 
     override fun initData() {
         mPresenter.getHotLive(mPage)
+
+
         moreSmartRefreshLayout.setOnLoadMoreListener {
             mPage++
             mPresenter.getHotLive(mPage)

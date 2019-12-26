@@ -43,6 +43,8 @@ object HomeApi : BaseApi {
     private const val HOME_LIVE_AD_IMG = "/api/v1/user/get_ad_banner/"
     private const val LOTTERY_URL = "/api/v1/user/jump_to/"
     private const val ANCHOR_PUSH = "/api/v1/user/push_anchor/"
+    private const val FORBIDDEN_WORDS = "/api/v1/live/ban_words/"
+
 
     /**
      * 获取首页轮播图列表
@@ -309,10 +311,10 @@ object HomeApi : BaseApi {
     /**
      * 获取最近20条消息
      */
-    fun getRecentlyNews(userId: Int, anchorId: Int, function: ApiSubscriber<ArrayList<HomeLiveChatBean>>.() -> Unit) {
-        val subscriber = object : ApiSubscriber<ArrayList<HomeLiveChatBean>>() {}
+    fun getRecentlyNews(userId: Int, anchorId: Int, function: ApiSubscriber<ArrayList<HomeLiveChatBeanNew>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<ArrayList<HomeLiveChatBeanNew>>() {}
         subscriber.function()
-        val request = getApi().get<ArrayList<HomeLiveChatBean>>(HOME_LIVE_ANCHOR_ANCHOR_20_NEWS)
+        val request = getApi().get<ArrayList<HomeLiveChatBeanNew>>(HOME_LIVE_ANCHOR_ANCHOR_20_NEWS)
         if (userId != 0) {
             request.params("user_id", userId)
                     .params("anchor_id", anchorId)
@@ -402,6 +404,21 @@ object HomeApi : BaseApi {
         subscriber.function()
         getApi().get<AnchorPush>(ANCHOR_PUSH)
                 .params("user_id", UserInfoSp.getUserId())
+                .subscribe(subscriber)
+    }
+
+    /**
+     * 禁言  禁言时间 单位分钟-不传使用后台配置时间 0-永久禁言
+     */
+    fun forBiddenWords(opertate_user: Int, ban_user: Int, room_id: Int, ban_time: Int, function: EmptySubscriber.() -> Unit) {
+        val subscriber = EmptySubscriber()
+        subscriber.function()
+        getApi().post<String>(FORBIDDEN_WORDS)
+                .headers("token", UserInfoSp.getToken())
+                .params("opertate_user", opertate_user)
+                .params("ban_user", ban_user)
+                .params("room_id", room_id)
+                .params("ban_time", ban_time)
                 .subscribe(subscriber)
     }
 }

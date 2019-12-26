@@ -38,7 +38,7 @@ class MineRechargeCashOutPresenter : BaseMvpPresenter<MineRechargeCashOutFragmen
 
     @SuppressLint("SetTextI18n")
     fun getBankList() {
-//        getBalance()
+        mView.showPageLoadingDialog()
         MineApi.getUserBankList {
             onSuccess {
                 if (mView.isActive()) {
@@ -63,8 +63,8 @@ class MineRechargeCashOutPresenter : BaseMvpPresenter<MineRechargeCashOutFragmen
                         mView.setGone(R.id.rlBankItem)
                         mView.setVisibility(R.id.rlAddBankItem, true)
                     }
-                    mView.hidePageLoadingDialog()
                 }
+                mView.hidePageLoadingDialog()
             }
             onFailed {
                 showExpireDialog(mView.requireContext(), it)
@@ -120,6 +120,7 @@ class MineRechargeCashOutPresenter : BaseMvpPresenter<MineRechargeCashOutFragmen
                 mView.hidePageLoadingDialog()
                 if (it.getCode() == 1002) {
                     dialog.showTipsText(it.getMsg().toString() + "," + "您还有" + JsonUtils.fromJson(it.getDataCode().toString(), MinePassWordTime::class.java).remain_times.toString() + "次机会")
+                    dialog.clearText()
                 } else {
                     dialog.showTipsText(it.getMsg().toString())
                 }
@@ -134,7 +135,6 @@ class MineRechargeCashOutPresenter : BaseMvpPresenter<MineRechargeCashOutFragmen
             MineApi.userGetCashOut(mView.etGetMoneyToBank.text.toString().toDouble(), mineUserBank?.bank_name!!, mineUserBank?.card_num!!) {
                 onSuccess {
                     if (mView.isActive()) {
-
                         ToastUtils.showSuccess("提现成功")
                         RxBus.get().post(MineUpDateUser(true, upDateAll = false, upDateDiamond = false))
                         dialog.dismiss()
@@ -152,14 +152,23 @@ class MineRechargeCashOutPresenter : BaseMvpPresenter<MineRechargeCashOutFragmen
 
     }
 
-    private fun getBalance() {
-        mView.showPageLoadingDialog()
+    @SuppressLint("SetTextI18n")
+    fun getBalance() {
+        mView.showPageLoading()
         MineApi.getUserBalance {
             onSuccess {
-                mView.balance = it.balance.toString()
+                if (mView.isActive()) {
+                    mView.etGetMoneyToBank.setText(it.balance.toString())
+                    mView.hidePageLoading()
+                }
+
             }
             onFailed {
-                showExpireDialog(mView.requireContext(), it)
+                if (mView.isActive()) {
+                    showExpireDialog(mView.requireContext(), it)
+                    mView.hidePageLoading()
+                }
+
             }
         }
     }

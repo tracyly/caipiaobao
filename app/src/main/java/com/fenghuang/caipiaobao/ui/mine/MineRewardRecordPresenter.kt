@@ -67,14 +67,19 @@ class MineRewardRecordPresenter : BaseMvpPresenter<MineRewardRecordFragment>() {
 
 
     fun deleteRewardRecord(reward_id: Int) {
+        mView.showPageLoadingDialog()
         MineApi.deleteRewardRecord(reward_id) {
             onSuccess {
-                if (mView.mineRewardRecordAdapter?.getCount()!! != 0) {
-                    if (mView.mineRewardRecordAdapter?.getCount()!! < 10) {
-                        mView.mPage++
-                        getRewordRecordMore(mView.mPage)
-                    }
-                } else mView.setVisible(mView.rlNoReward)
+                if (mView.isActive()) {
+                    if (mView.mineRewardRecordAdapter?.getCount()!! != 0) {
+                        if (mView.mineRewardRecordAdapter?.getCount()!! < 10) {
+                            mView.mPage++
+                            getRewordRecordMore(mView.mPage)
+                        }
+                    } else mView.setVisible(mView.rlNoReward)
+                    mView.hidePageLoadingDialog()
+                }
+
             }
             onFailed { ToastUtils.showError("删除失败:" + it.getMsg()) }
         }

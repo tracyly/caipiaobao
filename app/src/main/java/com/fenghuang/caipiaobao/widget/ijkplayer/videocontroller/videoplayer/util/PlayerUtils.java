@@ -216,8 +216,8 @@ public final class PlayerUtils {
                     // 4G
                 case TelephonyManager.NETWORK_TYPE_LTE:
                     // 5G
-                case TelephonyManager.NETWORK_TYPE_NR:
-                    return NETWORK_MOBILE;
+//                case TelephonyManager.NETWORK_TYPE_NR:
+//                    return NETWORK_MOBILE;
             }
         }
         // 未知网络

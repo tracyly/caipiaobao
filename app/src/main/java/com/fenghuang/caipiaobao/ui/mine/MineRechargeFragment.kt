@@ -9,8 +9,10 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_INDEX
 import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_USER_BALANCE
 import com.fenghuang.caipiaobao.ui.mine.data.MineApi
+import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateMoney
 import com.fenghuang.caipiaobao.ui.mine.data.MineUpDateUser
 import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog.showExpireDialog
+import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_mine_recharge.*
@@ -85,7 +87,7 @@ class MineRechargeFragment : BaseFragment() {
 
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun upDateUserBalance(eventBean: MineUpDateUser) {
-        if (eventBean.upDateMoney) upDateBalance()
+        if (eventBean.upDateMoney) upDateUserBalance()
     }
 
     @SuppressLint("SetTextI18n")
@@ -94,6 +96,20 @@ class MineRechargeFragment : BaseFragment() {
             onSuccess {
                 tvCountBalance.text = it.balance.toString()
                 setFragmentViewPager()
+            }
+            onFailed {
+                showExpireDialog(getPageActivity(), it)
+            }
+        }
+    }
+
+
+    @SuppressLint("SetTextI18n")
+    private fun upDateUserBalance() {
+        MineApi.getUserBalance {
+            onSuccess {
+                tvCountBalance.text = it.balance.toString()
+                RxBus.get().post(MineUpDateMoney(it.balance.toString()))
             }
             onFailed {
                 showExpireDialog(getPageActivity(), it)

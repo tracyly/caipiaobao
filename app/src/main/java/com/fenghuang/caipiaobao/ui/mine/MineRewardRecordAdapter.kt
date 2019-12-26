@@ -9,6 +9,7 @@ import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.mine.data.MineRewardRecordResponse
+import com.fenghuang.caipiaobao.utils.FastClickUtils
 
 /**
  *
@@ -33,8 +34,10 @@ class MineRewardRecordAdapter(context: Context, val rewardRecordPresenter: MineR
             setText(R.id.tvGiftName, data.giftname)
             setText(R.id.tvGiftNum, data.gift_num.toString())
             findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {
-                rewardRecordPresenter.deleteRewardRecord(data.id)
-                remove(getDataPosition())
+                if (FastClickUtils.isFastClick()) {
+                    rewardRecordPresenter.deleteRewardRecord(data.id)
+                    remove(getDataPosition())
+                }
             }
         }
 

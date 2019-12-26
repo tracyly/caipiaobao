@@ -117,4 +117,20 @@ object ExceptionDialog {
         dialog.setCanceledOnTouchOutside(false)
         dialog.show()
     }
+
+
+    //控制器登录过期
+    fun showExpireDialogControll(context: Context, exception: ApiException) {
+        if (exception.getDataCode().toString() == "401" || exception.getCode() == 2002 || exception.getCode() == 2000 || exception.getCode() == 2001 || exception.message == "请登录后操作") {
+            loginDialog(context)
+        } else if (exception.getCode() == 2003) {
+            loginMore(context)
+        } else if (exception.getCode() == 1002) {
+            ToastUtils.showErrorLong("支付密码错误，您还有" + JsonUtils.fromJson(exception.getDataCode().toString(), MinePassWordTime::class.java).remain_times.toString() + "次机会")
+        } else if (exception.getCode() == 9) {
+            passDialog(context)
+        } else {
+            ToastUtils.showError(exception.getMsg())
+        }
+    }
 }

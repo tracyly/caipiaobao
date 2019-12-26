@@ -3,7 +3,9 @@ package com.fenghuang.caipiaobao.ui.widget.mywebview;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.view.ViewGroup;
 
+import com.fenghuang.baselib.utils.ViewUtils;
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebView;
 
@@ -13,11 +15,11 @@ import com.tencent.smtt.sdk.WebView;
  * @ Date  2019/9/17- 17:19
  * @ Describe
  */
+
 public class ZpWebView extends WebView {
 
-
     private ZpWebChromeClient webChromeClient;
-
+    private ProgressView progressView;//进度条
     public ZpWebView(Context context) {
         super(context);
         initWebView();
@@ -34,7 +36,13 @@ public class ZpWebView extends WebView {
     }
 
     private void initWebView() {
-        webChromeClient = new ZpWebChromeClient();
+        //初始化进度条
+        progressView = new ProgressView(getContext());
+        progressView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewUtils.INSTANCE.dp2px(2)));
+        progressView.setProgress(10);
+        //把进度条加到Webview中
+        addView(progressView);
+        webChromeClient = new ZpWebChromeClient(progressView);
         setWebChromeClient(webChromeClient);
         WebSettings webviewSettings = getSettings();
         // 不支持缩放
@@ -64,4 +72,5 @@ public class ZpWebView extends WebView {
     public void setOpenFileChooserCallBack(ZpWebChromeClient.OpenFileChooserCallBack callBack) {
         webChromeClient.setOpenFileChooserCallBack(callBack);
     }
+
 }

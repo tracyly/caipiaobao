@@ -48,7 +48,7 @@ class MineRewardRecordFragment : BaseMvpFragment<MineRewardRecordPresenter>() {
             mPresenter.getRewordRecord(mPage)
         }
         rewardSmartRefresh?.setOnLoadMoreListener {
-            mPage++
+
             mPresenter.getRewordRecordMore(mPage)
         }
 

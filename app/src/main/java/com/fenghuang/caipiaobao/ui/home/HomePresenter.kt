@@ -48,7 +48,6 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
         HomeApi.getHomeBannerResult(cacheMode) {
             onSuccess {
                 if (mView.isActive()) mView.updateBanner(it)
-
                 getNoticeInfo(cacheMode)
             }
             onFailed {
@@ -152,10 +151,12 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
      */
     fun liveFaber(isUpDate: Boolean) {
         //直播预告
-        HomeApi.getHomeLivePopResult(CacheMode.FIRST_REMOTE_THEN_CACHE) {
+        HomeApi.getHomeLivePopResult(CacheMode.NONE) {
             onSuccess {
                 if (mView.isActive() && it.isNotEmpty()) {
-                    if (isUpDate) mView.updateLivePop(it)
+                    if (isUpDate) {
+                        if (it.isNotEmpty()) mView.updateLivePop(it)
+                    }
                 }
                 HomeApi.getAdUrl {
                     onSuccess {

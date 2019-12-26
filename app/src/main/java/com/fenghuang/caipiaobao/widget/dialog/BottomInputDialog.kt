@@ -53,7 +53,7 @@ class BottomInputDialog(context: Context, val activity: Activity, val mPresenter
         SoftHideKeyBoardUtil().init(activity)
         dialogEmoticonKeyboards.setupWithEditText(dialogChatEditTexts)
         dialogChatEditTexts.setOnTouchListener { _, _ ->
-            dialogImgEmoji.background = context.getDrawable(R.mipmap.emotion)
+            dialogImgEmoji.setImageResource(R.mipmap.emotion)
             setGone(dialogEmoticonKeyboards)
             SoftInputUtils.showSoftInput(dialogChatEditTexts)
             true
