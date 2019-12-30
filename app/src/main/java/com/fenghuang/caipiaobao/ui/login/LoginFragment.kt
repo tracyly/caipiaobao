@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_register_success.*
 
 class LoginFragment : BaseMvpFragment<LoginPresenter>() {
 
-    var identify: String = ""
+    var identifyGet: String = ""
 
     var pass = ""
     var phoneNum = ""
@@ -88,9 +88,7 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
                         if (etIdentifyCode.text.toString().length < 4) {
                             ToastUtils.showError("请输入4位验证码")
                         } else {
-                            if (identify == etIdentifyCode.text.toString()) {
                                 mPresenter.userLoginWithIdentify(etPhoneNum.text.toString(), etIdentifyCode.text.toString(), 0)
-                            } else ToastUtils.showError("验证码错误或已过期")
                         }
                     } else ToastUtils.showError("请输获取证码")
                 } else ToastUtils.showError("请输入正确11位手机号码")

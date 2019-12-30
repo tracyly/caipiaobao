@@ -36,6 +36,7 @@ import com.fenghuang.caipiaobao.ui.home.anchor.HomeAnchorFragment
 import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.HomeLiveRoomTopAdapter
 import com.fenghuang.caipiaobao.ui.home.live.chat.HomeLiveChatHolder
+import com.fenghuang.caipiaobao.ui.login.data.LoginSuccess
 import com.fenghuang.caipiaobao.ui.mine.MineRechargeFragment
 import com.fenghuang.caipiaobao.ui.mine.data.MineIsAnchorLive
 import com.fenghuang.caipiaobao.ui.widget.ChatGifTabView
@@ -81,6 +82,8 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     private var liveUrl: String? = null
 
     var isPressBack = false
+
+    var ifClickShow: Boolean = false
 
     var isBottom = true
     // 软件盘弹起后所占高度阀值
@@ -132,9 +135,11 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         mPresenter.loadLiveInfo(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
                 ?: 0, SpUtils.getInt(UserConstant.USER_ID, 0))
         initVideo()
+
+        initChatRoom()
         initRewardAnimator()
-        multiTypeAdapter = MultiTypeAdapter(getPageActivity())
-        mPresenter.loadData()
+
+
         //是否首冲
         if (UserInfoSp.getIsFirstRecharge()) {
             ivRecharges.setImageResource(R.mipmap.ic_live_chat_recharge_first)
@@ -146,7 +151,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     override fun initData() {
         super.initData()
         statusView.bringToFront()
-
+        mPresenter.loadData()
         //初始化20条消息
         mPresenter.initRecentlyNews(SpUtils.getInt(UserConstant.USER_ID, 0), arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
                 ?: 0)
@@ -197,6 +202,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
             pop()
         }
         playerContainer.addView(mVideoView)
+
     }
 
     /**
@@ -207,7 +213,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     fun startLive(mVideos: LinkedHashMap<String, String>, status: Int, photo: String) {
         if (status == 1) {
             liveUrl = getValueFromLinkedMap(mVideos, 0)
-            mVideoView.setUrl("rtmp://media3.sinovision.net:1935/live/livestream")
+            mVideoView.setUrl(liveUrl)
             mVideoView.start()
         } else {
             mController.setPlayState(STATE_NO_ANCHOR)
@@ -338,7 +344,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         //头像点击
         ivAnchorLogo.setOnClickListener {
             LaunchUtils.startFragment(getPageActivity(), HomeAnchorFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
-                    ?: 0))
+                    ?: 0, true))
         }
     }
 
@@ -494,15 +500,15 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     /**
      * 初始化聊天室
      */
-    fun initChatRoom(data: ArrayList<HomeLiveChatBeanNew>) {
-
+    private fun initChatRoom() {
+        multiTypeAdapter = MultiTypeAdapter(getPageActivity())
         //初始化聊天RecycleView
         multiTypeAdapter.register(HomeLiveChatBeanNew::class.java, HomeLiveChatHolder())
         chatRecyclerView?.adapter = multiTypeAdapter
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         chatRecyclerView?.layoutManager = layoutManager
-        multiTypeAdapter.addAll(data)
+
 
         // 获取列表的滑动事件，控制一键到底部
         chatRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -532,7 +538,6 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onUpdateDanmu(data: HomeLiveChatBeanNew) {
-        LogUtils.e("弹幕消息------" + data)
         if (mVideoView.isFullScreen && UserInfoSp.getDanMuSwitch()) {
             if (isNotEmpty(data.text)) mVideoView.addDanmaku(data.text, data.isMe)
             if (isNotEmpty(data.type) && data.type == "gift") {
@@ -613,7 +618,9 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
                 }
             }
             mOpenRedPopup?.setOnDismissListener {
+                ifClickShow = false
                 mPresenter.getRoomRed(UserInfoSp.getUserId())
+
             }
             mOpenRedPopup?.show()
         }
@@ -624,7 +631,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     fun showOpenRedContent(it: HomeLiveRedReceiveBean) {
         setGone(ivEnvelopeTip)
-        mController.liveControlView.isShowRed = false
+        mController.isShowRed = false
         mOpenRedPopup?.setRedContent(it.send_text)
         mOpenRedPopup?.setRedMoney(it.amount)
         mOpenRedPopup?.setRedUserName(it.send_user_name)
@@ -746,13 +753,14 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     }
 
     companion object {
-        fun newInstance(anchorId: Int, title: String, status: Int, anchorPhoto: String): HomeLiveDetailsFragment {
+        fun newInstance(anchorId: Int, title: String, status: Int, anchorPhoto: String, openInfo: String): HomeLiveDetailsFragment {
             val fragment = HomeLiveDetailsFragment()
             val bundle = Bundle()
             bundle.putInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID, anchorId)
             bundle.putString(IntentConstant.HOME_LIVE_CHAT_TITLE, title)
             bundle.putInt(HOME_LIVE_CHAT_STATUE, status)
             bundle.putString(IntentConstant.HOME_LIVE_CHAT_ANCHOR_PHOTO, anchorPhoto)
+            bundle.putString("openInfo", openInfo)
             fragment.arguments = bundle
             return fragment
         }
@@ -861,6 +869,14 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
             setGone(tvAnchorAddAttention)
             setVisible(tvAnchorAddHaveAttention)
         }
+    }
+
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun onEditUserInfo(eventBean: LoginSuccess) {
+        setGone(ivEnvelopeTip)
+        mPresenter.getRoomRed(UserInfoSp.getUserId())
+        mPresenter.loadLiveInfoTwice(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                ?: 0, UserInfoSp.getUserId())
     }
 
 }

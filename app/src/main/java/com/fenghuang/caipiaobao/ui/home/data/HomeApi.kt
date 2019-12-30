@@ -19,7 +19,7 @@ object HomeApi : BaseApi {
 
     private const val HOME_BANNER_LIST = "api/v1/user/get_banner"
     private const val HONE_NOTICE = "api/v1/user/system_notice"
-    private const val HOME_GAME_LIST = "api/v1/live/get_game_list"
+    private const val HOME_GAME_LIST = "api/v1_1/live/get_game_list "
     private const val HOME_HOT_LIVE_LIST = "api/v1/live/get_hot_list"
     private const val HOME_ALL_LIVE_LIST = "api/v1/live/get_all_list"
     private const val HOME_LIVE_POP = "api/v1/user/anchor_pop"
@@ -71,10 +71,10 @@ object HomeApi : BaseApi {
     /**
      * 获取首页游戏榜
      */
-    fun getHomeGameListResult(cacheMode: CacheMode, function: ApiSubscriber<List<HomeGameListResponse>>.() -> Unit) {
-        val subscriber = object : ApiSubscriber<List<HomeGameListResponse>>() {}
+    fun getHomeGameListResult(cacheMode: CacheMode, function: ApiSubscriber<DataBean>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<DataBean>() {}
         subscriber.function()
-        getApi().get<List<HomeGameListResponse>>(HOME_GAME_LIST)
+        getApi().get<DataBean>(HOME_GAME_LIST)
                 .cacheMode(cacheMode)
                 .subscribe(subscriber)
     }
@@ -135,6 +135,15 @@ object HomeApi : BaseApi {
                 .params("user_id", UserInfoSp.getUserId())
                 .subscribe(subscriber)
     }
+
+    fun getHomeLivePopResultNoId(cacheMode: CacheMode, function: ApiSubscriber<List<HomeLivePopResponse>>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<List<HomeLivePopResponse>>() {}
+        subscriber.function()
+        getApi().get<List<HomeLivePopResponse>>(HOME_LIVE_POP)
+                .cacheMode(cacheMode)
+                .subscribe(subscriber)
+    }
+
 
     /**
      * 获取专家直播列表
@@ -237,8 +246,8 @@ object HomeApi : BaseApi {
     fun getSettingPayPassword(oldPassword: String, newPassword: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>("/userinfo/" + HOME_LIVE_RED_SET_PASS)
-//        getApiOther().post<String>(HOME_LIVE_RED_SET_PASS)
+//        getApiOther().post<String>("/userinfo/" + HOME_LIVE_RED_SET_PASS)
+        getApiOther().post<String>(HOME_LIVE_RED_SET_PASS)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("old_password", oldPassword)
                 .params("new_password", newPassword)
@@ -354,8 +363,8 @@ object HomeApi : BaseApi {
     fun isSetPassWord(function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().get<String>("/userinfo/" + HOME_LIVE_IS_SET_PASS_WORD)
-//        getApiOther().get<String>(HOME_LIVE_IS_SET_PASS_WORD)
+//        getApiOther().get<String>("/userinfo/" + HOME_LIVE_IS_SET_PASS_WORD)
+        getApiOther().get<String>(HOME_LIVE_IS_SET_PASS_WORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }

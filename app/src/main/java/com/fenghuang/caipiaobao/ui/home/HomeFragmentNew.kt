@@ -1,5 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home
 
+import android.Manifest
+import android.graphics.Typeface
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,6 +16,7 @@ import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.helper.RxPermissionHelper
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsFragment
@@ -64,6 +67,8 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
         ImageManager.loadRoundLogo(UserInfoSp.getUserPhoto(), findView(R.id.ivTitleLeft))
         setImageResource(findView(R.id.ivTitleRight), R.mipmap.ic_home_top_notice)
+        //先加载默认视图
+        initBaseView()
         smartRefreshLayout.setOnRefreshListener {
             mPresenter.loadData()
         }
@@ -71,14 +76,26 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
             HomeGuideDialog(getPageActivity(), getPageActivity()).show()
             UserInfoSp.putMainGuide(true)
         }
+        checkDialog()
         tvErrorRetry.setOnClickListener {
             //            mPresenter.loadCache()
         }
     }
 
+    /***
+     * 回到主页面弹出一些列的窗口
+     */
+    private fun checkDialog() {
+        // 权限弹窗
+        RxPermissionHelper.request(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.SYSTEM_ALERT_WINDOW,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA)
+    }
+
     override fun initData() {
-        //先加载默认视图
-        initBaseView()
+
     }
 
     private fun initBaseView() {
@@ -116,6 +133,28 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
             if (FastClickUtils.isFastClick()) {
                 LaunchUtils.startFragment(getPageActivity(), MineAnchorGetFragment())
             }
+        }
+
+        rl1.setOnClickListener {
+            tvRedA.setTextColor(getColor(R.color.black))
+            tvRedA.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            tvRedF.setTextColor(getColor(R.color.color_999999))
+            tvRedF.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            setVisible(tvRedAB)
+            setGone(tvRedFB)
+            setVisible(gameTypeGridPager)
+            setGone(gameTypeGridPagerSecond)
+        }
+
+        rl2.setOnClickListener {
+            tvRedF.setTextColor(getColor(R.color.black))
+            tvRedF.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            tvRedA.setTextColor(getColor(R.color.color_999999))
+            tvRedA.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            setVisible(tvRedFB)
+            setGone(tvRedAB)
+            setGone(gameTypeGridPager)
+            setVisible(gameTypeGridPagerSecond)
         }
 
     }
@@ -417,12 +456,12 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
     /**
      * 更新游戏榜
      */
-    fun updateGameList(it: List<HomeGameListResponse>) {
+    fun updateGameList(it: List<DataBean.HomeGameListResponse>) {
         if (it.isNotEmpty()) {
             RxBus.get().post(HomeClickVideo(it))
             gameTypeGridPager.setDataAllCount(it.size)
                     .setItemBindDataListener { imageView, tvTitle, ivLiveStatus, _, _, position ->
-                        if (it.isNotEmpty()) ImageManager.loadHomeGameListLogo(it[position].image, imageView!!)
+                        if (it.isNotEmpty()) ImageManager.loadQuizImageRes(it[position].image, imageView!!)
                         if (it.isNotEmpty()) tvTitle.text = it[position].name
                         if ((it.isNotEmpty()) && it[position].live_status == 1) {
                             ivLiveStatus.setGifResource(R.drawable.ic_home_live_gif)
@@ -435,7 +474,35 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
                     .setGridItemClickListener { position, _ ->
                         if (FastClickUtils.isFastClick()) {
                             if (it.isNotEmpty() && it[position].live_status == 1) {
-                                startLiveRoom(it[position].live_status, it[position].anchor_id, it[position].name, it[position].image)
+                                startLiveRoom(it[position].live_status, it[position].anchor_id, it[position].name!!, it[position].image!!)
+                            } else ToastUtils.showNormal("此彩种暂无直播")
+                        }
+                    }
+                    .show()
+        }
+    }
+
+    /**
+     * 更新游戏榜2
+     */
+    fun updateGameListSecond(it: List<DataBean.HomeGameListResponse>) {
+        if (it.isNotEmpty()) {
+            gameTypeGridPagerSecond.setDataAllCount(it.size)
+                    .setItemBindDataListener { imageView, tvTitle, ivLiveStatus, _, _, position ->
+                        if (it.isNotEmpty()) ImageManager.loadQuizImageRes(it[position].image, imageView!!)
+                        if (it.isNotEmpty()) tvTitle.text = it[position].name
+                        if ((it.isNotEmpty()) && it[position].live_status == 1) {
+                            ivLiveStatus.setGifResource(R.drawable.ic_home_live_gif)
+                            ivLiveStatus.play(-1)
+                            ivLiveStatus.visibility = View.VISIBLE
+                        } else {
+                            ivLiveStatus.visibility = View.GONE
+                        }
+                    }
+                    .setGridItemClickListener { position, _ ->
+                        if (FastClickUtils.isFastClick()) {
+                            if (it.isNotEmpty() && it[position].live_status == 1) {
+                                startLiveRoom(it[position].live_status, it[position].anchor_id, it[position].name!!, it[position].image!!)
                             } else ToastUtils.showNormal("此彩种暂无直播")
                         }
                     }
@@ -499,7 +566,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
 //        if (status == 1) {
         if (NetWorkUtils.isNetworkConnected()) {
 
-            LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(anchorId, name, status, photo))
+            LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(anchorId, name, status, photo, "HomeLive"))
 //            val intent = Intent(getPageActivity(), HomeLiveDetailsActivity::class.java)
 //            intent.putExtra(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID,anchorId)
 //            intent.putExtra(IntentConstant.HOME_LIVE_CHAT_TITLE,name)
@@ -535,9 +602,18 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
     fun onEditUserInfo(eventBean: LoginSuccess) {
         if (eventBean.loginOrExit) {
             ImageManager.loadRoundLogo(eventBean.avatar, findView(R.id.ivTitleLeft))
+            mPresenter.liveFaber(true)
         } else {
             findView<ImageView>(R.id.ivTitleLeft).setImageResource(R.mipmap.ic_mine_base_user)
+            mPresenter.liveFaberNoId(true)
         }
+
+    }
+
+    override fun onSupportVisible() {
+        super.onSupportVisible()
+
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
     }
 
 }

@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.fregamnt_modify_password_phone.*
 
 class MineModifyPasswordByPhone : BaseNavFragment() {
 
-    private var identifyCode = "-1"
+    private var identifyCodeGet = "-1"
 
     private var isGetSingCode = false
 
@@ -53,7 +53,6 @@ class MineModifyPasswordByPhone : BaseNavFragment() {
                     LoginApi.userGetCode(etPhonePass.text.toString(), "chg_pwd") {
                         onSuccess {
                             time(tvGetIdentifyCodePass)
-                            identifyCode = it.code
                             isGetSingCode = true
                         }
                         onFailed { ToastUtils.showError(it.getMsg()) }
@@ -68,10 +67,8 @@ class MineModifyPasswordByPhone : BaseNavFragment() {
                 if (UserInfoSp.getUserPhone() == etPhonePass.text.toString()) {
                     if (isGetSingCode) {
                         if (!TextUtils.isEmpty(etPhoneSignNum.text)) {
-                            if (identifyCode == etPhoneSignNum.text.toString() || tvGetIdentifyCodePass.text.toString() == "获取验证码") {
                                 pop()
                                 LaunchUtils.startFragment(getPageActivity(), MineModifyPasswordByPhoneNext.newInstance(etPhoneSignNum.text.toString(), etPhonePass.text.toString()))
-                            } else ToastUtils.showError("验证码错误")
                         } else ToastUtils.showError("请输验证码")
                     } else ToastUtils.showError("请先获取验证码")
                 } else ToastUtils.showError("请确认手机号是否正确")

@@ -3,9 +3,11 @@ package com.fenghuang.caipiaobao.ui.home
 import android.annotation.SuppressLint
 import android.util.Log
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeExpertRecommendResponse
+import com.fenghuang.caipiaobao.ui.home.data.HomeGameListResponse
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveListResponse
 import com.pingerx.rxnetgo.rxcache.CacheMode
 import io.reactivex.Flowable
@@ -82,14 +84,19 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
     private fun getGameListInfo(cacheMode: CacheMode) {
         HomeApi.getHomeGameListResult(cacheMode) {
             onSuccess {
-                if (mView.isActive() && it.isNotEmpty()) {
-                    mView.updateGameList(it)
+
+                if (mView.isActive()) {
+//                    val s =   Gson().fromJson(JsonParser().parse(it).asJsonObject.get("1"),object :TypeToken<ArrayList<HomeGameListResponse>>(){}.type)
+                    mView.updateGameList(it.`_$1`!!)
+                    mView.updateGameListSecond(it.`_$2`!!)
+
                 }
                 getLiveIsListInfo(cacheMode)
             }
-
+            ArrayList<HomeGameListResponse>()::class.java
             onFailed {
                 Log.i("getGameListInfo", "失败")
+                LogUtils.e("8888888888888888888888888888888" + it)
             }
         }
     }
@@ -104,19 +111,24 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
                 HomeApi.getHomeExpertListResult(6, 0, cacheMode),
                 HomeApi.getHomeExpertRecommendResult(cacheMode)).subscribe {
             mView.hidePageLoading()
-            when (mCount) {
-                0 -> {
-                    mView.updateHotLive(it as List<HomeLiveListResponse>)
+            try {
+                when (mCount) {
+                    0 -> {
+                        mView.updateHotLive(it as List<HomeLiveListResponse>)
+                    }
+                    1 -> {
+                        mView.updateExpertLive(it as List<HomeLiveListResponse>)
+                    }
+                    2 -> {
+                        mView.updateExpertRecommend(it as List<HomeExpertRecommendResponse>)
+                    }
+
                 }
-                1 -> {
-                    mView.updateExpertLive(it as List<HomeLiveListResponse>)
-                }
-                2 -> {
-                    mView.updateExpertRecommend(it as List<HomeExpertRecommendResponse>)
-                }
+                mCount++
+            } catch (E: Exception) {
 
             }
-            mCount++
+
         }
 //
 //        HomeApi.getHomeHotLiveListResult(6, 0, cacheMode) {
@@ -155,7 +167,7 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
             onSuccess {
                 if (mView.isActive() && it.isNotEmpty()) {
                     if (isUpDate) {
-                        if (it.isNotEmpty()) mView.updateLivePop(it)
+                        mView.updateLivePop(it)
                     }
                 }
                 HomeApi.getAdUrl {
@@ -169,5 +181,20 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
         }
     }
 
+    /**
+     * 未登录直播预告
+     */
 
+    fun liveFaberNoId(isUpDate: Boolean) {
+        //直播预告
+        HomeApi.getHomeLivePopResultNoId(CacheMode.NONE) {
+            onSuccess {
+                if (mView.isActive() && it.isNotEmpty()) {
+                    if (isUpDate) {
+                        mView.updateLivePop(it)
+                    }
+                }
+            }
+        }
+    }
 }

@@ -44,7 +44,7 @@ class LoginPresenter : BaseMvpPresenter<LoginFragment>() {
         LoginApi.userGetCode(phone, type) {
             onSuccess {
                 if (mView.isActive()) {
-                    mView.identify = it.code
+//                    mView.identify = it.code
                     time(editText)
                     mView.registerBtn = true
 //                editText.setText(it.code)

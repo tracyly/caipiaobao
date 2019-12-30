@@ -1,5 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home.data
 
+import com.google.gson.annotations.SerializedName
+
 /**
  *  author : Peter
  *  date   : 2019/9/5 13:10
@@ -64,9 +66,36 @@ data class HomeExpertRecommendResponse(var id: Int,
 data class HomeClickMine(var isClick: Boolean)
 
 //小视屏点击跳转
-data class HomeClickVideo(var list: List<HomeGameListResponse>)
+data class HomeClickVideo(var list: List<DataBean.HomeGameListResponse>)
 
 //关注取关
 data class HomeAttention(var isFollow: Boolean)
+
+
+class DataBean {
+    @SerializedName("1")
+    var `_$1`: List<HomeGameListResponse>? = null
+    @SerializedName("2")
+    var `_$2`: List<HomeGameListResponse>? = null
+    @SerializedName("3")
+    var `_$3`: List<HomeGameListResponse>? = null
+    @SerializedName("4")
+    var `_$4`: List<HomeGameListResponse>? = null
+
+    class HomeGameListResponse {
+        var type: Int = 0
+        var anchor_id: Int = 0
+        var game_id: Int = 0
+        var name: String? = null
+        var image: String? = null
+        var image_pc: String? = null
+        var live_status: Int = 0
+        var live_intro: String? = null
+        var online: Int = 0
+        var lottery_id: Int = 0
+        var live_status_txt: String? = null
+    }
+
+}
 
 

@@ -30,7 +30,7 @@ class MineRewardRecordAdapter(context: Context, val rewardRecordPresenter: MineR
         override fun onBindData(data: MineRewardRecordResponse) {
             ImageManager.loadRoundLogo(data.avatar, findView(R.id.imgRewardPhoto))
             setText(R.id.tvRewardName, data.nickname)
-            setText(R.id.tvRewardTime, TimeUtils.longToDateString(data.create_time))
+            setText(R.id.tvRewardTime, TimeUtils.longToDateStringYY(data.create_time))
             setText(R.id.tvGiftName, data.giftname)
             setText(R.id.tvGiftNum, data.gift_num.toString())
             findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {

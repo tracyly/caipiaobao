@@ -37,8 +37,8 @@ object LoginApi : BaseApi {
     fun userGetCode(phone: String, type: String, function: ApiSubscriber<RegisterCode>.() -> Unit) {
         val subscriber = object : ApiSubscriber<RegisterCode>() {}
         subscriber.function()
-        //        getApiOther().post<RegisterCode>(GET_CODE)
-        getApiOther().post<RegisterCode>("/userinfo/" + GET_CODE)
+        getApiOther().post<RegisterCode>(GET_CODE)
+//        getApiOther().post<RegisterCode>("/userinfo/" + GET_CODE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("user_id", UserInfoSp.getUserId())
                 .params("phone", phone)
@@ -53,8 +53,8 @@ object LoginApi : BaseApi {
     fun userGetCodeNoType(phone: String, captcha: String, new_pwd: String, type: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        //        getApiOther().post<RegisterCode>(GET_CODE)
-        getApiOther().post<String>("/userinfo/" + GET_PASSWORD)
+//        getApiOther().post<String>("/userinfo/" +GET_PASSWORD)
+        getApiOther().post<String>(GET_PASSWORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("user_id", UserInfoSp.getUserId())
                 .params("phone", phone)
@@ -71,8 +71,8 @@ object LoginApi : BaseApi {
     fun userRegister(phone: String, code: String, password: String, is_auto_login: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>("/userinfo/" + REGISTER)
-//        getApiOther().post<String>(REGISTER)
+//        getApiOther().post<String>("/userinfo/" + REGISTER)
+        getApiOther().post<String>(REGISTER)
                 .params("phone", phone)
                 .params("password", password)
                 .params("captcha", code)
@@ -88,8 +88,8 @@ object LoginApi : BaseApi {
     fun userLoginWithPassWord(userName: String, passWord: String, function: ApiSubscriber<LoginResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<LoginResponse>() {}
         subscriber.function()
-        getApiOther().post<LoginResponse>("/userinfo/" + LOGIN)
-//        getApiOther().post<LoginResponse>(LOGIN)
+//        getApiOther().post<LoginResponse>("/userinfo/" + LOGIN)
+        getApiOther().post<LoginResponse>(LOGIN)
                 .params("username", userName)
                 .params("password", passWord)
                 .params("mode", 1)
@@ -103,8 +103,8 @@ object LoginApi : BaseApi {
     fun userLoginWithIdentify(phoneNum: String, captcha: String, isAutoLogin: Int, function: ApiSubscriber<LoginResponse>.() -> Unit) {
         val subscriber = object : ApiSubscriber<LoginResponse>() {}
         subscriber.function()
-        getApiOther().post<LoginResponse>("/userinfo/" + LOGIN)
-//        getApiOther().post<LoginResponse>(LOGIN)
+//        getApiOther().post<LoginResponse>("/userinfo/" + LOGIN)
+        getApiOther().post<LoginResponse>(LOGIN)
                 .params("phone", phoneNum)
                 .params("captcha", captcha)
                 .params("mode", 3)
@@ -130,7 +130,8 @@ object LoginApi : BaseApi {
     fun modifyPassWord(phone: String, captcha: String, new_pwd: String, type: Int, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>("/userinfo/" + SETTING_PASSWORD)
+        getApiOther().post<String>(SETTING_PASSWORD)
+//        getApiOther().post<String>("/userinfo/" + SETTING_PASSWORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("phone", phone)
                 .params("captcha", captcha)
@@ -146,7 +147,8 @@ object LoginApi : BaseApi {
     fun modifyPassWord(password: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>("/userinfo/" + VERIFY_PASSWORD)
+        getApiOther().post<String>(VERIFY_PASSWORD)
+//        getApiOther().post<String>("/userinfo/" + VERIFY_PASSWORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("password", password)
                 .subscribe(subscriber)

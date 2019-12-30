@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/smartRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
     <com.scwang.smartrefresh.layout.header.ClassicsHeader
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,6 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
+            android:background="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -83,10 +86,108 @@
                 </com.fenghuang.baselib.widget.round.RoundRelativeLayout>
 
                 <!--.游戏种类 -->
+                <com.fenghuang.baselib.widget.round.RoundLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    app:rv_backgroundColor="@color/white"
+                    app:rv_cornerRadius_TL="@dimen/dp_5"
+                    app:rv_cornerRadius_TR="@dimen/dp_5">
+
+                    <RelativeLayout
+                        android:id="@+id/rl1"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvRedA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="彩票"
+                            android:textColor="@color/color_999999"
+                            android:textSize="@dimen/sp_16" />
+
+                        <TextView
+                            android:id="@+id/tvRedAB"
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_2"
+                            android:layout_below="@+id/tvRedA"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:background="@color/text_red" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="@dimen/dp_2"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/color_EEEEEE" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl2"
+                        android:layout_width="@dimen/dp_0"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:id="@+id/tvRedF"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="红包"
+                            android:textColor="@color/color_999999"
+                            android:textSize="@dimen/sp_16" />
+
+                        <TextView
+                            android:id="@+id/tvRedFB"
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_2"
+                            android:layout_below="@+id/tvRedF"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="@dimen/dp_4"
+                            android:background="@color/text_red"
+                            android:visibility="gone" />
+                    </RelativeLayout>
+
+                </com.fenghuang.baselib.widget.round.RoundLinearLayout>
+
                 <com.fenghuang.caipiaobao.widget.pagegridview.GridPager
                     android:id="@+id/gameTypeGridPager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:background_color="@color/white"
+                    app:column_count="3"
+                    app:img_height="@dimen/dp_66"
+                    app:img_width="@dimen/dp_76"
+                    app:imgtext_margin="@dimen/dp_12"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:point_height="@dimen/dp_2"
+                    app:point_is_circle="false"
+                    app:point_is_show="true"
+                    app:point_margin="@dimen/dp_12"
+                    app:point_margin_bottom="@dimen/dp_10"
+                    app:point_margin_page="@dimen/dp_20"
+                    app:point_normal_color="@color/color_EEEEEE"
+                    app:point_select_color="@color/color_FF513E"
+                    app:point_width="@dimen/dp_14"
+                    app:row_count="2"
+                    app:text_color="@color/color_333333"
+                    app:text_size="@dimen/sp_12"
+                    app:verticalSpacing="@dimen/dp_10" />
+
+                <com.fenghuang.caipiaobao.widget.pagegridview.GridPager
+                    android:id="@+id/gameTypeGridPagerSecond"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:visibility="gone"
                     app:background_color="@color/white"
                     app:column_count="3"
                     app:img_height="@dimen/dp_66"
@@ -224,9 +325,9 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/dp_40"
+                    android:layout_marginTop="@dimen/dp_10"
                     android:paddingStart="@dimen/dp_14"
                     android:paddingTop="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_10"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:ignore="RtlSymmetry">
@@ -322,6 +423,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
                     android:descendantFocusability="blocksDescendants">
 
                     <androidx.recyclerview.widget.RecyclerView

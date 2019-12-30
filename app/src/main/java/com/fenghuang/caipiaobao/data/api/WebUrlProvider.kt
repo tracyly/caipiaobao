@@ -11,7 +11,7 @@ import java.lang.reflect.Type
  */
 object WebUrlProvider {
     //   wss//www.cpbadmin.com/wss   ws//www.cpbh5.com/wss
-    const val API_URL_WEB_SOCKET = "ws://www.cpbh5.com/wss"
+    const val API_URL_WEB_SOCKET = "ws://www.cpbadmin.com/wss"
 
     private fun getBaseUrl(): String {
         return if (DebugUtils.isDebugModel()) {

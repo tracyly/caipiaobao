@@ -1,6 +1,9 @@
 package com.fenghuang.baselib.utils
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.text.TextUtils
+import android.view.Gravity
 import android.widget.Toast
 import androidx.annotation.StringRes
 import es.dmoral.toasty.Toasty
@@ -69,7 +72,8 @@ object ToastUtils {
             return
         }
 //        Toasty.success(AppUtils.getContext(), success!!, Toast.LENGTH_SHORT, true).show()
-        Toasty.normal(AppUtils.getContext(), success!!, Toast.LENGTH_SHORT).show()
+//        Toasty.normal(AppUtils.getContext(), success!!, Toast.LENGTH_SHORT).show()
+        show(success!!)
     }
 
     /**
@@ -80,7 +84,8 @@ object ToastUtils {
             return
         }
 //        Toasty.error(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT, true).show()
-        Toasty.normal(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT).show()
+//        Toasty.normal(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT).show()
+        show(error!!)
     }
 
     /**
@@ -91,7 +96,8 @@ object ToastUtils {
             return
         }
 //        Toasty.error(AppUtils.getContext(), error!!, Toast.LENGTH_LONG, true).show()
-        Toasty.normal(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT).show()
+//        Toasty.normal(AppUtils.getContext(), error!!, Toast.LENGTH_SHORT).show()
+        show(error!!)
     }
 
 
@@ -100,7 +106,8 @@ object ToastUtils {
             return
         }
 //        Toasty.info(AppUtils.getContext(), info!!, Toast.LENGTH_SHORT, true).show()
-        Toasty.normal(AppUtils.getContext(), info!!, Toast.LENGTH_SHORT).show()
+//        Toasty.normal(AppUtils.getContext(), info!!, Toast.LENGTH_SHORT).show()
+        show(info!!)
     }
 
 
@@ -109,14 +116,38 @@ object ToastUtils {
             return
         }
 //        Toasty.warning(AppUtils.getContext(), warning!!, Toast.LENGTH_SHORT, true).show()
-        Toasty.normal(AppUtils.getContext(), warning!!, Toast.LENGTH_SHORT).show()
+        show(warning!!)
     }
 
     fun showNormal(normal: String?) {
         if (TextUtils.isEmpty(normal)) {
             return
         }
-        Toasty.normal(AppUtils.getContext(), normal!!, Toast.LENGTH_SHORT).show()
+//        Toasty.normal(AppUtils.getContext(), normal!!, Toast.LENGTH_SHORT).show()
+        show(normal!!)
     }
 
+
+    private var mToast: Toast? = null
+
+    @SuppressLint("ShowToast")
+    fun init(context: Context) {
+        mToast = Toast.makeText(context, null, Toast.LENGTH_SHORT)
+    }
+
+    fun show(resId: Int) {
+        mToast!!.setText(resId)
+        mToast!!.show()
+    }
+
+    fun show(charSequence: CharSequence) {
+        mToast!!.setText(charSequence)
+        mToast!!.show()
+    }
+
+    fun showBottom(charSequence: CharSequence) {
+        mToast!!.setText(charSequence)
+        mToast!!.setGravity(Gravity.BOTTOM, 0, ViewUtils.dp2px(30))
+        mToast!!.show()
+    }
 }

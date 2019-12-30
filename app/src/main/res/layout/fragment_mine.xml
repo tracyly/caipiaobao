@@ -39,7 +39,6 @@
                     android:layout_width="@dimen/dp_64"
                     android:layout_height="@dimen/dp_64"
                     android:layout_marginTop="@dimen/dp_64"
-                    android:background="@mipmap/ic_mine_base_user"
                     tools:ignore="ContentDescription" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout

@@ -183,3 +183,7 @@ data class BetLotteryBean(var betting: String, var customer: String, var gameUrl
 
 //开播推送
 data class AnchorPush(var anchor_id: String, var anchor_avatar: String, var anchor_nickname: String)
+
+
+//关闭更多直播
+data class CloseMore(var isClose: Boolean)

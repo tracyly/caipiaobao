@@ -62,8 +62,8 @@ object MineApi : BaseApi {
     fun getUserInfo(function: ApiSubscriber<MineUserInfo>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineUserInfo>() {}
         subscriber.function()
-        getApiOther().get<MineUserInfo>("/userinfo/" + USER_INFO)
-//        getApiOther().get<MineUserInfo>(USER_INFO)
+//        getApiOther().get<MineUserInfo>("/userinfo/" + USER_INFO)
+        getApiOther().get<MineUserInfo>(USER_INFO)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -136,8 +136,8 @@ object MineApi : BaseApi {
     fun upLoadPersonalInfo(nickname: String, gender: Int, profile: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>("/userinfo/" + USER_INFO_EDIT)
-//        getApiOther().post<String>(USER_INFO_EDIT)
+//        getApiOther().post<String>("/userinfo/" + USER_INFO_EDIT)
+        getApiOther().post<String>(USER_INFO_EDIT)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("nickname", nickname)
                 .params("gender", gender)
@@ -178,8 +178,8 @@ object MineApi : BaseApi {
     fun getUserBalance(function: ApiSubscriber<MineUserBalance>.() -> Unit) {
         val subscriber = object : ApiSubscriber<MineUserBalance>() {}
         subscriber.function()
-        getApiOther().get<MineUserBalance>("/userinfo/" + USER_BALANCE)
-//        getApiOther().get<MineUserBalance>(USER_BALANCE)
+//        getApiOther().get<MineUserBalance>("/userinfo/" + USER_BALANCE)
+        getApiOther().get<MineUserBalance>(USER_BALANCE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -202,8 +202,8 @@ object MineApi : BaseApi {
     fun getUserBankList(function: ApiSubscriber<List<MineUserBankList>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineUserBankList>>() {}
         subscriber.function()
-        getApiOther().get<List<MineUserBankList>>("/userinfo/" + USER_BANK_LIST)
-//        getApiOther().get<List<MineUserBankList>>(USER_BANK_LIST)
+//        getApiOther().get<List<MineUserBankList>>("/userinfo/" + USER_BANK_LIST)
+        getApiOther().get<List<MineUserBankList>>(USER_BANK_LIST)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -215,8 +215,8 @@ object MineApi : BaseApi {
     fun getBankList(function: ApiSubscriber<List<MineBankList>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<MineBankList>>() {}
         subscriber.function()
-        getApiOther().get<List<MineBankList>>("/userinfo/" + BANK_LIST)
-//        getApiOther().get<List<MineBankList>>(BANK_LIST)
+//        getApiOther().get<List<MineBankList>>("/userinfo/" + BANK_LIST)
+        getApiOther().get<List<MineBankList>>(BANK_LIST)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }
@@ -228,8 +228,8 @@ object MineApi : BaseApi {
     fun verifyPayPassWord(password: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>("/userinfo/" + VERIFY_PAY_PASS_WORD)
-//        getApiOther().post<String>(VERIFY_PAY_PASS_WORD)
+//        getApiOther().post<String>("/userinfo/" + VERIFY_PAY_PASS_WORD)
+        getApiOther().post<String>(VERIFY_PAY_PASS_WORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("password", password)
                 .subscribe(subscriber)
@@ -257,8 +257,8 @@ object MineApi : BaseApi {
     fun bingBankCard(bank_code: String, province: String, city: String, branch: String, realname: String, card_num: String, fund_password: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>("/userinfo" + USER_BIND_CARD)
-//        getApiOther().post<String>(USER_BIND_CARD)
+//        getApiOther().post<String>("/userinfo" + USER_BIND_CARD)
+        getApiOther().post<String>(USER_BIND_CARD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("bank_code", bank_code)
                 .params("province", province)
@@ -291,8 +291,8 @@ object MineApi : BaseApi {
     fun modifyPassWord(old_password: String, new_password: String, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther().post<String>("/userinfo" + USER_MODIFY_PASSWORD)
-//        getApiOther().post<String>(USER_BIND_CARD)
+//        getApiOther().post<String>("/userinfo" + USER_MODIFY_PASSWORD)
+        getApiOther().post<String>(USER_MODIFY_PASSWORD)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("old_password", old_password)
                 .params("new_password", new_password)

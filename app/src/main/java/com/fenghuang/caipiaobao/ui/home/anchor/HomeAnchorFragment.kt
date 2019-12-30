@@ -9,9 +9,14 @@ import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
 import com.fenghuang.caipiaobao.manager.ImageManager
+import com.fenghuang.caipiaobao.ui.home.data.CloseMore
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveAnchorInfoBean
+import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsFragment
 import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
+import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.utils.UserInfoSp
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_home_anchor_information.*
 
 
@@ -36,6 +41,8 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
     override fun initContentView() {
         anchorTabView.setRankingTab()
     }
+
+    override fun isRegisterRxBus() = true
 
     override fun initEvent() {
         ivAnchorBack.setOnClickListener { pop() }
@@ -69,10 +76,14 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
         }
 
         anchorLiveStatusLayout.setOnClickListener {
-            //            if (liveSate != -1 && avatar != "-1")
-//                LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
-//                        ?: 0, "", liveSate, avatar))
-            pop()
+            if (arguments?.getBoolean("isLiveHome")!!) {
+                pop()
+            } else {
+                if (liveSate != -1 && avatar != "-1")
+                    LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
+                            ?: 0, "", liveSate, avatar, "HomeAnchor"))
+            }
+
         }
 
     }
@@ -144,10 +155,11 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
 
 
     companion object {
-        fun newInstance(anchorId: Int): HomeAnchorFragment {
+        fun newInstance(anchorId: Int, boolean: Boolean): HomeAnchorFragment {
             val fragment = HomeAnchorFragment()
             val bundle = Bundle()
             bundle.putInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID, anchorId)
+            bundle.putBoolean("isLiveHome", boolean)
             fragment.arguments = bundle
             return fragment
         }
@@ -156,5 +168,10 @@ class HomeAnchorFragment : BaseMvpFragment<HomeAnchorPresenter>() {
     override fun onDestroy() {
         super.onDestroy()
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
+    }
+
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun CloseMore(eventBean: CloseMore) {
+        pop()
     }
 }

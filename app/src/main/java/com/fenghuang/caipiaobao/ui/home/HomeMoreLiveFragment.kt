@@ -8,7 +8,10 @@ import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.constant.IntentConstant
+import com.fenghuang.caipiaobao.ui.home.data.CloseMore
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveListResponse
+import com.hwangjr.rxbus.annotation.Subscribe
+import com.hwangjr.rxbus.thread.EventThread
 import kotlinx.android.synthetic.main.fragment_live_more.*
 
 
@@ -34,6 +37,8 @@ class HomeMoreLiveFragment : BaseMvpFragment<HomeMoreLivePresenter>() {
     override fun getContentResID() = R.layout.fragment_live_more
 
     override fun isShowBackIconWhite() = false
+
+    override fun isRegisterRxBus() = true
 
     override fun initContentView() {
         super.initContentView()
@@ -74,6 +79,11 @@ class HomeMoreLiveFragment : BaseMvpFragment<HomeMoreLivePresenter>() {
         }
     }
 
+
+    @Subscribe(thread = EventThread.MAIN_THREAD)
+    fun CloseMore(eventBean: CloseMore) {
+        pop()
+    }
 
     companion object {
         fun newInstance(which: Int): HomeMoreLiveFragment {

@@ -21,7 +21,6 @@ class MineInvestPresenter : BaseMvpPresenter<MineInvestFragment>() {
         RechargeApi.getToPayUrl(amount, channels, route) {
                 onSuccess {
                     if (mView.isActive()) {
-
                         mView.investWebView.loadUrl(it.url.replace("\\", "/"))
                         mView.hidePageLoading()
                     }

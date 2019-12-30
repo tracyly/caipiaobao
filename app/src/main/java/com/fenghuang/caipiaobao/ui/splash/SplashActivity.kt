@@ -23,6 +23,12 @@ class SplashActivity : Activity(), CancelAdapt {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //首次启动 Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT 为 0，再次点击图标启动时就不为零了
+        if (intent.flags and Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT != 0) {
+            finish()
+            return
+        }
+
         StatusBarUtils.setStatusBarByFlags(this)
         setContentView(R.layout.activity_splash)
 //

@@ -1,6 +1,5 @@
 package com.fenghuang.caipiaobao.ui.home.anchor
 
-import android.graphics.drawable.BitmapDrawable
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
@@ -25,7 +24,6 @@ class HomeAnchorPresenter : BaseMvpPresenter<HomeAnchorFragment>() {
             onSuccess {
                 if (mView.isActive()) {
                     mView.updateInfo(it)
-                    val image = (mView.imgAnchorBg.drawable as BitmapDrawable).bitmap
                     mView.hidePageLoadingDialog()
                 }
             }

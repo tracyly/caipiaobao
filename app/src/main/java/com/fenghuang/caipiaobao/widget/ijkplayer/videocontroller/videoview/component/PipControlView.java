@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 
 import com.fenghuang.caipiaobao.R;
 import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsFragment;
+import com.fenghuang.caipiaobao.utils.FastClickUtils;
 import com.fenghuang.caipiaobao.utils.LaunchUtils;
 import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.controller.ControlWrapper;
 import com.fenghuang.caipiaobao.widget.ijkplayer.videocontroller.videoplayer.controller.IControlComponent;
@@ -60,9 +61,12 @@ public class PipControlView extends FrameLayout implements IControlComponent, Vi
             PIPManager.getInstance().stopFloatWindow();
             PIPManager.getInstance().reset();
         } else {
-            PIPManager.getInstance().stopFloatWindow();
-            PIPManager.getInstance().reset();
-            LaunchUtils.INSTANCE.startFragment(PIPManager.getInstance().getActivity(), HomeLiveDetailsFragment.Companion.newInstance(PIPManager.getInstance().getAnchorID(), "", PIPManager.getInstance().getLiveState(), PIPManager.getInstance().getAnchorPhoto()));
+            if (FastClickUtils.INSTANCE.isFastClick()) {
+                LaunchUtils.INSTANCE.startFragment(PIPManager.getInstance().getActivity(), HomeLiveDetailsFragment.Companion.newInstance(PIPManager.getInstance().getAnchorID(), "", PIPManager.getInstance().getLiveState(), PIPManager.getInstance().getAnchorPhoto(), ""));
+                PIPManager.getInstance().stopFloatWindow();
+                PIPManager.getInstance().reset();
+            }
+
         }
 
 

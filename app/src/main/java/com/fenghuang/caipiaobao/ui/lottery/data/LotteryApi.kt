@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.lottery.data
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.utils.UserInfoSp
+import com.pingerx.rxnetgo.rxcache.CacheMode
 
 
 /**
@@ -44,6 +45,7 @@ object LotteryApi : BaseApi {
         subscriber.function()
         getAipOpenUrl()
                 .post<LotteryCodeNewResponse>(LOTTERY_NEW_CODE)
+                .cacheMode(CacheMode.NONE)
                 .params("lottery_id", lotteryId)
                 .subscribe(subscriber)
     }
@@ -70,9 +72,9 @@ object LotteryApi : BaseApi {
     fun getExpertPlan(lottery_id: Int, issue: String, function: ApiSubscriber<List<LotteryExpertPlanResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<LotteryExpertPlanResponse>>() {}
         subscriber.function()
-        getApiOther()
-                .get<List<LotteryExpertPlanResponse>>("/forum/" + LOTTERY_EXPERT_PLAN)
-//                .get<List<LotteryExpertPlanResponse>>(LOTTERY_EXPERT_PLAN)
+        getApiThird()
+//                .get<List<LotteryExpertPlanResponse>>("/forum/" + LOTTERY_EXPERT_PLAN)
+                .get<List<LotteryExpertPlanResponse>>(LOTTERY_EXPERT_PLAN)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("lottery_id", lottery_id)
                 .params("issue", issue.toLong() + 1)

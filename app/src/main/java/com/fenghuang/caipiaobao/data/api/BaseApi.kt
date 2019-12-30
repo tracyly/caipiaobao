@@ -1,7 +1,8 @@
 package com.fenghuang.caipiaobao.data.api
 
-import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
-import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER_TEST
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_Main
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_OTHER
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV_PLAN
 import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_OPEN
 import com.pingerx.rxnetgo.RxNetGo
 
@@ -14,14 +15,14 @@ interface BaseApi {
      * 获取URL  admin
      */
     fun getBaseUrl(): String {
-        return API_URL_DEV
+        return API_URL_DEV_Main
     }
 
     /**
      * 获取URL  Me
      */
     fun getBaseUrlMe(): String {
-        return API_URL_DEV_OTHER_TEST
+        return API_URL_DEV_OTHER
     }
 
 
@@ -38,6 +39,14 @@ interface BaseApi {
      */
     fun getApiOther(): RxNetGo {
         return RxNetGo.getInstance().getRetrofitService(getBaseUrlMe())
+    }
+
+
+    /**
+     * 圈子 专家计划专用BaseUrl
+     */
+    fun getApiThird(): RxNetGo {
+        return RxNetGo.getInstance().getRetrofitService(API_URL_DEV_PLAN)
     }
 
 

@@ -32,7 +32,7 @@ class MainActivity : BasePageActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         initPreData()
         super.onCreate(savedInstanceState)
-        checkDialog()
+//        checkDialog()
     }
 
     /***

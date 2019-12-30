@@ -32,9 +32,7 @@ class HomeLiveChatHolder : MultiTypeViewHolder<HomeLiveChatBeanNew, HomeLiveChat
         override fun onBindData(data: HomeLiveChatBeanNew?) {
             val tvChatContent = findView<DraweeTextView>(R.id.tvChatContent)
             val builder = SpannableStringBuilder()
-            LogUtils.e("---***----" + (data))
             when (data?.type) {
-
                 "first" -> {
                     val start = builder.length
                     builder.append("[img]")

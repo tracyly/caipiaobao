@@ -17,6 +17,10 @@ object ApiConstant {
 
     const val API_URL_DEV_OTHER = "http://47.75.130.69:18306"
     /**
+     * 专家计划专用
+     */
+    const val API_URL_DEV_PLAN = "http://47.75.130.69:18308"
+    /**
      * 测试
      */
     const val API_URL_DEV = "http://www.cpbh5.com"

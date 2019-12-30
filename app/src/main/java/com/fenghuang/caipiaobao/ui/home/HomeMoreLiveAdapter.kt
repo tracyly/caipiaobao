@@ -11,6 +11,7 @@ import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveListResponse
 import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsFragment
+import com.fenghuang.caipiaobao.utils.FastClickUtils
 import com.fenghuang.caipiaobao.utils.LaunchUtils
 import com.fenghuang.caipiaobao.widget.cardview.LCardView
 import com.fenghuang.caipiaobao.widget.gif.GifImageView
@@ -61,7 +62,9 @@ class HomeMoreLiveAdapter(context: Context) : BaseRecyclerAdapter<HomeLiveListRe
             }
             findView<LCardView>(R.id.cardViewItem).setOnClickListener {
                 if (NetWorkUtils.isNetworkConnected()) {
-                    LaunchUtils.startFragment(getContext(), HomeLiveDetailsFragment.newInstance(data.anchor_id, data.name, data.live_status, data.avatar))
+                    if (FastClickUtils.isFastClick()) {
+                        LaunchUtils.startFragment(getContext(), HomeLiveDetailsFragment.newInstance(data.anchor_id, data.name, data.live_status, data.avatar, "HomeLiveMoreLive"))
+                    }
                 } else ToastUtils.showError("网络连接已断开")
             }
         }

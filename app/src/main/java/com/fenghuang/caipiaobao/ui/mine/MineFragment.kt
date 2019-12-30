@@ -73,7 +73,6 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
             ImageManager.loadRoundFrameUserLogo(UserInfoSp.getUserPhoto(), userPhoto, 10, getColor(R.color.white))
             userName.text = UserInfoSp.getUserNickName()
             RxBus.get().post(UserChangePhoto(UserInfoSp.getUserPhoto()!!, "", "", false))
-
         } else {
             setGone(R.id.isLogin)
             setVisible(R.id.noLogin)
@@ -307,4 +306,5 @@ class MineFragment : BaseMvpFragment<MinePresenter>() {
         if (four) UserInfoSp.putRewardnGuide(true)
         if (five) UserInfoSp.putAttentionGuide(true)
     }
+
 }

@@ -51,7 +51,7 @@ public class StandardVideoController extends GestureVideoController implements V
     private DanmukuVideoView danmukuVideoView;
     public Boolean isShowRed = false;
     private FrameLayout fmNoAnchor;
-    private ImageView imgFullEnvelope;
+    public ImageView imgFullEnvelope;
 
     public StandardVideoController(@NonNull Context context) {
         this(context, null);

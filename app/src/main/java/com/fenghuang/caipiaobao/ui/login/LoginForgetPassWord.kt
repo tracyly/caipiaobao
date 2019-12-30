@@ -63,11 +63,10 @@ class LoginForgetPassWord : BaseNavFragment() {
             if (CheckUtils.isMobileNumber(etForgetPhoneNum.text.toString())) {
                 if (isGetCode) {
                     if (etForgetIdentifyCode.text.toString() != "") {
-                        if (etForgetIdentifyCode.text.toString() == identify) {
-                            setGone(linReset1)
-                            setVisible(linReset2)
-                            tvForgetPhoneNum.text = etForgetPhoneNum.text.toString()
-                        } else ToastUtils.showError("验证码错误或已过期")
+                        setGone(linReset1)
+                        setVisible(linReset2)
+                        tvForgetPhoneNum.text = etForgetPhoneNum.text.toString()
+                        identify = etForgetIdentifyCode.text.toString()
                     } else ToastUtils.showError("请输入4位验证码")
                 } else ToastUtils.showError("请先获取验证码")
             } else ToastUtils.showError("请输入正确11位手机号码")
@@ -82,11 +81,11 @@ class LoginForgetPassWord : BaseNavFragment() {
 
         btResetPassWord2.setOnClickListener {
             if (etPassWordReset1.text.length < 6) {
-                ToastUtils.showError("密码能少于6位")
+                ToastUtils.showError("密码不能少于6位")
                 return@setOnClickListener
             }
             if (etPassWordReset2.text.length < 6) {
-                ToastUtils.showError("密码能少于6位")
+                ToastUtils.showError("密码不能少于6位")
                 return@setOnClickListener
             }
             if (etPassWordReset1.text.toString() == etPassWordReset2.text.toString()) {
@@ -114,7 +113,6 @@ class LoginForgetPassWord : BaseNavFragment() {
             onSuccess {
                 hidePageLoadingDialog()
                 time(tvForgetGetIdentifyCode)
-                identify = it.code
                 isGetCode = true
             }
             onFailed {

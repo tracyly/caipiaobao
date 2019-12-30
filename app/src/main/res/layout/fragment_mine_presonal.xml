@@ -17,7 +17,6 @@
             android:id="@+id/imgUserPhoto"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_80"
-            android:background="@mipmap/ic_mine_base_user"
             android:contentDescription="@string/app_name" />
 
         <ImageView
@@ -88,6 +87,7 @@
             android:hint="@string/mine_edit_sex"
             android:paddingStart="@dimen/dp_16"
             android:paddingEnd="@dimen/dp_8"
+
             android:textColor="@color/black"
             android:textSize="@dimen/sp_14" />
 

@@ -7,6 +7,7 @@ import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.caipiaobao.R
 import com.pingerx.imagego.core.strategy.loadBlur
 import com.pingerx.imagego.core.strategy.loadCircle
+import com.pingerx.imagego.core.strategy.loadImage
 import com.pingerx.imagego.core.strategy.loadRound
 import com.pingerx.imagego.core.utils.RoundType
 
@@ -121,4 +122,8 @@ object ImageManager {
         loadBlur(url, imageView, 0, 0)
     }
 
+    fun loadNorImg(url: String?, imageView: ImageView) {
+        loadImage(url, imageView, placeHolder = R.mipmap.ic_placeholder, errorHolder = R.mipmap.ic_placeholder)
+
+    }
 }

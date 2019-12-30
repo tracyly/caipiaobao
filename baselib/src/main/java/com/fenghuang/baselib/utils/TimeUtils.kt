@@ -25,8 +25,8 @@ object TimeUtils {
     private val year = 12 * month// 年
 
 
-    private val formatYearMonthDayHourMinute = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault())
-
+    private val formatYearMonthDayHourMinute = SimpleDateFormat("HH:mm", Locale.getDefault())
+    private val formatYearMonthDayHourMinuteYY = SimpleDateFormat("yyyy-mm-dd HH:mm", Locale.getDefault())
     /**
      * 获取今天的日期，格式为 2019-01-10
      */
@@ -367,6 +367,13 @@ object TimeUtils {
         return formatYearMonthDayHourMinute.format(date)
     }
 
+    /**
+     * long 类型转换成日期
+     */
+    fun longToDateStringYY(long: Long): String? {
+        val date = Date(long * 1000)
+        return formatYearMonthDayHourMinuteYY.format(date)
+    }
 
     /**
      * 将日期格式化成友好的字符串：几分钟前、几小时前、几天前、几月前、几年前、刚刚

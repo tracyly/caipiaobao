@@ -122,11 +122,11 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
     }
 
     private fun initStatusListener() {
-        mView.setVisible(mView.tvSocket)
+        if (mView.isActive()) mView.setVisible(mView.tvSocket)
         mWsStatusListener = object : WsStatusListener() {
             override fun onOpen(response: Response) {
                 super.onOpen(response)
-                mView.setGone(mView.tvSocket)
+                if (mView.isActive()) mView.setGone(mView.tvSocket)
                 LogUtils.d("WsManager-----onOpen response=$response")
                 mWsManager?.sendMessage(getSubscribeParams())
                 if (mTimer == null) mTimer = Timer()
@@ -180,7 +180,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                 super.onReconnect()
                 isReconnet = true
                 LogUtils.d("WsManager-----onReconnect")
-                mView.setVisible(mView.tvSocket)
+                if (mView.isActive()) mView.setVisible(mView.tvSocket)
             }
 
             override fun onClosing(code: Int, reason: String) {
@@ -223,7 +223,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
             onSuccess {
                 if (it.isNotEmpty()) {
                     val homeLiveRedRoom = it[it.size - 1]
-                    mView.onIsShowRedEnvelope(HomeLiveRedMessageBean(4, homeLiveRedRoom.id, "", ""))
+                    if (!mView.ifClickShow) mView.onIsShowRedEnvelope(HomeLiveRedMessageBean(4, homeLiveRedRoom.id, "", "")) else mView.onIsShowRedEnvelopeOnSocket(HomeLiveRedMessageBean(4, homeLiveRedRoom.id, "", ""))
                 }
             }
             onFailed {
@@ -246,6 +246,28 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                         mView.startLive(mVideos, it.live_status, it.avatar)
                     }
                     mView.initPagerContent()
+                }
+            }
+            onFailed {
+                ToastUtils.showToast("主播数据异常，请稍后重试")
+            }
+        }
+    }
+
+
+    fun loadLiveInfoTwice(anchorId: Int, userId: Int) {
+        HomeApi.getHomeLiveRoomResult(anchorId, userId) {
+            onSuccess {
+                if (mView.isActive()) {
+                    if (!it.liveInfo.isNullOrEmpty()) {
+                        it.liveInfo.forEachIndexed { _, homeLiveRoomListBean ->
+                            if (homeLiveRoomListBean.type == "HDL") {
+                                mVideos["标清"] = homeLiveRoomListBean.liveUrl.originPullUrl
+                            }
+                        }
+                        mView.setLogoInfo(it)
+                        mView.startLive(mVideos, it.live_status, it.avatar)
+                    }
                 }
             }
             onFailed {
@@ -281,7 +303,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                     mView.multiTypeAdapter.add(HomeLiveChatBeanNew("", "", 0,
                             "", "", "", "first", "", "", false, "", UserInfoSp.getUserType()!!,
                             UserInfoSp.getUserNickName().toString(), "", "", mView.tvTopUserName?.text.toString(), "0", "", UserInfoSp.getVipLevel().toString(), "", "", "", "", ""))
-                    mView.initChatRoom(it)
+                    mView.multiTypeAdapter.addAll(it)
                     if (mView.chatRecyclerView != null) mView.chatRecyclerView.scrollToPosition(mView.multiTypeAdapter.itemCount - 1)
                 }
             }
@@ -584,6 +606,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                     // 余额不足
                     val dialog = TipsConfirmDialog(context, "钻石不足请兑换", "去兑换", "下次再说", "")
                     dialog.setConfirmClickListener {
+                        RxBus.get().post(CloseMore(true))
                         mView.pop()
                         RxBus.get().post(HomeClickMine(isClick = true))
                     }

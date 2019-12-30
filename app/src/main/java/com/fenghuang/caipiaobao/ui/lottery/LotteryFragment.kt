@@ -9,11 +9,12 @@ import androidx.viewpager.widget.ViewPager
 import com.fenghuang.baselib.base.adapter.BaseFragmentPageAdapter
 import com.fenghuang.baselib.base.fragment.BaseFragment
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.baselib.utils.ToastUtils
 import com.fenghuang.caipiaobao.R
+import com.fenghuang.caipiaobao.ui.home.data.DataBean
 import com.fenghuang.caipiaobao.ui.home.data.HomeClickVideo
-import com.fenghuang.caipiaobao.ui.home.data.HomeGameListResponse
 import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsFragment
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryCodeNewResponse
 import com.fenghuang.caipiaobao.ui.lottery.data.LotteryGetExpert
@@ -48,9 +49,11 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
     private var lotterySpUrl: String = ""
 
-    private var lotteryId: Int? = null
+    private var clickId = -1
+
+    private var lotteryIdFirst: Int? = null
     private var lotteryName: String? = null
-    private var dataList: List<HomeGameListResponse>? = null
+    private var dataList: List<DataBean.HomeGameListResponse>? = null
 
     override fun attachView() = mPresenter.attachView(this)
 
@@ -130,9 +133,9 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
      */
     fun initLotteryType(data: List<LotteryTypeResponse>?) {
         setPageTitle(data?.get(0)?.cname)
-        val videoUrl = data?.get(0)?.video_url.toString()
-        lotterySpUrl = videoUrl
-        lotteryId = data?.get(0)?.lottery_id
+//        val videoUrl = data?.get(0)?.video_url.toString()
+//        lotterySpUrl = videoUrl
+        lotteryIdFirst = data?.get(0)?.lottery_id
         lotteryName = data?.get(0)?.cname
         val value = LinearLayoutManager(getPageActivity(), LinearLayoutManager.HORIZONTAL, false)
         val lotteryTypeAdapter = LotteryTypeAdapter(getPageActivity())
@@ -142,6 +145,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
         lotteryTypeAdapter.setOnItemClickListener { dates, position ->
             lotteryTypeAdapter.changeBackground(position)
             mPresenter.getLotteryOpenCode(dates.lottery_id)
+            clickId = dates.lottery_id
             setPageTitle(dates.cname)
             lotteryName = dates.cname
             lotterySpUrl = dates.video_url
@@ -152,7 +156,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
     /**
      * 默认开奖号码
      */
-    fun baseInitLotteryOpenCode() {
+    private fun baseInitLotteryOpenCode() {
         tvOpenCount.text = "第(null)期开奖结果"
         tvTime.text = "-- : --"
     }
@@ -165,8 +169,9 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
     @SuppressLint("SetTextI18n")
     fun initLotteryOpenCode(data: LotteryCodeNewResponse) {
         setGone(firstPlace)
+        LogUtils.e("---?????????????????????????????")
         RxBus.get().post(LotteryGetExpert(data.lottery_id, data.issue))
-        lotteryId = data.lottery_id
+        lotteryIdFirst = data.lottery_id
         cutDown?.cancel()
         tvOpenCount.text = "第 " + data.issue + " 期开奖结果"
         tvTime.text = "-- : --"
@@ -183,15 +188,16 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
             rvOpenCode.adapter = lotteryOpenCodeHongKongAdapter
         }
         rvOpenCode.layoutManager = value
-        //判断底部view是否已经初始化
+//        //判断底部view是否已经初始化
         if (!isLoadBottom) {
             getLotteryHistoryExpertPlan(data.lottery_id, data.issue)
             isLoadBottom = true
-        } else {
-//            RxBus.get().post(LotteryGetExpert(data.lottery_id, data.issue))
-            LotteryHistoryOpenCodeFragment.newInstance(data.lottery_id)
-            LotteryExpertPlanFragment.newInstance(data.lottery_id, data.issue)
         }
+//        else {
+////            RxBus.get().post(LotteryGetExpert(data.lottery_id, data.issue))
+//            LotteryHistoryOpenCodeFragment.newInstance(data.lottery_id)
+//            LotteryExpertPlanFragment.newInstance(data.lottery_id, data.issue)
+//        }
         if (data.next_lottery_time.toLong() > 0) {
             cuntDownTime(data.next_lottery_time.toLong() * 1000, data.lottery_id)
             cutDown?.start()
@@ -202,7 +208,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
                     cutDown?.onFinish()
                     t.cancel()
                 }
-            }, 3500)
+            }, 8000)
         }
     }
 
@@ -218,12 +224,12 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
                 val minute: Long = (millisUntilFinished - day * (1000 * 60 * 60 * 24) - hour * (1000 * 60 * 60)) / (1000 * 60)/*单位 分*/
                 val second: Long = (millisUntilFinished - day * (1000 * 60 * 60 * 24) - hour * (1000 * 60 * 60) - minute * (1000 * 60)) / 1000 /*单位 秒*/
                 if (day > 0) {
-                    tvTime.text = dataLong(day) + "天:" + dataLong(hour) + ":" + dataLong(minute) + ":" + dataLong(second)
+                    tvTime.text = dataLong(day) + "天" + dataLong(hour) + ":" + dataLong(minute) + ":" + dataLong(second)
                 } else tvTime.text = dataLong(hour) + ":" + dataLong(minute) + ":" + dataLong(second)
             }
 
             override fun onFinish() {
-                mPresenter.getLotteryOpenCode(lotteryId)
+                if (clickId != -1) mPresenter.getLotteryOpenCode(clickId)
             }
         }
     }
@@ -279,7 +285,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
             if (dataList != null) {
                 for ((index, e) in dataList!!.withIndex()) {
                     if (e.name == lotteryName && e.live_status == 1) {
-                        LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(e.anchor_id, "", e.live_status, ""))
+                        LaunchUtils.startFragment(getPageActivity(), HomeLiveDetailsFragment.newInstance(e.anchor_id, "", e.live_status, "", "Lottery"))
                         return@setOnClickListener
                     }
                     if ((index + 1) == dataList?.size) ToastUtils.showNormal("此彩种暂无直播")

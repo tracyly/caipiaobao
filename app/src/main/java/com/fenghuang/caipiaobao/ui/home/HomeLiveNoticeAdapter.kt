@@ -1,14 +1,17 @@
 package com.fenghuang.caipiaobao.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
+import com.fenghuang.baselib.utils.TimeUtils
 import com.fenghuang.baselib.widget.round.RoundTextView
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
+import com.fenghuang.caipiaobao.ui.home.anchor.HomeAnchorFragment
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeLivePopResponse
 import com.fenghuang.caipiaobao.ui.home.live.liveroom.HomeLiveDetailsFragment
@@ -32,6 +35,7 @@ class HomeLiveNoticeAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePopR
     }
 
     inner class HomeLiveNoticeHolder(parent: ViewGroup) : BaseViewHolder<HomeLivePopResponse>(getContext(), parent, R.layout.holder_home_live_notice) {
+        @SuppressLint("SetTextI18n")
         override fun onBindData(data: HomeLivePopResponse) {
 
             if (data.avatar != "null") {
@@ -48,7 +52,7 @@ class HomeLiveNoticeAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePopR
                 findView<GifImageView>(R.id.ivLiveStatus).setGifResource(R.drawable.ic_home_live_gif)
                 findView<GifImageView>(R.id.ivLiveStatus).play(-1)
                 findView<TextView>(R.id.tvLiveNoticeDate).text = "直播中"
-            } else findView<TextView>(R.id.tvLiveNoticeDate).text = "未开播"
+            } else findView<TextView>(R.id.tvLiveNoticeDate).text = TimeUtils.longToDateString(data.starttime) + "~" + TimeUtils.longToDateString(data.endtime)
             //是否关注
             if (data.isFollow) {
                 setVisible(findView<RoundTextView>(R.id.tvLiveNoticeHasAttention))
@@ -60,7 +64,9 @@ class HomeLiveNoticeAdapter(context: Context) : BaseRecyclerAdapter<HomeLivePopR
             //跳转直播主页
             findView<ImageView>(R.id.ivLiveNoticeLogo).setOnClickListener {
                 if (FastClickUtils.isFastClick()) {
-                    startFragment(HomeLiveDetailsFragment.newInstance(getData()?.aid!!, "", getData()?.livestatus!!, getData()?.avatar!!))
+                    if (data.livestatus == 1) {
+                        startFragment(HomeLiveDetailsFragment.newInstance(getData()?.aid!!, "", getData()?.livestatus!!, getData()?.avatar!!, "HomeLiveNotice"))
+                    } else startFragment(HomeAnchorFragment.newInstance(getData()?.aid!!, false))
                 }
             }
             //关注

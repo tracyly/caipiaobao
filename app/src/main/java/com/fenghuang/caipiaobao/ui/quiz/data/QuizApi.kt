@@ -23,8 +23,9 @@ object QuizApi : BaseApi {
     fun getQuizArticleListResult(limit: Int, page: Int, function: ApiSubscriber<List<QuizResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<QuizResponse>>() {}
         subscriber.function()
-        getApiOther()
-                .get<List<QuizResponse>>("/forum/" + QUIZ_ARTICLE)
+        getApiThird()
+                .get<List<QuizResponse>>(QUIZ_ARTICLE)
+//                .get<List<QuizResponse>>("/forum/" + QUIZ_ARTICLE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("user_id", UserInfoSp.getUserId())
                 .params("limit", limit)
@@ -38,8 +39,9 @@ object QuizApi : BaseApi {
     fun getQuizArticleLikeResult(articleId: Int, userId: Int, function: EmptySubscriber.() -> Unit) {
         val subscriber = EmptySubscriber()
         subscriber.function()
-        getApiOther()
-                .post<String>("/forum/" + QUIZ_ARTICLE_LIKE)
+        getApiThird()
+//                .post<String>("/forum/" + QUIZ_ARTICLE_LIKE)
+                .post<String>(QUIZ_ARTICLE_LIKE)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .params("article_id", articleId)
                 .params("user_id", userId)
@@ -53,8 +55,9 @@ object QuizApi : BaseApi {
     fun getQuizTopBanner(function: ApiSubscriber<List<QuizTopImageBean>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<QuizTopImageBean>>() {}
         subscriber.function()
-        getApiOther()
-                .get<List<QuizTopImageBean>>("/forum/" + QUIZ_BANNER)
+        getApiThird()
+                .get<List<QuizTopImageBean>>(QUIZ_BANNER)
+//                .get<List<QuizTopImageBean>>("/forum/" + QUIZ_BANNER)
                 .headers("Authorization", UserInfoSp.getTokenWithBearer())
                 .subscribe(subscriber)
     }

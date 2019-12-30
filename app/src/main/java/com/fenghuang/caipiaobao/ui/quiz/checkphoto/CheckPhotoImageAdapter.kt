@@ -23,7 +23,7 @@ class CheckPhotoImageAdapter(private val fragment: Fragment, private val imageUr
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val url = imageUrls[position]
         val photoView = PhotoView(fragment.context)
-        ImageManager.loadImage(url, photoView)
+        ImageManager.loadNorImg(url, photoView)
         container.addView(photoView)
         photoView.setOnClickListener(clickListener)
         return photoView

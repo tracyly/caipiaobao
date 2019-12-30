@@ -6,6 +6,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.fenghuang.baselib.base.recycler.BaseRecyclerAdapter
 import com.fenghuang.baselib.base.recycler.BaseViewHolder
+import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.anchor.HomeAnchorFragment
@@ -37,11 +38,12 @@ class MineMyAttentionAdapter(context: Context, val presenter: MineMyAttentionPre
             ImageManager.loadRoundLogo(data.avatar, findView(R.id.imgAttPhoto))
             setText(R.id.tvAttName, data.nickname)
             setText(R.id.tvAttDes, data.sign)
+            LogUtils.e("-----****-" + data.live_status + "-----*****---" + data.nickname)
             if (data.live_status == 1) {
                 setVisibility(R.id.imgIsLive, true)
                 findView<GifImageView>(R.id.imgIsLive).setGifResource(R.drawable.ic_home_live_gif)
                 findView<GifImageView>(R.id.imgIsLive).play(-1)
-            }
+            } else setGone(R.id.imgIsLive)
             findView<RelativeLayout>(R.id.btnDelete).setOnClickListener {
                 if (FastClickUtils.isFastClick()) {
                     remove(getDataPosition())
@@ -50,21 +52,25 @@ class MineMyAttentionAdapter(context: Context, val presenter: MineMyAttentionPre
             }
             findView<LinearLayout>(R.id.linGoToLive).setOnClickListener {
                 if (FastClickUtils.isFastClick()) {
-                    LaunchUtils.startFragment(getContext(), HomeLiveDetailsFragment.newInstance(data.anchor_id, data.nickname, data.live_status, data.avatar))
+                    LaunchUtils.startFragment(getContext(), HomeLiveDetailsFragment.newInstance(data.anchor_id, data.nickname, data.live_status, data.avatar, "MineAttention"))
                 }
 
 
             }
             findView<RelativeLayout>(R.id.rlPhoto).setOnClickListener {
                 if (FastClickUtils.isFastClick()) {
-                    LaunchUtils.startFragment(getContext(), HomeAnchorFragment.newInstance(data.anchor_id))
+                    LaunchUtils.startFragment(getContext(), HomeAnchorFragment.newInstance(data.anchor_id, false))
                 }
             }
             findView<LinearLayout>(R.id.linCenter).setOnClickListener {
                 if (FastClickUtils.isFastClick()) {
-                    LaunchUtils.startFragment(getContext(), HomeAnchorFragment.newInstance(data.anchor_id))
+                    LaunchUtils.startFragment(getContext(), HomeAnchorFragment.newInstance(data.anchor_id, false))
                 }
             }
         }
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 }
