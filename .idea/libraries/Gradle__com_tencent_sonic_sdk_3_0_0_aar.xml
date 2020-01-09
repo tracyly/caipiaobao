@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.tencent.sonic:sdk:3.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-sdk-3.0.0.aar/521c14a642f8726ee9b44a905a712799/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-sdk-3.0.0.aar/521c14a642f8726ee9b44a905a712799/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/38aff86442f2be4fd0e178abc5a9d632/jetified-sdk-3.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/38aff86442f2be4fd0e178abc5a9d632/jetified-sdk-3.0.0/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.sonic/sdk/3.0.0/13ce14b6413ecf052900d919eb7e31912ecd45bc/sdk-3.0.0-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.sonic/sdk/3.0.0/14043b73c4ac32f3c17bc40b9bf90a8f8fcbcdbf/sdk-3.0.0-sources.jar!/" />
     </SOURCES>

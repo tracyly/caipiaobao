@@ -25,6 +25,7 @@ import com.fenghuang.caipiaobao.ui.mine.MineFragment
 import com.fenghuang.caipiaobao.ui.quiz.QuizFragment
 import com.fenghuang.caipiaobao.utils.GobalExceptionDialog.ExceptionDialog
 import com.fenghuang.caipiaobao.utils.UserInfoSp
+import com.fenghuang.caipiaobao.widget.dialog.NewVisionDialog
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
@@ -105,6 +106,32 @@ class MainFragment : BasePageFragment() {
             setVisibility(R.id.imgLotteryBuyTips, false)
         }
     }
+
+
+    override fun initData() {
+
+        getUpDate()
+
+
+    }
+
+    private fun getUpDate() {
+        HomeApi.getVersion {
+            onSuccess {
+                if (it.version_data != null) {
+                    val dialog = NewVisionDialog(getPageActivity())
+                    dialog.setContent(it.version_data?.upgradetext!!)
+                    if (it.version_data?.enforce == 1) {
+                        dialog.setCanceledOnTouchOutside(false)
+                    } else dialog.setCanceledOnTouchOutside(true)
+                    dialog.setJum(it.version_data?.downloadurl!!)
+                    dialog.show()
+                }
+
+            }
+        }
+    }
+
 
     /**
      * 接收Home头像点击事件

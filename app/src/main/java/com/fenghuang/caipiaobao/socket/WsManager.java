@@ -198,7 +198,7 @@ public class WsManager implements IWsManager {
         disconnect();
     }
 
-    private void tryReconnect() {
+    public void tryReconnect() {
         if (!isNeedReconnect | isManualClose) {
             return;
         }

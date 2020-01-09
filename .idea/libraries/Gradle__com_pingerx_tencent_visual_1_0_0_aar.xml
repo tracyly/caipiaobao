@@ -1,10 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.pingerx:tencent-visual:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tencent-visual-1.0.0.aar/666114c3c030adbbfb34a1a19252c07e/jars/libs/track-sdk_v3.4.0.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tencent-visual-1.0.0.aar/666114c3c030adbbfb34a1a19252c07e/jars/libs/libthrift-0.10.0.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tencent-visual-1.0.0.aar/666114c3c030adbbfb34a1a19252c07e/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/tencent-visual-1.0.0.aar/666114c3c030adbbfb34a1a19252c07e/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/118a6eda6f1dbb887dedecb5248f10cf/tencent-visual-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/118a6eda6f1dbb887dedecb5248f10cf/tencent-visual-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/118a6eda6f1dbb887dedecb5248f10cf/tencent-visual-1.0.0/jars/libs/libthrift-0.10.0.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/118a6eda6f1dbb887dedecb5248f10cf/tencent-visual-1.0.0/jars/libs/track-sdk_v3.4.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

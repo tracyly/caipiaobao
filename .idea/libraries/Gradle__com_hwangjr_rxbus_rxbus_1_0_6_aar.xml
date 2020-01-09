@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.hwangjr.rxbus:rxbus:1.0.6@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-rxbus-1.0.6.aar/df72f7daa72ef706781b707bf8a66978/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-rxbus-1.0.6.aar/df72f7daa72ef706781b707bf8a66978/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d9b266ce3b74a8e20aaa1532c1e21fb/jetified-rxbus-1.0.6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d9b266ce3b74a8e20aaa1532c1e21fb/jetified-rxbus-1.0.6/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hwangjr.rxbus/rxbus/1.0.6/b01cccb099738a17015614fa2e96c1baf9907fa3/rxbus-1.0.6-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hwangjr.rxbus/rxbus/1.0.6/24d40f336b72b068baa4a1b2a6e64bca4a27eeb/rxbus-1.0.6-sources.jar!/" />
     </SOURCES>

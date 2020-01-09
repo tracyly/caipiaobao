@@ -1,11 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.tencent.mid:mid:4.06-Release@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mid-4.06-Release.aar/e8477dde0299a790275413e64fce4d16/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mid-4.06-Release.aar/e8477dde0299a790275413e64fce4d16/jars/libs/mid-sdk-4.06.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/mid-4.06-Release.aar/e8477dde0299a790275413e64fce4d16/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/00c2d89126305131e1e0a978e33a8887/mid-4.06-Release/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/00c2d89126305131e1e0a978e33a8887/mid-4.06-Release/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/00c2d89126305131e1e0a978e33a8887/mid-4.06-Release/jars/libs/mid-sdk-4.06.jar!/" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.mid/mid/4.06-Release/8ba155f55f7ca4cd3e8cf774c8f019efbf6ae5d5/mid-4.06-Release-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.tencent.mid/mid/4.06-Release/8d5e9649b4cd2f6f495a7cd245db149352c5b211/mid-4.06-Release-sources.jar!/" />
     </SOURCES>

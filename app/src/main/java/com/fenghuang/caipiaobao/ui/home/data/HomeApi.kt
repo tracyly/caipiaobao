@@ -127,6 +127,7 @@ object HomeApi : BaseApi {
                 .converter(ApiConvert(type = object : TypeToken<List<HomeLivePopResponse>>() {}.type))
                 .flowable()
     }
+
     fun getHomeLivePopResult(cacheMode: CacheMode, function: ApiSubscriber<List<HomeLivePopResponse>>.() -> Unit) {
         val subscriber = object : ApiSubscriber<List<HomeLivePopResponse>>() {}
         subscriber.function()
@@ -167,6 +168,7 @@ object HomeApi : BaseApi {
                 .converter(ApiConvert(type = object : TypeToken<List<HomeLiveListResponse>>() {}.type))
                 .flowable()
     }
+
     /**
      * 获取专家推荐列表
      */
@@ -430,4 +432,19 @@ object HomeApi : BaseApi {
                 .params("ban_time", ban_time)
                 .subscribe(subscriber)
     }
+
+    /**
+     * 获取版本
+     */
+    fun getVersion(function: ApiSubscriber<UpdateData>.() -> Unit) {
+        val subscriber = object : ApiSubscriber<UpdateData>() {}
+        subscriber.function()
+        getApi()
+                .post<UpdateData>("/api/common/init")
+                .params("client_type", "android")
+                .params("version", "1.0.1")
+                .subscribe(subscriber)
+    }
+
+
 }

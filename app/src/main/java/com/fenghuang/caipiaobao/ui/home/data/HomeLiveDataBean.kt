@@ -187,3 +187,23 @@ data class AnchorPush(var anchor_id: String, var anchor_avatar: String, var anch
 
 //关闭更多直播
 data class CloseMore(var isClose: Boolean)
+
+/**
+ * version_data : 版本信息
+ * version_data.enforce : 是否强制更新 1是 0-否
+ * version_data.version : 客户端版本号
+ * version_data.newversion : 新版本号
+ * version_data.downloadurl : 下载地址
+ * version_data.packagesize : 包大小
+ * version_data.upgradetext : 更新内容
+ */
+
+data class UpdateData(var version_data: Update? = null)
+
+data class Update(var enforce: Int = 0,
+                  var version: String? = null,
+                  var newversion: String? = null,
+                  var downloadurl: String? = null,
+                  var packagesize: String? = null,
+                  var upgradetext: String? = null)
+

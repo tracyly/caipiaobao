@@ -438,6 +438,8 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                             }
                         }
                         onFailed {
+                            if (mView.popRedEnvelope != null) mView.popRedEnvelope?.dismiss()
+                            passWordDialog?.dismiss()
                             if (it.getCode() == 1002) {
                                 passWordDialog!!.showTipsText(it.getMsg().toString() + "," + "您还有" + JsonUtils.fromJson(it.getDataCode().toString(), MinePassWordTime::class.java).remain_times.toString() + "次机会")
                                 passWordDialog!!.findViewById<SeparatedEditText>(R.id.edtPassWord).clearText()
@@ -612,7 +614,7 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                     }
                     dialog.setCanceledOnTouchOutside(false)
                     dialog.show()
-                } else ToastUtils.showNormal("赠送失败")
+                } else showExpireDialog(mView.requireContext(), it)
 
             }
         }

@@ -1,5 +1,7 @@
 package com.fenghuang.caipiaobao.ui.mine
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
 import com.fenghuang.baselib.utils.StatusBarUtils
@@ -8,6 +10,8 @@ import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_INVEST_AMOUNT
 import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_RECHARGE_ID
 import com.fenghuang.caipiaobao.constant.IntentConstant.MINE_RECHARGE_URL
 import com.fenghuang.caipiaobao.data.api.BaseApi
+import com.tencent.smtt.sdk.WebView
+import com.tencent.smtt.sdk.WebViewClient
 import kotlinx.android.synthetic.main.fragment_invest.*
 
 
@@ -36,6 +40,24 @@ class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>(), BaseApi {
 
     override fun initContentView() {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
+
+
+        investWebView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                try {
+                    if (url.startsWith("weixin://") || url.startsWith("alipays://") ||
+                            url.startsWith("mailto://") || url.startsWith("tel://")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                        return true
+                    }//其他自定义的scheme
+                } catch (e: Exception) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
+                    return false
+                }
+
+                return false
+            }
+        }
     }
 
     override fun initData() {

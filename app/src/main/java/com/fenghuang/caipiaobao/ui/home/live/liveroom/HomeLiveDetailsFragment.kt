@@ -308,6 +308,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         ivGifts.setOnClickListener {
             if (UserInfoSp.getIsLogin()) {
                 if (mPresenter.mWsManager != null && mPresenter.mWsManager?.isWsConnected!!) {
+                    mPresenter.getMoney()
                     initBottomGift()
                     mPresenter.loadGifData()
                 }
@@ -316,6 +317,7 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         // 检测支付密码是否设置
         ivRedEnvelopes.setOnClickListener {
             if (UserInfoSp.getIsLogin()) {
+                mPresenter.getMoney()
                 if (mPresenter.mWsManager != null && mPresenter.mWsManager?.isWsConnected!!) {
                     if (UserInfoSp.getIsSetPayPassWord()) {
                         sendRed()
@@ -502,13 +504,12 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     private fun initChatRoom() {
         multiTypeAdapter = MultiTypeAdapter(getPageActivity())
-        //初始化聊天RecycleView
         multiTypeAdapter.register(HomeLiveChatBeanNew::class.java, HomeLiveChatHolder())
+        //初始化聊天RecycleView
         chatRecyclerView?.adapter = multiTypeAdapter
         val layoutManager = LinearLayoutManager(context)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         chatRecyclerView?.layoutManager = layoutManager
-
 
         // 获取列表的滑动事件，控制一键到底部
         chatRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -812,11 +813,6 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         return super.onBackPressedSupport()
     }
 
-    override fun onPause() {
-        super.onPause()
-//        mPIPManager?.pause()
-        mPresenter.stopConnect()
-    }
 
     override fun onStop() {
         super.onStop()
@@ -826,7 +822,9 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
     override fun onResume() {
         super.onResume()
         mPIPManager?.resume()
-        mPresenter.startWebSocketConnect()
+//        if (mPresenter.mWsManager == null) {
+//            mPresenter.startWebSocketConnect()
+//        } else if (mPresenter.mWsManager.isWsConnected)mPresenter.mWsManager!!.tryReconnect()
     }
 
 

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.pingerx:stickyheader:1.0.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/stickyheader-1.0.0.aar/4889482716aa70c5e4ffa5bd3815b9fc/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/stickyheader-1.0.0.aar/4889482716aa70c5e4ffa5bd3815b9fc/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/46a89b65801ec1b9d1b51db5482028bb/stickyheader-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/46a89b65801ec1b9d1b51db5482028bb/stickyheader-1.0.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.ctiao:DanmakuFlameMaster:0.9.25@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/DanmakuFlameMaster-0.9.25.aar/217ef45a99b128ba89fd3267d6d32219/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/DanmakuFlameMaster-0.9.25.aar/217ef45a99b128ba89fd3267d6d32219/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d126907973c3c23a35f35c0a68328396/DanmakuFlameMaster-0.9.25/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d126907973c3c23a35f35c0a68328396/DanmakuFlameMaster-0.9.25/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ctiao/DanmakuFlameMaster/0.9.25/ab5c6b3f523bcd25a55561aec109acfdf9dbb772/DanmakuFlameMaster-0.9.25-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.ctiao/DanmakuFlameMaster/0.9.25/29c32cc28ec7678e404f13fdd857ae55e307bdd7/DanmakuFlameMaster-0.9.25-sources.jar!/" />
     </SOURCES>

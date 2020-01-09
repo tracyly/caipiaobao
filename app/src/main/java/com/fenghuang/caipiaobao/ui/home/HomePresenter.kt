@@ -3,11 +3,9 @@ package com.fenghuang.caipiaobao.ui.home
 import android.annotation.SuppressLint
 import android.util.Log
 import com.fenghuang.baselib.base.mvp.BaseMvpPresenter
-import com.fenghuang.baselib.utils.LogUtils
 import com.fenghuang.caipiaobao.manager.ImageManager
 import com.fenghuang.caipiaobao.ui.home.data.HomeApi
 import com.fenghuang.caipiaobao.ui.home.data.HomeExpertRecommendResponse
-import com.fenghuang.caipiaobao.ui.home.data.HomeGameListResponse
 import com.fenghuang.caipiaobao.ui.home.data.HomeLiveListResponse
 import com.pingerx.rxnetgo.rxcache.CacheMode
 import io.reactivex.Flowable
@@ -93,10 +91,9 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
                 }
                 getLiveIsListInfo(cacheMode)
             }
-            ArrayList<HomeGameListResponse>()::class.java
+//            ArrayList<HomeGameListResponse>()::class.java
             onFailed {
                 Log.i("getGameListInfo", "失败")
-                LogUtils.e("8888888888888888888888888888888" + it)
             }
         }
     }
