@@ -10,6 +10,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
+import com.fenghuang.baselib.utils.ViewUtils;
 import com.fenghuang.caipiaobao.R;
 
 /**
@@ -31,6 +32,7 @@ public class ProgressView extends View {
         this(context, attrs, 0);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public ProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
@@ -43,7 +45,7 @@ public class ProgressView extends View {
         mPaint.setDither(true);
         mPaint.setAntiAlias(true);
         mPaint.setStrokeWidth(10);
-        mPaint.setColor(getContext().getColor(R.color.colorOrangeAccent));
+        mPaint.setColor(ViewUtils.INSTANCE.getColor(R.color.colorOrangeAccent));
     }
 
     @Override

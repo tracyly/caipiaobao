@@ -3,28 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff"
+        android:background="@color/white"
         tools:ignore="UselessParent">
 
         <FrameLayout
             android:id="@id/mainContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/nihao">
-        </FrameLayout>
+            android:layout_above="@+id/nihao"></FrameLayout>
 
 
         <View
             android:id="@+id/nihao"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_above="@+id/rg_oper"
-            android:layout_marginBottom="5dp"
+            android:layout_above="@+id/botttom"
             android:background="#CDF5F5F5" />
 
 
@@ -35,7 +34,8 @@
             android:layout_alignParentBottom="true"
             android:background="#00000000"
             android:orientation="horizontal"
-            android:paddingBottom="@dimen/dp_5">
+            android:paddingBottom="@dimen/dp_5"
+            android:visibility="gone">
 
             <RadioButton
                 android:id="@id/tabHome"
@@ -120,22 +120,149 @@
             android:background="@mipmap/ic_home_lottery_tips"
             tools:ignore="contentDescription" />
 
+
+        <LinearLayout
+            android:id="@+id/botttom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_55"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:id="@+id/lin1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:src="@mipmap/ic_tab_home" />
+
+                <TextView
+                    android:id="@+id/tv1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/color_333333"
+                    android:text="@string/tab_home"
+                    android:textSize="@dimen/sp_10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:background="@mipmap/ic_tab_lottery" />
+
+                <TextView
+                    android:id="@+id/tv2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/tab_lottery"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:background="@mipmap/ic_tab_quiz" />
+
+                <TextView
+                    android:id="@+id/tv4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/tab_quiz"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lin5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dp_40"
+                    android:background="@mipmap/ic_tab_mine" />
+
+                <TextView
+                    android:id="@+id/tv5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/tab_mine"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/sp_10" />
+            </LinearLayout>
+
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/rlCenter"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="90dp"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="4dp"
             android:background="@drawable/special_tab_round_bg">
 
             <ImageView
                 android:id="@+id/img_protruding"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp_10"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_tab" />
+
         </RelativeLayout>
     </RelativeLayout>
+
+
 </LinearLayout>

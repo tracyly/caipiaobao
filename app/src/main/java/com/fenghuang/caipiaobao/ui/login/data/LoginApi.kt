@@ -30,6 +30,9 @@ object LoginApi : BaseApi {
     //找回密码
     private const val GET_PASSWORD = "/home/retrieve-password"
 
+    private const val JUMP = "/api/v1_1/user/jump_to/"
+
+
     /**
      * 获取验证码
      */

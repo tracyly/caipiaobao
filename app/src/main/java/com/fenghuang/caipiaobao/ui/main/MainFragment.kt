@@ -105,6 +105,86 @@ class MainFragment : BasePageFragment() {
         imgLotteryBuyTips.setOnClickListener {
             setVisibility(R.id.imgLotteryBuyTips, false)
         }
+
+        lin1.setOnClickListener {
+            tv1.setTextColor(getColor(R.color.color_FF513E))
+            img1.setBackgroundResource(R.mipmap.ic_tab_home_selected)
+
+            tv2.setTextColor(getColor(R.color.color_333333))
+            img2.setBackgroundResource(R.mipmap.ic_tab_lottery)
+
+            tv4.setTextColor(getColor(R.color.color_333333))
+            img4.setBackgroundResource(R.mipmap.ic_tab_quiz)
+
+            tv5.setTextColor(getColor(R.color.color_333333))
+            img5.setBackgroundResource(R.mipmap.ic_tab_mine)
+
+            showHideFragment(mFragments[0])
+        }
+        lin2.setOnClickListener {
+
+            tv1.setTextColor(getColor(R.color.color_333333))
+            img1.setBackgroundResource(R.mipmap.ic_tab_home)
+
+            tv2.setTextColor(getColor(R.color.color_FF513E))
+            img2.setBackgroundResource(R.mipmap.ic_tab_lottery_selected)
+
+            tv4.setTextColor(getColor(R.color.color_333333))
+            img4.setBackgroundResource(R.mipmap.ic_tab_quiz)
+
+            tv5.setTextColor(getColor(R.color.color_333333))
+            img5.setBackgroundResource(R.mipmap.ic_tab_mine)
+
+            showHideFragment(mFragments[1])
+        }
+
+        lin3.setOnClickListener {
+            tv1.setTextColor(getColor(R.color.color_333333))
+            img1.setBackgroundResource(R.mipmap.ic_tab_home)
+
+            tv2.setTextColor(getColor(R.color.color_333333))
+            img2.setBackgroundResource(R.mipmap.ic_tab_lottery)
+
+            tv4.setTextColor(getColor(R.color.color_333333))
+            img4.setBackgroundResource(R.mipmap.ic_tab_quiz)
+
+            tv5.setTextColor(getColor(R.color.color_333333))
+            img5.setBackgroundResource(R.mipmap.ic_tab_mine)
+
+            showHideFragment(mFragments[2])
+        }
+
+        lin4.setOnClickListener {
+            tv1.setTextColor(getColor(R.color.color_333333))
+            img1.setBackgroundResource(R.mipmap.ic_tab_home)
+
+            tv2.setTextColor(getColor(R.color.color_333333))
+            img2.setBackgroundResource(R.mipmap.ic_tab_lottery)
+
+            tv4.setTextColor(getColor(R.color.color_FF513E))
+            img4.setBackgroundResource(R.mipmap.ic_tab_quiz_selected)
+
+            tv5.setTextColor(getColor(R.color.color_333333))
+            img5.setBackgroundResource(R.mipmap.ic_tab_mine)
+
+            showHideFragment(mFragments[3])
+        }
+        lin5.setOnClickListener {
+
+            tv1.setTextColor(getColor(R.color.color_333333))
+            img1.setBackgroundResource(R.mipmap.ic_tab_home)
+
+            tv2.setTextColor(getColor(R.color.color_333333))
+            img2.setBackgroundResource(R.mipmap.ic_tab_lottery)
+
+            tv4.setTextColor(getColor(R.color.color_333333))
+            img4.setBackgroundResource(R.mipmap.ic_tab_quiz)
+
+            tv5.setTextColor(getColor(R.color.color_FF513E))
+            img5.setBackgroundResource(R.mipmap.ic_tab_mine_selected)
+
+            showHideFragment(mFragments[4])
+        }
     }
 
 
@@ -140,12 +220,27 @@ class MainFragment : BasePageFragment() {
     fun onClickMine(clickMine: HomeClickMine) {
         if (UserInfoSp.getIsLogin()) {
             StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
-            tabMine.isChecked = true
-            tabHome.isChecked = false
-            tabLive.isChecked = false
-            tabRanking.isChecked = false
-            tabBetting.isFocusable = false
+//            tabMine.isChecked = true
+//            tabHome.isChecked = false
+//            tabLive.isChecked = false
+//            tabRanking.isChecked = false
+//            tabBetting.isFocusable = false
+//            showHideFragment(mFragments[4])
+
+            tv1.setTextColor(getColor(R.color.color_333333))
+            img1.setBackgroundResource(R.mipmap.ic_tab_home)
+
+            tv2.setTextColor(getColor(R.color.color_333333))
+            img2.setBackgroundResource(R.mipmap.ic_tab_lottery)
+
+            tv4.setTextColor(getColor(R.color.color_333333))
+            img4.setBackgroundResource(R.mipmap.ic_tab_quiz)
+
+            tv5.setTextColor(getColor(R.color.color_FF513E))
+            img5.setBackgroundResource(R.mipmap.ic_tab_mine_selected)
+
             showHideFragment(mFragments[4])
+
         } else ExceptionDialog.showExpireDialog(getPageActivity())
     }
 
@@ -156,11 +251,25 @@ class MainFragment : BasePageFragment() {
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onClickMain(clickMine: LoginToMain) {
         StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-        tabMine.isChecked = false
+      /*  tabMine.isChecked = false
         tabHome.isChecked = true
         tabLive.isChecked = false
         tabRanking.isChecked = false
         tabBetting.isFocusable = false
+        showHideFragment(mFragments[0])*/
+
+        tv1.setTextColor(getColor(R.color.color_FF513E))
+        img1.setBackgroundResource(R.mipmap.ic_tab_home_selected)
+
+        tv2.setTextColor(getColor(R.color.color_333333))
+        img2.setBackgroundResource(R.mipmap.ic_tab_lottery)
+
+        tv4.setTextColor(getColor(R.color.color_333333))
+        img4.setBackgroundResource(R.mipmap.ic_tab_quiz)
+
+        tv5.setTextColor(getColor(R.color.color_333333))
+        img5.setBackgroundResource(R.mipmap.ic_tab_mine)
+
         showHideFragment(mFragments[0])
     }
 

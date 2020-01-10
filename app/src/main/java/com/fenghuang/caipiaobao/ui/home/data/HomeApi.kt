@@ -1,11 +1,13 @@
 package com.fenghuang.caipiaobao.ui.home.data
 
+import com.fenghuang.caipiaobao.data.api.ApiConstant.API_URL_DEV
 import com.fenghuang.caipiaobao.data.api.ApiConvert
 import com.fenghuang.caipiaobao.data.api.ApiSubscriber
 import com.fenghuang.caipiaobao.data.api.BaseApi
 import com.fenghuang.caipiaobao.data.api.EmptySubscriber
 import com.fenghuang.caipiaobao.utils.UserInfoSp
 import com.google.gson.reflect.TypeToken
+import com.pingerx.rxnetgo.RxNetGo
 import com.pingerx.rxnetgo.rxcache.CacheMode
 import io.reactivex.Flowable
 
@@ -36,7 +38,7 @@ object HomeApi : BaseApi {
     private const val HOME_LIVE_ANCHOR_ANCHOR_DYNAMIC_LIKE = "api/v1/live/dynamic_like"
     private const val HOME_LIVE_ANCHOR_ANCHOR_20_NEWS = "api/v1/live/initChat/"
     private const val HOME_LIVE_RED_SET_PASS = "index/set-fund-password"
-    private const val HOME_LIVE_GET_GIFT_LIST = "api/v1/live/get_gift_list/"
+    private const val HOME_LIVE_GET_GIFT_LIST = "api/v1_1/live/get_gift_list/"
     private const val HOME_LIVE_SEND_GIFT = "api/v1/live/send_gift"
     private const val HOME_LIVE_IS_SET_PASS_WORD = "index/check-fund-password"
     private const val HOME_LIVE_ATTENTION = "/api/v1/live/follow/"
@@ -442,7 +444,7 @@ object HomeApi : BaseApi {
         getApi()
                 .post<UpdateData>("/api/common/init")
                 .params("client_type", "android")
-                .params("version", "1.0.1")
+                .params("version", "1.0.3")
                 .subscribe(subscriber)
     }
 

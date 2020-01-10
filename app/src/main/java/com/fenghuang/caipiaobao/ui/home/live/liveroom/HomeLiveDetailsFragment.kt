@@ -32,6 +32,8 @@ import com.fenghuang.caipiaobao.constant.IntentConstant.HOME_LIVE_CHAT_STATUE
 import com.fenghuang.caipiaobao.constant.UserConstant
 import com.fenghuang.caipiaobao.function.isNotEmpty
 import com.fenghuang.caipiaobao.manager.ImageManager
+import com.fenghuang.caipiaobao.ui.bet.BetAFragment
+import com.fenghuang.caipiaobao.ui.bet.BetFragment
 import com.fenghuang.caipiaobao.ui.home.anchor.HomeAnchorFragment
 import com.fenghuang.caipiaobao.ui.home.data.*
 import com.fenghuang.caipiaobao.ui.home.live.HomeLiveRoomTopAdapter
@@ -348,15 +350,20 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
             LaunchUtils.startFragment(getPageActivity(), HomeAnchorFragment.newInstance(arguments?.getInt(IntentConstant.HOME_LIVE_CHAT_ANCHOR_ID)
                     ?: 0, true))
         }
+
+        //跳到购彩
+        imgGoBet.setOnClickListener {
+            LaunchUtils.startFragment(getPageActivity(), BetAFragment())
+        }
     }
 
     /**
      * 底部礼物栏
      */
     /*总的页数*/
-    private var pageCount: Int = 3
+    private var pageCount: Int = 5
     /*当前显示的是第几页*/
-    private val arr = arrayOfNulls<GridViewAdapter>(3)
+    private val arr = arrayOfNulls<GridViewAdapter>(5)
     private lateinit var chatGifTabView: ChatGifTabView
     private var selectHomeGiftListBean: HomeLiveChatGifBean? = null
     @SuppressLint("SetTextI18n")
@@ -388,19 +395,23 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
         for (j in 0 until pageCount) {
             val gridView = mInflater.inflate(R.layout.bottom_vp_gridview, mBottomGiftDialogViewPager, false) as GridView
             when (j) {
-                0 -> gridAdapter = GridViewAdapter(getPageActivity(), homeGiftList?.xk, 0)
-                1 -> gridAdapter = GridViewAdapter(getPageActivity(), homeGiftList?.lm, 1)
-                2 -> gridAdapter = GridViewAdapter(getPageActivity(), homeGiftList?.zg, 2)
+                0 -> gridAdapter = GridViewAdapter(getPageActivity(), homeGiftList?.`_$1`, 0)
+                1 -> gridAdapter = GridViewAdapter(getPageActivity(), homeGiftList?.`_$2`, 1)
+                2 -> gridAdapter = GridViewAdapter(getPageActivity(), homeGiftList?.`_$3`, 2)
+                3 -> gridAdapter = GridViewAdapter(getPageActivity(), homeGiftList?.`_$4`, 3)
+                4 -> gridAdapter = GridViewAdapter(getPageActivity(), homeGiftList?.`_$5`, 4)
             }
             gridView.adapter = gridAdapter
             arr[j] = gridAdapter
             mPagerList.add(gridView)
             gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-                lateinit var listClick: ArrayList<HomeLiveChatGifBean>
+                lateinit var listClick: List<HomeLiveChatGifBean>
                 when (j) {
-                    0 -> listClick = homeGiftList?.xk!!
-                    1 -> listClick = homeGiftList?.lm!!
-                    2 -> listClick = homeGiftList?.zg!!
+                    0 -> listClick = homeGiftList?.`_$1`!!
+                    1 -> listClick = homeGiftList?.`_$2`!!
+                    2 -> listClick = homeGiftList?.`_$3`!!
+                    3 -> listClick = homeGiftList?.`_$4`!!
+                    4 -> listClick = homeGiftList?.`_$5`!!
                 }
                 for (i in listClick.indices) {
                     val model = listClick[i]
@@ -419,6 +430,8 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
                 arr[0]?.notificationItem(listClick[position].name)
                 arr[1]?.notificationItem(listClick[position].name)
                 arr[2]?.notificationItem(listClick[position].name)
+                arr[3]?.notificationItem(listClick[position].name)
+                arr[4]?.notificationItem(listClick[position].name)
             }
         }
         mBottomGiftDialogViewPager.adapter = ViewPagerAdapter(mPagerList, getPageActivity())
@@ -655,10 +668,12 @@ class HomeLiveDetailsFragment : BaseMvpFragment<HomeLiveDetailsPresenter>(), Can
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onGetGiftSmall(data: HomeLiveSmallAnimatorBean) {
-        if (data.gift_id == 18 || data.gift_id == 24 || data.gift_id == 30 || data.gift_id == 31 || data.gift_id == 22 || data.gift_id == 21) {
+        if (data.gift_id == 18 || data.gift_id == 24 || data.gift_id == 30 || data.gift_id == 31 || data.gift_id == 22 || data.gift_id == 21|| data.gift_id == 49|| data.gift_id == 50) {
             mPresenter.initGiftAnimator(data)
         }
-        if (data.gift_id == 15 || data.gift_id == 16 || data.gift_id == 17 || data.gift_id == 27 || data.gift_id == 28 || data.gift_id == 29 || data.gift_id == 23) {
+        if (data.gift_id == 15 || data.gift_id == 16 || data.gift_id == 17 || data.gift_id == 27 || data.gift_id == 28 || data.gift_id == 29 || data.gift_id == 23
+                || data.gift_id == 51|| data.gift_id == 52|| data.gift_id == 53|| data.gift_id == 54
+                || data.gift_id == 41|| data.gift_id == 42|| data.gift_id == 43|| data.gift_id == 44|| data.gift_id == 45|| data.gift_id == 46) {
             mPresenter.loadSvga(data)
         }
     }

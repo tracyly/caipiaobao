@@ -20,7 +20,28 @@
             android:background="@color/color_f7f7f7"
             android:orientation="vertical"
             tools:ignore="UselessParent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_60"
+                android:background="@drawable/ic_top_back">
 
+                <View
+                    android:id="@+id/statusViewA"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sp_18"
+                    android:layout_below="@+id/statusViewA"
+                    android:textStyle="bold"
+                    android:text="@string/lottery_open"
+                    android:textColor="@color/white"
+                    android:layout_centerHorizontal="true"
+                    />
+
+            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@id/rvLotteryType"

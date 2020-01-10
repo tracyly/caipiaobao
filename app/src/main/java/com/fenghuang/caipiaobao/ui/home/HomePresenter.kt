@@ -87,6 +87,7 @@ class HomePresenter : BaseMvpPresenter<HomeFragmentNew>() {
 //                    val s =   Gson().fromJson(JsonParser().parse(it).asJsonObject.get("1"),object :TypeToken<ArrayList<HomeGameListResponse>>(){}.type)
                     mView.updateGameList(it.`_$1`!!)
                     mView.updateGameListSecond(it.`_$2`!!)
+                    mView.updateGameListThird(it.`_$4`!!)
 
                 }
                 getLiveIsListInfo(cacheMode)

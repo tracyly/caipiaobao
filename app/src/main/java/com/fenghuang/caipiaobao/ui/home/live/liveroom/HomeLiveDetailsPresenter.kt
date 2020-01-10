@@ -322,8 +322,19 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                     27 -> mView.svgaUtils.startAnimator("diwanghuache", mView.svgaImage)
                     29 -> mView.svgaUtils.startAnimator("youting", mView.svgaImage)
                     28 -> mView.svgaUtils.startAnimator("fenghuang", mView.svgaImage)
-//                    23 -> mView.svgaUtils.startAnimator("shengdanlu")
+//                  23 -> mView.svgaUtils.startAnimator("shengdanlu")
                     23 -> mView.svgaUtils.startAnimator("loveyou", mView.svgaImage)
+                    51 -> mView.svgaUtils.startAnimator("kmd", mView.svgaImage)
+                    52 -> mView.svgaUtils.startAnimator("gu", mView.svgaImage)
+                    54 -> mView.svgaUtils.startAnimator("bianpao", mView.svgaImage)
+                    53 -> mView.svgaUtils.startAnimator("nnnyy", mView.svgaImage)
+
+                    41 -> mView.svgaUtils.startAnimator("zhengdongbang", mView.svgaImage)
+                    42 -> mView.svgaUtils.startAnimator("huanggua", mView.svgaImage)
+                    43 -> mView.svgaUtils.startAnimator("qiezi", mView.svgaImage)
+                    44 -> mView.svgaUtils.startAnimator("pibian", mView.svgaImage)
+                    45 -> mView.svgaUtils.startAnimator("dila", mView.svgaImage)
+                    46 -> mView.svgaUtils.startAnimator("saqian", mView.svgaImage)
                 }
             }
         }
@@ -375,19 +386,21 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                 }
             }
             onFailed {
-                if (it.getCode() == 2) {
-                    // 红包被抢完了
-                    if (isControl) {
-                        mView.mController.showOpenRedOverKnew(JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java), this@HomeLiveDetailsPresenter)
-                    } else mView.showOpenRedOverKnew(JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java))
-                } else {
-                    openRedEnvelopeDialog?.dismiss()
-                    openRedEnvelopeFullDialog?.dismiss()
-                    if (isControl) {
-                        mView.mController.liveControlView.toggleFullScreen()
-                        showExpireDialog(mView.requireActivity(), it)
+                if (mView.isActive()) {
+                    if (it.getCode() == 2) {
+                        // 红包被抢完了
+                        if (isControl) {
+                            mView.mController.showOpenRedOverKnew(JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java), this@HomeLiveDetailsPresenter)
+                        } else mView.showOpenRedOverKnew(JsonUtils.fromJson(it.getDataCode().toString(), HomeLiveRedReceiveBean::class.java))
                     } else {
-                        showExpireDialog(mView.requireActivity(), it)
+                        openRedEnvelopeDialog?.dismiss()
+                        openRedEnvelopeFullDialog?.dismiss()
+                        if (isControl) {
+                            mView.mController.liveControlView.toggleFullScreen()
+                            showExpireDialog(mView.requireActivity(), it)
+                        } else {
+                            showExpireDialog(mView.requireActivity(), it)
+                        }
                     }
                 }
             }
@@ -409,9 +422,11 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                 }
             }
             onFailed {
-                mView.hidePageLoadingDialog()
-                showExpireDialog(mView.requireContext(), it)
-                UserInfoSp.putIsSetPayPassWord(false)
+                if (mView.isActive()) {
+                    mView.hidePageLoadingDialog()
+                    showExpireDialog(mView.requireContext(), it)
+                    UserInfoSp.putIsSetPayPassWord(false)
+                }
             }
         }
     }
@@ -533,12 +548,14 @@ class HomeLiveDetailsPresenter(val context: Context, private val anchorId: Int) 
                     }
                 }
                 onFailed {
-                    showExpireDialog(mView.requireActivity(), it)
-                    if (mView.mBottomGiftDialog != null && mView.mBottomGiftDialog?.isShowing!!) {
-                        mView.setGone(mView.mBottomGiftDialog?.findViewById<SpinKitView>(R.id.giftLoading))
-                    }
-                    if (mView.mController.liveControlView.materialBottomDialog != null && mView.mController.liveControlView.materialBottomDialog?.isShowing!!) {
-                        mView.setGone(mView.mController.liveControlView.materialBottomDialog?.findViewById<SpinKitView>(R.id.giftLoading))
+                    if (mView.isActive()){
+                        showExpireDialog(mView.requireActivity(), it)
+                        if (mView.mBottomGiftDialog != null && mView.mBottomGiftDialog?.isShowing!!) {
+                            mView.setGone(mView.mBottomGiftDialog?.findViewById<SpinKitView>(R.id.giftLoading))
+                        }
+                        if (mView.mController.liveControlView.materialBottomDialog != null && mView.mController.liveControlView.materialBottomDialog?.isShowing!!) {
+                            mView.setGone(mView.mController.liveControlView.materialBottomDialog?.findViewById<SpinKitView>(R.id.giftLoading))
+                        }
                     }
                 }
             }

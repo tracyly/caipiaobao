@@ -3,6 +3,7 @@ package com.fenghuang.caipiaobao.ui.quiz
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.fenghuang.baselib.base.mvp.BaseMvpFragment
+import com.fenghuang.baselib.utils.StatusBarUtils
 import com.fenghuang.caipiaobao.R
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizResponse
 import com.fenghuang.caipiaobao.ui.quiz.data.QuizTopImageBean
@@ -36,13 +37,16 @@ class QuizFragment : BaseMvpFragment<QuizPresenter>() {
 
     override fun isShowBackIcon() = false
 
-    override fun getContentResID() = R.layout.fragment_quiz
+    override fun getLayoutResID()= R.layout.fragment_quiz
 
 //    override fun getItemDivider(): RecyclerView.ItemDecoration? {
 //        return DividerItemDecoration(getColor(R.color.color_f7f7f7), com.fenghuang.baselib.utils.ViewUtils.dp2px(10))
 //    }
 
     override fun initContentView() {
+
+        StatusBarUtils.setStatusBarHeight(statusViewA)
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
         //加载默认数据------------------------
         baseInitBanner()
         baseInitRecycle()
@@ -73,6 +77,7 @@ class QuizFragment : BaseMvpFragment<QuizPresenter>() {
         }
         adapter = QuizAdapter(getPageActivity(), mPresenter)
         recyclerViewQuizList.adapter = adapter
+        recyclerViewQuizList.isFocusable = false
         val value = object : LinearLayoutManager(getPageActivity()) {
             override fun canScrollVertically(): Boolean {
                 return false
@@ -92,6 +97,7 @@ class QuizFragment : BaseMvpFragment<QuizPresenter>() {
             }
         }
         recyclerViewQuizList.layoutManager = value
+        recyclerViewQuizList.isFocusable = false
         (recyclerViewQuizList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         adapter?.addAll(list)
     }

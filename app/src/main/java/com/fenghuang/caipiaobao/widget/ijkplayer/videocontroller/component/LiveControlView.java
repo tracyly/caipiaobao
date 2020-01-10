@@ -54,6 +54,7 @@ import com.github.ybq.android.spinkit.SpinKitView;
 import com.hwangjr.rxbus.RxBus;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 直播底部控制栏
@@ -373,27 +374,33 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
     }
 
     public void initBottomGiftData(HomeLiveChatGifTitleBean homeGiftList) {
-        GridViewFullScreenAdapter[] arrList = new GridViewFullScreenAdapter[3];
+        GridViewFullScreenAdapter[] arrList = new GridViewFullScreenAdapter[5];
         LayoutInflater mInflater = LayoutInflater.from(getContext());
-        ArrayList mPagerList = new ArrayList<View>();
+        List mPagerList = new ArrayList<View>();
         GridViewFullScreenAdapter gridAdapter = null;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             GridView gridView = (GridView) mInflater.inflate(R.layout.bottom_vp_gridview_full, bottomViewPager, false);
             if (i == 0)
-                gridAdapter = new GridViewFullScreenAdapter(getContext(), homeGiftList.getXk(), 0);
+                gridAdapter = new GridViewFullScreenAdapter(getContext(), homeGiftList.get_$1(), 0);
             if (i == 1)
-                gridAdapter = new GridViewFullScreenAdapter(getContext(), homeGiftList.getLm(), 1);
+                gridAdapter = new GridViewFullScreenAdapter(getContext(), homeGiftList.get_$2(), 1);
             if (i == 2)
-                gridAdapter = new GridViewFullScreenAdapter(getContext(), homeGiftList.getZg(), 2);
+                gridAdapter = new GridViewFullScreenAdapter(getContext(), homeGiftList.get_$3(), 2);
+            if (i == 3)
+                gridAdapter = new GridViewFullScreenAdapter(getContext(), homeGiftList.get_$4(), 3);
+            if (i == 4)
+                gridAdapter = new GridViewFullScreenAdapter(getContext(), homeGiftList.get_$5(), 4);
             gridView.setAdapter(gridAdapter);
             arrList[i] = (gridAdapter);
             mPagerList.add(gridView);
             int finalI = i;
             gridView.setOnItemClickListener((parent, view, position, id) -> {
                 ArrayList<HomeLiveChatGifBean> listClick = null;
-                if (finalI == 0) listClick = homeGiftList.getXk();
-                if (finalI == 1) listClick = homeGiftList.getLm();
-                if (finalI == 2) listClick = homeGiftList.getZg();
+                if (finalI == 0) listClick = (ArrayList<HomeLiveChatGifBean>) homeGiftList.get_$1();
+                if (finalI == 1) listClick = (ArrayList<HomeLiveChatGifBean>) homeGiftList.get_$2();
+                if (finalI == 2) listClick = (ArrayList<HomeLiveChatGifBean>) homeGiftList.get_$3();
+                if (finalI == 3) listClick = (ArrayList<HomeLiveChatGifBean>) homeGiftList.get_$4();
+                if (finalI == 4) listClick = (ArrayList<HomeLiveChatGifBean>) homeGiftList.get_$5();
                 for (int j = 0; j < listClick.size(); j++) {
                     HomeLiveChatGifBean model = listClick.get(j);
                     if (listClick.get(j).getName().equals(listClick.get(position).getName())) {
@@ -411,6 +418,8 @@ public class LiveControlView extends FrameLayout implements IControlComponent, V
                 arrList[0].notificationItem(listClick.get(position).getName());
                 arrList[1].notificationItem(listClick.get(position).getName());
                 arrList[2].notificationItem(listClick.get(position).getName());
+                arrList[3].notificationItem(listClick.get(position).getName());
+                arrList[4].notificationItem(listClick.get(position).getName());
             });
         }
         bottomViewPager.setAdapter(new ViewPagerAdapter(mPagerList, getContext()));

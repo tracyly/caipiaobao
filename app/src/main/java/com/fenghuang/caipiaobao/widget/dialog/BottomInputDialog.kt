@@ -19,6 +19,7 @@ import androidx.core.view.isVisible
 import com.fenghuang.baselib.utils.SoftHideKeyBoardUtil
 import com.fenghuang.baselib.utils.SoftInputUtils
 import com.fenghuang.baselib.utils.ToastUtils
+import com.fenghuang.baselib.utils.ViewUtils
 import com.fenghuang.baselib.utils.ViewUtils.getString
 import com.fenghuang.baselib.utils.ViewUtils.setGone
 import com.fenghuang.baselib.utils.ViewUtils.setVisible
@@ -72,9 +73,9 @@ class BottomInputDialog(context: Context, val activity: Activity, val mPresenter
                     return
                 }
                 if (s.isNotEmpty()) {
-                    findViewById<RoundTextView>(R.id.tvSendMessage).delegate.backgroundColor = getContext().getColor(R.color.text_red)
+                    findViewById<RoundTextView>(R.id.tvSendMessage).delegate.backgroundColor =ViewUtils.getColor(R.color.text_red)
                 } else {
-                    findViewById<RoundTextView>(R.id.tvSendMessage).delegate.backgroundColor = getContext().getColor(R.color.color_AFAFAF)
+                    findViewById<RoundTextView>(R.id.tvSendMessage).delegate.backgroundColor =ViewUtils.getColor(R.color.color_AFAFAF)
                 }
             }
 

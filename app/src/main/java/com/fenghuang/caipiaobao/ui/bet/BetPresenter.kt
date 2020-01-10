@@ -21,7 +21,6 @@ class BetPresenter : BaseMvpPresenter<BetFragment>() {
             onSuccess {
                 if (mView.isActive()) {
 
-                    LogUtils.e("------>" + it.betting)
                     mView.baseUrl = it.betting
                     mView.baseBetWebView.loadUrl(it.betting)
                 }

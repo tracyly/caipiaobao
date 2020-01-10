@@ -19,6 +19,7 @@ import com.fenghuang.caipiaobao.ui.widget.mywebview.ZpWebChromeClient
 import com.fenghuang.caipiaobao.widget.IosBottomListWindow
 import com.tencent.smtt.sdk.ValueCallback
 import com.tencent.smtt.sdk.WebChromeClient
+import com.tencent.smtt.sdk.WebView
 import com.tencent.smtt.sdk.WebViewClient
 import kotlinx.android.synthetic.main.fragment_bet.*
 import java.io.File
@@ -53,13 +54,26 @@ open class BetFragment : BaseMvpFragment<BetPresenter>() {
 
     override fun initContentView() {
         findView<ImageView>(R.id.ivTitleRight).setBackgroundResource(R.mipmap.web_refresh)
-        betSmartRefreshLayout.setEnablePureScrollMode(true)
-        betSmartRefreshLayout.setEnableOverScrollDrag(true)
     }
 
     override fun initData() {
         initWeb()
-        baseBetWebView.webViewClient = WebViewClient()
+        baseBetWebView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                try {
+                    if (url.startsWith("weixin://") || url.startsWith("alipays://") ||
+                            url.startsWith("mailto://") || url.startsWith("tel://")) {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                        startActivity(intent)
+                        return true
+                    }//其他自定义的scheme
+                } catch (e: Exception) { //防止crash (如果手机上没有安装处理某个scheme开头的url的APP, 会导致crash)
+                    return false
+                }
+
+                return false
+            }
+        }
         mPresenter.getUrl()
 
     }

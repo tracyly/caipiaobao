@@ -145,13 +145,23 @@
                 android:id="@+id/ivEnvelopeTip"
                 android:layout_width="@dimen/dp_46"
                 android:layout_height="@dimen/dp_56"
+                android:layout_above="@+id/imgGoBet"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="12dp"
+                android:visibility="gone"
+                android:layout_marginBottom="19dp"
+                android:src="@mipmap/ic_live_chat_red_envelope_tips"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/imgGoBet"
+                android:layout_width="@dimen/dp_35"
+                android:layout_height="@dimen/dp_35"
+                android:background="@mipmap/ic_tabt"
+                android:layout_alignParentEnd="true"
                 android:layout_marginEnd="@dimen/dp_12"
                 android:layout_marginBottom="@dimen/dp_30"
-                android:src="@mipmap/ic_live_chat_red_envelope_tips"
-                android:visibility="gone"
-                tools:ignore="ContentDescription" />
+                android:layout_alignParentBottom="true"/>
         </RelativeLayout>
 
 

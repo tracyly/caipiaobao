@@ -1,6 +1,7 @@
 package com.fenghuang.caipiaobao.ui.home.data
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
@@ -94,8 +95,7 @@ data class HomeLiveChatGifBean(var id: Int, var type: Int,
                                var icon: String,
                                var isSelect: Boolean
 )
-
-data class HomeLiveChatGifTitleBean(var xk: ArrayList<HomeLiveChatGifBean>, var lm: ArrayList<HomeLiveChatGifBean>, var zg: ArrayList<HomeLiveChatGifBean>)
+data class HomeLiveChatGifTitleBean(@SerializedName("1") var `_$1`: List<HomeLiveChatGifBean>? = null, @SerializedName("2") var `_$2`: List<HomeLiveChatGifBean>? = null, @SerializedName("3") var `_$3`: List<HomeLiveChatGifBean>? = null, @SerializedName("4") var `_$4`: List<HomeLiveChatGifBean>? = null, @SerializedName("5") var `_$5`: List<HomeLiveChatGifBean>? = null)
 
 // gif礼物------------------- end
 // 发送红包
@@ -179,7 +179,7 @@ data class HomeLiveColseSoftKeyBord(var isClose: Boolean)
 //广告图
 data class HomeLiveAdImg(var image_url: String)
 
-data class BetLotteryBean(var betting: String, var customer: String, var gameUrl: String)
+data class BetLotteryBean(var betting: String, var customer: String, var gameUrl: String, var protocol: String)
 
 //开播推送
 data class AnchorPush(var anchor_id: String, var anchor_avatar: String, var anchor_nickname: String)

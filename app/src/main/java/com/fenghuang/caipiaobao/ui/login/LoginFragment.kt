@@ -147,6 +147,10 @@ class LoginFragment : BaseMvpFragment<LoginPresenter>() {
         tvFoGetPass.setOnClickListener {
             LaunchUtils.startFragment(getPageActivity(), LoginForgetPassWord())
         }
+
+        tvClickJump.setOnClickListener {
+            LaunchUtils.startFragment(getPageActivity(),WebFragment())
+        }
     }
 
 

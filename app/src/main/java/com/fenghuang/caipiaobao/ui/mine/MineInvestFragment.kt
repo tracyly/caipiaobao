@@ -64,7 +64,7 @@ class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>(), BaseApi {
         val money = arguments?.getDouble(MINE_INVEST_AMOUNT)!!.toFloat()
         val id = arguments?.getInt(MINE_RECHARGE_ID)!!
         val url = arguments?.getString(MINE_RECHARGE_URL)!!
-        mPresenter.getInvestUrl(money, id, url)
+      if (arguments?.getBoolean("isRen")!!) investWebView.loadUrl(url) else mPresenter.getInvestUrl(money, id, url)
     }
 
     override fun onDestroy() {
@@ -77,12 +77,13 @@ class MineInvestFragment : BaseMvpFragment<MineInvestPresenter>(), BaseApi {
 
 
     companion object {
-        fun newInstance(amount: Double, id: Int, url: String): MineInvestFragment {
+        fun newInstance(amount: Double, id: Int, url: String,isRen:Boolean): MineInvestFragment {
             val fragment = MineInvestFragment()
             val bundle = Bundle()
             bundle.putString(MINE_RECHARGE_URL, url)
             bundle.putDouble(MINE_INVEST_AMOUNT, amount)
             bundle.putInt(MINE_RECHARGE_ID, id)
+            bundle.putBoolean("isRen", isRen)
             fragment.arguments = bundle
             return fragment
         }

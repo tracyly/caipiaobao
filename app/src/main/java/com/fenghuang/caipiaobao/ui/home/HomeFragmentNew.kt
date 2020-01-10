@@ -50,7 +50,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
 
     override fun attachPresenter() = HomePresenter()
 
-    override fun getContentResID() = R.layout.fragment_home_new
+    override fun getLayoutResID() = R.layout.fragment_home_new
 
     override fun isShowTitleLeftLogo() = true
 
@@ -64,9 +64,13 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
 
     override fun initContentView() {
         super.initContentView()
-        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
-        ImageManager.loadRoundLogo(UserInfoSp.getUserPhoto(), findView(R.id.ivTitleLeft))
-        setImageResource(findView(R.id.ivTitleRight), R.mipmap.ic_home_top_notice)
+
+
+        StatusBarUtils.setStatusBarHeight(statusViewA)
+
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
+        ImageManager.loadRoundLogo(UserInfoSp.getUserPhoto(), findView(R.id.imgUserPhoto))
+//        setImageResource(findView(R.id.ivTitleRight), R.mipmap.ic_home_top_notice)
         //先加载默认视图
         initBaseView()
         smartRefreshLayout.setOnRefreshListener {
@@ -80,6 +84,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
         tvErrorRetry.setOnClickListener {
             //            mPresenter.loadCache()
         }
+
     }
 
     /***
@@ -112,7 +117,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
 
     override fun initEvent() {
         super.initEvent()
-        findView<ImageView>(R.id.ivTitleLeft).setOnClickListener {
+        findView<ImageView>(R.id.imgUserPhoto).setOnClickListener {
             if (UserInfoSp.getIsLogin()) {
                 RxBus.get().post(HomeClickMine(isClick = true))
             } else ExceptionDialog.showExpireDialog(getPageActivity())
@@ -140,10 +145,14 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
             tvRedA.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             tvRedF.setTextColor(getColor(R.color.color_999999))
             tvRedF.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            tvGame.setTextColor(getColor(R.color.color_999999))
+            tvGame.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
             setVisible(tvRedAB)
             setGone(tvRedFB)
+            setGone(tvGameF)
             setVisible(gameTypeGridPager)
             setGone(gameTypeGridPagerSecond)
+            setGone(gameTypeGridPagerThird)
         }
 
         rl2.setOnClickListener {
@@ -151,10 +160,30 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
             tvRedF.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
             tvRedA.setTextColor(getColor(R.color.color_999999))
             tvRedA.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            tvGame.setTextColor(getColor(R.color.color_999999))
+            tvGame.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
             setVisible(tvRedFB)
             setGone(tvRedAB)
+            setGone(tvGameF)
             setGone(gameTypeGridPager)
             setVisible(gameTypeGridPagerSecond)
+            setGone(gameTypeGridPagerThird)
+        }
+
+        rl3.setOnClickListener {
+            tvRedF.setTextColor(getColor(R.color.color_999999))
+            tvRedF.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            tvRedA.setTextColor(getColor(R.color.color_999999))
+            tvRedA.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+            tvGame.setTextColor(getColor(R.color.black))
+            tvGame.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+            setGone(tvRedFB)
+            setGone(tvRedAB)
+            setVisible(tvGameF)
+            setGone(gameTypeGridPager)
+            setGone(gameTypeGridPagerSecond)
+            setVisible(gameTypeGridPagerThird)
+
         }
 
     }
@@ -509,6 +538,34 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
                     .show()
         }
     }
+
+    /**
+     * 更新游戏榜3
+     */
+    fun updateGameListThird(it: List<DataBean.HomeGameListResponse>) {
+        if (it.isNotEmpty()) {
+            gameTypeGridPagerThird.setDataAllCount(it.size)
+                    .setItemBindDataListener { imageView, tvTitle, ivLiveStatus, _, _, position ->
+                        if (it.isNotEmpty()) ImageManager.loadQuizImageRes(it[position].image, imageView!!)
+                        if (it.isNotEmpty()) tvTitle.text = it[position].name
+                        if ((it.isNotEmpty()) && it[position].live_status == 1) {
+                            ivLiveStatus.setGifResource(R.drawable.ic_home_live_gif)
+                            ivLiveStatus.play(-1)
+                            ivLiveStatus.visibility = View.VISIBLE
+                        } else {
+                            ivLiveStatus.visibility = View.GONE
+                        }
+                    }
+                    .setGridItemClickListener { position, _ ->
+                        if (FastClickUtils.isFastClick()) {
+                            if (it.isNotEmpty() && it[position].live_status == 1) {
+                                startLiveRoom(it[position].live_status, it[position].anchor_id, it[position].name!!, it[position].image!!)
+                            } else ToastUtils.showNormal("此彩种暂无直播")
+                        }
+                    }
+                    .show()
+        }
+    }
 //------------------------------BannerView------------------------------------
     /**
      * 默认BannerView
@@ -583,7 +640,7 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
      */
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onReciveID(eventBean: UserChangePhoto) {
-        if (eventBean.isUpLoad) ImageManager.loadRoundLogo(eventBean.photo, findView(R.id.ivTitleLeft))
+        if (eventBean.isUpLoad) ImageManager.loadRoundLogo(eventBean.photo, findView(R.id.imgUserPhoto))
     }
 
     /**
@@ -601,10 +658,10 @@ class HomeFragmentNew : BaseMvpFragment<HomePresenter>() {
     @Subscribe(thread = EventThread.MAIN_THREAD)
     fun onEditUserInfo(eventBean: LoginSuccess) {
         if (eventBean.loginOrExit) {
-            ImageManager.loadRoundLogo(eventBean.avatar, findView(R.id.ivTitleLeft))
+            ImageManager.loadRoundLogo(eventBean.avatar, findView(R.id.imgUserPhoto))
             mPresenter.liveFaber(true)
         } else {
-            findView<ImageView>(R.id.ivTitleLeft).setImageResource(R.mipmap.ic_mine_base_user)
+            findView<ImageView>(R.id.imgUserPhoto).setImageResource(R.mipmap.ic_mine_base_user)
             mPresenter.liveFaberNoId(true)
         }
 

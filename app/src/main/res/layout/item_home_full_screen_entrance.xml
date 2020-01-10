@@ -12,12 +12,12 @@
         android:layout_centerInParent="true"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="6dp">
+        android:padding="2dp">
 
         <ImageView
             android:id="@+id/entrance_image"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
             android:scaleType="fitCenter" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:drawablePadding="@dimen/dp_2"
             android:singleLine="true"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_12"
+            android:textSize="@dimen/sp_10"
             tools:text="98" />
     </LinearLayout>
 

@@ -29,7 +29,10 @@ import com.fenghuang.caipiaobao.widget.lighter.shape.CircleShape
 import com.hwangjr.rxbus.RxBus
 import com.hwangjr.rxbus.annotation.Subscribe
 import com.hwangjr.rxbus.thread.EventThread
+import kotlinx.android.synthetic.main.fragment_home_new.*
 import kotlinx.android.synthetic.main.fragment_lottery.*
+import kotlinx.android.synthetic.main.fragment_lottery.statusViewA
+import kotlinx.android.synthetic.main.fragment_lottery.tvErrorRetry
 import java.util.*
 
 
@@ -61,7 +64,7 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
     override fun attachPresenter() = LotteryPresenter()
 
-    override fun getContentResID() = R.layout.fragment_lottery
+    override fun getLayoutResID()= R.layout.fragment_lottery
 
     override fun isOverridePage() = false
 
@@ -71,7 +74,9 @@ class LotteryFragment : BaseMvpFragment<LotteryPresenter>() {
 
     override fun initContentView() {
         super.initContentView()
-        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), true)
+
+        StatusBarUtils.setStatusBarHeight(statusViewA)
+        StatusBarUtils.setStatusBarForegroundColor(getPageActivity(), false)
         anchorTabView.setRankingTab()
         anchorTabView.setTabBackgroundColor(getColor(R.color.white))
         anchorTabView.setTabText("历史开奖", "专家计划")

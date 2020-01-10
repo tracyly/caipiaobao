@@ -132,7 +132,7 @@ class MineRechargeCashOutPresenter : BaseMvpPresenter<MineRechargeCashOutFragmen
     //取款 提现
     private fun userCashOut() {
         if (mineUserBank != null) {
-            MineApi.userGetCashOut(mView.etGetMoneyToBank.text.toString().toDouble(), mineUserBank?.bank_name!!, mineUserBank?.card_num!!) {
+            MineApi.userGetCashOut(mView.etGetMoneyToBank.text.toString().toDouble(), mineUserBank?.realname!!, mineUserBank?.card_num!!) {
                 onSuccess {
                     if (mView.isActive()) {
                         ToastUtils.showSuccess("提现成功")
